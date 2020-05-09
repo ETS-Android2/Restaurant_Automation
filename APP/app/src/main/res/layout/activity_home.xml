@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeActivity"
+    android:background="@drawable/mainbackground">
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/mobile"/>
+
+
+    <LinearLayout
+        android:id="@+id/textLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginTop="220dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Please Sign In or Create an Account to"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        />
+     <TextView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="View your notification."
+         android:textColor="@android:color/white"
+         android:textSize="18sp"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/signInButton"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/textLinearLayout"
+        android:background="@drawable/button_drawable"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="40dp"
+        android:text="Sign In"
+        android:textColor="@android:color/black"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/signInButton"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="230dp"
+        tools:ignore="RtlCompat"
+        android:background="@android:color/white"
+        android:layout_centerVertical="true"/>
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OR"
+        android:layout_centerVertical="true"
+        android:textColor="@android:color/white"
+        android:layout_below="@id/signInButton"
+        android:layout_marginTop="25dp"
+        android:textSize="18sp"
+        android:layout_centerHorizontal="true"/>
+
+    <RelativeLayout
+        android:layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/signInButton"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="230dp"
+        android:layout_marginEnd="15dp"
+        tools:ignore="RtlCompat"
+        android:background="@android:color/white"/>
+
+        <Button
+        android:id="@+id/createAccount"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/text"
+        android:background="@drawable/button_drawable"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="40dp"
+        android:text="Create an account"
+        android:textColor="@android:color/black"/>
+
+
+
+
+
+
+</RelativeLayout>
