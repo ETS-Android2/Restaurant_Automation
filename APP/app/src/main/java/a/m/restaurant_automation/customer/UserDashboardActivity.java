@@ -1,4 +1,4 @@
-package a.m.restaurant_automation.user;
+package a.m.restaurant_automation.customer;
 
 import androidx.appcompat.app.AppCompatActivity;
 

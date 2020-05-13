@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".user.UserDashboardActivity"></activity>
+        <activity android:name=".customer.UserDashboardActivity"></activity>
         <activity android:name=".RegisterActivity"></activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".SplashActivity" />

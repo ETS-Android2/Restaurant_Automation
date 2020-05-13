@@ -1,0 +1,1159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RestaurantAutomationModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bills">
+          <Key>
+            <PropertyRef Name="billId" />
+          </Key>
+          <Property Name="billId" Type="int" Nullable="false" />
+          <Property Name="orderId" Type="int" />
+          <Property Name="billDate" Type="datetime" />
+          <Property Name="billingAmount" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="isCardPayment" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="cartId" />
+          </Key>
+          <Property Name="cartId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="menuItemId" Type="int" />
+          <Property Name="addedBy" Type="int" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+          <Property Name="isOrdered" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MenuCategory">
+          <Key>
+            <PropertyRef Name="categoryID" />
+          </Key>
+          <Property Name="categoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="categoryTitle" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MenuItems">
+          <Key>
+            <PropertyRef Name="itemId" />
+          </Key>
+          <Property Name="itemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="itemName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="itemDescription" Type="varchar" MaxLength="150" />
+          <Property Name="price" Type="decimal" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="categoryID" Type="int" />
+          <Property Name="availableQty" Type="int" Nullable="false" />
+          <Property Name="itemStatusTitle" Type="bit" Nullable="false" />
+          <Property Name="createdBy" Type="int" Nullable="false" />
+          <Property Name="updatedBy" Type="int" />
+          <Property Name="deletedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="OrderDetails">
+          <Key>
+            <PropertyRef Name="orderId" />
+            <PropertyRef Name="itemId" />
+          </Key>
+          <Property Name="orderId" Type="int" Nullable="false" />
+          <Property Name="itemId" Type="int" Nullable="false" />
+          <Property Name="itemQty" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderFlow">
+          <Key>
+            <PropertyRef Name="orderFlowId" />
+          </Key>
+          <Property Name="orderFlowId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="currentStatus" Type="int" Nullable="false" />
+          <Property Name="nextStatus" Type="int" />
+        </EntityType>
+        <EntityType Name="OrderHistory">
+          <Key>
+            <PropertyRef Name="orderId" />
+            <PropertyRef Name="statusId" />
+          </Key>
+          <Property Name="orderId" Type="int" Nullable="false" />
+          <Property Name="statusId" Type="int" Nullable="false" />
+          <Property Name="createdTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="orderId" />
+          </Key>
+          <Property Name="orderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="orderDate" Type="datetime" Nullable="false" />
+          <Property Name="reservationId" Type="int" Nullable="false" />
+          <Property Name="idDiningIn" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderStatus">
+          <Key>
+            <PropertyRef Name="orderStatusId" />
+          </Key>
+          <Property Name="orderStatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="orderStatusTitle" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Reservation">
+          <Key>
+            <PropertyRef Name="reservationId" />
+          </Key>
+          <Property Name="reservationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="reservationDate" Type="datetime" Nullable="false" />
+          <Property Name="reservedBy" Type="int" />
+          <Property Name="numberOfPeople" Type="int" />
+          <Property Name="startTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="endTime" Type="time" Precision="7" />
+        </EntityType>
+        <EntityType Name="ReservationDetails">
+          <Key>
+            <PropertyRef Name="tableID" />
+            <PropertyRef Name="reservationID" />
+          </Key>
+          <Property Name="tableID" Type="int" Nullable="false" />
+          <Property Name="reservationID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tables">
+          <Key>
+            <PropertyRef Name="tableID" />
+          </Key>
+          <Property Name="tableID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="capacity" Type="int" Nullable="false" />
+          <Property Name="isTableAvailable" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tokens">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="token" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="createdDate" Type="datetime" Nullable="false" />
+          <Property Name="expireDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="lastName" Type="varchar" MaxLength="50" />
+          <Property Name="gender" Type="varchar" MaxLength="6" />
+          <Property Name="email" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="phoneNo" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="profileImage" Type="varchar" MaxLength="1000" />
+          <Property Name="createdDate" Type="datetime" Nullable="false" />
+          <Property Name="updatedDate" Type="datetime" />
+          <Property Name="deletedDate" Type="datetime" />
+          <Property Name="userTypeId" Type="int" />
+        </EntityType>
+        <EntityType Name="UserType">
+          <Key>
+            <PropertyRef Name="userTypeID" />
+          </Key>
+          <Property Name="userTypeID" Type="int" Nullable="false" />
+          <Property Name="userType" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Bills__orderId__6C190EBB">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="0..1" />
+          <End Role="Bills" Type="Self.Bills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="orderId" />
+            </Principal>
+            <Dependent Role="Bills">
+              <PropertyRef Name="orderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cart__addedBy__5629CD9C">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="addedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cart__menuItemId__5535A963">
+          <End Role="MenuItems" Type="Self.MenuItems" Multiplicity="0..1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MenuItems">
+              <PropertyRef Name="itemId" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="menuItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MenuItems__categ__46E78A0C">
+          <End Role="MenuCategory" Type="Self.MenuCategory" Multiplicity="0..1" />
+          <End Role="MenuItems" Type="Self.MenuItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MenuCategory">
+              <PropertyRef Name="categoryID" />
+            </Principal>
+            <Dependent Role="MenuItems">
+              <PropertyRef Name="categoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MenuItems__creat__47DBAE45">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="MenuItems" Type="Self.MenuItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="MenuItems">
+              <PropertyRef Name="createdBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MenuItems__delet__49C3F6B7">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="MenuItems" Type="Self.MenuItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="MenuItems">
+              <PropertyRef Name="deletedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MenuItems__updat__48CFD27E">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="MenuItems" Type="Self.MenuItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="MenuItems">
+              <PropertyRef Name="updatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderDeta__itemI__68487DD7">
+          <End Role="MenuItems" Type="Self.MenuItems" Multiplicity="1" />
+          <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MenuItems">
+              <PropertyRef Name="itemId" />
+            </Principal>
+            <Dependent Role="OrderDetails">
+              <PropertyRef Name="itemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderDeta__order__6754599E">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="orderId" />
+            </Principal>
+            <Dependent Role="OrderDetails">
+              <PropertyRef Name="orderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderFlow__curre__5AEE82B9">
+          <End Role="OrderStatus" Type="Self.OrderStatus" Multiplicity="1" />
+          <End Role="OrderFlow" Type="Self.OrderFlow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderStatus">
+              <PropertyRef Name="orderStatusId" />
+            </Principal>
+            <Dependent Role="OrderFlow">
+              <PropertyRef Name="currentStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderFlow__nextS__5BE2A6F2">
+          <End Role="OrderStatus" Type="Self.OrderStatus" Multiplicity="0..1" />
+          <End Role="OrderFlow" Type="Self.OrderFlow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderStatus">
+              <PropertyRef Name="orderStatusId" />
+            </Principal>
+            <Dependent Role="OrderFlow">
+              <PropertyRef Name="nextStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderHist__order__6383C8BA">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="OrderHistory" Type="Self.OrderHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="orderId" />
+            </Principal>
+            <Dependent Role="OrderHistory">
+              <PropertyRef Name="orderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderHist__statu__6477ECF3">
+          <End Role="OrderStatus" Type="Self.OrderStatus" Multiplicity="1" />
+          <End Role="OrderHistory" Type="Self.OrderHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderStatus">
+              <PropertyRef Name="orderStatusId" />
+            </Principal>
+            <Dependent Role="OrderHistory">
+              <PropertyRef Name="statusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__reservat__5FB337D6">
+          <End Role="Reservation" Type="Self.Reservation" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reservation">
+              <PropertyRef Name="reservationId" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="reservationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reservati__reser__4E88ABD4">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="Reservation">
+              <PropertyRef Name="reservedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reservati__reser__52593CB8">
+          <End Role="Reservation" Type="Self.Reservation" Multiplicity="1" />
+          <End Role="ReservationDetails" Type="Self.ReservationDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reservation">
+              <PropertyRef Name="reservationId" />
+            </Principal>
+            <Dependent Role="ReservationDetails">
+              <PropertyRef Name="reservationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reservati__table__5165187F">
+          <End Role="Tables" Type="Self.Tables" Multiplicity="1" />
+          <End Role="ReservationDetails" Type="Self.ReservationDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tables">
+              <PropertyRef Name="tableID" />
+            </Principal>
+            <Dependent Role="ReservationDetails">
+              <PropertyRef Name="tableID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tokens__id__412EB0B6">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="tokens" Type="Self.tokens" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="tokens">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Users__userTypeI__3C69FB99">
+          <End Role="UserType" Type="Self.UserType" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserType">
+              <PropertyRef Name="userTypeID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="userTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="registerUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="password" Type="varchar" Mode="In" />
+          <Parameter Name="fname" Type="varchar" Mode="In" />
+          <Parameter Name="lname" Type="varchar" Mode="In" />
+          <Parameter Name="phone" Type="varchar" Mode="In" />
+          <Parameter Name="userTypeId" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="RestaurantAutomationModelStoreContainer">
+          <EntitySet Name="Bills" EntityType="Self.Bills" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MenuCategory" EntityType="Self.MenuCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MenuItems" EntityType="Self.MenuItems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderFlow" EntityType="Self.OrderFlow" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderHistory" EntityType="Self.OrderHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderStatus" EntityType="Self.OrderStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reservation" EntityType="Self.Reservation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReservationDetails" EntityType="Self.ReservationDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tables" EntityType="Self.Tables" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tokens" EntityType="Self.tokens" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserType" EntityType="Self.UserType" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Bills__orderId__6C190EBB" Association="Self.FK__Bills__orderId__6C190EBB">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Bills" EntitySet="Bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cart__addedBy__5629CD9C" Association="Self.FK__Cart__addedBy__5629CD9C">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cart__menuItemId__5535A963" Association="Self.FK__Cart__menuItemId__5535A963">
+            <End Role="MenuItems" EntitySet="MenuItems" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MenuItems__categ__46E78A0C" Association="Self.FK__MenuItems__categ__46E78A0C">
+            <End Role="MenuCategory" EntitySet="MenuCategory" />
+            <End Role="MenuItems" EntitySet="MenuItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MenuItems__creat__47DBAE45" Association="Self.FK__MenuItems__creat__47DBAE45">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="MenuItems" EntitySet="MenuItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MenuItems__delet__49C3F6B7" Association="Self.FK__MenuItems__delet__49C3F6B7">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="MenuItems" EntitySet="MenuItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MenuItems__updat__48CFD27E" Association="Self.FK__MenuItems__updat__48CFD27E">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="MenuItems" EntitySet="MenuItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderDeta__itemI__68487DD7" Association="Self.FK__OrderDeta__itemI__68487DD7">
+            <End Role="MenuItems" EntitySet="MenuItems" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderDeta__order__6754599E" Association="Self.FK__OrderDeta__order__6754599E">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderFlow__curre__5AEE82B9" Association="Self.FK__OrderFlow__curre__5AEE82B9">
+            <End Role="OrderStatus" EntitySet="OrderStatus" />
+            <End Role="OrderFlow" EntitySet="OrderFlow" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderFlow__nextS__5BE2A6F2" Association="Self.FK__OrderFlow__nextS__5BE2A6F2">
+            <End Role="OrderStatus" EntitySet="OrderStatus" />
+            <End Role="OrderFlow" EntitySet="OrderFlow" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderHist__order__6383C8BA" Association="Self.FK__OrderHist__order__6383C8BA">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderHistory" EntitySet="OrderHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderHist__statu__6477ECF3" Association="Self.FK__OrderHist__statu__6477ECF3">
+            <End Role="OrderStatus" EntitySet="OrderStatus" />
+            <End Role="OrderHistory" EntitySet="OrderHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__reservat__5FB337D6" Association="Self.FK__Orders__reservat__5FB337D6">
+            <End Role="Reservation" EntitySet="Reservation" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reservati__reser__4E88ABD4" Association="Self.FK__Reservati__reser__4E88ABD4">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Reservation" EntitySet="Reservation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reservati__reser__52593CB8" Association="Self.FK__Reservati__reser__52593CB8">
+            <End Role="Reservation" EntitySet="Reservation" />
+            <End Role="ReservationDetails" EntitySet="ReservationDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reservati__table__5165187F" Association="Self.FK__Reservati__table__5165187F">
+            <End Role="Tables" EntitySet="Tables" />
+            <End Role="ReservationDetails" EntitySet="ReservationDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tokens__id__412EB0B6" Association="Self.FK__tokens__id__412EB0B6">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="tokens" EntitySet="tokens" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Users__userTypeI__3C69FB99" Association="Self.FK__Users__userTypeI__3C69FB99">
+            <End Role="UserType" EntitySet="UserType" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RestaurantAutomationModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Bill">
+          <Key>
+            <PropertyRef Name="billId" />
+          </Key>
+          <Property Name="billId" Type="Int32" Nullable="false" />
+          <Property Name="orderId" Type="Int32" />
+          <Property Name="billDate" Type="DateTime" Precision="3" />
+          <Property Name="billingAmount" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="isCardPayment" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Order" Relationship="Self.FK__Bills__orderId__6C190EBB" FromRole="Bills" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="cartId" />
+          </Key>
+          <Property Name="cartId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="menuItemId" Type="Int32" />
+          <Property Name="addedBy" Type="Int32" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="isOrdered" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Cart__addedBy__5629CD9C" FromRole="Cart" ToRole="Users" />
+          <NavigationProperty Name="MenuItem" Relationship="Self.FK__Cart__menuItemId__5535A963" FromRole="Cart" ToRole="MenuItems" />
+        </EntityType>
+        <EntityType Name="MenuCategory">
+          <Key>
+            <PropertyRef Name="categoryID" />
+          </Key>
+          <Property Name="categoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="categoryTitle" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="MenuItems" Relationship="Self.FK__MenuItems__categ__46E78A0C" FromRole="MenuCategory" ToRole="MenuItems" />
+        </EntityType>
+        <EntityType Name="MenuItem">
+          <Key>
+            <PropertyRef Name="itemId" />
+          </Key>
+          <Property Name="itemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="itemName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="itemDescription" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="price" Type="Decimal" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="categoryID" Type="Int32" />
+          <Property Name="availableQty" Type="Int32" Nullable="false" />
+          <Property Name="itemStatusTitle" Type="Boolean" Nullable="false" />
+          <Property Name="createdBy" Type="Int32" Nullable="false" />
+          <Property Name="updatedBy" Type="Int32" />
+          <Property Name="deletedBy" Type="Int32" />
+          <NavigationProperty Name="Carts" Relationship="Self.FK__Cart__menuItemId__5535A963" FromRole="MenuItems" ToRole="Cart" />
+          <NavigationProperty Name="MenuCategory" Relationship="Self.FK__MenuItems__categ__46E78A0C" FromRole="MenuItems" ToRole="MenuCategory" />
+          <NavigationProperty Name="User" Relationship="Self.FK__MenuItems__creat__47DBAE45" FromRole="MenuItems" ToRole="Users" />
+          <NavigationProperty Name="User1" Relationship="Self.FK__MenuItems__delet__49C3F6B7" FromRole="MenuItems" ToRole="Users" />
+          <NavigationProperty Name="User2" Relationship="Self.FK__MenuItems__updat__48CFD27E" FromRole="MenuItems" ToRole="Users" />
+          <NavigationProperty Name="OrderDetails" Relationship="Self.FK__OrderDeta__itemI__68487DD7" FromRole="MenuItems" ToRole="OrderDetails" />
+        </EntityType>
+        <EntityType Name="OrderDetail">
+          <Key>
+            <PropertyRef Name="orderId" />
+            <PropertyRef Name="itemId" />
+          </Key>
+          <Property Name="orderId" Type="Int32" Nullable="false" />
+          <Property Name="itemId" Type="Int32" Nullable="false" />
+          <Property Name="itemQty" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MenuItem" Relationship="Self.FK__OrderDeta__itemI__68487DD7" FromRole="OrderDetails" ToRole="MenuItems" />
+          <NavigationProperty Name="Order" Relationship="Self.FK__OrderDeta__order__6754599E" FromRole="OrderDetails" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="OrderFlow">
+          <Key>
+            <PropertyRef Name="orderFlowId" />
+          </Key>
+          <Property Name="orderFlowId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="currentStatus" Type="Int32" Nullable="false" />
+          <Property Name="nextStatus" Type="Int32" />
+          <NavigationProperty Name="OrderStatu" Relationship="Self.FK__OrderFlow__curre__5AEE82B9" FromRole="OrderFlow" ToRole="OrderStatus" />
+          <NavigationProperty Name="OrderStatu1" Relationship="Self.FK__OrderFlow__nextS__5BE2A6F2" FromRole="OrderFlow" ToRole="OrderStatus" />
+        </EntityType>
+        <EntityType Name="OrderHistory">
+          <Key>
+            <PropertyRef Name="orderId" />
+            <PropertyRef Name="statusId" />
+          </Key>
+          <Property Name="orderId" Type="Int32" Nullable="false" />
+          <Property Name="statusId" Type="Int32" Nullable="false" />
+          <Property Name="createdTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Order" Relationship="Self.FK__OrderHist__order__6383C8BA" FromRole="OrderHistory" ToRole="Orders" />
+          <NavigationProperty Name="OrderStatu" Relationship="Self.FK__OrderHist__statu__6477ECF3" FromRole="OrderHistory" ToRole="OrderStatus" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="orderId" />
+          </Key>
+          <Property Name="orderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="orderDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="reservationId" Type="Int32" Nullable="false" />
+          <Property Name="idDiningIn" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Bills" Relationship="Self.FK__Bills__orderId__6C190EBB" FromRole="Orders" ToRole="Bills" />
+          <NavigationProperty Name="OrderDetails" Relationship="Self.FK__OrderDeta__order__6754599E" FromRole="Orders" ToRole="OrderDetails" />
+          <NavigationProperty Name="OrderHistories" Relationship="Self.FK__OrderHist__order__6383C8BA" FromRole="Orders" ToRole="OrderHistory" />
+          <NavigationProperty Name="Reservation" Relationship="Self.FK__Orders__reservat__5FB337D6" FromRole="Orders" ToRole="Reservation" />
+        </EntityType>
+        <EntityType Name="OrderStatu">
+          <Key>
+            <PropertyRef Name="orderStatusId" />
+          </Key>
+          <Property Name="orderStatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="orderStatusTitle" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="OrderFlows" Relationship="Self.FK__OrderFlow__curre__5AEE82B9" FromRole="OrderStatus" ToRole="OrderFlow" />
+          <NavigationProperty Name="OrderFlows1" Relationship="Self.FK__OrderFlow__nextS__5BE2A6F2" FromRole="OrderStatus" ToRole="OrderFlow" />
+          <NavigationProperty Name="OrderHistories" Relationship="Self.FK__OrderHist__statu__6477ECF3" FromRole="OrderStatus" ToRole="OrderHistory" />
+        </EntityType>
+        <EntityType Name="Reservation">
+          <Key>
+            <PropertyRef Name="reservationId" />
+          </Key>
+          <Property Name="reservationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="reservationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="reservedBy" Type="Int32" />
+          <Property Name="numberOfPeople" Type="Int32" />
+          <Property Name="startTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="endTime" Type="Time" Precision="7" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__reservat__5FB337D6" FromRole="Reservation" ToRole="Orders" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Reservati__reser__4E88ABD4" FromRole="Reservation" ToRole="Users" />
+          <NavigationProperty Name="Tables" Relationship="Self.ReservationDetails" FromRole="Reservation" ToRole="Tables" />
+        </EntityType>
+        <EntityType Name="Table">
+          <Key>
+            <PropertyRef Name="tableID" />
+          </Key>
+          <Property Name="tableID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="capacity" Type="Int32" Nullable="false" />
+          <Property Name="isTableAvailable" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Reservations" Relationship="Self.ReservationDetails" FromRole="Tables" ToRole="Reservation" />
+        </EntityType>
+        <EntityType Name="token">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="token1" Type="Guid" Nullable="false" />
+          <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="expireDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="User" Relationship="Self.FK__tokens__id__412EB0B6" FromRole="tokens" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="lastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="gender" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="phoneNo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="profileImage" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="updatedDate" Type="DateTime" Precision="3" />
+          <Property Name="deletedDate" Type="DateTime" Precision="3" />
+          <Property Name="userTypeId" Type="Int32" />
+          <NavigationProperty Name="Carts" Relationship="Self.FK__Cart__addedBy__5629CD9C" FromRole="Users" ToRole="Cart" />
+          <NavigationProperty Name="MenuItems" Relationship="Self.FK__MenuItems__creat__47DBAE45" FromRole="Users" ToRole="MenuItems" />
+          <NavigationProperty Name="MenuItems1" Relationship="Self.FK__MenuItems__delet__49C3F6B7" FromRole="Users" ToRole="MenuItems" />
+          <NavigationProperty Name="MenuItems2" Relationship="Self.FK__MenuItems__updat__48CFD27E" FromRole="Users" ToRole="MenuItems" />
+          <NavigationProperty Name="Reservations" Relationship="Self.FK__Reservati__reser__4E88ABD4" FromRole="Users" ToRole="Reservation" />
+          <NavigationProperty Name="token" Relationship="Self.FK__tokens__id__412EB0B6" FromRole="Users" ToRole="tokens" />
+          <NavigationProperty Name="UserType" Relationship="Self.FK__Users__userTypeI__3C69FB99" FromRole="Users" ToRole="UserType" />
+        </EntityType>
+        <EntityType Name="UserType">
+          <Key>
+            <PropertyRef Name="userTypeID" />
+          </Key>
+          <Property Name="userTypeID" Type="Int32" Nullable="false" />
+          <Property Name="userType1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__Users__userTypeI__3C69FB99" FromRole="UserType" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK__Bills__orderId__6C190EBB">
+          <End Role="Orders" Type="Self.Order" Multiplicity="0..1" />
+          <End Role="Bills" Type="Self.Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="orderId" />
+            </Principal>
+            <Dependent Role="Bills">
+              <PropertyRef Name="orderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cart__addedBy__5629CD9C">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="addedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cart__menuItemId__5535A963">
+          <End Role="MenuItems" Type="Self.MenuItem" Multiplicity="0..1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MenuItems">
+              <PropertyRef Name="itemId" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="menuItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MenuItems__categ__46E78A0C">
+          <End Role="MenuCategory" Type="Self.MenuCategory" Multiplicity="0..1" />
+          <End Role="MenuItems" Type="Self.MenuItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MenuCategory">
+              <PropertyRef Name="categoryID" />
+            </Principal>
+            <Dependent Role="MenuItems">
+              <PropertyRef Name="categoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MenuItems__creat__47DBAE45">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="MenuItems" Type="Self.MenuItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="MenuItems">
+              <PropertyRef Name="createdBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MenuItems__delet__49C3F6B7">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="MenuItems" Type="Self.MenuItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="MenuItems">
+              <PropertyRef Name="deletedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MenuItems__updat__48CFD27E">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="MenuItems" Type="Self.MenuItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="MenuItems">
+              <PropertyRef Name="updatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderDeta__itemI__68487DD7">
+          <End Role="MenuItems" Type="Self.MenuItem" Multiplicity="1" />
+          <End Role="OrderDetails" Type="Self.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MenuItems">
+              <PropertyRef Name="itemId" />
+            </Principal>
+            <Dependent Role="OrderDetails">
+              <PropertyRef Name="itemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderDeta__order__6754599E">
+          <End Role="Orders" Type="Self.Order" Multiplicity="1" />
+          <End Role="OrderDetails" Type="Self.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="orderId" />
+            </Principal>
+            <Dependent Role="OrderDetails">
+              <PropertyRef Name="orderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderFlow__curre__5AEE82B9">
+          <End Role="OrderStatus" Type="Self.OrderStatu" Multiplicity="1" />
+          <End Role="OrderFlow" Type="Self.OrderFlow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderStatus">
+              <PropertyRef Name="orderStatusId" />
+            </Principal>
+            <Dependent Role="OrderFlow">
+              <PropertyRef Name="currentStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderFlow__nextS__5BE2A6F2">
+          <End Role="OrderStatus" Type="Self.OrderStatu" Multiplicity="0..1" />
+          <End Role="OrderFlow" Type="Self.OrderFlow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderStatus">
+              <PropertyRef Name="orderStatusId" />
+            </Principal>
+            <Dependent Role="OrderFlow">
+              <PropertyRef Name="nextStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderHist__order__6383C8BA">
+          <End Role="Orders" Type="Self.Order" Multiplicity="1" />
+          <End Role="OrderHistory" Type="Self.OrderHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="orderId" />
+            </Principal>
+            <Dependent Role="OrderHistory">
+              <PropertyRef Name="orderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderHist__statu__6477ECF3">
+          <End Role="OrderStatus" Type="Self.OrderStatu" Multiplicity="1" />
+          <End Role="OrderHistory" Type="Self.OrderHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderStatus">
+              <PropertyRef Name="orderStatusId" />
+            </Principal>
+            <Dependent Role="OrderHistory">
+              <PropertyRef Name="statusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__reservat__5FB337D6">
+          <End Role="Reservation" Type="Self.Reservation" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reservation">
+              <PropertyRef Name="reservationId" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="reservationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reservati__reser__4E88ABD4">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="Reservation">
+              <PropertyRef Name="reservedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tokens__id__412EB0B6">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="tokens" Type="Self.token" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="tokens">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Users__userTypeI__3C69FB99">
+          <End Role="UserType" Type="Self.UserType" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserType">
+              <PropertyRef Name="userTypeID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="userTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ReservationDetails">
+          <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+          <End Role="Tables" Type="Self.Table" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="RestaurantAutomationEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bills" EntityType="Self.Bill" />
+          <EntitySet Name="Carts" EntityType="Self.Cart" />
+          <EntitySet Name="MenuCategories" EntityType="Self.MenuCategory" />
+          <EntitySet Name="MenuItems" EntityType="Self.MenuItem" />
+          <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
+          <EntitySet Name="OrderFlows" EntityType="Self.OrderFlow" />
+          <EntitySet Name="OrderHistories" EntityType="Self.OrderHistory" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
+          <EntitySet Name="OrderStatus" EntityType="Self.OrderStatu" />
+          <EntitySet Name="Reservations" EntityType="Self.Reservation" />
+          <EntitySet Name="Tables" EntityType="Self.Table" />
+          <EntitySet Name="tokens" EntityType="Self.token" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="UserTypes" EntityType="Self.UserType" />
+          <AssociationSet Name="FK__Bills__orderId__6C190EBB" Association="Self.FK__Bills__orderId__6C190EBB">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Bills" EntitySet="Bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cart__addedBy__5629CD9C" Association="Self.FK__Cart__addedBy__5629CD9C">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Cart" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cart__menuItemId__5535A963" Association="Self.FK__Cart__menuItemId__5535A963">
+            <End Role="MenuItems" EntitySet="MenuItems" />
+            <End Role="Cart" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MenuItems__categ__46E78A0C" Association="Self.FK__MenuItems__categ__46E78A0C">
+            <End Role="MenuCategory" EntitySet="MenuCategories" />
+            <End Role="MenuItems" EntitySet="MenuItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MenuItems__creat__47DBAE45" Association="Self.FK__MenuItems__creat__47DBAE45">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="MenuItems" EntitySet="MenuItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MenuItems__delet__49C3F6B7" Association="Self.FK__MenuItems__delet__49C3F6B7">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="MenuItems" EntitySet="MenuItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MenuItems__updat__48CFD27E" Association="Self.FK__MenuItems__updat__48CFD27E">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="MenuItems" EntitySet="MenuItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderDeta__itemI__68487DD7" Association="Self.FK__OrderDeta__itemI__68487DD7">
+            <End Role="MenuItems" EntitySet="MenuItems" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderDeta__order__6754599E" Association="Self.FK__OrderDeta__order__6754599E">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderFlow__curre__5AEE82B9" Association="Self.FK__OrderFlow__curre__5AEE82B9">
+            <End Role="OrderStatus" EntitySet="OrderStatus" />
+            <End Role="OrderFlow" EntitySet="OrderFlows" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderFlow__nextS__5BE2A6F2" Association="Self.FK__OrderFlow__nextS__5BE2A6F2">
+            <End Role="OrderStatus" EntitySet="OrderStatus" />
+            <End Role="OrderFlow" EntitySet="OrderFlows" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderHist__order__6383C8BA" Association="Self.FK__OrderHist__order__6383C8BA">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderHistory" EntitySet="OrderHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderHist__statu__6477ECF3" Association="Self.FK__OrderHist__statu__6477ECF3">
+            <End Role="OrderStatus" EntitySet="OrderStatus" />
+            <End Role="OrderHistory" EntitySet="OrderHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__reservat__5FB337D6" Association="Self.FK__Orders__reservat__5FB337D6">
+            <End Role="Reservation" EntitySet="Reservations" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reservati__reser__4E88ABD4" Association="Self.FK__Reservati__reser__4E88ABD4">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Reservation" EntitySet="Reservations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tokens__id__412EB0B6" Association="Self.FK__tokens__id__412EB0B6">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="tokens" EntitySet="tokens" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Users__userTypeI__3C69FB99" Association="Self.FK__Users__userTypeI__3C69FB99">
+            <End Role="UserType" EntitySet="UserTypes" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="ReservationDetails" Association="Self.ReservationDetails">
+            <End Role="Reservation" EntitySet="Reservations" />
+            <End Role="Tables" EntitySet="Tables" />
+          </AssociationSet>
+          <FunctionImport Name="registerUser" ReturnType="Collection(RestaurantAutomationModel.registerUser_Result)">
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+            <Parameter Name="fname" Mode="In" Type="String" />
+            <Parameter Name="lname" Mode="In" Type="String" />
+            <Parameter Name="phone" Mode="In" Type="String" />
+            <Parameter Name="userTypeId" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="registerUser_Result">
+          <Property Type="String" Name="ErrorCode" Nullable="false" MaxLength="3" />
+          <Property Type="String" Name="ErrorMessage" Nullable="false" MaxLength="30" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RestaurantAutomationModelStoreContainer" CdmEntityContainer="RestaurantAutomationEntities">
+          <EntitySetMapping Name="Bills">
+            <EntityTypeMapping TypeName="RestaurantAutomationModel.Bill">
+              <MappingFragment StoreEntitySet="Bills">
+                <ScalarProperty Name="billId" ColumnName="billId" />
+                <ScalarProperty Name="orderId" ColumnName="orderId" />
+                <ScalarProperty Name="billDate" ColumnName="billDate" />
+                <ScalarProperty Name="billingAmount" ColumnName="billingAmount" />
+                <ScalarProperty Name="isCardPayment" ColumnName="isCardPayment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Carts">
+            <EntityTypeMapping TypeName="RestaurantAutomationModel.Cart">
+              <MappingFragment StoreEntitySet="Cart">
+                <ScalarProperty Name="cartId" ColumnName="cartId" />
+                <ScalarProperty Name="menuItemId" ColumnName="menuItemId" />
+                <ScalarProperty Name="addedBy" ColumnName="addedBy" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="isOrdered" ColumnName="isOrdered" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MenuCategories">
+            <EntityTypeMapping TypeName="RestaurantAutomationModel.MenuCategory">
+              <MappingFragment StoreEntitySet="MenuCategory">
+                <ScalarProperty Name="categoryID" ColumnName="categoryID" />
+                <ScalarProperty Name="categoryTitle" ColumnName="categoryTitle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MenuItems">
+            <EntityTypeMapping TypeName="RestaurantAutomationModel.MenuItem">
+              <MappingFragment StoreEntitySet="MenuItems">
+                <ScalarProperty Name="itemId" ColumnName="itemId" />
+                <ScalarProperty Name="itemName" ColumnName="itemName" />
+                <ScalarProperty Name="itemDescription" ColumnName="itemDescription" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="categoryID" ColumnName="categoryID" />
+                <ScalarProperty Name="availableQty" ColumnName="availableQty" />
+                <ScalarProperty Name="itemStatusTitle" ColumnName="itemStatusTitle" />
+                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+                <ScalarProperty Name="updatedBy" ColumnName="updatedBy" />
+                <ScalarProperty Name="deletedBy" ColumnName="deletedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderDetails">
+            <EntityTypeMapping TypeName="RestaurantAutomationModel.OrderDetail">
+              <MappingFragment StoreEntitySet="OrderDetails">
+                <ScalarProperty Name="orderId" ColumnName="orderId" />
+                <ScalarProperty Name="itemId" ColumnName="itemId" />
+                <ScalarProperty Name="itemQty" ColumnName="itemQty" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderFlows">
+            <EntityTypeMapping TypeName="RestaurantAutomationModel.OrderFlow">
+              <MappingFragment StoreEntitySet="OrderFlow">
+                <ScalarProperty Name="orderFlowId" ColumnName="orderFlowId" />
+                <ScalarProperty Name="currentStatus" ColumnName="currentStatus" />
+                <ScalarProperty Name="nextStatus" ColumnName="nextStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderHistories">
+            <EntityTypeMapping TypeName="RestaurantAutomationModel.OrderHistory">
+              <MappingFragment StoreEntitySet="OrderHistory">
+                <ScalarProperty Name="orderId" ColumnName="orderId" />
+                <ScalarProperty Name="statusId" ColumnName="statusId" />
+                <ScalarProperty Name="createdTime" ColumnName="createdTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="RestaurantAutomationModel.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="orderId" ColumnName="orderId" />
+                <ScalarProperty Name="orderDate" ColumnName="orderDate" />
+                <ScalarProperty Name="reservationId" ColumnName="reservationId" />
+                <ScalarProperty Name="idDiningIn" ColumnName="idDiningIn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderStatus">
+            <EntityTypeMapping TypeName="RestaurantAutomationModel.OrderStatu">
+              <MappingFragment StoreEntitySet="OrderStatus">
+                <ScalarProperty Name="orderStatusId" ColumnName="orderStatusId" />
+                <ScalarProperty Name="orderStatusTitle" ColumnName="orderStatusTitle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reservations">
+            <EntityTypeMapping TypeName="RestaurantAutomationModel.Reservation">
+              <MappingFragment StoreEntitySet="Reservation">
+                <ScalarProperty Name="reservationId" ColumnName="reservationId" />
+                <ScalarProperty Name="reservationDate" ColumnName="reservationDate" />
+                <ScalarProperty Name="reservedBy" ColumnName="reservedBy" />
+                <ScalarProperty Name="numberOfPeople" ColumnName="numberOfPeople" />
+                <ScalarProperty Name="startTime" ColumnName="startTime" />
+                <ScalarProperty Name="endTime" ColumnName="endTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tables">
+            <EntityTypeMapping TypeName="RestaurantAutomationModel.Table">
+              <MappingFragment StoreEntitySet="Tables">
+                <ScalarProperty Name="tableID" ColumnName="tableID" />
+                <ScalarProperty Name="capacity" ColumnName="capacity" />
+                <ScalarProperty Name="isTableAvailable" ColumnName="isTableAvailable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tokens">
+            <EntityTypeMapping TypeName="RestaurantAutomationModel.token">
+              <MappingFragment StoreEntitySet="tokens">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="token1" ColumnName="token" />
+                <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+                <ScalarProperty Name="expireDate" ColumnName="expireDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="RestaurantAutomationModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="phoneNo" ColumnName="phoneNo" />
+                <ScalarProperty Name="profileImage" ColumnName="profileImage" />
+                <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+                <ScalarProperty Name="updatedDate" ColumnName="updatedDate" />
+                <ScalarProperty Name="deletedDate" ColumnName="deletedDate" />
+                <ScalarProperty Name="userTypeId" ColumnName="userTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserTypes">
+            <EntityTypeMapping TypeName="RestaurantAutomationModel.UserType">
+              <MappingFragment StoreEntitySet="UserType">
+                <ScalarProperty Name="userTypeID" ColumnName="userTypeID" />
+                <ScalarProperty Name="userType1" ColumnName="userType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="ReservationDetails" TypeName="RestaurantAutomationModel.ReservationDetails" StoreEntitySet="ReservationDetails">
+            <EndProperty Name="Reservation">
+              <ScalarProperty Name="reservationId" ColumnName="reservationID" />
+            </EndProperty>
+            <EndProperty Name="Tables">
+              <ScalarProperty Name="tableID" ColumnName="tableID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="registerUser" FunctionName="RestaurantAutomationModel.Store.registerUser">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RestaurantAutomationModel.registerUser_Result">
+                <ScalarProperty Name="ErrorCode" ColumnName="ErrorCode" />
+                <ScalarProperty Name="ErrorMessage" ColumnName="ErrorMessage" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
