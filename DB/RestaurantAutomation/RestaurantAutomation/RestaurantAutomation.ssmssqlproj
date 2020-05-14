@@ -31,11 +31,23 @@
           <AssociatedConnUserName>sa</AssociatedConnUserName>
           <FullPath>SchemaDB.sql</FullPath>
         </FileNode>
-        <FileNode Name="sp_resgisterUser.sql">
+        <FileNode Name="sp_getUsers.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-9D0B8E0\himanshusql:False:sa</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>DESKTOP-9D0B8E0\himanshusql</AssociatedConnSrvName>
           <AssociatedConnUserName>sa</AssociatedConnUserName>
-          <FullPath>sp_resgisterUser.sql</FullPath>
+          <FullPath>sp_getUsers.sql</FullPath>
+        </FileNode>
+        <FileNode Name="sp_loginUser.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-9D0B8E0\himanshusql:False:sa</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-9D0B8E0\himanshusql</AssociatedConnSrvName>
+          <AssociatedConnUserName>sa</AssociatedConnUserName>
+          <FullPath>sp_loginUser.sql</FullPath>
+        </FileNode>
+        <FileNode Name="sp_registerUser.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-9D0B8E0\himanshusql:False:sa</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-9D0B8E0\himanshusql</AssociatedConnSrvName>
+          <AssociatedConnUserName>sa</AssociatedConnUserName>
+          <FullPath>sp_registerUser.sql</FullPath>
         </FileNode>
       </Items>
     </LogicalFolder>

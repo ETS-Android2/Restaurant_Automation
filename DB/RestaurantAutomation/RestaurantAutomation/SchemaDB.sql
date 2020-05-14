@@ -26,11 +26,12 @@ CREATE TABLE Users
 
 CREATE TABLE tokens
 (
-	id int PRIMARY KEY,
+	tokenId int IDENTITY(1,1) PRIMARY KEY,
 	token UNIQUEIDENTIFIER NOT NULL UNIQUE,
 	createdDate DATETIME NOT NULL DEFAULT GETDATE(),
 	expireDate DATETIME NOT NULL,
-	FOREIGN KEY (id) references Users(userId)
+	userId int 
+	FOREIGN KEY (userId) references Users(userId)
 );
 
 
@@ -155,7 +156,7 @@ CREATE TABLE OrderDetails
 
 CREATE TABLE Bills
 (
-	billId int PRIMARY KEY,
+	billId int identity(1,1) PRIMARY KEY,
 	orderId int,
 	billDate DATETIME,
 	billingAmount decimal(6,2) not null,

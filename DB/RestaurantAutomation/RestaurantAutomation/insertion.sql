@@ -1,3 +1,5 @@
+ use RestaurantAutomation;
+
 INSERT INTO UserType (userTypeID, userType) VALUES (1,'customer'),(2,'manager'),(3,'chef'),(4,'cashier'),(5,'admin');
 
 INSERT INTO MenuCategory(categoryTitle) VALUES ('Appetizer'),('Vegetarian'),('Non Vegetarian'),('Dessert'),('Beverages');
