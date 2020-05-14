@@ -1,4 +1,4 @@
-use RestaurantAutomation;
+ RestaurantAutomation;
 
 CREATE TABLE UserType
 (
