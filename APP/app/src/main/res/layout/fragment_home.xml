@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeActivity"
+    tools:context=".HomeFragment"
     android:background="@drawable/mainbackground">
-
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="80dp"
@@ -23,19 +21,19 @@
         android:orientation="vertical"
         android:gravity="center"
         android:layout_marginTop="220dp">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Please Sign In or Create an Account to"
-        android:textSize="18sp"
-        android:textColor="@android:color/white"
-        />
-     <TextView
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:text="View your notification."
-         android:textColor="@android:color/white"
-         android:textSize="18sp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please Sign In or Create an Account to"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View your notification."
+            android:textColor="@android:color/white"
+            android:textSize="18sp"/>
     </LinearLayout>
 
     <Button
@@ -83,7 +81,7 @@
         tools:ignore="RtlCompat"
         android:background="@android:color/white"/>
 
-        <Button
+    <Button
         android:id="@+id/createAccount"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -94,10 +92,4 @@
         android:layout_marginTop="40dp"
         android:text="Create an account"
         android:textColor="@android:color/black"/>
-
-
-
-
-
-
 </RelativeLayout>

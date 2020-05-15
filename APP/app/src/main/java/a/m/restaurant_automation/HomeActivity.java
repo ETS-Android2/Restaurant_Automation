@@ -19,8 +19,8 @@ public class HomeActivity extends AppCompatActivity {
 
         singInButton = findViewById(R.id.signInButton);
         createAccount = findViewById(R.id.createAccount);
-        final Intent intentToLogin = new Intent(this,LoginActivity.class);
-        final Intent intentTORegister = new Intent(this, RegisterActivity.class);
+        final Intent intentToLogin = new Intent(this,LoginFragment.class);
+        final Intent intentTORegister = new Intent(this, RegisterFragment.class);
 
         singInButton.setOnClickListener(new View.OnClickListener() {
             @Override
