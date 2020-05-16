@@ -5,14 +5,27 @@ import java.util.ArrayList;
 
 public class ErrorModel {
 
-    public ArrayList<ErrorModel> getError() {return error;}
+    @SerializedName("ErrorCode")
+    @Expose
+    private String ErrorCode;
 
-    public void setError(ArrayList<ErrorModel> error) {
-        this.error = error;
+    @SerializedName("ErrorMessage")
+    @Expose
+    private String ErrorMessage;
+
+    public String getErrorCode() {
+        return ErrorCode;
     }
 
-    @SerializedName("error")
-    @Expose
-    private ArrayList<ErrorModel> error;
+    public void setErrorCode(String errorCode) {
+        ErrorCode = errorCode;
+    }
 
+    public String getErrorMessage() {
+        return ErrorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        ErrorMessage = errorMessage;
+    }
 }

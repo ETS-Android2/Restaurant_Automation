@@ -20,7 +20,7 @@ namespace TESTRESTRO.Provider
                 UserRegisterResponseModel userRegisterResponse = userProvider.register(userRegister.Email, userRegister.Password,userRegister.FirstName, userRegister.lastName, userRegister.Phone,userRegister.UserType, out errorModel);
                 return userRegisterResponse;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return null;
             }

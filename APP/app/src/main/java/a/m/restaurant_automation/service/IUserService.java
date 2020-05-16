@@ -2,6 +2,7 @@ package a.m.restaurant_automation.service;
 
 import a.m.restaurant_automation.requestModel.LoginRequestModel;
 import a.m.restaurant_automation.requestModel.RegisterRequestModel;
+import a.m.restaurant_automation.responseModel.RegisterResponseModel;
 import a.m.restaurant_automation.responseModel.ResponseModel;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -13,5 +14,5 @@ public interface IUserService {
     Call<ResponseModel<String>> login (@Body LoginRequestModel loginRequestModel);
 
     @POST ("users/add")
-    Call<ResponseModel<String>> register (@Body RegisterRequestModel registerRequestModel);
+    Call<ResponseModel<RegisterResponseModel>> register (@Body RegisterRequestModel registerRequestModel);
 }

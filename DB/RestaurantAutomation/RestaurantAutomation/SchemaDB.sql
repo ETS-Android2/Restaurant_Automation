@@ -165,3 +165,4 @@ CREATE TABLE Bills
 );
 
 
+ALTER TABLE users Alter column phoneNo varchar(10)

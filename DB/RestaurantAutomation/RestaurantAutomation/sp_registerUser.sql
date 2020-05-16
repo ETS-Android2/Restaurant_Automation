@@ -7,7 +7,7 @@ ALTER PROCEDURE registerUser
 	@password varchar(64),
 	@fname varchar(50),
 	@lname varchar(50),
-	@phone varchar(10),
+	@phone varchar(10) = NULL,
 	@userTypeId int
 )
 

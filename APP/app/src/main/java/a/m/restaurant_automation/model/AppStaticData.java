@@ -6,6 +6,6 @@ public class AppStaticData {
     public static final int USERTYPE_CHEF = 3;
     public static final int USERTYPE_CASHIER = 4;
 
-    public static final String BASE_URL= "http://192.168.2.24/";
+    public static final String BASE_URL= "http://192.168.2.24/api/";
 
 }

@@ -7,13 +7,13 @@ import java.util.ArrayList;
 
 public class ResponseModel<T>{
 
-    @SerializedName("data")
+    @SerializedName("Response")
     @Expose
     private T Data;
 
-    @SerializedName("error")
+    @SerializedName("Error")
     @Expose
-    private ArrayList<ErrorModel> error;
+    private ErrorModel error;
 
     public T getData() {
         return Data;
@@ -23,11 +23,11 @@ public class ResponseModel<T>{
         Data = data;
     }
 
-    public ArrayList<ErrorModel> getError() {
+    public ErrorModel getError() {
         return error;
     }
 
-    public void setError(ArrayList<ErrorModel> error) {
+    public void setError(ErrorModel error) {
         this.error = error;
     }
 

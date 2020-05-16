@@ -34,22 +34,22 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         singInButton =view.findViewById(R.id.signInButton);
         createAccount = view.findViewById(R.id.createAccount);
+        singInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavController navController = Navigation.findNavController(getActivity(), R.id.hostFragment);
+                navController.navigate(R.id.loginFragment);
+            }
+        });
+        createAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavController navController = Navigation.findNavController(getActivity(), R.id.hostFragment);
+                navController.navigate(R.id.registerFragment);
+            }
+        });
 
 
-    }
-
-    public void onClick(View v) {
-        int id = v.getId();
-        if(id==R.id.signInButton)
-        {
-            NavController navController = Navigation.findNavController(getActivity(), R.id.hostFragment);
-            navController.navigate(R.id.loginFragment);
-        }
-        else {
-            NavController navController = Navigation.findNavController(getActivity(), R.id.hostFragment);
-            navController.navigate(R.id.registerFragment);
-
-        }
     }
 
     @Override
