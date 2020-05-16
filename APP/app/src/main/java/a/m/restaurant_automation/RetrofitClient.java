@@ -21,7 +21,7 @@ public class RetrofitClient {
 
     public static Retrofit getRetrofitInstance(){
 
-        //session = UserSession.getInstance();
+        session = UserSession.getInstance();
         token="";
 
         OkHttpClient client =new OkHttpClient.Builder()

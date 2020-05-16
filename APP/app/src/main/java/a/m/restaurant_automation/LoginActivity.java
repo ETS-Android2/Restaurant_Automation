@@ -20,14 +20,31 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LoginActivity extends AppCompatActivity implements RegisterFragment.OnRegisterPress {
+public class LoginActivity extends AppCompatActivity implements OnLoginPress,RegisterFragment.OnRegisterPress {
 
     private int UserType = AppStaticData.USERTYPE_CUSTOMER;
     private String registerEmail, registerPassword, registerFirstName, registerLastName;
+    private String loginEmail;
+    private String loginPassword;
 
 
-    public void OnUserTypeSet(int userType) {
-        UserType = userType;
+
+    @Override
+    public void OnEmailSet(String email) {
+        loginEmail = email;
+
+    }
+
+    @Override
+    public void OnPasswordSet(String password) {
+        loginPassword = password;
+        login(loginEmail, loginPassword);
+
+    }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
     }
 
 
@@ -38,10 +55,13 @@ public class LoginActivity extends AppCompatActivity implements RegisterFragment
         registerLastName = lastName;
         registerPassword = password;
         UserType = userType;
-
         Register();
+    }
 
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     public void Register() {
@@ -66,11 +86,7 @@ public class LoginActivity extends AppCompatActivity implements RegisterFragment
                     } else if (responseModel.getData() != null) {
                         RegisterResponseModel registerRequestModel = responseModel.getData();
                         Toast.makeText(getApplicationContext(), responseModel.getData().getEmail() + " registered", Toast.LENGTH_LONG).show();
-                        //login(registerRequestModel.getEmail(), loginPassword);
-                    } else {
-                        Intent gotoMainActivity = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(gotoMainActivity);
-                        finish();
+                        login(registerRequestModel.getEmail(), loginPassword);
                     }
                 }
             }
@@ -92,7 +108,7 @@ public class LoginActivity extends AppCompatActivity implements RegisterFragment
         LoginRequestModel request = new LoginRequestModel();
         request.Email = email;
         request.Password = password;
-        request.UserType = UserType;
+
 
         Call<ResponseModel<LoginResponseModel>> call = service.login(request);
 
@@ -103,7 +119,7 @@ public class LoginActivity extends AppCompatActivity implements RegisterFragment
                     ResponseModel<LoginResponseModel> responseModel = response.body();
 
                     if (responseModel != null && responseModel.getError() != null) {
-                        Toast.makeText(getApplicationContext(), "Error" /*responseModel.getError().getErrorMessage()*/, Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), responseModel.getError().getErrorMessage(), Toast.LENGTH_LONG).show();
                     } else if (responseModel != null && responseModel.getData() != null) {
 
                         LoginResponseModel loginResponseModel = responseModel.getData();
@@ -128,5 +144,7 @@ public class LoginActivity extends AppCompatActivity implements RegisterFragment
             });
         }
     }
+
+
 }
 
