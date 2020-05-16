@@ -4,12 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RESTRODBACCESS.RequestModel
+namespace RESTRODBACCESS.ResponseModel
 {
-    public class UserLoginRequestModel
+    public class UserLoginResponseModel
     {
         public string Email { get; set; }
-        public string Password { get; set; }
+        public string UserId { get; set; }
+        public string Token { get; set; }
+        public string Name { get; set; }
+
         public int UserType { get; set; }
     }
 }

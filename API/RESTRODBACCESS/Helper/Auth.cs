@@ -13,6 +13,12 @@ namespace RESTRODBACCESS.Helper
 {
     public class Auth
     {
+
+
+        public bool isLoggedIn()
+        {
+            throw new NotImplementedException();
+        }
         public UserLoginResponseModel login(UserLoginRequestModel userLoginRequestModel, out ErrorModel errorModel)
         {
             errorModel = null;
@@ -32,8 +38,8 @@ namespace RESTRODBACCESS.Helper
                     command.Parameters.Add(new SqlParameter("@password", System.Data.SqlDbType.VarChar, 16));
                     command.Parameters["@password"].Value = userLoginRequestModel.Password;
 
-                    command.Parameters.Add(new SqlParameter("@userType", System.Data.SqlDbType.Int));
-                    command.Parameters["@userType"].Value = userLoginRequestModel.UserType;
+                    //command.Parameters.Add(new SqlParameter("@userType", System.Data.SqlDbType.Int));
+                    //command.Parameters["@userType"].Value = userLoginRequestModel.UserType;
                     #endregion
                     connection.Open();
                     SqlDataReader reader = command.ExecuteReader();
@@ -52,6 +58,7 @@ namespace RESTRODBACCESS.Helper
                             userLoginResponseModel.UserId = reader["UserId"].ToString();
                             userLoginResponseModel.Name = reader["Name"].ToString();
                             userLoginResponseModel.Token = reader["Token"].ToString();
+                            userLoginResponseModel.UserType =Convert.ToInt32( reader["UserType"].ToString());
                         }
                     }
                     command.Dispose();

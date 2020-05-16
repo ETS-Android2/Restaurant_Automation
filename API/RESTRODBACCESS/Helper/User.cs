@@ -12,7 +12,7 @@ namespace RESTRODBACCESS.Helper
 {
     public class User
     {
-        public UserRegisterResponseModel register(string email, string password, string fname, string lname,string phone, int userTypeId, out ErrorModel errorModel)
+        public UserRegisterResponseModel register(string email, string password, string fname, string lname, string phone, int userTypeId, out ErrorModel errorModel)
         {
             errorModel = null;
             UserRegisterResponseModel userRegisterResponseModel = null;
@@ -90,7 +90,7 @@ namespace RESTRODBACCESS.Helper
                     command.CommandType = System.Data.CommandType.StoredProcedure;
 
                     #region Query Parameters
-                  
+
                     /*command.Parameters.Add(new SqlParameter("@email", System.Data.SqlDbType.VarChar, 100));
                     command.Parameters["@email"].Value = email;*/
 
@@ -122,8 +122,8 @@ namespace RESTRODBACCESS.Helper
                             user.UserType = Convert.ToInt32(reader["UserType"].ToString());
                             user.Gender = reader["Gender"].ToString();
 
-                         
-                       
+
+
                             users.Add(user);
                         }
                     }

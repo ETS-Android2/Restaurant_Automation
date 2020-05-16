@@ -14,6 +14,8 @@ namespace TESTRESTRO.Provider
 {
     public class AuthProvider
     {
+
+        
         public UserLoginResponseModel login(UserLoginRequestModel userLoginRequestModel, out ErrorModel errorModel)
         {
             errorModel = null;

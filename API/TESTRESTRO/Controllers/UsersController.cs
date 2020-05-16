@@ -13,8 +13,6 @@ namespace TESTRESTRO.Controllers
 {
     public class UsersController : ApiController
     {
-
-
         
         [HttpGet]
         [Route("api/users")]
