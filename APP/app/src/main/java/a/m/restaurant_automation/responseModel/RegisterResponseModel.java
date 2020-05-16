@@ -4,12 +4,8 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class RegisterResponseModel {
-    @SerializedName("Email")
-    @Expose
     private String Email;
 
-    @SerializedName("UserId")
-    @Expose
     private String UserId;
 
     public String getEmail() {

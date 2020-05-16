@@ -3,9 +3,8 @@ package a.m.restaurant_automation.responseModel;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-
 public class ResponseModel<T>{
+
 
     @SerializedName("Response")
     @Expose
@@ -14,6 +13,7 @@ public class ResponseModel<T>{
     @SerializedName("Error")
     @Expose
     private ErrorModel error;
+
 
     public T getData() {
         return Data;
