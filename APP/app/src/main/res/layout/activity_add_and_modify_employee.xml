@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddAndModifyEmployee"
+    android:background="@drawable/appbg"
+    >
+    <LinearLayout
+        android:id="@+id/lL1"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@drawable/mainbackground"
+        android:orientation="horizontal"
+        >
+        <ImageButton
+            android:id="@+id/btnHome"
+            android:layout_width="71dp"
+            android:scaleType="fitXY"
+            android:layout_height="match_parent"
+            android:src="@drawable/homeicon"
+            android:background="@drawable/button_background_login"
+            >
+        </ImageButton>
+    </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView"
+        android:layout_below="@id/lL1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="6dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:foregroundGravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imgEmployee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="140dp"
+                    android:layout_marginLeft="55dp"
+                    android:background="#FFFFFF"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_launcher_background" />
+
+                <TextView
+                    android:id="@+id/btnUploadImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@id/imgEmployee"
+                    android:layout_marginTop="80dp"
+                    android:text="Upload Image"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+            <EditText
+                android:id="@+id/edtFirstName"
+                android:layout_width="289dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="2dp"
+                android:layout_below="@id/imgEmployee"
+                android:layout_gravity="center_horizontal"
+                android:background="#FFFFFF"
+                android:hapticFeedbackEnabled="false"
+                android:hint="First Name" />
+
+            <EditText
+                android:id="@+id/edtLastName"
+                android:layout_width="289dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="2dp"
+                android:layout_below="@id/edtFirstName"
+                android:layout_gravity="center_horizontal"
+                android:background="#FFFFFF"
+                android:hint="Last Name" />
+
+            <EditText
+                android:id="@+id/edtEmailId"
+                android:layout_width="289dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/edtLastName"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
+                android:background="#FFFFFF"
+                android:hint="Email@gmail.com" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:id="@+id/radogroup1"
+                android:layout_marginTop="2dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="55dp"
+                    android:background="#FFFFFF"
+                    android:text="Gender:"
+                    android:textSize="20sp">
+
+                </TextView>
+
+                <RadioButton
+                    android:id="@+id/radiomale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:background="#FFFFFF"
+                    android:text="Male"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    >
+                </RadioButton>
+
+                <RadioButton
+                    android:id="@+id/radiofemale"
+                    android:layout_width="128dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:background="#FFFFFF"
+                    android:text="Female"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    >
+                </RadioButton>
+            </RadioGroup>
+
+
+            <EditText
+                android:id="@+id/edtDob"
+                android:layout_width="289dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
+                android:background="#FFFFFF"
+                android:hint="DateOfBirth" />
+
+            <EditText
+                android:id="@+id/edtMobileNumber"
+                android:layout_width="289dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/edtDob"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
+                android:background="#FFFFFF"
+                android:hint="Mobile Number" />
+
+            <EditText
+                android:id="@+id/edtAddress"
+                android:layout_width="289dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/edtMobileNumber"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
+                android:background="#FFFFFF"
+                android:hint="Address" />
+
+            <EditText
+                android:id="@+id/edtSalary"
+                android:layout_width="289dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/edtAddress"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
+                android:background="#FFFFFF"
+                android:hint="Salary" />
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/radioGroup2"
+                android:layout_marginTop="2dp"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="55dp"
+                    android:background="#FFFFFF"
+                    android:text="Title:"
+                    android:textSize="20sp">
+
+                </TextView>
+
+                <RadioButton
+                    android:id="@+id/radioChef"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:background="#FFFFFF"
+                    android:text="Chef"
+                    android:textSize="20sp"
+                    android:textStyle="bold"></RadioButton>
+
+                <RadioButton
+                    android:id="@+id/radioCashier"
+                    android:layout_width="128dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:background="#FFFFFF"
+                    android:text="Cashier"
+                    android:textSize="20sp"
+                    android:textStyle="bold"></RadioButton>
+            </RadioGroup>
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/scrollView"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/mainbackground"
+        android:text="Save"
+        android:textSize="30dp"
+        android:textStyle="bold" />
+
+</RelativeLayout>
