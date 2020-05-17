@@ -1,6 +1,7 @@
 package a.m.restaurant_automation;
 
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -45,6 +46,7 @@ public class LoginActivity extends AppCompatActivity implements OnLoginPress,Reg
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        getSupportActionBar().hide();
     }
 
 

@@ -22,7 +22,8 @@ public class RetrofitClient {
     public static Retrofit getRetrofitInstance(){
 
         session = UserSession.getInstance();
-        token="";
+        token=session.getToken();
+
 
         OkHttpClient client =new OkHttpClient.Builder()
                 .addInterceptor(new Interceptor() {

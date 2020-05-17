@@ -11,14 +11,18 @@
         android:layout_width="339dp"
         android:id="@+id/imageView_splashLogo"
         android:layout_height="299dp"
-        tools:ignore="MissingConstraints" />
-
+        android:src="@drawable/logo_restromation"
+        tools:ignore="MissingConstraints"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"/>
 
 
     <ProgressBar
         android:id="@+id/simpleProgressBar"
-        android:indeterminateDrawable="@drawable/loader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints" />
+        android:layout_below="@id/imageView_splashLogo"
+        android:layout_marginTop="25dp"
+        android:layout_centerHorizontal="true"
+        android:indeterminateDrawable="@drawable/loader" />
 </RelativeLayout>

@@ -52,6 +52,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         toRegisterPage = view.findViewById(R.id.signupToRegister);
         signIn.setOnClickListener(this);
         toRegisterPage.setOnClickListener(this);
+
+
+
     }
 
     @Override
@@ -77,11 +80,18 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             } else if (password.getText().toString().length() < 6) {
                 password.setError(getString(R.string.validation_length_password));
                 password.requestFocus();
-            } else{
+
+            }
+
+             else {
+
                 String email = emailId.getText().toString();
                 String pass = password.getText().toString();
                 onLoginPress.OnEmailSet(email);
                 onLoginPress.OnPasswordSet(pass);
+
+
+
             }
         } else if (id == R.id.signupToRegister) {
             NavController navController = Navigation.findNavController(getActivity(), R.id.hostFragment);
@@ -92,7 +102,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 }
     interface OnLoginPress {
 
+
         void OnEmailSet(String email);
 
         void OnPasswordSet(String password);
 }
+

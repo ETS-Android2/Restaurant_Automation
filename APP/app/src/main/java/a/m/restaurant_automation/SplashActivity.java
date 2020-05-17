@@ -3,10 +3,12 @@ package a.m.restaurant_automation;
 import a.m.restaurant_automation.repository.UserSession;
 import androidx.appcompat.app.AppCompatActivity;
 
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -23,6 +25,8 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        getSupportActionBar().hide();
+
         imageView = findViewById(R.id.imageView_splashLogo);
 
         SharedPreferences preferences = getApplicationContext().getSharedPreferences("session", 0); // 0 - for private mode
@@ -33,9 +37,15 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(SplashActivity.this, LoginActivity.class));
-                finish();
+
+                if (!TextUtils.isEmpty(session.getToken()) && !TextUtils.isEmpty(session.getEmail()) && !TextUtils.isEmpty(session.getUserId())) {
+                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                    finish();
+                } else {
+                    startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                    finish();
+                }
             }
         }, SPLASH_DISPLAY_LENGTH);
-    }
+        }
 }

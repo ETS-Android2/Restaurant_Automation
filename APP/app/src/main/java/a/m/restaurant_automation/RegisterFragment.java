@@ -2,14 +2,6 @@ package a.m.restaurant_automation;
 
 import android.content.Context;
 import android.os.Bundle;
-
-import a.m.restaurant_automation.model.AppStaticData;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +9,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
+import a.m.restaurant_automation.model.AppStaticData;
 
 
 public class RegisterFragment extends Fragment implements View.OnClickListener {
@@ -49,6 +48,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         signUp = view.findViewById(R.id.signup);
         toLoginPage = view.findViewById(R.id.signinToLoginFragment);
 
+
         toLoginPage.setOnClickListener(this);
 
         signUp.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +61,9 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                         String email = emailForRegister.getText().toString();
                         String password = passwordForRegister.getText().toString();
                         onRegisterPress.OnRegisterPress(firstName,lastName,email,password, AppStaticData.USERTYPE_CUSTOMER);
+                        NavController navController = Navigation.findNavController(getActivity(), R.id.hostFragment);
+                        navController.navigate(R.id.loginFragment);
+
                     }
                 }
 

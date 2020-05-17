@@ -30,7 +30,7 @@ public class UserSession {
     }
 
     public void clearSession(){
-        userPreferences.edit().putString("token","").apply();
+        userPreferences.edit().putString("token","").commit();
         userPreferences.edit().putString("userId","").commit();
         userPreferences.edit().putString("email","").commit();
         userPreferences.edit().putString("firstName","").commit();
