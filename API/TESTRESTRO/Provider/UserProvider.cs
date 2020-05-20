@@ -4,8 +4,6 @@ using RESTRODBACCESS.RequestModel;
 using RESTRODBACCESS.ResponseModel;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace TESTRESTRO.Provider
 {
@@ -17,7 +15,7 @@ namespace TESTRESTRO.Provider
             try
             {
                 User userProvider = new User();
-                UserRegisterResponseModel userRegisterResponse = userProvider.register(userRegister.Email, userRegister.Password,userRegister.FirstName, userRegister.lastName, userRegister.Phone,userRegister.UserType, out errorModel);
+                UserRegisterResponseModel userRegisterResponse = userProvider.register(userRegister.Email, userRegister.Password, userRegister.FirstName, userRegister.lastName, userRegister.Phone, userRegister.UserType, out errorModel);
                 return userRegisterResponse;
             }
             catch (Exception e)

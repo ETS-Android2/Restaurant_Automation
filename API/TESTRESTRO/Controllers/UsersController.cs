@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using RESTRODBACCESS.RequestModel;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using TESTRESTRO.Models;
 using TESTRESTRO.Provider;
-using RESTRODBACCESS.RequestModel;
 
 
 namespace TESTRESTRO.Controllers
 {
     public class UsersController : ApiController
     {
-        
+
         [HttpGet]
         [Route("api/users")]
         //[ApiAuthorization]
@@ -35,7 +32,7 @@ namespace TESTRESTRO.Controllers
 
         [HttpPost]
         [Route("api/users")]
-       
+
         public string addMessage()
         {
             return "POST works";
@@ -44,7 +41,7 @@ namespace TESTRESTRO.Controllers
 
         [HttpPost]
         [Route("api/users/add")]
-        
+
         public HttpResponseMessage Register(UserRegisterRequestModel userRegisterModel)
         {
             ErrorModel errorModel = new ErrorModel();

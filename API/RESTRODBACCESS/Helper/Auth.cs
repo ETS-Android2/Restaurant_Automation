@@ -1,12 +1,8 @@
-﻿using RESTRODBACCESS.ResponseModel;
-using RESTRODBACCESS.Interface;
-using RESTRODBACCESS.RequestModel;
+﻿using RESTRODBACCESS.RequestModel;
+using RESTRODBACCESS.ResponseModel;
 using System;
-using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TESTRESTRO;
 
 namespace RESTRODBACCESS.Helper
@@ -29,7 +25,7 @@ namespace RESTRODBACCESS.Helper
                 using (connection = new SqlConnection(Database.getConnectionString()))
                 {
                     SqlCommand command = new SqlCommand(SqlCommands.SP_LoginUser, connection);
-                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandType = CommandType.StoredProcedure;
 
                     #region Query Parameters
                     command.Parameters.Add(new SqlParameter("@email", System.Data.SqlDbType.VarChar, 150));
@@ -57,8 +53,7 @@ namespace RESTRODBACCESS.Helper
                             userLoginResponseModel.Email = reader["Email"].ToString();
                             userLoginResponseModel.UserId = reader["UserId"].ToString();
                             userLoginResponseModel.Name = reader["Name"].ToString();
-                            userLoginResponseModel.Token = reader["Token"].ToString();
-                            userLoginResponseModel.UserType =Convert.ToInt32( reader["UserType"].ToString());
+                            userLoginResponseModel.UserType =reader["UserType"].ToString();
                         }
                     }
                     command.Dispose();

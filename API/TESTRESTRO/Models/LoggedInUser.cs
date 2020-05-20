@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace TESTRESTRO.Models
+﻿namespace TESTRESTRO.Models
 {
     public class LoggedInUser
     {
@@ -16,7 +11,7 @@ namespace TESTRESTRO.Models
         public static string profileImage { get; set; }
 
         public static string PhoneNo { get; set; }
-       
+
         public static int UserId { get; set; }
-       }
+    }
 }

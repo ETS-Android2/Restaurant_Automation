@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace TESTRESTRO.Models
+﻿namespace TESTRESTRO.Models
 {
     public class APIResponseModel
     {

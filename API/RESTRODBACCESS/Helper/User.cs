@@ -1,11 +1,7 @@
 ﻿using RESTRODBACCESS.ResponseModel;
-using RESTRODBACCESS.Interface;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TESTRESTRO;
 
 namespace RESTRODBACCESS.Helper

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RESTRODBACCESS.ResponseModel
+﻿namespace RESTRODBACCESS.ResponseModel
 {
     public class UsersResponseModel
     {
@@ -17,6 +11,6 @@ namespace RESTRODBACCESS.ResponseModel
         public string Phone { get; set; }
         public string Gender { get; set; }
         public string Image { get; set; }
-       
+
     }
 }
