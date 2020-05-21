@@ -1,12 +1,19 @@
-use RestaurantAutomation
+USE [restomation]
 GO
 
+/****** Object:  StoredProcedure [dbo].[loginUser]    Script Date: 20-05-2020 11:59:56 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
 --exec loginUser 'admin111@gmail.com','123456',5
-ALTER PROCEDURE loginUser
+CREATE PROCEDURE [dbo].[loginUser]
 (
-	 @email		varchar(150)
-	,@password	varchar(16)
-	--,@userType	int
+	 @email		varchar(150),
+	@password	varchar(16)
 )
 AS
 BEGIN
@@ -17,7 +24,6 @@ BEGIN
 
 		DECLARE @_email		varchar(150) = @email	
 		DECLARE @_password	varchar(64)	 = @password	
-		--DECLARE @_userType	int			 = @userType
 
 		SET @_password = CONVERT(VARCHAR(64),HASHBYTES('SHA2_256', @_password), 2)
 
@@ -28,46 +34,22 @@ BEGIN
 
 	BEGIN -- login user
 		
-		SELECT @_userId = userid, @_deleted_date = deletedDate FROM users WHERE email = @_email AND password = @_password AND userTypeId = @_userType
+		SELECT @_userId = userid, @_deleted_date = deletedDate FROM users WHERE email = @_email AND password = @_password
 		
 		IF ISNULL(@_deleted_date, '') = '' 
 		BEGIN
-			IF EXISTS (select 1 from users where userId=@_userId) 
-		 
-			BEGIN
+			IF EXISTS (select 1 from users where users.userId=@_userId) 
 			
-				DECLARE @_token UNIQUEIDENTIFIER = NEWID();
-				IF NOT EXISTS (SELECT 1 FROM tokens WHERE userid = @_userId)
 				BEGIN
-					INSERT INTO tokens ( token, createdDate,userId,EXPIREdATE)
-					VALUES ( @_token, @_currentTime,@_userId,DATEADD(DAY,30,@_currentTime))
-
 					SELECT 
-					firstname as 'Name'
-					,email as 'Email'
-					,userid as 'UserId'
-					,@_token as 'Token'
-					,userTypeId as 'UserType'
-					FROM users
-					WHERE userid = @_userId
+					concat(users.firstname, ' ', users.lastname) as 'Name',
+					users.email as 'Email',
+					users.userid as 'UserId',
+					UserType.userType as 'UserType'
+					FROM users Inner Join UserType on users.userTypeId = userType.userTypeID
+					WHERE users.userId = @_userId
 				END
-				ELSE 
-				BEGIN
-					UPDATE tokens 
-					SET token = @_token
-					, createdDate = @_currentTime
-					where userid = @_userId
-
-					SELECT 
-					firstname as 'Name'
-					,email as 'Email'
-					,userid as 'UserId'
-					,@_token as 'Token'
-					,userTypeId as 'UserType'
-					FROM users
-					WHERE userid = @_userId
-				END
-			END
+				
 			
 			ELSE 
 			BEGIN
@@ -89,3 +71,4 @@ BEGIN
 	END
 
 END
+GO
