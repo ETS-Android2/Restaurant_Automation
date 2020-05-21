@@ -5,9 +5,14 @@ package a.m.restaurant_automation;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 
 import a.m.restaurant_automation.model.AppStaticData;
 import a.m.restaurant_automation.repository.UserSession;
@@ -123,14 +128,14 @@ public class LoginActivity extends AppCompatActivity implements OnLoginPress,Reg
                     if (responseModel != null && responseModel.getError() != null) {
                         Toast.makeText(getApplicationContext(), responseModel.getError().getErrorMessage(), Toast.LENGTH_LONG).show();
                     } else if (responseModel != null && responseModel.getData() != null) {
-
+                        Log.i("test", "Done");
                         LoginResponseModel loginResponseModel = responseModel.getData();
                         if (loginResponseModel != null) {
                             UserSession session = UserSession.getInstance();
-                            session.setEmail(loginResponseModel.getEmailId());
-                            session.setToken(loginResponseModel.getToken());
+                            session.setEmail(loginResponseModel.getEmail());
+                            session.setToken(getSessionTimeOut());
                             session.setUserId(loginResponseModel.getUserId());
-                            //session.setUserName(loginResponse.getName());
+                            session.setName(loginResponseModel.getName());
                             session.setUserType(UserType);
                             Intent goToMainActivity = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(goToMainActivity);
@@ -147,6 +152,14 @@ public class LoginActivity extends AppCompatActivity implements OnLoginPress,Reg
         }
     }
 
+    public long getSessionTimeOut(){
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DATE, 7);
+        date = calendar.getTime();
+        return date.getTime();
+    }
 
 }
 

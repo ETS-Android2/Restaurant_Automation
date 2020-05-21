@@ -9,6 +9,6 @@ public class AppStaticData {
 
     //public static final String BASE_URL= "http://192.168.2.24/api/";
 
-    public static final String BASE_URL= "http://192.168.0.173/api/";
+    public static final String BASE_URL= "http://restroapi-dev.us-west-2.elasticbeanstalk.com/api/";
 
 }

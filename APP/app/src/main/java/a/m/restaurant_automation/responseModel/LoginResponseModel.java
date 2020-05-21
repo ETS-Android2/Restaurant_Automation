@@ -5,28 +5,28 @@ import com.google.gson.annotations.SerializedName;
 
 
 public class LoginResponseModel {
-    @SerializedName("Token")
-    @Expose
-    private String token;
-
     @SerializedName("UserID")
     @Expose
     private String userId;
 
-    @SerializedName("ExpireDate")
+    @SerializedName("Name")
     @Expose
-    private String expireDate;
+    private String name;
 
-    @SerializedName("EmailId")
+    @SerializedName("Email")
     @Expose
-    private String emailId;
+    private String email;
 
-    public String getToken() {
-        return token;
+    @SerializedName("UserType")
+    @Expose
+    private String userType;
+
+    public String getUserType() {
+        return userType;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 
     public String getUserId() {
@@ -37,20 +37,21 @@ public class LoginResponseModel {
         this.userId = userId;
     }
 
-    public String getExpireDate() {
-        return expireDate;
+
+    public String getEmail() {
+        return email;
     }
 
-    public void setExpireDate(String expireDate) {
-        this.expireDate = expireDate;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getEmailId() {
-        return emailId;
+    public String getName() {
+        return name;
     }
 
-    public void setEmailId(String emailId) {
-        this.emailId = emailId;
+    public void setName(String name) {
+        this.name = name;
     }
 }
 
