@@ -1,12 +1,7 @@
 USE [restomation]
 GO
 
-/****** Object:  StoredProcedure [dbo].[loginUser]    Script Date: 20-05-2020 11:59:56 PM ******/
-SET ANSI_NULLS ON
-GO
 
-SET QUOTED_IDENTIFIER ON
-GO
 
 
 --exec loginUser 'admin111@gmail.com','123456',5
