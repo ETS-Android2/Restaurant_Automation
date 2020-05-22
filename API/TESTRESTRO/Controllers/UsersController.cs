@@ -30,14 +30,7 @@ namespace TESTRESTRO.Controllers
         }
 
 
-        [HttpPost]
-        [Route("api/users")]
-
-        public string addMessage()
-        {
-            return "POST works";
-        }
-
+     
 
         [HttpPost]
         [Route("api/users/add")]

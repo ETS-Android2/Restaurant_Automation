@@ -1,8 +1,5 @@
-/*
-EXEC getFriends 0,0,5,1,10,'89a0bdc2-9696-407a-8c34-1fc6da8e4e0a', 2, NULL
-*/
 
-use RestaurantAutomation
+use restomation
 Go
 
 CREATE PROCEDURE getUsers

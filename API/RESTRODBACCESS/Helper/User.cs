@@ -91,9 +91,9 @@ namespace RESTRODBACCESS.Helper
                     command.Parameters["@email"].Value = email;*/
 
 
-                    /*command.Parameters.Add(new SqlParameter("@userTypeId", System.Data.SqlDbType.Int));
+                    command.Parameters.Add(new SqlParameter("@userTypeId", System.Data.SqlDbType.Int));
                     command.Parameters["@userTypeId"].Value = userType;
-                    */
+                    
                     #endregion
                     connection.Open();
                     SqlDataReader reader = command.ExecuteReader();

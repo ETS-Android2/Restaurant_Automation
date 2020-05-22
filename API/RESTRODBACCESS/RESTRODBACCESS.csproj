@@ -93,20 +93,23 @@
     <Compile Include="Database.cs" />
     <Compile Include="ErrorModel.cs" />
     <Compile Include="Helper\Auth.cs" />
+    <Compile Include="Helper\Menu.cs" />
     <Compile Include="Helper\User.cs" />
     <Compile Include="Interface\IAuth.cs" />
+    <Compile Include="Interface\IMenu.cs" />
     <Compile Include="Interface\IUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RequestModel\MenuItemRequestModel.cs" />
     <Compile Include="RequestModel\UserLoginRequestModel.cs" />
     <Compile Include="RequestModel\UserRegisterRequestModel.cs" />
     <Compile Include="RequestModel\UsersRequestModel.cs" />
+    <Compile Include="ResponseModel\MenuItemResponseModel.cs" />
     <Compile Include="ResponseModel\UserLoginResponseModel.cs" />
     <Compile Include="ResponseModel\UserRegisterResponseModel.cs" />
     <Compile Include="ResponseModel\UsersResponseModel.cs" />
     <Compile Include="SqlCommands.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
