@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RESTRODBACCESS.RequestModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -20,6 +21,28 @@ namespace TESTRESTRO.Controllers
             ErrorModel errorModel = null;
 
             var tableItems = tableProvider.getTables(tableId, out errorModel);
+            APIResponseModel responseModel = new APIResponseModel();
+            responseModel.Response = tableItems;
+            responseModel.Error = errorModel;
+            return Request.CreateResponse(HttpStatusCode.OK, responseModel);
+        }
+
+
+
+
+        [HttpPost]
+        [Route("api/reserveTable/")]
+        public  HttpResponseMessage reserveTable([FromUri] ReserveTableRequestModel model)
+        {
+            TableProvider tableProvider = new TableProvider();
+            ErrorModel errorModel = null;
+
+            if (model == null)
+            {
+                model = new ReserveTableRequestModel();
+            }
+
+            var tableItems = tableProvider.reserveTable(model, out errorModel);
             APIResponseModel responseModel = new APIResponseModel();
             responseModel.Response = tableItems;
             responseModel.Error = errorModel;

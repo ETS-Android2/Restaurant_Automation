@@ -101,6 +101,7 @@
     <Compile Include="Interface\ITable.cs" />
     <Compile Include="Interface\IUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RequestModel\ReserveTableRequestModel.cs" />
     <Compile Include="RequestModel\GetTableRequestModel.cs" />
     <Compile Include="RequestModel\MenuItemRequestModel.cs" />
     <Compile Include="RequestModel\UserLoginRequestModel.cs" />
@@ -108,6 +109,7 @@
     <Compile Include="RequestModel\UsersRequestModel.cs" />
     <Compile Include="ResponseModel\GetTableResponseModel.cs" />
     <Compile Include="ResponseModel\MenuItemResponseModel.cs" />
+    <Compile Include="ResponseModel\ReserveTableResponseModel.cs" />
     <Compile Include="ResponseModel\UserLoginResponseModel.cs" />
     <Compile Include="ResponseModel\UserRegisterResponseModel.cs" />
     <Compile Include="ResponseModel\UsersResponseModel.cs" />

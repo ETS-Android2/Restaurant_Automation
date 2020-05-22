@@ -1,4 +1,5 @@
-﻿using RESTRODBACCESS.ResponseModel;
+﻿using RESTRODBACCESS.RequestModel;
+using RESTRODBACCESS.ResponseModel;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -72,5 +73,80 @@ namespace RESTRODBACCESS.Helper
                 }
             }
         }
+
+
+
+        public ReserveTableResponseModel reserveTable(ReserveTableRequestModel reserveTableRequestModel, out ErrorModel errorModel)
+        {
+            errorModel = null;
+            ReserveTableResponseModel response = null;
+            SqlConnection connection = null;
+            try
+            {
+                using (connection = new SqlConnection(Database.getConnectionString()))
+                {
+                    SqlCommand command = new SqlCommand(SqlCommands.SP_reserveTable, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    #region Query Parameters
+
+
+
+                    command.Parameters.Add(new SqlParameter("@tableId", System.Data.SqlDbType.Int));
+                    command.Parameters["@tableId"].Value = Convert.ToInt32( reserveTableRequestModel.tableId);
+
+                    command.Parameters.Add(new SqlParameter("@reservationDate", System.Data.SqlDbType.Int));
+                    command.Parameters["@reservationDate"].Value = reserveTableRequestModel.reservationDate;
+
+                    command.Parameters.Add(new SqlParameter("@reservedBy", System.Data.SqlDbType.Int));
+                    command.Parameters["@reservedBy"].Value = Convert.ToInt32(reserveTableRequestModel.reservedBy);
+
+                    command.Parameters.Add(new SqlParameter("@numberOfPeople", System.Data.SqlDbType.Int));
+                    command.Parameters["@numberOfPeople"].Value = Convert.ToInt32(reserveTableRequestModel.numberOfPeople);
+
+                    command.Parameters.Add(new SqlParameter("@startTime", System.Data.SqlDbType.Int));
+                    command.Parameters["@startTime"].Value = reserveTableRequestModel.startTime;
+
+                    command.Parameters.Add(new SqlParameter("@endTime", System.Data.SqlDbType.Int));
+                    command.Parameters["@endTime"].Value = reserveTableRequestModel.endTime;
+                    #endregion
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    response = new ReserveTableResponseModel();
+                    while (reader.Read())
+                    {
+                        if (reader.isColumnExists("ErrorCode"))
+                        {
+                            errorModel = new ErrorModel();
+                            errorModel.ErrorCode = reader["ErrorCode"].ToString();
+                            errorModel.ErrorMessage = reader["ErrorMessage"].ToString();
+                        }
+                        else
+                        {
+                            response.StatusCode = reader["StatusCode"].ToString();
+                            response.StatusMessage = reader["StatusMessage"].ToString();
+                        }
+                    }
+                    command.Dispose();
+                    connection.Close();
+                }
+
+                return response;
+            }
+            catch (Exception exception)
+            {
+                errorModel = new ErrorModel();
+                errorModel.ErrorMessage = exception.Message;
+                return null;
+            }
+            finally
+            {
+                if (connection != null)
+                {
+                    connection.Close();
+                }
+            }
+        }
+
     }
 }
