@@ -1,7 +1,13 @@
+
 use restomation
 GO
 
-ALTER PROCEDURE registerUser
+
+
+
+
+create PROCEDURE [dbo].[registerUser]
+	
 (
 	@email varchar(150),
 	@password varchar(64),
@@ -33,9 +39,9 @@ BEGIN
 
 	BEGIN
 
-		
+	
+		IF EXISTS(SELECT 1 FROM users where email = @_email )
 
-		IF EXISTS(SELECT 1FROM users where email = @_email )
 		BEGIN
 			SELECT '004' AS 'ErrorCode' , 'EMAIL ID IS ALREADY REGISTERED' AS 'ErrorMessage'
 		END
