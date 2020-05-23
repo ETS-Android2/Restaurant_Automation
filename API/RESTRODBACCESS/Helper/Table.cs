@@ -93,21 +93,21 @@ namespace RESTRODBACCESS.Helper
 
 
                     command.Parameters.Add(new SqlParameter("@tableId", System.Data.SqlDbType.Int));
-                    command.Parameters["@tableId"].Value = Convert.ToInt32( reserveTableRequestModel.tableId);
+                    command.Parameters["@tableId"].Value = reserveTableRequestModel.tableId;
 
-                    command.Parameters.Add(new SqlParameter("@reservationDate", System.Data.SqlDbType.Int));
+                    command.Parameters.Add(new SqlParameter("@reservationDate", System.Data.SqlDbType.DateTime));
                     command.Parameters["@reservationDate"].Value = reserveTableRequestModel.reservationDate;
 
                     command.Parameters.Add(new SqlParameter("@reservedBy", System.Data.SqlDbType.Int));
-                    command.Parameters["@reservedBy"].Value = Convert.ToInt32(reserveTableRequestModel.reservedBy);
+                    command.Parameters["@reservedBy"].Value = reserveTableRequestModel.reservedBy;
 
                     command.Parameters.Add(new SqlParameter("@numberOfPeople", System.Data.SqlDbType.Int));
-                    command.Parameters["@numberOfPeople"].Value = Convert.ToInt32(reserveTableRequestModel.numberOfPeople);
+                    command.Parameters["@numberOfPeople"].Value = reserveTableRequestModel.numberOfPeople;
 
-                    command.Parameters.Add(new SqlParameter("@startTime", System.Data.SqlDbType.Int));
+                    command.Parameters.Add(new SqlParameter("@startTime", System.Data.SqlDbType.DateTime));
                     command.Parameters["@startTime"].Value = reserveTableRequestModel.startTime;
 
-                    command.Parameters.Add(new SqlParameter("@endTime", System.Data.SqlDbType.Int));
+                    command.Parameters.Add(new SqlParameter("@endTime", System.Data.SqlDbType.DateTime));
                     command.Parameters["@endTime"].Value = reserveTableRequestModel.endTime;
                     #endregion
                     connection.Open();

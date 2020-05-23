@@ -32,15 +32,10 @@ namespace TESTRESTRO.Controllers
 
         [HttpPost]
         [Route("api/reserveTable/")]
-        public  HttpResponseMessage reserveTable([FromUri] ReserveTableRequestModel model)
+        public  HttpResponseMessage reserveTable(ReserveTableRequestModel model)
         {
             TableProvider tableProvider = new TableProvider();
             ErrorModel errorModel = null;
-
-            if (model == null)
-            {
-                model = new ReserveTableRequestModel();
-            }
 
             var tableItems = tableProvider.reserveTable(model, out errorModel);
             APIResponseModel responseModel = new APIResponseModel();
