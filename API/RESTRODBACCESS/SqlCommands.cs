@@ -13,7 +13,7 @@
 
         public const string SP_getTables = "getTables";
         public const string SP_reserveTable = "reserveTable";
-       
 
+        public const string SP_registerEmployee = "registerEmployee";
     }
 }
