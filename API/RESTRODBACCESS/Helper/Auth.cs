@@ -34,8 +34,7 @@ namespace RESTRODBACCESS.Helper
                     command.Parameters.Add(new SqlParameter("@password", System.Data.SqlDbType.VarChar, 16));
                     command.Parameters["@password"].Value = userLoginRequestModel.Password;
 
-                    //command.Parameters.Add(new SqlParameter("@userType", System.Data.SqlDbType.Int));
-                    //command.Parameters["@userType"].Value = userLoginRequestModel.UserType;
+                  
                     #endregion
                     connection.Open();
                     SqlDataReader reader = command.ExecuteReader();
@@ -53,7 +52,11 @@ namespace RESTRODBACCESS.Helper
                             userLoginResponseModel.Email = reader["Email"].ToString();
                             userLoginResponseModel.UserId = reader["UserId"].ToString();
                             userLoginResponseModel.Name = reader["Name"].ToString();
-                            userLoginResponseModel.UserType =reader["UserType"].ToString();
+                            userLoginResponseModel.UserTypeId = Convert.ToInt32(reader["UserTypeId"].ToString());
+                            userLoginResponseModel.Token = reader["Token"].ToString();
+                            userLoginResponseModel.TokenCreatedDate = reader["TokenCreatedDate"].ToString();
+                            userLoginResponseModel.ExpireDate = reader["ExpireDate"].ToString();
+
                         }
                     }
                     command.Dispose();

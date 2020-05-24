@@ -18,6 +18,8 @@ namespace RESTRODBACCESS.RequestModel
         public int availablequantity { get; set; }
         public bool itemStatus { get; set; }
         public int createdBy { get; set; }
+
+        public string itemImage { get; set; }
         
     }
 }

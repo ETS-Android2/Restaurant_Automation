@@ -57,9 +57,7 @@ namespace RESTRODBACCESS.Helper
                             menuItemResponse.deletedBy = reader["DeletedBy"].ToString();
                             menuItemResponse.createdBy = reader["CreatedBy"].ToString();
                             menuItemResponse.categoryTitle = reader["CategoryTitle"].ToString();
-
-
-
+                            menuItemResponse.itemImage = reader["ItemImage"].ToString();
 
                             menuItems.Add(menuItemResponse);
                         }
@@ -142,7 +140,7 @@ namespace RESTRODBACCESS.Helper
         }
 
 
-        public MenuItemResponseModel addMenuItem(int createdBy, string menuItemName, string menuItemDescription, double price, int categoryId, int availableQty,out ErrorModel errorModel)
+        public MenuItemResponseModel addMenuItem(int createdBy, string menuItemName, string menuItemDescription, double price, int categoryId, int availableQty,string itemImage,out ErrorModel errorModel)
         {
             errorModel = null;
             MenuItemResponseModel menuItemResponse = null;
@@ -172,6 +170,9 @@ namespace RESTRODBACCESS.Helper
 
                     command.Parameters.Add(new SqlParameter("@createdBy", System.Data.SqlDbType.Int));
                     command.Parameters["@createdBy"].Value = createdBy;
+
+                    command.Parameters.Add(new SqlParameter("@itemImage", System.Data.SqlDbType.VarChar));
+                    command.Parameters["@itemImage"].Value = itemImage;
                     #endregion
                     connection.Open();
                     SqlDataReader reader = command.ExecuteReader();
@@ -195,6 +196,7 @@ namespace RESTRODBACCESS.Helper
                             menuItemResponse.categoryId = Convert.ToInt32(reader["CategoryId"].ToString());
                             menuItemResponse.categoryTitle = reader["CategoryTitle"].ToString();
                             menuItemResponse.userId =Convert.ToInt32(reader["CreatedById"].ToString());
+                            menuItemResponse.itemImage = reader["itemImage"].ToString();
 
                         }
                     }
