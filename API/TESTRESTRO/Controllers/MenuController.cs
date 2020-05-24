@@ -23,5 +23,43 @@ namespace TESTRESTRO.Controllers
             responseModel.Error = errorModel;
             return Request.CreateResponse(HttpStatusCode.OK, responseModel);
         }
+
+        [HttpPost]
+        [Route("api/menu/changePrice")]
+
+        public HttpResponseMessage changePrice(MenuItemRequestModel menuItemRequestModel)
+        {
+            ErrorModel errorModel = new ErrorModel();
+            APIResponseModel responseModel = new APIResponseModel();
+            if (menuItemRequestModel != null)
+            {
+                MenuProvider menuProvider = new MenuProvider();
+                responseModel.Response = menuProvider.changePrice(menuItemRequestModel, out errorModel);
+                responseModel.Error = errorModel;
+                return Request.CreateResponse(HttpStatusCode.OK, responseModel);
+            }
+
+            responseModel.Error = ErrorCode.BadRequest;
+            return Request.CreateResponse(HttpStatusCode.OK, responseModel);
+        }
+
+        [HttpPost]
+        [Route("api/menu/addMenuItem")]
+
+        public HttpResponseMessage addMenuItem(AddMenuItemRequestModel addMenuItemRequestModel)
+        {
+            ErrorModel errorModel = new ErrorModel();
+            APIResponseModel responseModel = new APIResponseModel();
+            if (addMenuItemRequestModel != null)
+            {
+                MenuProvider menuProvider = new MenuProvider();
+                responseModel.Response = menuProvider.addMenuItem(addMenuItemRequestModel, out errorModel);
+                responseModel.Error = errorModel;
+                return Request.CreateResponse(HttpStatusCode.OK, responseModel);
+            }
+
+            responseModel.Error = ErrorCode.BadRequest;
+            return Request.CreateResponse(HttpStatusCode.OK, responseModel);
+        }
     }
 }
