@@ -3,6 +3,7 @@ package a.m.restaurant_automation;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,8 +92,8 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             lastNameForRegister.requestFocus();
             return true;
         }
-        else if (TextUtils.isEmpty(emailForRegister.getText().toString())){
-            emailForRegister.setError("Email Cannot be Empty!");
+        else if (!Patterns.EMAIL_ADDRESS.matcher(emailForRegister.getText().toString()).matches()){
+            emailForRegister.setError("Invalid Email Addresss!");
             emailForRegister.requestFocus();
             return true;
         }
