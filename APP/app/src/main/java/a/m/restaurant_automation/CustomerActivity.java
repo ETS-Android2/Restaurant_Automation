@@ -4,10 +4,15 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
+import a.m.restaurant_automation.customer.CustomerOverviewFragment;
+import a.m.restaurant_automation.customer.MenuItemsFragment;
+import a.m.restaurant_automation.customer.MoreOptionsFragment;
+import a.m.restaurant_automation.customer.OrderFragment;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.ViewCompat;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
@@ -23,9 +28,38 @@ public class CustomerActivity extends AppCompatActivity implements BottomNavigat
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer);
-
-
+        loadFragment(new CustomerOverviewFragment());
         setUpNavigation();
+    }
+
+    public void setUpNavigation(){
+
+        bottomNavigationView= findViewById(R.id.BottomnavigateMenuCustomer);
+        //bottomNavigationView.setVisibility(View.VISIBLE);
+//        CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) bottomNavigationView.getLayoutParams();
+//        layoutParams.setBehavior(new BottomNavigationViewBehavior());
+
+
+        //navController= Navigation.findNavController(CustomerActivity.this,R.id.customerhostfragment);
+        //NavigationUI.setupWithNavController(bottomNavigationView,navController);
+
+        // NavigationUI.setupActionBarWithNavController(this,navController);
+        // NavigationUI.setupWithNavController(bottomNavigationView,navController);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
+
+
+    }
+    private boolean loadFragment(Fragment fragment) {
+        //switching fragment
+        if (fragment != null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.customerhostfragment, fragment)
+                    .commit();
+            return true;
+        }
+        return false;
     }
 
 
@@ -38,27 +72,11 @@ public class CustomerActivity extends AppCompatActivity implements BottomNavigat
     }
 
 
-    public void setUpNavigation(){
 
-        bottomNavigationView= findViewById(R.id.BottomnavigateMenu);
-        bottomNavigationView.setVisibility(View.VISIBLE);
-        CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) bottomNavigationView.getLayoutParams();
-        layoutParams.setBehavior(new BottomNavigationViewBehavior());
-
-
-        navController= Navigation.findNavController(CustomerActivity.this,R.id.hostfragment);
-        NavigationUI.setupWithNavController(bottomNavigationView,navController);
-
-        // NavigationUI.setupActionBarWithNavController(this,navController);
-       // NavigationUI.setupWithNavController(bottomNavigationView,navController);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(this);
-
-
-    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        Fragment fragment=null;
         menuItem.setCheckable(true);
 
         int id = menuItem.getItemId();
@@ -66,29 +84,38 @@ public class CustomerActivity extends AppCompatActivity implements BottomNavigat
         switch (id){
             case R.id.Dashboard:
                 // Toast.makeText(getApplicationContext(), "Dashboard", Toast.LENGTH_SHORT).show();
-                navController.navigate(R.id.CustomerOverviewFragment);
+                //navController.navigate(R.id.CustomerOverviewFragment);
+                fragment=new CustomerOverviewFragment();
+                break;
 
-                return true;
+//                return true;
 
             case R.id.Menu:
                 //  Toast.makeText(getApplicationContext(),"Friend Dashboard",Toast.LENGTH_LONG).show();
-                navController.navigate(R.id.MenuItemsFragment);
+//                navController.navigate(R.id.MenuItemsFragment);
+//                return true;
 
-                return true;
-
+                fragment=new MenuItemsFragment();
+                break;
             case R.id.Orders:
                 // Toast.makeText(getApplicationContext(),"Account",Toast.LENGTH_LONG).show();
-                navController.navigate(R.id.OrdersFragment);
+//                navController.navigate(R.id.OrdersFragment);
+//
+//                return true;
 
-                return true;
+                fragment=new OrderFragment();
+                break;
 
             case R.id.Moremenu:
                 // Toast.makeText(getApplicationContext(),"Account",Toast.LENGTH_LONG).show();
-               navController.navigate(R.id.moreOptionsFragment);
+//               navController.navigate(R.id.moreOptionsFragment);
+//
+//                return true;
 
-                return true;
+                fragment=new MoreOptionsFragment();
+                break;
         }
-        return false;
+        return loadFragment(fragment);
     }
 
     private class BottomNavigationViewBehavior extends CoordinatorLayout.Behavior<BottomNavigationView>{

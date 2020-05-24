@@ -7,6 +7,9 @@ public class AppStaticData {
     public static final int USERTYPE_CASHIER = 4;
 
 
+
+
+
     //public static final String BASE_URL= "http://192.168.2.24/api/";
 
     public static final String BASE_URL= "http://restroapi-dev.us-west-2.elasticbeanstalk.com/api/";

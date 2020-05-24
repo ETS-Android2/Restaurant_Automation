@@ -142,7 +142,7 @@ namespace RESTRODBACCESS.Helper
         }
 
 
-        public MenuItemResponseModel addMenuItem(int createdBy, string menuItemName, string menuItemDescription, double price, int categoryId, int availableQty, bool itemStatus,out ErrorModel errorModel)
+        public MenuItemResponseModel addMenuItem(int createdBy, string menuItemName, string menuItemDescription, double price, int categoryId, int availableQty,out ErrorModel errorModel)
         {
             errorModel = null;
             MenuItemResponseModel menuItemResponse = null;
@@ -204,12 +204,7 @@ namespace RESTRODBACCESS.Helper
 
                 return menuItemResponse;
             }
-            catch(Exception e)
-            {
-                errorModel = new ErrorModel();
-                errorModel.ErrorCode = "500";
-                errorModel.ErrorMessage = e.Message;
-            }
+            
             finally
             {
                 if (connection != null)

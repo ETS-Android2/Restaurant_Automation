@@ -21,7 +21,7 @@ public class MenuItemsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.BottomnavigateMenu);
+        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.BottomnavigateMenuCustomer);
         bottomNavigationView.setVisibility(View.VISIBLE);
     }
     @Override

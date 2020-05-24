@@ -8,7 +8,7 @@
     android:background="@android:color/white">
 
     <fragment
-        android:id="@+id/hostfragment"
+        android:id="@+id/customerhostfragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:fitsSystemWindows="true"
-        android:id="@+id/BottomnavigateMenu"
+        android:id="@+id/BottomnavigateMenuCustomer"
         app:menu="@menu/bottom_menu"
         android:visibility="visible"
         android:layout_gravity="bottom"

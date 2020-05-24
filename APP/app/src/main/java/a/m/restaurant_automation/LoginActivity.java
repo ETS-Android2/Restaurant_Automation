@@ -108,7 +108,8 @@ public class LoginActivity extends AppCompatActivity implements OnLoginPress,Reg
     }
 
 
-    public void login(String email, String password) {
+    public void login(String email, String password)
+    {
         final IUserService service = RetrofitClient.getRetrofitInstance().create(IUserService.class);
 
         LoginRequestModel request = new LoginRequestModel();
@@ -136,7 +137,9 @@ public class LoginActivity extends AppCompatActivity implements OnLoginPress,Reg
                             session.setUserId(loginResponseModel.getUserId());
                             session.setName(loginResponseModel.getName());
                             session.setUserType(UserType);
+                            String usertypevalue = loginResponseModel.getUserType();
                             Intent goToMainActivity = new Intent(LoginActivity.this,MainActivity.class);
+                            goToMainActivity.putExtra("usertype",usertypevalue);
                             startActivity(goToMainActivity);
                             finish();
                         }

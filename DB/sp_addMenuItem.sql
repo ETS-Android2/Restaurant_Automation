@@ -41,7 +41,7 @@ BEGIN
 			VALUES (@_itemName,@_itemDescription,@_price,@_categoryId,@_availableQty,@_itemStatus,@_createdBy)
 
 			select 
-			itemId AS 'ItemId'
+			 itemId AS 'ItemId'
 			,itemName AS 'ItemName'
 			,itemDescription AS 'Description'
 			,price AS 'Price'

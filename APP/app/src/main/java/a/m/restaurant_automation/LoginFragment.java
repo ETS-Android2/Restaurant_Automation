@@ -67,14 +67,14 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
 
         int id = v.getId();
-        if (id == R.id.signin) {
-            if (TextUtils.isEmpty(emailId.getText().toString())) {
-                emailId.setError(getString(R.string.validation_require_email));
-                emailId.requestFocus();
-            } else if (!Patterns.EMAIL_ADDRESS.matcher(emailId.getText().toString()).matches()) {
-                emailId.setError(getString(R.string.validation_pattern_email));
-                emailId.requestFocus();
-            } else if (TextUtils.isEmpty(password.getText().toString())) {
+            if (id == R.id.signin) {
+                if (TextUtils.isEmpty(emailId.getText().toString())) {
+                    emailId.setError(getString(R.string.validation_require_email));
+                    emailId.requestFocus();
+                } else if (!Patterns.EMAIL_ADDRESS.matcher(emailId.getText().toString()).matches()) {
+                    emailId.setError(getString(R.string.validation_pattern_email));
+                    emailId.requestFocus();
+                } else if (TextUtils.isEmpty(password.getText().toString())) {
                 password.setError(getString(R.string.validation_require_password));
                 password.requestFocus();
             } else if (password.getText().toString().length() < 6) {

@@ -47,7 +47,7 @@ namespace TESTRESTRO.Provider
             try
             {
                 Menu menuProvider = new Menu();
-                MenuItemResponseModel menuItemResponse = menuProvider.addMenuItem(addMenuItemRequest.createdBy, addMenuItemRequest.menuItemName, addMenuItemRequest.menuItemDescription, addMenuItemRequest.price, addMenuItemRequest.categoryId, addMenuItemRequest.availablequantity, addMenuItemRequest.itemStatus, out errorModel);
+                MenuItemResponseModel menuItemResponse = menuProvider.addMenuItem(addMenuItemRequest.createdBy, addMenuItemRequest.menuItemName, addMenuItemRequest.menuItemDescription, addMenuItemRequest.price, addMenuItemRequest.categoryId, addMenuItemRequest.availablequantity, out errorModel);
                 return menuItemResponse;
             }
             catch (Exception e)
