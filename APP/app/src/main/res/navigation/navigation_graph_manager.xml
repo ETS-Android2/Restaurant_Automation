@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph_manager"
+    app:startDestination="@id/menuItemFragment"
+    tools:ignore="UnusedNavigation">
+    <fragment
+        android:id="@+id/menuItemFragment"
+        android:name="a.m.restaurant_automation.manager.MenuItemsFragment"
+        android:label="fragment_appetizer"
+        tools:layout="@layout/fragment_menu_item" />
+    <fragment
+        android:id="@+id/addMenuItemFragment"
+        android:name="a.m.restaurant_automation.manager.AddMenuItemFragment"
+        android:label="fragment_add_menu_item"
+        tools:layout="@layout/fragment_add_menu_item" />
+</navigation>

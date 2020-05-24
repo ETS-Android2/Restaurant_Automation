@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewFriend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="5dp"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageView_menuItem"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:layout_margin="20dp"/>
+        <TextView
+            android:id="@+id/textView_menuName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/imageView_menuItem"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:text="Menu Name"
+            android:textSize="17sp"
+            />
+
+            <TextView
+                android:id="@+id/textView_menuPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/imageView_menuItem"
+                android:layout_below="@id/textView_menuName"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:text="Menu Price"
+                android:textSize="17sp"
+                />
+
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/removeItemButton"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:layout_toRightOf="@id/imageView_menuItem"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="30dp"
+            android:text="Remove"
+            android:textSize="12sp"
+            android:textColor="@android:color/white"
+            android:background="@drawable/button_drawable"
+            />
+
+    </androidx.cardview.widget.CardView>
+
+
+
+</RelativeLayout>

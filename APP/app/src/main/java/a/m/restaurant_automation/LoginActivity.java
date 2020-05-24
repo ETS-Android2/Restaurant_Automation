@@ -28,9 +28,12 @@ import retrofit2.Response;
 public class LoginActivity extends AppCompatActivity implements OnLoginPress,RegisterFragment.OnRegisterPress {
 
     private int UserType = AppStaticData.USERTYPE_CUSTOMER;
+    private int mUserType = AppStaticData.USERTYPE_MANAGER;
+
     private String registerEmail, registerPassword, registerFirstName, registerLastName;
     private String loginEmail;
     private String loginPassword;
+    Intent intentFromMain;
 
 
 
@@ -68,6 +71,7 @@ public class LoginActivity extends AppCompatActivity implements OnLoginPress,Reg
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        finish();
     }
 
     public void Register() {
@@ -137,11 +141,35 @@ public class LoginActivity extends AppCompatActivity implements OnLoginPress,Reg
                             session.setUserId(loginResponseModel.getUserId());
                             session.setName(loginResponseModel.getName());
                             session.setUserType(UserType);
+
                             String usertypevalue = loginResponseModel.getUserType();
-                            Intent goToMainActivity = new Intent(LoginActivity.this,MainActivity.class);
-                            goToMainActivity.putExtra("usertype",usertypevalue);
-                            startActivity(goToMainActivity);
+                            switch (usertypevalue) {
+
+
+                                case "customer":
+                                    intentFromMain = new Intent(LoginActivity.this, CustomerActivity.class);
+                                    startActivity(intentFromMain);
+                                    break;
+
+                                case "manager":
+                                    intentFromMain = new Intent(LoginActivity.this, EmployeeMenuItemActivity.class);
+                                    startActivity(intentFromMain);
+                                    break;
+
+                                case "chef":
+                                    intentFromMain = new Intent(LoginActivity.this, ChefActivity.class);
+                                    startActivity(intentFromMain);
+                                    break;
+
+                                case "cashier":
+                                    intentFromMain = new Intent(LoginActivity.this, CashierActivity.class);
+                                    startActivity(intentFromMain);
+                                    break;
+
+                            }
                             finish();
+
+
                         }
                     }
                 }
@@ -153,6 +181,7 @@ public class LoginActivity extends AppCompatActivity implements OnLoginPress,Reg
             });
         }
     }
+
 
     public long getSessionTimeOut(){
         Date date = new Date();
