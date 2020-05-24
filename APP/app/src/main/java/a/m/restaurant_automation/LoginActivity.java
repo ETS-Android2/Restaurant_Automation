@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -137,7 +136,7 @@ public class LoginActivity extends AppCompatActivity implements OnLoginPress,Reg
                             session.setUserId(loginResponseModel.getUserId());
                             session.setName(loginResponseModel.getName());
                             session.setUserType(UserType);
-                            Intent goToMainActivity = new Intent(LoginActivity.this, MainActivity.class);
+                            Intent goToMainActivity = new Intent(LoginActivity.this,MainActivity.class);
                             startActivity(goToMainActivity);
                             finish();
                         }
