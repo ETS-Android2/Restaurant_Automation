@@ -24,7 +24,7 @@
         app:menu="@menu/bottom_menu"
         android:visibility="visible"
         android:layout_gravity="bottom"
-        android:background="@color/colorPrimary"
+        android:background="@color/white"
         >
 
 

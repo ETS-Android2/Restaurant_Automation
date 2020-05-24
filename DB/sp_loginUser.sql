@@ -4,8 +4,8 @@ GO
 
 
 
---exec loginUser 'admin111@gmail.com','123456',5
-CREATE PROCEDURE [dbo].[loginUser]
+--exec loginUser 'admin@gmail.com','123456'
+ALTER PROCEDURE loginUser
 (
 	 @email		varchar(150),
 	@password	varchar(16)
@@ -25,6 +25,7 @@ BEGIN
 		DECLARE @_userId int = NULL
 		DECLARE @_deleted_date datetime = NULL
 		DECLARE @_currentTime	datetime = GETDATE()
+		DECLARE @_token UNIQUEIDENTIFIER = NEWID()
 	END
 
 	BEGIN -- login user
@@ -36,16 +37,48 @@ BEGIN
 			IF EXISTS (select 1 from users where users.userId=@_userId) 
 			
 				BEGIN
-					SELECT 
-					concat(users.firstname, ' ', users.lastname) as 'Name',
-					users.email as 'Email',
-					users.userid as 'UserId',
-					UserType.userType as 'UserType'
-					FROM users Inner Join UserType on users.userTypeId = userType.userTypeID
-					WHERE users.userId = @_userId
+
+					IF NOT EXISTS (SELECT 1 FROM tokens WHERE userid = @_userId)
+						BEGIN
+							INSERT INTO tokens ( token, createdDate,userId,EXPIREdATE)
+							VALUES ( @_token, @_currentTime,@_userId,DATEADD(DAY,30,@_currentTime))
+
+							SELECT 
+							concat(users.firstname, ' ', users.lastname) as 'Name'
+							,email as 'Email'
+							,users.userid as 'UserId'
+							,@_token as 'Token'
+							,userTypeId as 'UserTypeId'
+							,tokens.createdDate as 'TokenCreatedDate'
+							,tokens.expireDate as 'ExpireDate'
+							
+							FROM users inner join tokens
+							ON users.userId = tokens.userId
+							WHERE users.userid = @_userId
+						END
+
+					ELSE 
+						BEGIN
+							UPDATE tokens 
+							SET token = @_token
+							, createdDate = @_currentTime
+							, expireDate = DATEADD(DAY,30,@_currentTime)
+							where userid = @_userId
+
+							SELECT 
+							concat(users.firstname, ' ', users.lastname) as 'Name'
+							,email as 'Email'
+							,users.userid as 'UserId'
+							,@_token as 'Token'
+							,userTypeId as 'UserTypeId'
+							,tokens.createdDate as 'TokenCreatedDate'
+							,tokens.expireDate as 'ExpireDate'
+							
+							FROM users inner join tokens
+							ON users.userId = tokens.userId
+							WHERE users.userid = @_userId
+						END
 				END
-				
-			
 			ELSE 
 			BEGIN
 				SELECT '002' AS 'ErrorCode', 'Email id or password is wrong' AS 'ErrorMessage'	
@@ -55,9 +88,6 @@ BEGIN
 			BEGIN
 				SELECT '001' AS 'ErrorCode', 'Account Deleted' AS 'ErrorMessage'	
 			END
-
-
-
 		ELSE
 		BEGIN
 			SELECT '003' AS 'ErrorCode', 'Sorry, we didn''t find your email. Make sure you login with your registered email id' AS 'ErrorMessage'

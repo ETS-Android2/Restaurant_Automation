@@ -9,12 +9,12 @@
         <item android:id="@+id/Dashboard"
             android:icon="@drawable/ic_dashboard_black_24dp"
             android:title="Dashboard"
-            android:iconTint="@color/white"
+            android:iconTint="@android:color/holo_orange_light"
             />
         <item android:id="@+id/Menu"
             android:title="Menu"
             android:icon="@drawable/ic_restaurant_menu_black_24dp"
-            android:iconTint="@color/white"
+            android:iconTint="@android:color/holo_green_light"
             />
 
         <item android:id="@+id/Orders"

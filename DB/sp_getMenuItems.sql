@@ -41,6 +41,7 @@ BEGIN
 			,MenuItems.categoryID As 'CategoryId'
 			,MenuCategory.categoryTitle As 'CategoryTitle'
 			,MenuItems.createdBy As 'CreatedById'
+			,MenuItems.itemImage As 'ItemImage'
 			,u1.FirstName + ' ' + u1.lastName  As 'CreatedBy'
 			,u2.FirstName + ' ' + u2.lastName As 'UpdatedBy'
 			,u3.FirstName + ' ' + u3.lastName As 'DeletedBy'

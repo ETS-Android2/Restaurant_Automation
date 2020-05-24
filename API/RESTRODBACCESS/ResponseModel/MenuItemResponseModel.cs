@@ -24,5 +24,7 @@ namespace RESTRODBACCESS.ResponseModel
 
         public string categoryTitle { get; set; }
 
+        public string itemImage { get; set; }
+
     }
 }

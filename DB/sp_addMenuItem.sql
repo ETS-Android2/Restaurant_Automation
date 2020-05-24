@@ -13,7 +13,8 @@ ALTER procedure addMenuItem
 	@price decimal(4,2),
 	@categoryId int,
 	@availableQty int,
-	@itemStatus bit = 1
+	@itemStatus bit = 1,
+	@itemImage varchar(max)=NULL
 )
 AS
 BEGIN
@@ -26,6 +27,7 @@ BEGIN
 		DECLARE @_categoryId	INT = @categoryId
 		DECLARE @_availableQty int = @availableQty
 		DECLARE @_itemStatus   bit = @itemStatus
+		DECLARE @_itemImage varchar(max) = @itemImage
 	END
 
 	BEGIN
@@ -37,8 +39,8 @@ BEGIN
 		ELSE
 		BEGIN
 
-			INSERT INTO MenuItems(itemName,itemDescription,price,categoryID,availableQty,itemStatusTitle,createdBy)
-			VALUES (@_itemName,@_itemDescription,@_price,@_categoryId,@_availableQty,@_itemStatus,@_createdBy)
+			INSERT INTO MenuItems(itemName,itemDescription,price,categoryID,availableQty,itemStatusTitle,createdBy,itemImage)
+			VALUES (@_itemName,@_itemDescription,@_price,@_categoryId,@_availableQty,@_itemStatus,@_createdBy,@_itemImage)
 
 			select 
 			 itemId AS 'ItemId'
@@ -50,6 +52,7 @@ BEGIN
 			,MenuItems.categoryID As 'CategoryId'
 			,MenuCategory.categoryTitle As 'CategoryTitle'
 			,MenuItems.createdBy As 'CreatedById'
+			,MenuItems.itemImage As 'ItemImage'
 			from MenuItems 
 			INNER JOIN MenuCategory on MenuItems.categoryID=MenuCategory.categoryID 
 			where MenuItems.itemId = @@Identity
