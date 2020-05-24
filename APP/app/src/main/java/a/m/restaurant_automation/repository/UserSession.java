@@ -27,29 +27,26 @@ public class UserSession {
         return userSession;
     }
 
-    public void setUserType(int userType) {
-        userPreferences.edit().putInt("UserType", userType).commit();
-    }
-
     public void clearSession() {
-        userPreferences.edit().putLong("token", 0).commit();
+        userPreferences.edit().putString("token", "").commit();
         userPreferences.edit().putString("userId", "").commit();
         userPreferences.edit().putString("email", "").commit();
-        userPreferences.edit().putString("firstName", "").commit();
-        userPreferences.edit().putString("lastName", "").commit();
-        userPreferences.edit().putInt("userType", 0).commit();
+        userPreferences.edit().putString("name", "").commit();
+        userPreferences.edit().putString("tokenCreatedDate", "").commit();
+        userPreferences.edit().putString("expireDate", "").commit();
+        userPreferences.edit().putInt("userTypeId", 0).commit();
     }
 
-    public long getToken() {
-        return userPreferences.getLong("token", 0);
+    public String getToken() {
+        return userPreferences.getString("token", "");
     }
 
-    public void setToken(long token) {
-        userPreferences.edit().putLong("token", token).commit();
+    public void setToken(String token) {
+        userPreferences.edit().putString("token", token).apply();
     }
 
     public void setEmail(String email) {
-        userPreferences.edit().putString("email", email).commit();
+        userPreferences.edit().putString("email", email).apply();
     }
 
     public String getEmail() {
@@ -57,40 +54,37 @@ public class UserSession {
     }
 
     public void setUserId(String userId) {
-        userPreferences.edit().putString("userId", userId).commit();
+        userPreferences.edit().putString("userId", userId).apply();
     }
 
     public String getUserId() {
         return userPreferences.getString("userId", "");
     }
 
-    public void setfirstName(String firstname) {
-        userPreferences.edit().putString("firstName", firstname).commit();
-    }
-
-    public String getfirstName() {
-        return userPreferences.getString("firstName", "");
-    }
-
     public void setName(String name) {
-        String[] s = name.split(" ");
-        setfirstName(s[0]);
-        if (s.length > 1)
-            setlastName(s[1]);
-
+        userPreferences.edit().putString("name",name).apply();
     }
+    public String getName(){return userPreferences.getString("name","");}
 
-    public void setlastName(String lastname) {
-        userPreferences.edit().putString("lastName", lastname).commit();
+    public void setUserTypeId(int userTypeId) {
+        userPreferences.edit().putInt("userTypeId",userTypeId).apply();
     }
+    public int getUserTypeId(){return userPreferences.getInt("userTypeId",0);}
 
-    public String getlastName() {
-        return userPreferences.getString("lastName", "");
-    }
 
-    public int getUserType() {
-        return userPreferences.getInt("userType", 0);
+    public void setTokenCreatedDate(String tokenCreatedDate) {
+        userPreferences.edit().putString("tokenCreatedDate",tokenCreatedDate).commit();
     }
+    public String getTokenCreatedDate(){return userPreferences.getString("tokenCreatedDate","");}
+
+    public void setExpireDate(String expireDate) {
+        userPreferences.edit().putString("expireDate",expireDate).commit();
+    }
+    public String getExpireDate(){return userPreferences.getString("expireDate","");}
+
+
+
+
 
 
 }

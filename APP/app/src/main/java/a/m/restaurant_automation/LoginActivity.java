@@ -137,31 +137,34 @@ public class LoginActivity extends AppCompatActivity implements OnLoginPress,Reg
                         if (loginResponseModel != null) {
                             UserSession session = UserSession.getInstance();
                             session.setEmail(loginResponseModel.getEmail());
-                            session.setToken(getSessionTimeOut());
+                            session.setToken(loginResponseModel.getToken());
                             session.setUserId(loginResponseModel.getUserId());
                             session.setName(loginResponseModel.getName());
-                            session.setUserType(UserType);
+                            session.setUserTypeId(loginResponseModel.getUserTypeId());
+                            session.setTokenCreatedDate(loginResponseModel.getTokenCreatedDate());
+                            session.setExpireDate(loginResponseModel.getExpireDate());
 
-                            String usertypevalue = loginResponseModel.getUserType();
+
+                            int usertypevalue = loginResponseModel.getUserTypeId();
                             switch (usertypevalue) {
 
 
-                                case "customer":
+                                case AppStaticData.USERTYPE_CUSTOMER:
                                     intentFromMain = new Intent(LoginActivity.this, CustomerActivity.class);
                                     startActivity(intentFromMain);
                                     break;
 
-                                case "manager":
+                                case AppStaticData.USERTYPE_MANAGER:
                                     intentFromMain = new Intent(LoginActivity.this, EmployeeMenuItemActivity.class);
                                     startActivity(intentFromMain);
                                     break;
 
-                                case "chef":
+                                case AppStaticData.USERTYPE_CHEF:
                                     intentFromMain = new Intent(LoginActivity.this, ChefActivity.class);
                                     startActivity(intentFromMain);
                                     break;
 
-                                case "cashier":
+                                case AppStaticData.USERTYPE_CASHIER:
                                     intentFromMain = new Intent(LoginActivity.this, CashierActivity.class);
                                     startActivity(intentFromMain);
                                     break;

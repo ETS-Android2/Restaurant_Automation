@@ -16,7 +16,7 @@ public class RetrofitClient {
     private static Retrofit retrofit;
     private static final String BASE_URL = AppStaticData.BASE_URL;
     static UserSession session;
-    static long token;
+    static String token;
 
 
     public static Retrofit getRetrofitInstance(){
@@ -30,7 +30,7 @@ public class RetrofitClient {
                     @Override
                     public Response intercept(Chain chain) throws IOException {
                         Request.Builder ongoing = chain.request().newBuilder();
-                        if (token != 0){
+                        if (token != ""){
                             ongoing.addHeader("Authorization","Bearer"+token);
                         }
                         return chain.proceed(ongoing.build());

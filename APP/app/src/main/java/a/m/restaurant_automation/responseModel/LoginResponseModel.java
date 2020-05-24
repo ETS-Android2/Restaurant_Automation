@@ -17,17 +17,56 @@ public class LoginResponseModel {
     @Expose
     private String email;
 
-    @SerializedName("UserType")
+    @SerializedName("Token")
     @Expose
-    private String userType;
+    private String token;
 
-    public String getUserType() {
-        return userType;
+
+
+    @SerializedName("UserTypeId")
+    @Expose
+    private Integer userTypeId;
+    @SerializedName("TokenCreatedDate")
+    @Expose
+    private String tokenCreatedDate;
+
+
+    public String getToken() {
+        return token;
     }
 
-    public void setUserType(String userType) {
-        this.userType = userType;
+    public void setToken(String token) {
+        this.token = token;
     }
+    public Integer getUserTypeId() {
+        return userTypeId;
+    }
+
+    public void setUserTypeId(Integer userTypeId) {
+        this.userTypeId = userTypeId;
+    }
+
+    public String getTokenCreatedDate() {
+        return tokenCreatedDate;
+    }
+
+    public void setTokenCreatedDate(String tokenCreatedDate) {
+        this.tokenCreatedDate = tokenCreatedDate;
+    }
+
+    public String getExpireDate() {
+        return expireDate;
+    }
+
+    public void setExpireDate(String expireDate) {
+        this.expireDate = expireDate;
+    }
+
+    @SerializedName("ExpireDate")
+    @Expose
+    private String expireDate;
+
+
 
     public String getUserId() {
         return userId;
