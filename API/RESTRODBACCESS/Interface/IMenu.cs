@@ -12,5 +12,9 @@ namespace RESTRODBACCESS.Interface
     {
 
         List<MenuItemResponseModel> getMenuItems(int categoryId, out ErrorModel errorModel);
+
+        MenuItemResponseModel changePrice(int itemId, double price, int updatedBy, out ErrorModel errorModel);
+
+        MenuItemResponseModel addMenuItem(string menuItemName, string menuItemDescription, double price, int categoryId, int availableQty, bool itemStatus, int createdBy,out ErrorModel errorModel);
     }
 }

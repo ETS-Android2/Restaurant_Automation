@@ -8,6 +8,12 @@ namespace RESTRODBACCESS.RequestModel
 {
     public class MenuItemRequestModel
     {
-        public int categoryId { get; set; }
+       
+
+        public int itemId { get; set; }
+
+        public double price { get; set; }
+
+        public int updatedBy { get; set; }
     }
 }

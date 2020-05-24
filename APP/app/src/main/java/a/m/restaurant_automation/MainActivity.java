@@ -1,44 +1,54 @@
 package a.m.restaurant_automation;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 
+import a.m.restaurant_automation.model.AppStaticData;
+import a.m.restaurant_automation.repository.UserSession;
+import a.m.restaurant_automation.responseModel.LoginResponseModel;
 import androidx.appcompat.app.AppCompatActivity;
 
-import a.m.restaurant_automation.repository.UserSession;
-
 public class MainActivity extends AppCompatActivity {
+    Intent intentFromMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        menu.findItem(R.id.logout_menu);
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.overflow,menu);
-        return true;
-    }
+        String userTypeValue = getIntent().getStringExtra("usertype");
+//        LoginResponseModel loginResponseModel = responseModel.getData();
+       // String userType = loginResponseModel.getUserType();
+        //SharedPreferences preferences = getApplicationContext().getSharedPreferences("session", 0);
+        //UserSession session = UserSession.getInstance(preferences);
+        //String userType = getUserType().toS;
 
+        switch(userTypeValue)
+        {
 
+            case  "customer":
+                intentFromMain=new Intent(MainActivity.this,CustomerActivity.class);
+                startActivity(intentFromMain);
+                break;
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.logout_menu:
-                UserSession.getInstance().clearSession();
-                Intent goToMainActivity = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(goToMainActivity);
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+            case  "manager":
+                intentFromMain=new Intent(MainActivity.this,ManagerActivity.class);
+                startActivity(intentFromMain);
+                break;
+
+            case  "chef":
+                intentFromMain=new Intent(MainActivity.this,ChefActivity.class);
+                startActivity(intentFromMain);
+                break;
+
+            case  "cashier":
+                intentFromMain=new Intent(MainActivity.this,CashierActivity.class);
+                startActivity(intentFromMain);
+                break;
+
         }
     }
+
+
 }

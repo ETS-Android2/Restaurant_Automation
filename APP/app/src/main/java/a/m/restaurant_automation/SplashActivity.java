@@ -1,9 +1,5 @@
 package a.m.restaurant_automation;
 
-import a.m.restaurant_automation.repository.UserSession;
-import androidx.appcompat.app.AppCompatActivity;
-
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,6 +8,10 @@ import android.text.TextUtils;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import a.m.restaurant_automation.repository.UserSession;
 
 public class SplashActivity extends AppCompatActivity {
     Animation animationTop;

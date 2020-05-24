@@ -84,5 +84,134 @@ namespace RESTRODBACCESS.Helper
                 }
             }
         }
+
+        public MenuItemResponseModel changePrice(int itemId, double price, int updatedBy, out ErrorModel errorModel)
+        {
+            errorModel = null;
+            MenuItemResponseModel menuItemResponseModel = null;
+            SqlConnection connection = null;
+            try
+            {
+                using (connection = new SqlConnection(Database.getConnectionString()))
+                {
+                    SqlCommand command = new SqlCommand(SqlCommands.SP_changePrice, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    #region Query Parameters
+                    command.Parameters.Add(new SqlParameter("@itemId", System.Data.SqlDbType.Int));
+                    command.Parameters["@itemId"].Value = itemId;
+
+                    command.Parameters.Add(new SqlParameter("@price", System.Data.SqlDbType.Decimal,4));
+                    command.Parameters["@price"].Value = price;
+
+                    command.Parameters.Add(new SqlParameter("@updatedBy", System.Data.SqlDbType.Int));
+                    command.Parameters["@updatedBy"].Value = updatedBy;
+                    #endregion
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        if (reader.isColumnExists("ErrorCode"))
+                        {
+                            errorModel = new ErrorModel();
+                            errorModel.ErrorCode = reader["ErrorCode"].ToString();
+                            errorModel.ErrorMessage = reader["ErrorMessage"].ToString();
+                        }
+                        else
+                        {
+                            menuItemResponseModel = new MenuItemResponseModel();
+                            menuItemResponseModel.menuItemId = Convert.ToInt32(reader["menuItemId"].ToString());
+                            menuItemResponseModel.menuItemName = reader["menuItemName"].ToString();
+                            menuItemResponseModel.price = Convert.ToDouble(reader["price"].ToString());
+                            
+                        }
+                    }
+                    command.Dispose();
+                    connection.Close();
+                }
+
+                return menuItemResponseModel;
+            }
+            finally
+            {
+                if (connection != null)
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+
+        public MenuItemResponseModel addMenuItem(int createdBy, string menuItemName, string menuItemDescription, double price, int categoryId, int availableQty,out ErrorModel errorModel)
+        {
+            errorModel = null;
+            MenuItemResponseModel menuItemResponse = null;
+            SqlConnection connection = null;
+            try
+            {
+                using (connection = new SqlConnection(Database.getConnectionString()))
+                {
+                    SqlCommand command = new SqlCommand(SqlCommands.SP_addMenuItem, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    #region Query Parameters
+                    command.Parameters.Add(new SqlParameter("@itemName", System.Data.SqlDbType.VarChar,30));
+                    command.Parameters["@itemName"].Value = menuItemName;
+
+                    command.Parameters.Add(new SqlParameter("@itemDescription", System.Data.SqlDbType.VarChar,150));
+                    command.Parameters["@itemDescription"].Value = menuItemDescription;
+
+                    command.Parameters.Add(new SqlParameter("@price", System.Data.SqlDbType.Decimal, 4));
+                    command.Parameters["@price"].Value = price;
+
+                    command.Parameters.Add(new SqlParameter("@categoryID", System.Data.SqlDbType.Int));
+                    command.Parameters["@categoryID"].Value = categoryId;
+
+                    command.Parameters.Add(new SqlParameter("@availableQty", System.Data.SqlDbType.Int));
+                    command.Parameters["@availableQty"].Value = availableQty;
+
+                    command.Parameters.Add(new SqlParameter("@createdBy", System.Data.SqlDbType.Int));
+                    command.Parameters["@createdBy"].Value = createdBy;
+                    #endregion
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        if (reader.isColumnExists("ErrorCode"))
+                        {
+                            errorModel = new ErrorModel();
+                            errorModel.ErrorCode = reader["ErrorCode"].ToString();
+                            errorModel.ErrorMessage = reader["ErrorMessage"].ToString();
+                        }
+                        else
+                        {
+                            menuItemResponse = new MenuItemResponseModel();
+                            menuItemResponse.menuItemId = Convert.ToInt32(reader["ItemId"].ToString());
+                            menuItemResponse.menuItemName = reader["ItemName"].ToString();
+                            menuItemResponse.menuItemDescription = reader["Description"].ToString();
+                            menuItemResponse.price = Convert.ToDouble(reader["Price"].ToString());
+                            menuItemResponse.availablequantity = Convert.ToInt32(reader["QuantityAvailable"].ToString());
+                            menuItemResponse.itemStatus = Convert.ToBoolean(reader["ItemStatus"].ToString());
+                            menuItemResponse.categoryId = Convert.ToInt32(reader["CategoryId"].ToString());
+                            menuItemResponse.categoryTitle = reader["CategoryTitle"].ToString();
+                            menuItemResponse.userId =Convert.ToInt32(reader["CreatedById"].ToString());
+
+                        }
+                    }
+                    command.Dispose();
+                    connection.Close();
+                }
+
+                return menuItemResponse;
+            }
+            
+            finally
+            {
+                if (connection != null)
+                {
+                    connection.Close();
+                }
+            }
+        }
     }
 }
