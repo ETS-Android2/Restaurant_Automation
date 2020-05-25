@@ -38,7 +38,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-                if (!TextUtils.isEmpty(session.getEmail()) && !TextUtils.isEmpty(session.getUserId())) {
+                if (!TextUtils.isEmpty(session.getToken())&& !TextUtils.isEmpty(session.getEmail() )&& !TextUtils.isEmpty(session.getUserId())) {
                     startActivity(new Intent(SplashActivity.this, MainActivity.class));
                     finish();
                 } else {
