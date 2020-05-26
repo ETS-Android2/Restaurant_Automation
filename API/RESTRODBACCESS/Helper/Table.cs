@@ -148,5 +148,59 @@ namespace RESTRODBACCESS.Helper
             }
         }
 
+        public GetTableResponseModel addTable(AddTableRequestModel addTableRequestModel, out ErrorModel errorModel)
+        {
+            errorModel = null;
+            GetTableResponseModel getTableResponseModel = null;
+            SqlConnection connection = null;
+            try
+            {
+                using(connection = new SqlConnection(Database.getConnectionString()))
+                {
+                    SqlCommand command = new SqlCommand(SqlCommands.SP_addTable, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    #region Command Parameters
+                    command.Parameters.AddWithValue("capacity", addTableRequestModel.capacity);
+                    #endregion
+
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        if (reader.isColumnExists("ErrorCode"))
+                        {
+                            errorModel = new ErrorModel();
+                            errorModel.ErrorCode = reader["ErrorCode"].ToString();
+                            errorModel.ErrorMessage = reader["ErrorMessage"].ToString();
+                        }
+                        else
+                        {
+                            getTableResponseModel = new GetTableResponseModel();
+                            getTableResponseModel.tableId = Convert.ToInt32(reader["tableId"]);
+                            getTableResponseModel.capacity = Convert.ToInt32(reader["capacity"]);
+                            getTableResponseModel.availability = Convert.ToBoolean(reader["availability"]);
+                        }
+                        command.Dispose();
+                        return getTableResponseModel;
+                    }
+                    return null;
+                }
+            }
+            catch (Exception exception)
+            {
+                errorModel = new ErrorModel();
+                errorModel.ErrorMessage = exception.Message;
+                return null;
+            }
+            finally
+            {
+                if(connection != null)
+                {
+                    connection.Close();
+                }
+            }
+        }
+
     }
 }

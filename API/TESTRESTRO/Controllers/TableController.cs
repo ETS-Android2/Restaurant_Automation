@@ -43,5 +43,20 @@ namespace TESTRESTRO.Controllers
             responseModel.Error = errorModel;
             return Request.CreateResponse(HttpStatusCode.OK, responseModel);
         }
+
+        [HttpPost]
+        [Route("api/addTable")]
+        public HttpResponseMessage addTables(AddTableRequestModel addTableRequestModel)
+        {
+            TableProvider tableProvider = new TableProvider();
+            ErrorModel errorModel = null;
+            var table = tableProvider.addTable(addTableRequestModel, out errorModel);
+
+            APIResponseModel aPIResponseModel = new APIResponseModel();
+            aPIResponseModel.Response = table;
+            aPIResponseModel.Error = errorModel;
+
+            return Request.CreateResponse(HttpStatusCode.OK, aPIResponseModel);
+        }
     }
 }

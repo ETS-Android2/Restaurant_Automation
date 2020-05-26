@@ -40,5 +40,19 @@ namespace TESTRESTRO.Provider
                 return null;
             }
         }
+
+        public GetTableResponseModel addTable(AddTableRequestModel addTableRequestModel, out ErrorModel errorModel)
+        {
+            errorModel = null;
+            try
+            {
+                Table tableHelper = new Table();
+                return tableHelper.addTable(addTableRequestModel, out errorModel);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

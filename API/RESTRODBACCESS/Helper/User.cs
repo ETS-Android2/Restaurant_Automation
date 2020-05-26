@@ -109,7 +109,7 @@ namespace RESTRODBACCESS.Helper
                         else
                         {
                             UsersResponseModel user = new UsersResponseModel();
-                            user.Id = Convert.ToInt32(reader["Id"].ToString());
+                            user.UserId = Convert.ToInt32(reader["UserId"].ToString());
                             user.FirstName = reader["FirstName"].ToString();
                             user.LastName = reader["LastName"].ToString();
                             user.Email = reader["Email"].ToString();
