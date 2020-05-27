@@ -22,5 +22,7 @@
         public const string SP_addTable = "addTable";
 
         public const string SP_registerEmployee = "registerEmployee";
+
+        public const string SP_addToCart = "addToCart";
     }
 }
