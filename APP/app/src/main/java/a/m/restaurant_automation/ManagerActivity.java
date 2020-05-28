@@ -42,7 +42,7 @@ public class ManagerActivity extends AppCompatActivity implements BottomNavigati
         navController= Navigation.findNavController(this,R.id.managerHostFragment);
         NavigationUI.setupWithNavController(bottomNavigationView,navController);
 
-         NavigationUI.setupActionBarWithNavController(this,navController);
+        NavigationUI.setupActionBarWithNavController(this,navController);
         NavigationUI.setupWithNavController(bottomNavigationView,navController);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(this);

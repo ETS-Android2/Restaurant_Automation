@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/chef_navigation_graph">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/chef_navigation_graph"
+    app:startDestination="@id/chefDashboard">
 
+    <fragment
+        android:id="@+id/chefDashboard"
+        android:name="a.m.restaurant_automation.chef.ChefDashboard"
+        android:label="fragment_chef_dashboard"
+        tools:layout="@layout/fragment_chef_dashboard" />
 </navigation>

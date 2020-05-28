@@ -17,7 +17,7 @@
         tools:layout="@layout/fragment_menu_item" />
     <fragment
         android:id="@+id/managerOrderHistoryFragment"
-        android:name="a.m.restaurant_automation.ManagerOrderHistoryFragment"
+        android:name="a.m.restaurant_automation.manager.ManagerOrderHistoryFragment"
         android:label="fragment_manager_order_history"
         tools:layout="@layout/fragment_manager_order_history" />
     <fragment

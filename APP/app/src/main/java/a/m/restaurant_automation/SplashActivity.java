@@ -9,6 +9,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import a.m.restaurant_automation.model.AppStaticData;
 import a.m.restaurant_automation.responseModel.LoginResponseModel;
 import a.m.restaurant_automation.responseModel.ResponseModel;
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,9 +43,38 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-                if (!TextUtils.isEmpty(session.getToken())&& !TextUtils.isEmpty(session.getEmail() )&& !TextUtils.isEmpty(session.getToken())) {
-                        startActivity(new Intent(SplashActivity.this,ManagerActivity.class));
-                        finish();
+                if (!TextUtils.isEmpty(session.getToken())&& !TextUtils.isEmpty(session.getEmail() )) {
+
+
+                    switch(session.getUserTypeId())
+                    {
+
+                        case AppStaticData.USERTYPE_CUSTOMER: {
+                            startActivity(new Intent(SplashActivity.this, CustomerActivity.class));
+                            finish();
+                            break;
+                        }
+
+                        case AppStaticData.USERTYPE_MANAGER:
+                        {
+                            startActivity(new Intent(SplashActivity.this, ManagerActivity.class));
+                            finish();
+                            break;
+
+                        }
+                        case AppStaticData.USERTYPE_CHEF:
+                        {
+                            startActivity(new Intent(SplashActivity.this, ChefActivity.class));
+                            finish();
+                            break;
+                        }
+                        case AppStaticData.USERTYPE_CASHIER:
+                        {
+                            startActivity(new Intent(SplashActivity.this, CashierActivity.class));
+                            finish();
+                            break;
+                        }
+                    }
                 }
                 else {
                     startActivity(new Intent(SplashActivity.this, LoginActivity.class));
