@@ -155,7 +155,7 @@ public class LoginActivity extends AppCompatActivity implements OnLoginPress,Reg
                                     break;
 
                                 case AppStaticData.USERTYPE_MANAGER:
-                                    intentFromMain = new Intent(LoginActivity.this, EmployeeMenuItemActivity.class);
+                                    intentFromMain = new Intent(LoginActivity.this, ManagerActivity.class);
                                     startActivity(intentFromMain);
                                     break;
 

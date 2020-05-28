@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".manager.AddMenuItem">
+
+    <EditText
+
+        android:id="@+id/editText_itemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Enter Item Name" />
+
+    <EditText
+        android:id="@+id/editText_itemPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText_itemName"
+        android:hint="Enter Item Price"
+        />
+
+    <EditText
+        android:id="@+id/editText_addQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Add Quantity"
+        android:layout_below="@+id/editText_itemPrice"/>
+
+
+    <EditText
+        android:id="@+id/editText_itemDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText_addQuantity"
+        android:hint="Add Description"/>
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/spinner_category"
+        android:layout_width="205dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/editText_itemDescription"
+        />
+
+    <Button
+        android:id="@+id/button_addItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinner_category"
+        android:text="Add Item"/>
+
+</RelativeLayout>

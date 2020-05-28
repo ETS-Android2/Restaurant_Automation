@@ -42,6 +42,7 @@ public class MenuItemsFragment extends Fragment {
     View viewMenu;
     Button removeItemButton;
 
+
     ArrayList<MenuItemResponse> menuItemResponse;
 
     public MenuItemsFragment(int category) {
@@ -66,6 +67,8 @@ public class MenuItemsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         emptyText = view.findViewById(R.id.textView_empty);
+
+
 
 
         viewMenu = view;
@@ -98,6 +101,8 @@ public class MenuItemsFragment extends Fragment {
 
             }
         });
+
+
 
 
     }

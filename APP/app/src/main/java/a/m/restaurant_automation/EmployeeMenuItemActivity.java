@@ -1,5 +1,6 @@
 package a.m.restaurant_automation;
 
+import a.m.restaurant_automation.manager.AddMenuItem;
 import a.m.restaurant_automation.manager.MenuItemsFragment;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -12,9 +13,11 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabItem;
@@ -36,7 +39,8 @@ public class EmployeeMenuItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee_menu_item);
 
-        floatingActionButton = findViewById(R.id.floatingButton_addMenuItem);
+
+
         mViewPager = findViewById(R.id.viewpager);
         mTabLayout = findViewById(R.id.tablayout);
 
@@ -48,14 +52,17 @@ public class EmployeeMenuItemActivity extends AppCompatActivity {
         pagerAdapter = new PagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, mTabLayout.getTabCount());
         mViewPager.setAdapter(pagerAdapter);
 
+        floatingActionButton =findViewById(R.id.floatingButton_addMenuItem);
+
+
+
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+               startActivity(new Intent(EmployeeMenuItemActivity.this, AddMenuItem.class));
 
             }
         });
-
-
         
         
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

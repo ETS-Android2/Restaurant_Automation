@@ -1,10 +1,24 @@
 package a.m.restaurant_automation.model;
 
+import java.lang.reflect.Array;
+import java.security.PublicKey;
+import java.util.ArrayList;
+import java.util.List;
+
 public class AppStaticData {
     public static final int USERTYPE_CUSTOMER = 1;
     public static final int USERTYPE_MANAGER = 2;
     public static final int USERTYPE_CHEF = 3;
     public static final int USERTYPE_CASHIER = 4;
+
+    public static final int APPETIZER = 1;
+    public static final int MAINCOURSE = 2;
+    public static final int BEVERAGE = 3;
+    public static final int DESSERT = 4;
+
+
+
+
 
     //public static final String BASE_URL= "http://192.168.2.24/api/";
 

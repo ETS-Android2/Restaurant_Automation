@@ -13,8 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
-        <activity android:name=".CashierActivity"></activity>
+        <activity android:name=".manager.AddMenuItem"></activity>
+        <activity android:name=".CashierActivity" />
         <activity android:name=".ChefActivity" />
         <activity android:name=".ManagerActivity" />
         <activity android:name=".CustomerActivity" />
@@ -28,10 +28,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".EmployeeMenuItemActivity"
-           >
-        </activity>
+        <activity android:name=".EmployeeMenuItemActivity"></activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".AddAndModifyEmployee" />
