@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import a.m.restaurant_automation.manager.AddEmployeeFragment;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Calendar;
@@ -25,10 +26,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LoginActivity extends AppCompatActivity implements OnLoginPress,RegisterFragment.OnRegisterPress {
+public class LoginActivity extends AppCompatActivity implements OnLoginPress,RegisterFragment.OnRegisterPress{
 
     private int UserType = AppStaticData.USERTYPE_CUSTOMER;
-    private int mUserType = AppStaticData.USERTYPE_MANAGER;
+    private int mUserType;
 
     private String registerEmail, registerPassword, registerFirstName, registerLastName;
     private String loginEmail;
@@ -66,6 +67,8 @@ public class LoginActivity extends AppCompatActivity implements OnLoginPress,Reg
         UserType = userType;
         Register();
     }
+
+
 
 
     @Override

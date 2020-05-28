@@ -1,7 +1,9 @@
 package a.m.restaurant_automation.service;
 
+import a.m.restaurant_automation.requestModel.AddMenuItemRequestModel;
 import a.m.restaurant_automation.requestModel.LoginRequestModel;
 import a.m.restaurant_automation.requestModel.RegisterRequestModel;
+import a.m.restaurant_automation.responseModel.MenuItemResponse;
 import a.m.restaurant_automation.responseModel.RegisterResponseModel;
 import a.m.restaurant_automation.responseModel.LoginResponseModel;
 import a.m.restaurant_automation.responseModel.ResponseModel;
@@ -16,4 +18,8 @@ public interface IUserService {
 
     @POST ("users/add")
     Call<ResponseModel<RegisterResponseModel>> register (@Body RegisterRequestModel registerRequestModel);
+
+    @POST ("menu/addMenuItem")
+    Call<ResponseModel<MenuItemResponse>> addMenuItem (@Body AddMenuItemRequestModel addMenuItemRequestModel);
+
 }

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".manager.AddEmployeeFragment">
+
+    <EditText
+
+        android:id="@+id/editText_employeeFirstName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Enter First Name" />
+
+    <EditText
+        android:id="@+id/editText_employeeLastName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText_employeeFirstName"
+        android:hint="Enter Last Name"
+        />
+
+    <EditText
+        android:id="@+id/editText_employeeEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText_employeeLastName"
+        android:hint="Enter Email Address"
+        android:inputType="textEmailAddress"
+        />
+
+    <EditText
+        android:id="@+id/editText_createPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Create Password"
+        android:layout_below="@+id/editText_employeeEmail"
+        android:inputType="textPassword"/>
+
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/spinner_employees"
+        android:layout_width="205dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/editText_createPassword"
+        />
+
+    <Button
+        android:id="@+id/button_addEmployee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinner_employees"
+        android:text="Add Employee"/>
+
+
+</RelativeLayout>

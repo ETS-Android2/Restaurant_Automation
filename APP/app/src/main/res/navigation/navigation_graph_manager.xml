@@ -20,11 +20,12 @@
         android:name="a.m.restaurant_automation.manager.ManagerOrderHistoryFragment"
         android:label="fragment_manager_order_history"
         tools:layout="@layout/fragment_manager_order_history" />
+
     <fragment
-        android:id="@+id/addMenuItemFragment"
-        android:name="a.m.restaurant_automation.manager.AddMenuItemFragment"
-        android:label="fragment_add_menu_item"
-        tools:layout="@layout/fragment_add_menu_item" />
+        android:id="@+id/addEmployeeFragment"
+        android:name="a.m.restaurant_automation.manager.AddEmployeeFragment"
+        android:label="fragment_add_employee"
+        tools:layout="@layout/fragment_add_employee" />
 
 
 </navigation>

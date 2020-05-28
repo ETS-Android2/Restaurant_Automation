@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +19,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 public class ManagerDashboardFragment extends Fragment {
-    CardView viewMenu;
+    CardView viewMenu, viewEmployee;
 
 
 
@@ -40,6 +41,14 @@ public class ManagerDashboardFragment extends Fragment {
             public void onClick(View v) {
                 Intent _intent = new Intent(getActivity(),EmployeeMenuItemActivity.class);
                 startActivity(_intent);
+            }
+        });
+
+        viewEmployee= view.findViewById(R.id.cardView_viewEmployees);
+        viewEmployee.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.addEmployeeFragment);
             }
         });
     }

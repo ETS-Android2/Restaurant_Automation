@@ -56,14 +56,14 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onClick(View v) {
                 if (!checkEmptyFields()){
-                    if (!checkPassword()){
-                        String firstName = firstNameForRegister.getText().toString();
-                        String lastName = lastNameForRegister.getText().toString();
-                        String email = emailForRegister.getText().toString();
-                        String password = passwordForRegister.getText().toString();
-                        onRegisterPress.OnRegisterPress(firstName,lastName,email,password, AppStaticData.USERTYPE_CUSTOMER);
-                        NavController navController = Navigation.findNavController(getActivity(), R.id.hostFragment);
-                        navController.navigate(R.id.loginFragment);
+                            if (!checkPassword()){
+                                String firstName = firstNameForRegister.getText().toString();
+                                String lastName = lastNameForRegister.getText().toString();
+                                String email = emailForRegister.getText().toString();
+                                String password = passwordForRegister.getText().toString();
+                                onRegisterPress.OnRegisterPress(firstName,lastName,email,password, AppStaticData.USERTYPE_CUSTOMER);
+                                NavController navController = Navigation.findNavController(getActivity(), R.id.hostFragment);
+                                navController.navigate(R.id.loginFragment);
 
                     }
                 }

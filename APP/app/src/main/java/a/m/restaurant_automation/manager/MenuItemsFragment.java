@@ -70,7 +70,6 @@ public class MenuItemsFragment extends Fragment {
 
 
 
-
         viewMenu = view;
         IDataService dataService = RetrofitClient.getRetrofitInstance().create(IDataService.class);
         Call<ResponseModel<ArrayList<MenuItemResponse>>> call =dataService.getMenuItem(category);
