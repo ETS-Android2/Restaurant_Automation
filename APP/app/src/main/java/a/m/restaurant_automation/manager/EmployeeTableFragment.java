@@ -1,0 +1,109 @@
+package a.m.restaurant_automation.manager;
+
+import android.os.Bundle;
+
+import a.m.restaurant_automation.R;
+import a.m.restaurant_automation.RetrofitClient;
+import a.m.restaurant_automation.manager.MenuItemAdapter;
+import a.m.restaurant_automation.responseModel.MenuItemResponse;
+import a.m.restaurant_automation.responseModel.ResponseModel;
+import a.m.restaurant_automation.responseModel.TableResponseModel;
+import a.m.restaurant_automation.service.IDataService;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+
+
+public class EmployeeTableFragment extends Fragment {
+    int tableId;
+    MenuItemAdapter menuItemAdapter;
+    TextView emptyText;
+    View viewTable;
+
+    ArrayList<TableResponseModel> tableResponseModel;
+
+    public EmployeeTableFragment(int tableId) {
+        // Required empty public constructor
+        this.tableId =tableId;
+
+    }
+
+
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        emptyText = view.findViewById(R.id.textView_emptyTable);
+        viewTable = view;
+
+        IDataService dataService = RetrofitClient.getRetrofitInstance().create(IDataService.class);
+        Call<ResponseModel<ArrayList<TableResponseModel>>> call =dataService.getTable(tableId);
+
+        call.enqueue(new Callback<ResponseModel<ArrayList<TableResponseModel>>>() {
+            @Override
+            public void onResponse(Call<ResponseModel<ArrayList<TableResponseModel>>> call, Response<ResponseModel<ArrayList<TableResponseModel>>> response) {
+                ResponseModel<ArrayList<TableResponseModel>> responseModel =response.body();
+
+                if (responseModel != null && responseModel.getError() != null){
+                    Toast.makeText(getActivity().getApplicationContext(), responseModel.getError().getErrorMessage(), Toast.LENGTH_LONG).show();
+                }
+                else if (responseModel!= null && responseModel.getData() != null){
+                    tableResponseModel =responseModel.getData();
+                    if (tableResponseModel == null || tableResponseModel.size() == 0){
+                        emptyText.setVisibility(View.VISIBLE);
+                    }else {
+                        emptyText.setVisibility(View.GONE);
+                    }
+                    generateRecyclerView(tableResponseModel,viewTable);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel<ArrayList<TableResponseModel>>> call, Throwable t) {
+                Toast.makeText(getActivity().getApplicationContext(), "Something Went Wrong!" + t.getMessage(), Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+    }
+
+
+    public void generateRecyclerView(ArrayList<TableResponseModel> tableResponseModel, View viewTable) {
+        menuItemAdapter =new MenuItemAdapter(tableResponseModel,getActivity().getApplication(),0 );
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext(),LinearLayoutManager.VERTICAL,false);
+        RecyclerView recyclerView =viewTable.findViewById(R.id.recyclerView_viewTable);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(menuItemAdapter);
+        //menuItemAdapter.setOnItemClickListener(onClickListener);
+        menuItemAdapter.notifyDataSetChanged();
+    }
+
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_employee_table, container, false);
+    }
+}
