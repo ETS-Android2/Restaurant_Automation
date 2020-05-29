@@ -18,7 +18,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 public class ManagerDashboardFragment extends Fragment {
-    CardView viewMenu, viewEmployee;
+    CardView viewMenu, viewEmployee, viewTables;
 
 
 
@@ -50,6 +50,16 @@ public class ManagerDashboardFragment extends Fragment {
                 Navigation.findNavController(v).navigate(R.id.addEmployeeFragment);
             }
         });
+
+        viewTables = view.findViewById(R.id.cardView_viewTables);
+        viewTables.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.employeeTableFragment);
+            }
+        });
+
+
     }
 
     @Override

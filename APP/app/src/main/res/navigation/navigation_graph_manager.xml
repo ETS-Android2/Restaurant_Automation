@@ -26,6 +26,16 @@
         android:name="a.m.restaurant_automation.manager.AddEmployeeFragment"
         android:label="fragment_add_employee"
         tools:layout="@layout/fragment_add_employee" />
+    <fragment
+        android:id="@+id/employeeFragment"
+        android:name="a.m.restaurant_automation.manager.EmployeeFragment"
+        android:label="fragment_employee"
+        tools:layout="@layout/fragment_employee" />
+    <fragment
+        android:id="@+id/employeeTableFragment"
+        android:name="a.m.restaurant_automation.manager.EmployeeTableFragment"
+        android:label="fragment_employee_table"
+        tools:layout="@layout/fragment_employee_table" />
 
 
 </navigation>

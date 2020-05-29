@@ -11,9 +11,12 @@ import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
 import a.m.restaurant_automation.manager.AddEmployeeFragment;
+import a.m.restaurant_automation.manager.EmployeeTableFragment;
+import a.m.restaurant_automation.requestModel.AddTableRequestModel;
 import a.m.restaurant_automation.requestModel.RegisterRequestModel;
 import a.m.restaurant_automation.responseModel.RegisterResponseModel;
 import a.m.restaurant_automation.responseModel.ResponseModel;
+import a.m.restaurant_automation.responseModel.TableResponseModel;
 import a.m.restaurant_automation.service.IUserService;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,12 +27,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ManagerActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener,AddEmployeeFragment.OnEmployeeRegisterPress{
+public class ManagerActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener,AddEmployeeFragment.OnEmployeeRegisterPress, EmployeeTableFragment.OnTableAddPress {
     public BottomNavigationView bottomNavigationView;
     public NavController navController;
 
     private String registerEmail, registerPassword, registerFirstName, registerLastName;
     private int UserType;
+
+    private int addCapacity;
 
 
 
@@ -83,6 +88,10 @@ public class ManagerActivity extends AppCompatActivity implements BottomNavigati
         }
         return false;
     }
+    public void OnTableAddPress( int capacity) {
+        addCapacity = capacity;
+        AddTable();
+    }
 
     public void OnEmployeeRegisterPress(String firstName, String lastName, String email, String password, int userType) {
 
@@ -116,8 +125,6 @@ public class ManagerActivity extends AppCompatActivity implements BottomNavigati
                     } else {
                         //RegisterResponseModel registerRequestModel = responseModel.getData();
                         Toast.makeText(getApplicationContext(), responseModel.getData().getEmail() + " Registered Succesfully", Toast.LENGTH_LONG).show();
-
-
 //                        login(registerRequestModel.getEmail(), loginPassword);
                     }
                 }
@@ -129,6 +136,37 @@ public class ManagerActivity extends AppCompatActivity implements BottomNavigati
 
             }
         });
+
+    }
+
+    public void AddTable(){
+        IUserService userService = RetrofitClient.getRetrofitInstance().create(IUserService.class);
+        AddTableRequestModel addTableRequestModel = new AddTableRequestModel();
+        addTableRequestModel.capacity = addCapacity;
+
+        Call<ResponseModel<TableResponseModel>>call = userService.addTable(addTableRequestModel);
+        call.enqueue(new Callback<ResponseModel<TableResponseModel>>() {
+            @Override
+            public void onResponse(Call<ResponseModel<TableResponseModel>> call, Response<ResponseModel<TableResponseModel>> response) {
+                ResponseModel<TableResponseModel> responseModel = response.body();
+
+                if (responseModel != null) {
+                    if (responseModel.getError() != null) {
+                        Toast.makeText(getApplicationContext(), responseModel.getError().getErrorMessage(), Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), responseModel.getData().getTableId() + "Table Added", Toast.LENGTH_LONG).show();
+//
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel<TableResponseModel>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "something went wrong" + t.getMessage(), Toast.LENGTH_LONG).show();
+
+            }
+        });
+
 
 
     }

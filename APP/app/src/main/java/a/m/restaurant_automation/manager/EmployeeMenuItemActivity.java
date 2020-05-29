@@ -19,7 +19,8 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 
-public class EmployeeMenuItemActivity extends AppCompatActivity {
+public class
+EmployeeMenuItemActivity extends AppCompatActivity {
 
     ActionBarDrawerToggle actionBarDrawerToggle;
     NavigationView navigationView;

@@ -16,7 +16,7 @@
         <activity android:name=".manager.AddMenuItem"></activity>
         <activity android:name=".CashierActivity" />
         <activity android:name=".ChefActivity" />
-        <activity android:name=".ManagerActivity" />
+        <activity android:name=".ManagerActivity"/>
         <activity android:name=".CustomerActivity" />
         <activity
             android:name=".SplashActivity"
