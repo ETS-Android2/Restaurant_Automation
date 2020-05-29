@@ -12,17 +12,17 @@ namespace TESTRESTRO.Controllers
     {
 
         [HttpGet]
-        [Route("api/users")]
+        [Route("api/users/{userType:int?}")]
         //[ApiAuthorization]
-        public HttpResponseMessage getAll([FromUri]UsersRequestModel usersRequestModel)
+        public HttpResponseMessage getAll(/*[FromUri]UsersRequestModel usersRequestModel*/int userType=0)
         {
             UserProvider userProvider = new UserProvider();
             ErrorModel errorModel = null;
-            if (usersRequestModel == null)
+            /*if (usersRequestModel == null)
             {
                 usersRequestModel = new UsersRequestModel();
-            }
-            var users = userProvider.getAll(usersRequestModel, out errorModel);
+            }*/
+            var users = userProvider.getAll(userType, out errorModel);
             APIResponseModel responseModel = new APIResponseModel();
             responseModel.Response = users;
             responseModel.Error = errorModel;

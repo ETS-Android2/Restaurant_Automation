@@ -87,9 +87,6 @@ namespace RESTRODBACCESS.Helper
 
                     #region Query Parameters
 
-                    /*command.Parameters.Add(new SqlParameter("@email", System.Data.SqlDbType.VarChar, 100));
-                    command.Parameters["@email"].Value = email;*/
-
 
                     command.Parameters.Add(new SqlParameter("@userTypeId", System.Data.SqlDbType.Int));
                     command.Parameters["@userTypeId"].Value = userType;
@@ -109,7 +106,7 @@ namespace RESTRODBACCESS.Helper
                         else
                         {
                             UsersResponseModel user = new UsersResponseModel();
-                            user.UserId = Convert.ToInt32(reader["UserId"].ToString());
+                            user.UserId = Convert.ToInt32(reader["Id"].ToString());
                             user.FirstName = reader["FirstName"].ToString();
                             user.LastName = reader["LastName"].ToString();
                             user.Email = reader["Email"].ToString();

@@ -24,13 +24,13 @@ namespace TESTRESTRO.Provider
             }
         }
 
-        public List<UsersResponseModel> getAll(UsersRequestModel usersRequestModel, out ErrorModel errorModel)
+        public List<UsersResponseModel> getAll(int userType, out ErrorModel errorModel)
         {
             errorModel = null;
             try
             {
                 User userHelper = new User();
-                List<UsersResponseModel> users = userHelper.getUsers(usersRequestModel.userType, /*usersRequestModel.email,*/ out errorModel);
+                List<UsersResponseModel> users = userHelper.getUsers(userType, /*usersRequestModel.email,*/ out errorModel);
                 return users;
             }
             catch (Exception)
