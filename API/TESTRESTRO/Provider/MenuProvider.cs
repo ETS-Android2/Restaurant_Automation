@@ -25,6 +25,23 @@ namespace TESTRESTRO.Provider
             }
         }
 
+        public List<MenuItemResponseModel> getCategory( out ErrorModel errorModel)
+        {
+            errorModel = null;
+            try
+            {
+                Menu menuHelper = new Menu();
+                List<MenuItemResponseModel> menuItems = menuHelper.getCategory( out errorModel);
+                return menuItems;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+
+
         public MenuItemResponseModel changePrice(MenuItemRequestModel menuItemRequest, out ErrorModel errorModel)
         {
             errorModel = null;

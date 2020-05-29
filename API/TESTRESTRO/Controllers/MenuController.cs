@@ -61,5 +61,22 @@ namespace TESTRESTRO.Controllers
             responseModel.Error = ErrorCode.BadRequest;
             return Request.CreateResponse(HttpStatusCode.OK, responseModel);
         }
+
+        [HttpGet]
+        [Route("api/menu/getCategory")]
+        public HttpResponseMessage getCategory()
+        {
+            MenuProvider menuProvider = new MenuProvider();
+            ErrorModel errorModel = null;
+
+            var menuItems = menuProvider.getCategory(out errorModel);
+            APIResponseModel responseModel = new APIResponseModel();
+            responseModel.Response = menuItems;
+            responseModel.Error = errorModel;
+            return Request.CreateResponse(HttpStatusCode.OK, responseModel);
+        }
+
+
+
     }
 }

@@ -3,7 +3,6 @@ package a.m.restaurant_automation.manager;
 import android.content.Intent;
 import android.os.Bundle;
 
-import a.m.restaurant_automation.EmployeeMenuItemActivity;
 import a.m.restaurant_automation.R;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

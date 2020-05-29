@@ -6,6 +6,7 @@
         public const string SP_LoginUser = "loginUser";
         public const string SP_getMenuItems = "getMenuItems";
         public const string SP_changePrice = "changePrice";
+        public const string SP_getCategory = "getCategory";
 
 
         public const string SP_addMenuItem = "addMenuItem";

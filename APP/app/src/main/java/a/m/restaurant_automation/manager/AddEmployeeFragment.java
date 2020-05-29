@@ -141,7 +141,11 @@ public class AddEmployeeFragment extends Fragment {
         onEmployeeRegisterPress = (AddEmployeeFragment.OnEmployeeRegisterPress) context;
     }
 
+
+
     public interface OnEmployeeRegisterPress {
         void OnEmployeeRegisterPress(String firstName,String lastName, String email, String password, int userType);
     }
+
+
 }

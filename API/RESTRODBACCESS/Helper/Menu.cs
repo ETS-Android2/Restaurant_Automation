@@ -83,6 +83,68 @@ namespace RESTRODBACCESS.Helper
             }
         }
 
+
+        public List<MenuItemResponseModel> getCategory(out ErrorModel errorModel)
+        {
+            errorModel = null;
+            List<MenuItemResponseModel> menuItems = null;
+            SqlConnection connection = null;
+            try
+            {
+                using (connection = new SqlConnection(Database.getConnectionString()))
+                {
+                    SqlCommand command = new SqlCommand(SqlCommands.SP_getCategory, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    #region Query Parameters
+
+
+                    #endregion
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    menuItems = new List<MenuItemResponseModel>();
+                    while (reader.Read())
+                    {
+                        if (reader.isColumnExists("ErrorCode"))
+                        {
+                            errorModel = new ErrorModel();
+                            errorModel.ErrorCode = reader["ErrorCode"].ToString();
+                            errorModel.ErrorMessage = reader["ErrorMessage"].ToString();
+                        }
+                        else
+                        {
+                            MenuItemResponseModel menuItemResponse = new MenuItemResponseModel();
+                           
+                            menuItemResponse.categoryId = Convert.ToInt32(reader["CategoryId"].ToString());
+                            
+                          
+                            menuItemResponse.categoryTitle = reader["CategoryTitle"].ToString();
+                        
+
+                            menuItems.Add(menuItemResponse);
+                        }
+                    }
+                    command.Dispose();
+                    connection.Close();
+                }
+
+                return menuItems;
+            }
+            catch (Exception exception)
+            {
+                errorModel = new ErrorModel();
+                errorModel.ErrorMessage = exception.Message;
+                return null;
+            }
+            finally
+            {
+                if (connection != null)
+                {
+                    connection.Close();
+                }
+            }
+        }
+
         public MenuItemResponseModel changePrice(int itemId, double price, int updatedBy, out ErrorModel errorModel)
         {
             errorModel = null;

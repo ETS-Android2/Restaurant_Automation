@@ -1,30 +1,22 @@
 package a.m.restaurant_automation.manager;
 
-import a.m.restaurant_automation.EmployeeMenuItemActivity;
-import a.m.restaurant_automation.ManagerActivity;
 import a.m.restaurant_automation.R;
-import a.m.restaurant_automation.RegisterFragment;
 import a.m.restaurant_automation.RetrofitClient;
 import a.m.restaurant_automation.model.AppStaticData;
-import a.m.restaurant_automation.repository.UserSession;
 import a.m.restaurant_automation.requestModel.AddMenuItemRequestModel;
 import a.m.restaurant_automation.responseModel.MenuItemResponse;
 import a.m.restaurant_automation.responseModel.ResponseModel;
 import a.m.restaurant_automation.service.IUserService;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
