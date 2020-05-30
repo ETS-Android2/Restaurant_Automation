@@ -12,9 +12,9 @@
         tools:layout="@layout/fragment_manager_dashboard" />
     <fragment
         android:id="@+id/menuItemFragment"
-        android:name="a.m.restaurant_automation.manager.MenuItemsFragment"
+        android:name="a.m.restaurant_automation.manager.EmployeeMenuItemsFragment"
         android:label="fragment_appetizer"
-        tools:layout="@layout/fragment_menu_item" />
+        tools:layout="@layout/fragment_employee_menu_items" />
     <fragment
         android:id="@+id/managerOrderHistoryFragment"
         android:name="a.m.restaurant_automation.manager.ManagerOrderHistoryFragment"

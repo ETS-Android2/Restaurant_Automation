@@ -12,9 +12,9 @@
         tools:layout="@layout/fragment_customer_overview" />
     <fragment
         android:id="@+id/menuItemsFragment"
-        android:name="a.m.restaurant_automation.customer.MenuItemsFragment"
+        android:name="a.m.restaurant_automation.customer.CustomerMenuItemsFragment"
         android:label="fragment_menu_items"
-        tools:layout="@layout/fragment_menu_items" />
+        tools:layout="@layout/fragment_customer_menu_items" />
     <fragment
         android:id="@+id/orderFragment"
         android:name="a.m.restaurant_automation.customer.OrderFragment"

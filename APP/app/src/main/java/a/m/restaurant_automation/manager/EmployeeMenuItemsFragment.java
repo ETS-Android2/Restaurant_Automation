@@ -3,38 +3,32 @@ package a.m.restaurant_automation.manager;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-
-import a.m.restaurant_automation.R;
-import a.m.restaurant_automation.RetrofitClient;
-import a.m.restaurant_automation.manager.MenuItemAdapter;
-import a.m.restaurant_automation.responseModel.MenuItemResponse;
-import a.m.restaurant_automation.responseModel.ResponseModel;
-import a.m.restaurant_automation.service.IDataService;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import a.m.restaurant_automation.R;
+import a.m.restaurant_automation.RetrofitClient;
+import a.m.restaurant_automation.responseModel.MenuItemResponse;
+import a.m.restaurant_automation.responseModel.ResponseModel;
+import a.m.restaurant_automation.service.IDataService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-public class MenuItemsFragment extends Fragment {
+
+public class EmployeeMenuItemsFragment extends Fragment {
 
     int category;
     MenuItemAdapter menuItemAdapter;
@@ -45,7 +39,7 @@ public class MenuItemsFragment extends Fragment {
 
     ArrayList<MenuItemResponse> menuItemResponse;
 
-    public MenuItemsFragment(int category) {
+    public EmployeeMenuItemsFragment(int category) {
         // Required empty public constructor
         this.category = category;
     }
@@ -60,7 +54,7 @@ public class MenuItemsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_menu_item, container, false);
+        return inflater.inflate(R.layout.fragment_employee_menu_items, container, false);
     }
 
     @Override

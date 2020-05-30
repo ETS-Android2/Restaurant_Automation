@@ -1,6 +1,9 @@
 package a.m.restaurant_automation.manager;
 
-import a.m.restaurant_automation.R;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,17 +13,14 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.navigation.NavController;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
+import a.m.restaurant_automation.R;
 
-public class
-EmployeeMenuItemActivity extends AppCompatActivity {
+public class EmployeeMenuItemActivity extends AppCompatActivity {
+
 
     ActionBarDrawerToggle actionBarDrawerToggle;
     NavigationView navigationView;
@@ -102,13 +102,13 @@ EmployeeMenuItemActivity extends AppCompatActivity {
        public Fragment getItem(int position) {
            switch (position){
                case 0:
-                   return new MenuItemsFragment(1);
+                   return new EmployeeMenuItemsFragment(1);
                case 1:
-                   return new MenuItemsFragment(2);
+                   return new EmployeeMenuItemsFragment(2);
                case 2:
-                   return new MenuItemsFragment(3);
+                   return new EmployeeMenuItemsFragment(3);
                case 3:
-                   return new MenuItemsFragment(4);
+                   return new EmployeeMenuItemsFragment(4);
 
                default:
                    return null;
