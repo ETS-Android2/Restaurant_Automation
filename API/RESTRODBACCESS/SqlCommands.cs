@@ -25,5 +25,7 @@
         public const string SP_registerEmployee = "registerEmployee";
 
         public const string SP_addToCart = "addToCart";
+
+        public const string SP_orderCartItem = "orderCartItem";
     }
 }
