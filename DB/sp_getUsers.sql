@@ -1,11 +1,11 @@
-
+--exec getUsers
 use restomation
 Go
 
-CREATE PROCEDURE getUsers
+ALTER PROCEDURE getUsers
 (
 	 @userTypeId	INT				= NULL
-	--,@email		VARCHAR(150)		= NULL
+
 )
 AS
 BEGIN
@@ -16,13 +16,13 @@ BEGIN
 		
 		DECLARE @_userType		INT				= @userTypeId
 		
-		/*DECLARE @_email			VARCHAR(150)	= @email
+		/*DECLARE @_email			VARCHAR(150)	= @email*/
 
 	
-		IF @_email = ''
+		IF @_userType = 0
 		BEGIN
-			SET @_email = NULL
-		END*/
+			SET @_userType = NULL
+		END
 
 	END
 	
@@ -39,16 +39,18 @@ BEGIN
 			,email AS 'Email'
 			,phoneNo AS 'Phone'
 			,profileImage AS 'Image'
-			,userTypeId As 'UserType'
+			,users.userTypeId As 'UserType'
 			,gender AS 'Gender'
+			,userType AS 'UserTypeTitle'
+
 			
 		FROM USERS
+		JOIN USERTYPE
+		on users.userTypeId = userType.userTypeID
 		WHERE 
-			--CONVERT(VARCHAR(100),id) != @_loggedInUser 
-			--AND users.id NOT IN (select from_user from friends WHERE to_user = @_loggedInUser)
-			--AND users.id NOT IN (select to_user from friends WHERE from_user = @_loggedInUser)
-		 (@_userType IS NULL OR (userTypeId=@_userType))
-		--AND (email=@_email)
+			--(@_userType IS NULL OR (userTypeId=@_userType))
+			users.userTypeId IN (2,3,4,5)
+		
 		) AS t
 		
 		END

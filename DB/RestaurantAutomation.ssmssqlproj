@@ -31,6 +31,18 @@
           <AssociatedConnUserName>admin</AssociatedConnUserName>
           <FullPath>sp_addMenuItem.sql</FullPath>
         </FileNode>
+        <FileNode Name="sp_addTable.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:restomation.cgtrmzhqrrjw.us-east-2.rds.amazonaws.com,1433:False:admin</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>restomation.cgtrmzhqrrjw.us-east-2.rds.amazonaws.com,1433</AssociatedConnSrvName>
+          <AssociatedConnUserName>admin</AssociatedConnUserName>
+          <FullPath>sp_addTable.sql</FullPath>
+        </FileNode>
+        <FileNode Name="sp_addToCart.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:restomation.cgtrmzhqrrjw.us-east-2.rds.amazonaws.com,1433:False:admin</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>restomation.cgtrmzhqrrjw.us-east-2.rds.amazonaws.com,1433</AssociatedConnSrvName>
+          <AssociatedConnUserName>admin</AssociatedConnUserName>
+          <FullPath>sp_addToCart.sql</FullPath>
+        </FileNode>
         <FileNode Name="sp_changePrice.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:restomation.cgtrmzhqrrjw.us-east-2.rds.amazonaws.com,1433:False:admin</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>restomation.cgtrmzhqrrjw.us-east-2.rds.amazonaws.com,1433</AssociatedConnSrvName>
@@ -61,11 +73,29 @@
           <AssociatedConnUserName>admin</AssociatedConnUserName>
           <FullPath>sp_loginUser.sql</FullPath>
         </FileNode>
+        <FileNode Name="sp_registerEmployee.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:restomation.cgtrmzhqrrjw.us-east-2.rds.amazonaws.com,1433:False:admin</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>restomation.cgtrmzhqrrjw.us-east-2.rds.amazonaws.com,1433</AssociatedConnSrvName>
+          <AssociatedConnUserName>admin</AssociatedConnUserName>
+          <FullPath>sp_registerEmployee.sql</FullPath>
+        </FileNode>
         <FileNode Name="sp_registerUser.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:restomation.cgtrmzhqrrjw.us-east-2.rds.amazonaws.com,1433:False:admin</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>restomation.cgtrmzhqrrjw.us-east-2.rds.amazonaws.com,1433</AssociatedConnSrvName>
           <AssociatedConnUserName>admin</AssociatedConnUserName>
           <FullPath>sp_registerUser.sql</FullPath>
+        </FileNode>
+        <FileNode Name="sp_reserveTable.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:restomation.cgtrmzhqrrjw.us-east-2.rds.amazonaws.com,1433:False:admin</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>restomation.cgtrmzhqrrjw.us-east-2.rds.amazonaws.com,1433</AssociatedConnSrvName>
+          <AssociatedConnUserName>admin</AssociatedConnUserName>
+          <FullPath>sp_reserveTable.sql</FullPath>
+        </FileNode>
+        <FileNode Name="SQLQuery3.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:restomation.cgtrmzhqrrjw.us-east-2.rds.amazonaws.com,1433:False:admin</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>restomation.cgtrmzhqrrjw.us-east-2.rds.amazonaws.com,1433</AssociatedConnSrvName>
+          <AssociatedConnUserName>admin</AssociatedConnUserName>
+          <FullPath>SQLQuery3.sql</FullPath>
         </FileNode>
         <FileNode Name="StaticData.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:restomation.cgtrmzhqrrjw.us-east-2.rds.amazonaws.com,1433:False:admin</AssociatedConnectionMoniker>

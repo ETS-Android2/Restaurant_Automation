@@ -52,9 +52,8 @@ public class EmployeeTableFragment extends Fragment {
     }
 
 
-
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         emptyText = view.findViewById(R.id.textView_emptyTable);
         viewTable = view;
@@ -126,7 +125,7 @@ public class EmployeeTableFragment extends Fragment {
 
 
     public void generateRecyclerView(ArrayList<TableResponseModel> tableResponseModel, View viewTable) {
-        menuItemAdapter =new MenuItemAdapter(tableResponseModel,getActivity().getApplication(),0 );
+        menuItemAdapter =new MenuItemAdapter(tableResponseModel,getActivity().getApplication(),0);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext(),LinearLayoutManager.VERTICAL,false);
         RecyclerView recyclerView =viewTable.findViewById(R.id.recyclerView_viewTable);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -148,6 +147,7 @@ public class EmployeeTableFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_employee_table, container, false);
+
     }
 
 
@@ -161,4 +161,8 @@ public class EmployeeTableFragment extends Fragment {
     public interface OnTableAddPress {
         void OnTableAddPress(int capacity);
     }
-}
+
+    }
+
+
+

@@ -1,10 +1,8 @@
 USE [restomation]
 GO
-
-/****** Object:  StoredProcedure [dbo].[reserveTable]    Script Date: 23-05-2020 01:00:29 AM ******/
+/****** Object:  StoredProcedure [dbo].[reserveTable]    Script Date: 2020-05-29 10:18:05 PM ******/
 SET ANSI_NULLS ON
 GO
-
 SET QUOTED_IDENTIFIER ON
 GO
 
@@ -12,8 +10,7 @@ GO
 
 
 
-
-CREATE PROCEDURE [dbo].[reserveTable]
+ALTER PROCEDURE [dbo].[reserveTable]
 (
 	@tableId int,
 	@reservationDate	dateTime,
@@ -82,6 +79,3 @@ BEGIN
 		end
 	END
 END
-GO
-
-

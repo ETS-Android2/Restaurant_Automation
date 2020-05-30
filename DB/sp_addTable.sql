@@ -1,16 +1,9 @@
 USE [restomation]
 GO
 
-/****** Object:  StoredProcedure [dbo].[addTable]    Script Date: 25-05-2020 09:29:32 PM ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
 
 
-
-CREATE procedure [dbo].[addTable]
+ALTER procedure [dbo].[addTable]
 (
 	@capacity int
 )
@@ -36,6 +29,3 @@ BEGIN
 		end
 	END
 END
-GO
-
-

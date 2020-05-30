@@ -114,6 +114,7 @@ namespace RESTRODBACCESS.Helper
                             user.Image = reader["Image"].ToString();
                             user.UserType = Convert.ToInt32(reader["UserType"].ToString());
                             user.Gender = reader["Gender"].ToString();
+                            user.UserTypeTitle = reader["UserTypeTitle"].ToString();
 
 
 

@@ -1,16 +1,14 @@
 USE [restomation]
 GO
-
-/****** Object:  StoredProcedure [dbo].[addTable]    Script Date: 27-05-2020 01:24:11 PM ******/
+/****** Object:  StoredProcedure [dbo].[addToCart]    Script Date: 2020-05-29 10:14:13 PM ******/
 SET ANSI_NULLS ON
 GO
-
 SET QUOTED_IDENTIFIER ON
 GO
 
 
 
-CREATE procedure [dbo].[addToCart]
+ALTER procedure [dbo].[addToCart]
 (
 	@itemId int,
 	@addedBy int,
@@ -51,6 +49,3 @@ BEGIN
 		end
 	END
 END
-GO
-
-

@@ -47,7 +47,7 @@ public class ManagerDashboardFragment extends Fragment {
         viewEmployee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.addEmployeeFragment);
+                Navigation.findNavController(v).navigate(R.id.employeeFragment);
             }
         });
 

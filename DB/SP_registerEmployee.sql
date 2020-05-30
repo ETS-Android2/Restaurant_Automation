@@ -1,16 +1,13 @@
 USE [restomation]
 GO
-
-/****** Object:  StoredProcedure [dbo].[registerEmployee]    Script Date: 23-05-2020 02:00:59 PM ******/
+/****** Object:  StoredProcedure [dbo].[registerEmployee]    Script Date: 2020-05-29 10:17:27 PM ******/
 SET ANSI_NULLS ON
 GO
-
 SET QUOTED_IDENTIFIER ON
 GO
 
 
-
-create PROCEDURE [dbo].[registerEmployee]
+ALTER PROCEDURE [dbo].[registerEmployee]
 (
 	@email varchar(150),
 	@password varchar(64),
@@ -60,6 +57,3 @@ BEGIN
 		END
 	END
 END
-GO
-
-
