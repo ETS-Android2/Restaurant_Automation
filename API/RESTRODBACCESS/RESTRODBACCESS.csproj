@@ -95,6 +95,7 @@
     <Compile Include="Helper\Auth.cs" />
     <Compile Include="Helper\Cart.cs" />
     <Compile Include="Helper\Employee.cs" />
+    <Compile Include="Helper\Order.cs" />
     <Compile Include="Helper\Table.cs" />
     <Compile Include="Helper\Menu.cs" />
     <Compile Include="Helper\User.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="RequestModel\AddMenuItemRequestModel.cs" />
     <Compile Include="RequestModel\AddTableRequestModel.cs" />
     <Compile Include="RequestModel\AddToCartRequestModel.cs" />
+    <Compile Include="RequestModel\OrderCartItemRequestModel.cs" />
     <Compile Include="RequestModel\RegisterEmployeeRequestModel.cs" />
     <Compile Include="RequestModel\ReserveTableRequestModel.cs" />
     <Compile Include="RequestModel\GetTableRequestModel.cs" />
@@ -116,6 +118,7 @@
     <Compile Include="ResponseModel\AddToCartResponseModel.cs" />
     <Compile Include="ResponseModel\GetTableResponseModel.cs" />
     <Compile Include="ResponseModel\MenuItemResponseModel.cs" />
+    <Compile Include="ResponseModel\OrderCartItemResponseModel.cs" />
     <Compile Include="ResponseModel\ReserveTableResponseModel.cs" />
     <Compile Include="ResponseModel\UserLoginResponseModel.cs" />
     <Compile Include="ResponseModel\UserRegisterResponseModel.cs" />
