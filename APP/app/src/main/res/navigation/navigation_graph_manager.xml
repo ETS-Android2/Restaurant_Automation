@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/managerDashboardFragment"
         android:name="a.m.restaurant_automation.manager.ManagerDashboardFragment"
-        android:label="fragment_manager_dashboard"
+        android:label="Manager Dashboard"
         tools:layout="@layout/fragment_manager_dashboard" />
     <fragment
         android:id="@+id/menuItemFragment"
@@ -18,26 +18,30 @@
     <fragment
         android:id="@+id/managerOrderHistoryFragment"
         android:name="a.m.restaurant_automation.manager.ManagerOrderHistoryFragment"
-        android:label="fragment_manager_order_history"
+        android:label="Orders"
         tools:layout="@layout/fragment_manager_order_history" />
 
     <fragment
         android:id="@+id/addEmployeeFragment"
         android:name="a.m.restaurant_automation.manager.AddEmployeeFragment"
-        android:label="fragment_add_employee"
+        android:label="Add Employee"
         tools:layout="@layout/fragment_add_employee" />
     <fragment
         android:id="@+id/employeeFragment"
         android:name="a.m.restaurant_automation.manager.EmployeeFragment"
-        android:label="fragment_employee"
+        android:label="Employees"
         tools:layout="@layout/fragment_employee" />
 
     <fragment
         android:id="@+id/employeeTableFragment"
         android:name="a.m.restaurant_automation.manager.EmployeeTableFragment"
-        android:label="fragment_employee_table"
+        android:label="Tables"
         tools:layout="@layout/fragment_employee_table" />
-
+    <fragment
+        android:id="@+id/managerMoreOptionsFragment"
+        android:name="a.m.restaurant_automation.manager.ManagerMoreOptionsFragment"
+        android:label="More Options"
+        tools:layout="@layout/fragment_manager_more_options" />
 
 
 </navigation>

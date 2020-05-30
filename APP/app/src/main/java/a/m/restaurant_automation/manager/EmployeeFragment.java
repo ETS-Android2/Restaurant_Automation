@@ -2,6 +2,7 @@ package a.m.restaurant_automation.manager;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.media.Image;
 import android.os.Bundle;
 
 import a.m.restaurant_automation.R;
@@ -24,6 +25,8 @@ import retrofit2.Response;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -31,7 +34,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 
 
-public class EmployeeFragment extends Fragment {
+public class EmployeeFragment extends Fragment{
     //int userType=2 ;
     //int [] userTypeM=new int[4];
     View viewMenu;
@@ -84,6 +87,8 @@ public class EmployeeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         viewMenu = view;
         floatingActionButton=view.findViewById(R.id.floatingButton_addEmployee);
+
+
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,7 +139,8 @@ public class EmployeeFragment extends Fragment {
         public View.OnClickListener onClickListener =new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity().getApplicationContext(), "yes selected", Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(getActivity().getApplicationContext(), "Functionality Under Maintenance", Toast.LENGTH_SHORT).show();
                 /*AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
                         .setTitle("Delete Item")
                         .setMessage("Are you sure you want to delete this Item?")
@@ -157,8 +163,6 @@ public class EmployeeFragment extends Fragment {
                  */
             }
         };
-
-
 
 
 

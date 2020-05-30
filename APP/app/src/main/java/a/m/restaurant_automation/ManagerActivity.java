@@ -82,8 +82,8 @@ public class ManagerActivity extends AppCompatActivity implements BottomNavigati
 
 
             case R.id.Moremenu:
-//                fragment=new OrderFragment();
-//                break;
+                navController.navigate(R.id.managerMoreOptionsFragment);
+                return true;
 
         }
         return false;

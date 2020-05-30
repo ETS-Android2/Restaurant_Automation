@@ -4,16 +4,12 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import a.m.restaurant_automation.R;
-import a.m.restaurant_automation.responseModel.RegisterResponseModel;
 import a.m.restaurant_automation.responseModel.UsersResponseModel;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,11 +37,19 @@ public class AddEmployeeAdapter extends RecyclerView.Adapter<AddEmployeeAdapter.
 
         @Override
         public void onBindViewHolder(@NonNull AddEmployeeAdapter.ViewHolder holder, int position) {
-            holder.employeeFirstName.setText(registerResponse.get(position).getFirstName());
-            holder.employeeLastName.setText(registerResponse.get(position).getLastName());
-            holder.employeePhone.setText(registerResponse.get(position).getPhone());
-            holder.employeeUserType.setText(registerResponse.get(position).getUserType().toString());
-            holder.employeeEmail.setText(registerResponse.get(position).getEmail());
+            holder.employeeFirstName.setText("Name : "+registerResponse.get(position).getFirstName().toUpperCase());
+            holder.employeeLastName.setText(registerResponse.get(position).getLastName().toUpperCase());
+            if(registerResponse.get(position).getPhone().isEmpty())
+            {
+                holder.employeePhone.setText("Phone : N/A");
+
+            }
+            else
+            {
+                holder.employeePhone.setText("Phone : "+registerResponse.get(position).getPhone());
+            }
+            holder.employeeUserType.setText("UserType : " +registerResponse.get(position).getUserTypeTitle().toUpperCase());
+            holder.employeeEmail.setText("Email : "+registerResponse.get(position).getEmail().toLowerCase());
             //Picasso.get(position).load().into(holder.employeeImage);
 
         }
@@ -61,7 +65,7 @@ public class AddEmployeeAdapter extends RecyclerView.Adapter<AddEmployeeAdapter.
 
         public class ViewHolder extends RecyclerView.ViewHolder {
             TextView employeeFirstName, employeeLastName,employeeEmail,employeePhone,employeeUserType;
-            //Button removeItemButton;
+            ImageView deleteEmployee;
             ImageView employeeImage;
 
             public ViewHolder(@NonNull View itemView) {
@@ -72,8 +76,9 @@ public class AddEmployeeAdapter extends RecyclerView.Adapter<AddEmployeeAdapter.
                 employeePhone = itemView.findViewById(R.id.employeePhone);
                 employeeUserType = itemView.findViewById(R.id.employeeUserType);
                 employeeImage=itemView.findViewById(R.id.imageEmployee);
+                deleteEmployee =itemView.findViewById(R.id.imageDeleteEmployee);
 
-                //removeItemButton.setOnClickListener(onItemListener);
+                deleteEmployee.setOnClickListener(onItemListener);
                 itemView.setTag(this);
             }
         }

@@ -25,6 +25,7 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.ViewHo
     private ArrayList<TableResponseModel> tableResponseModel;
     int size = 0;
     int test=0;
+    boolean tableStatus;
     private Context context;
     public View.OnClickListener onItemListener;
     String url = "https://cdn2.creativecirclemedia.com/neni/original/20190917-140036-Ratatouille-T5_93975.jpg";
@@ -70,9 +71,18 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.ViewHo
             Picasso.get().load(url).into(holder.menuItemImage);
         }
         else if (isTable){
+            tableStatus=tableResponseModel.get(position).getAvailability();
             holder.tableNumber.setText("Table Number: "+ tableResponseModel.get(position).getTableId());
-            holder.tableCapacity.setText("Table's Capacity: "+ tableResponseModel.get(position).getCapacity());
-            holder.tableStatus.setText("Table Status: "+tableResponseModel.get(position).getAvailability());
+            holder.tableCapacity.setText("Table Capacity: "+ tableResponseModel.get(position).getCapacity());
+            if(tableStatus==true)
+            {
+                holder.tableStatus.setText("Table Status: Available");
+
+            }else
+            {
+                holder.tableStatus.setText("Table Status: Unavailable ");
+            }
+
         }
     }
 

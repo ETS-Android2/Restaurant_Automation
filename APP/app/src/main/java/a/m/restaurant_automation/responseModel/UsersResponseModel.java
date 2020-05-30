@@ -31,6 +31,17 @@ public class UsersResponseModel {
         @Expose
         private String image;
 
+    public String getUserTypeTitle() {
+        return userTypeTitle;
+    }
+
+    public void setUserTypeTitle(String userTypeTitle) {
+        this.userTypeTitle = userTypeTitle;
+    }
+
+    @SerializedName("UserTypeTitle")
+    @Expose
+    private String userTypeTitle;
         public Integer getUserType() {
             return userType;
         }
