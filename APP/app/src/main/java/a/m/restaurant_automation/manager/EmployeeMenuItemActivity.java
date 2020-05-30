@@ -49,6 +49,8 @@ public class EmployeeMenuItemActivity extends AppCompatActivity {
         pagerAdapter = new PagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, mTabLayout.getTabCount());
         mViewPager.setAdapter(pagerAdapter);
 
+
+
         floatingActionButton =findViewById(R.id.floatingButton_addMenuItem);
 
 

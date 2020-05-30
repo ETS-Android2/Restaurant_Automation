@@ -95,17 +95,17 @@
 
             <ImageView
                 android:id="@+id/imageUpadte"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 app:srcCompat="@drawable/ic_edit_black_24dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="60dp"/>
+                android:layout_marginRight="50dp"/>
             <ImageView
                 android:id="@+id/imageDelete"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 app:srcCompat="@drawable/ic_delete_forever_black_24dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"

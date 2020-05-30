@@ -30,6 +30,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 
 
@@ -39,7 +41,7 @@ public class EmployeeTableFragment extends Fragment {
     TextView emptyText;
     View viewTable;
 
-    Button button_addTable;
+    FloatingActionButton button_addTable;
     OnTableAddPress onTableAddPress;
     AlertDialog.Builder alertDialog;
     EditText addCapacity;
@@ -98,7 +100,7 @@ public class EmployeeTableFragment extends Fragment {
                 alertDialog.setMessage("Enter Table Capacity");
                 final EditText editText_tableCapacity = new EditText(getActivity().getApplicationContext());
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT
                 );
                editText_tableCapacity.setLayoutParams(layoutParams);
