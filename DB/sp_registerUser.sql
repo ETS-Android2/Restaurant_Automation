@@ -6,7 +6,7 @@ GO
 
 
 
-create PROCEDURE [dbo].[registerUser]
+Alter PROCEDURE [dbo].[registerUser]
 	
 (
 	@email varchar(150),
@@ -35,6 +35,7 @@ BEGIN
 		DECLARE @_updatedDate datetime = NULL
 		DECLARE @_deletedDate datetime = NULL
 		DECLARE @_userTypeId  int = @userTypeId
+		DECLARE @_isDeactive bit = 0
 	END
 
 	BEGIN
@@ -48,8 +49,8 @@ BEGIN
 		ELSE
 		BEGIN
 
-			INSERT INTO users(FirstName,lastName,email,password,phoneNo,createdDate,userTypeId)
-			VALUES (@_fname,@_lname,@_email,@_password,@_phone,@_createdDate,@_userTypeId)
+			INSERT INTO users(FirstName,lastName,email,password,phoneNo,createdDate,userTypeId,isDeactive)
+			VALUES (@_fname,@_lname,@_email,@_password,@_phone,@_createdDate,@_userTypeId,@_isDeactive)
 
 			select @_email AS 'email',userId   from users where email=@_email
 		END

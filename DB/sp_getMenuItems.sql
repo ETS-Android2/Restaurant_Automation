@@ -19,6 +19,7 @@ BEGIN
 		
 		--DECLARE @_userId		INT				= @userId
 		DECLARE @_categoryId    INT				= @categoryId
+		
 		IF @_categoryId = 0
 		BEGIN
 			SET @_categoryId = NULL
@@ -56,7 +57,8 @@ BEGIN
 
 		WHERE 
 		-- (@_userId IS NULL OR (u1.userId=@_userId)) AND
-		 (@_categoryId IS NULL OR (MenuItems.categoryID=@_categoryId))
+		 (@_categoryId IS NULL OR (MenuItems.categoryID=@_categoryId)) AND
+		 (MenuItems.isItemDeactive=0)
 		) AS t
 		
 		END

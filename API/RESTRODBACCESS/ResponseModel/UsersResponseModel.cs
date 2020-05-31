@@ -12,5 +12,8 @@
         public string Gender { get; set; }
         public string Image { get; set; }
         public string UserTypeTitle { get; set; }
+
+       
     }
+
 }

@@ -3,7 +3,6 @@ GO
 
 
 
-
 --exec loginUser 'admin@gmail.com','123456'
 ALTER PROCEDURE loginUser
 (
@@ -26,13 +25,15 @@ BEGIN
 		DECLARE @_deleted_date datetime = NULL
 		DECLARE @_currentTime	datetime = GETDATE()
 		DECLARE @_token UNIQUEIDENTIFIER = NEWID()
+		DECLARE @_isDeactive bit = NULL
 	END
 
 	BEGIN -- login user
 		
-		SELECT @_userId = userid, @_deleted_date = deletedDate FROM users WHERE email = @_email AND password = @_password
+		SELECT @_userId = userid, @_deleted_date = deletedDate,@_isDeactive=isDeactive FROM users WHERE email = @_email AND password = @_password
 		
-		IF ISNULL(@_deleted_date, '') = '' 
+		--IF ISNULL(@_deleted_date, '') = '' 
+		IF @_isDeactive=0
 		BEGIN
 			IF EXISTS (select 1 from users where users.userId=@_userId) 
 			
@@ -84,9 +85,10 @@ BEGIN
 				SELECT '002' AS 'ErrorCode', 'Email id or password is wrong' AS 'ErrorMessage'	
 			END
 		END
-		ELSE IF ISNULL(@_deleted_date,'') != ''
+		--ELSE IF ISNULL(@_deleted_date,'') != ''
+		ELSE IF @_isDeactive=1
 			BEGIN
-				SELECT '001' AS 'ErrorCode', 'Account Deleted' AS 'ErrorMessage'	
+				SELECT '001' AS 'ErrorCode', 'Sorry, Your account is deactivated. Please send us an email with your registered account' AS 'ErrorMessage'	
 			END
 		ELSE
 		BEGIN

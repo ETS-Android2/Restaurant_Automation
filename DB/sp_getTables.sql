@@ -1,15 +1,13 @@
 USE [restomation]
 GO
-
-/****** Object:  StoredProcedure [dbo].[getMenuItems]    Script Date: 22-05-2020 11:30:54 AM ******/
+/****** Object:  StoredProcedure [dbo].[getTables]    Script Date: 2020-05-31 3:32:30 PM ******/
 SET ANSI_NULLS ON
 GO
-
 SET QUOTED_IDENTIFIER ON
 GO
 
 
-CREATE PROCEDURE [dbo].[getTables]
+ALTER PROCEDURE [dbo].[getTables]
 (
 	@tableId INT	
 )
@@ -20,6 +18,7 @@ BEGIN
 
 	BEGIN -- Declare Variables
 		DECLARE @_tableId    INT = @tableId
+	
 	END
 	
 	BEGIN
@@ -35,11 +34,9 @@ BEGIN
 
 		WHERE 
 		-- (@_userId IS NULL OR (u1.userId=@_userId)) AND
-		 (@_tableId = 0 OR (Tables.tableID=@_tableId))
+		 (@_tableId = 0 OR (Tables.tableID=@_tableId)) AND
+		 (isTableDeactive = 0 )
 		) AS t
 		
 		END
 END
-GO
-
-

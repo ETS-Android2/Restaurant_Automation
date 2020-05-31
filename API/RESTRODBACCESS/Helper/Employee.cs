@@ -71,7 +71,65 @@ namespace RESTRODBACCESS.Helper
             }
         }
 
-        
-        
+
+        public UsersResponseModel deleteorModifyEmployee(EmployeeDeleteRequestModel employeeDeleteRequest, out ErrorModel errorModel)
+        {
+            errorModel = null;
+            UsersResponseModel usersResponseModel = null;
+            SqlConnection connection = null;
+            try
+            {
+                using (connection = new SqlConnection(Database.getConnectionString()))
+                {
+                    SqlCommand command = new SqlCommand(SqlCommands.SP_deleteorModifyEmployee, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    #region Commands Parameters
+                    
+                    command.Parameters.Add(new SqlParameter("@isDelete", System.Data.SqlDbType.Bit));
+                    command.Parameters["@isDelete"].Value = employeeDeleteRequest.isDelete;
+
+                    command.Parameters.Add(new SqlParameter("@userId", System.Data.SqlDbType.Int));
+                    command.Parameters["@userId"].Value = employeeDeleteRequest.userId;
+
+                    #endregion
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    usersResponseModel = new UsersResponseModel();
+                    if (reader.Read())
+                    {
+                        if (reader.isColumnExists("ErrorCode"))
+                        {
+                            errorModel = new ErrorModel();
+                            errorModel.ErrorCode = reader["ErrorCode"].ToString();
+                            errorModel.ErrorMessage = reader["ErrorMessage"].ToString();
+                        }
+                        else
+                        {
+                            usersResponseModel.UserId = Convert.ToInt32(reader["UserId"].ToString());
+                            usersResponseModel.UserType = Convert.ToInt32(reader["UserTypeId"].ToString());
+
+                        }
+                    }
+                    command.Dispose();
+                    return usersResponseModel;
+                }
+            }
+            catch (Exception exception)
+            {
+                errorModel = new ErrorModel();
+                errorModel.ErrorMessage = exception.Message;
+                return null;
+            }
+            finally
+            {
+                if (connection != null)
+                {
+                    connection.Close();
+                }
+            }
+        }
+
     }
 }

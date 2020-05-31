@@ -28,6 +28,7 @@ BEGIN
 		DECLARE @_availableQty int = @availableQty
 		DECLARE @_itemStatus   bit = @itemStatus
 		DECLARE @_itemImage varchar(max) = @itemImage
+		DECLARE @_isItemDeactive bit = 0
 	END
 
 	BEGIN
@@ -39,8 +40,8 @@ BEGIN
 		ELSE
 		BEGIN
 
-			INSERT INTO MenuItems(itemName,itemDescription,price,categoryID,availableQty,itemStatusTitle,createdBy,itemImage)
-			VALUES (@_itemName,@_itemDescription,@_price,@_categoryId,@_availableQty,@_itemStatus,@_createdBy,@_itemImage)
+			INSERT INTO MenuItems(itemName,itemDescription,price,categoryID,availableQty,itemStatusTitle,createdBy,itemImage,isItemDeactive)
+			VALUES (@_itemName,@_itemDescription,@_price,@_categoryId,@_availableQty,@_itemStatus,@_createdBy,@_itemImage,@_isItemDeactive)
 
 			select 
 			 itemId AS 'ItemId'

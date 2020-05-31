@@ -23,5 +23,19 @@ namespace TESTRESTRO.Provider
                 return null;
             }
         }
+
+        public UsersResponseModel deleteorModifyEmployee(EmployeeDeleteRequestModel employeeDeleteRequest, out ErrorModel errorModel)
+        {
+            errorModel = null;
+            try
+            {
+                Employee employeeHelper = new Employee();
+                return employeeHelper.deleteorModifyEmployee(employeeDeleteRequest, out errorModel);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

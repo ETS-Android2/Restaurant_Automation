@@ -28,7 +28,7 @@ namespace RESTRODBACCESS.Helper
                     command.Parameters["@fname"].Value = fname;
 
                     command.Parameters.Add(new SqlParameter("@lname", System.Data.SqlDbType.VarChar, 50));
-                    command.Parameters["@lname"].Value = fname;
+                    command.Parameters["@lname"].Value = lname;
 
                     command.Parameters.Add(new SqlParameter("@password", System.Data.SqlDbType.VarChar, 64));
                     command.Parameters["@password"].Value = password;

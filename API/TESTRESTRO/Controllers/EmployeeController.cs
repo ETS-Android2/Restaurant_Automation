@@ -27,5 +27,21 @@ namespace TESTRESTRO.Controllers
 
             return Request.CreateResponse(HttpStatusCode.OK, aPIResponseModel);
         }
+
+
+        [HttpPost]
+        [Route("api/deleteorModifyEmployee")]
+        public HttpResponseMessage deleteorModifyEmployee(EmployeeDeleteRequestModel employeeDeleteRequest)
+        {
+            EmployeeProvider employeeProvider = new EmployeeProvider();
+            ErrorModel errorModel = null;
+            var deleteorModifyEmployee = employeeProvider.deleteorModifyEmployee(employeeDeleteRequest, out errorModel);
+
+            APIResponseModel aPIResponseModel = new APIResponseModel();
+            aPIResponseModel.Response = deleteorModifyEmployee;
+            aPIResponseModel.Error = errorModel;
+
+            return Request.CreateResponse(HttpStatusCode.OK, aPIResponseModel);
+        }
     }
 }

@@ -107,6 +107,7 @@
     <Compile Include="RequestModel\AddMenuItemRequestModel.cs" />
     <Compile Include="RequestModel\AddTableRequestModel.cs" />
     <Compile Include="RequestModel\AddToCartRequestModel.cs" />
+    <Compile Include="RequestModel\EmployeeDeleteRequestModel.cs" />
     <Compile Include="RequestModel\OrderCartItemRequestModel.cs" />
     <Compile Include="RequestModel\RegisterEmployeeRequestModel.cs" />
     <Compile Include="RequestModel\ReserveTableRequestModel.cs" />

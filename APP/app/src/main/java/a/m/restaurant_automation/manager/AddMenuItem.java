@@ -133,6 +133,7 @@ public class AddMenuItem extends AppCompatActivity implements View.OnClickListen
                    // Toast.makeText(getApplicationContext(),  responseModel.getData().getMenuItemId().toString(),Toast.LENGTH_LONG).show();
                     Intent intentToMain =new Intent(AddMenuItem.this, EmployeeMenuItemActivity.class);
                     startActivity(intentToMain);
+                    finish();
 
                 }
 

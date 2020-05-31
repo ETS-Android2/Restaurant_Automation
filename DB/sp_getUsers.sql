@@ -49,7 +49,8 @@ BEGIN
 		on users.userTypeId = userType.userTypeID
 		WHERE 
 			--(@_userType IS NULL OR (userTypeId=@_userType))
-			users.userTypeId IN (2,3,4,5)
+			users.userTypeId IN (2,3,4,5) AND
+			Users.isDeactive = 0
 		
 		) AS t
 		
