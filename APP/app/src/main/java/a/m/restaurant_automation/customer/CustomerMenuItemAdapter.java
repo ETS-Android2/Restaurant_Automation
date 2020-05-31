@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 import a.m.restaurant_automation.R;
@@ -22,6 +24,7 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
     int size = 0;
     private Context context;
     public View.OnClickListener onItemListener_customer;
+    String url = "https://cdn2.creativecirclemedia.com/neni/original/20190917-140036-Ratatouille-T5_93975.jpg";
 
     public CustomerMenuItemAdapter(ArrayList<MenuItemResponse> menuItemResponse, Context context) {
         this.menuItemResponsecustomer = menuItemResponse;
@@ -40,6 +43,7 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
     public void onBindViewHolder(@NonNull CustomerMenuItemAdapter.ViewHolder holder, int position) {
         holder.menuItemName.setText("Name : "+menuItemResponsecustomer.get(position).getMenuItemName());
         holder.menuItemPrice.setText("Price : "+menuItemResponsecustomer.get(position).getPrice().toString() +" $");
+        Picasso.get().load(url).into(holder.menuItemImage);
     }
 
 

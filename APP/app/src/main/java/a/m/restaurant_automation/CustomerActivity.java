@@ -1,5 +1,6 @@
 package a.m.restaurant_automation;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +14,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import a.m.restaurant_automation.customer.CustomerMenuItemActivity;
 
 public class CustomerActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -30,17 +33,6 @@ public class CustomerActivity extends AppCompatActivity implements BottomNavigat
     public void setUpNavigation(){
 
         bottomNavigationView= findViewById(R.id.BottomnavigateMenuCustomer);
-        //bottomNavigationView.setVisibility(View.VISIBLE);
-//        CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) bottomNavigationView.getLayoutParams();
-//        layoutParams.setBehavior(new BottomNavigationViewBehavior());
-
-
-        //navController= Navigation.findNavController(CustomerActivity.this,R.id.customerhostfragment);
-        //NavigationUI.setupWithNavController(bottomNavigationView,navController);
-
-        // NavigationUI.setupActionBarWithNavController(this,navController);
-        // NavigationUI.setupWithNavController(bottomNavigationView,navController);
-
         navController= Navigation.findNavController(this,R.id.customerhostfragment);
         NavigationUI.setupWithNavController(bottomNavigationView,navController);
 
@@ -75,7 +67,9 @@ public class CustomerActivity extends AppCompatActivity implements BottomNavigat
 
             case R.id.Menu:
                 //  Toast.makeText(getApplicationContext(),"Friend Dashboard",Toast.LENGTH_LONG).show();
-               navController.navigate(R.id.menuItemsFragment);
+               //navController.navigate(R.id.);
+                Intent intent = new Intent(this, CustomerMenuItemActivity.class);
+                startActivity(intent);
                return true;
 
              //   fragment=new CustomerMenuItemsFragment();

@@ -25,4 +25,5 @@
         android:name="a.m.restaurant_automation.customer.MoreOptionsFragment"
         android:label="fragment_more_options"
         tools:layout="@layout/fragment_more_options" />
+
 </navigation>
