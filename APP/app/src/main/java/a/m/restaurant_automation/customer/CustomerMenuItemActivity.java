@@ -1,7 +1,9 @@
 package a.m.restaurant_automation.customer;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import a.m.restaurant_automation.CustomerActivity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -61,8 +63,13 @@ public class CustomerMenuItemActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         finish();
+
+
+        //super.onBackPressed();
+        Intent intent = new Intent(CustomerMenuItemActivity.this, CustomerActivity.class);
+        startActivity(intent);
+
     }
 
     private class PagerAdapter extends FragmentPagerAdapter {

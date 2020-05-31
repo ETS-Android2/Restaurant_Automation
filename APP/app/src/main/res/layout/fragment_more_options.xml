@@ -3,13 +3,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".customer.MoreOptionsFragment"
     android:id="@+id/moreOptionsFragment">
 
-    <Button
-        android:layout_width="wrap_content"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_logoutCustomer"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Customer LOGOUT"
-        android:id="@+id/logout_customer"/>
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:layout_marginBottom="3dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginTop="3dp"
+        app:cardElevation="8dp"
+        app:cardCornerRadius="2dp"
+        android:clickable="true"
+
+        >
+
+
+
+
+
+        <TextView
+            android:id="@+id/textView_logoutCustomer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Customer Logout"
+            android:textAlignment="center"
+            android:textColor="@color/gray"
+            android:textSize="25sp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textStyle="bold"
+            tools:ignore="RtlCompat" />
+
+
+
+
+
+
+    </androidx.cardview.widget.CardView>
 
 </FrameLayout>

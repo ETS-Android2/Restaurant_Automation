@@ -42,6 +42,7 @@ public class CashierDashboardFragment extends Fragment {
                 UserSession.getInstance().clearSession();
                 Intent _intent = new Intent(getActivity(), LoginActivity.class);
                 startActivity(_intent);
+                getActivity().finish();
             }
         });
 

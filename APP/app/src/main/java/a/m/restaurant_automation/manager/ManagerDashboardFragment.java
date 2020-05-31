@@ -13,12 +13,13 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 public class ManagerDashboardFragment extends Fragment {
-    CardView viewMenu, viewEmployee, viewTables;
+    CardView viewMenu, viewEmployee, viewTables,currentBookings;
 
 
 
@@ -56,6 +57,14 @@ public class ManagerDashboardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(R.id.employeeTableFragment);
+            }
+        });
+        currentBookings = view.findViewById(R.id.cardView_currentBookings);
+        currentBookings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Navigation.findNavController(v).navigate(R.id.employeeTableFragment);
+                Toast.makeText(getActivity().getApplicationContext(),"Functionality Under Maintenance",Toast.LENGTH_LONG).show();
             }
         });
 

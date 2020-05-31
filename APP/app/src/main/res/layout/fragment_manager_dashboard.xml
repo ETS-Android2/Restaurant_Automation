@@ -72,7 +72,7 @@
                     android:id="@+id/textView_viewEmployees"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="View Employees"
+                    android:text="View/Add Employees"
                     android:textAlignment="center"
                     android:textColor="@color/gray"
                     android:textSize="18sp"
@@ -120,7 +120,7 @@
                     android:id="@+id/textView_viewMenu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="View Menu"
+                    android:text="View/Add Menu"
                     android:textAlignment="center"
                     android:textColor="@color/gray"
                     android:textSize="18sp"
@@ -164,7 +164,7 @@
                     android:id="@+id/textView_viewTables"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="View Tables"
+                    android:text="View/Add Tables"
                     android:textAlignment="center"
                     android:textColor="@color/gray"
                     android:textSize="18sp"
@@ -178,7 +178,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardView_listofT"
+            android:id="@+id/cardView_currentBookings"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_columnWeight="1"
@@ -206,10 +206,10 @@
 
 
                 <TextView
-                    android:id="@+id/textView_listofTranscation"
+                    android:id="@+id/textView_currentBookings"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="List of Transcation"
+                    android:text="Current Bookings"
                     android:textAlignment="center"
                     android:textColor="@color/gray"
                     android:textSize="18sp"

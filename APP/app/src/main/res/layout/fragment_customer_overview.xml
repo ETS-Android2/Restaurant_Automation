@@ -9,9 +9,12 @@
 
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello"
-        android:layout_marginTop="100dp"/>
+        android:text="OverView Page, Select menu from the bottom of the page"
+        android:textSize="35dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="#000000"
+        android:textStyle="italic|bold"/>
 </FrameLayout>
