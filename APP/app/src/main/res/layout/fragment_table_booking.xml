@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F2F8F8"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@drawable/startupRestraProfile" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Apanum Chulha"
+        android:layout_gravity="center"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2sp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_background_login" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="2mm"
+        android:background="#090909"
+        android:gravity="center_horizontal"
+        android:text="How many people?"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:textStyle="italic" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#090909"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnPlusGuest"
+            android:layout_width="25dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="15mm"
+            android:background=""
+            android:gravity="center"
+            android:text="+"
+            android:textColor="@color/white"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#131313"
+            android:layout_gravity="center"
+            android:text="0"
+            android:layout_marginLeft="80dp"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="italic" />
+
+        <Button
+            android:id="@+id/btnMinusGuest"
+            android:layout_width="25dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="15mm"
+            android:background=""
+            android:gravity="center"
+            android:text="-"
+            android:textColor="@color/white"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2sp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_background_login" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2sp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_background_login" />
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical"
+       android:background="#090909">
+
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="2mm"
+           android:gravity="center_horizontal"
+           android:text="Set your Time"
+           android:textSize="25sp"
+           android:textColor="@color/white"
+           android:textStyle="italic" />
+
+       <EditText
+           android:id="@+id/editText2"
+           android:layout_width="150dp"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center"
+           android:ems="10"
+           android:text="Time"
+           android:textColor="@color/white"
+           android:gravity="center_horizontal"
+           android:inputType="time" />
+   </LinearLayout>
+
+    <Button
+        android:id="@+id/btnSearchTable"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="70dp"
+        android:background="@drawable/button_background_login"
+        android:text="Search Table"
+        android:textColor="@color/white"
+        android:textSize="35sp"
+        android:textStyle="bold" />
+
+
+</LinearLayout>
