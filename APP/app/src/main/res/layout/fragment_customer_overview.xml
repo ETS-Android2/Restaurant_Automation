@@ -8,37 +8,164 @@
     android:id="@+id/CustomerOverviewFragment">
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcyclrVwOverview"
+    <LinearLayout
+        android:id="@+id/lnLy1"
         android:layout_width="match_parent"
-        android:layout_height="666dp"
-        android:layout_marginBottom="5dp"
-        />
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imgProfile"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="@drawable/startupRestraProfile" />
+
+    </LinearLayout>
+
+    <view
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_below="@id/lnLy1"
+        android:background="@drawable/button_background_login" />
+
+    <LinearLayout
+        android:id="@+id/lnLy2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/view1"
+        android:orientation="horizontal"
+        android:padding="3dp">
+
+        <TextView
+            android:id="@+id/txtRestoName"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_marginLeft="15dp"
+            android:text="@string/apanum_chulha"
+            android:textColor="#0E0E0E"
+            android:textSize="35sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtRating"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="60dp"
+            android:text="@string/_4_5"
+            android:textColor="#787373"
+            android:textSize="35sp"
+            android:layout_marginStart="60dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lnLY3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lnLy2"
+        android:layout_marginLeft="15dp"
+        android:orientation="vertical"
+        android:padding="3dp">
+
+        <TextView
+            android:id="@+id/txtRestoType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Restaurant- Multi Cuisine"
+            android:textSize="25sp"
+            android:textStyle="italic" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2sp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_background_login" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/clock"
+                android:layout_marginStart="55dp"
+                android:contentDescription="TODO" />
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="30mm"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/location" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtOpeningTime"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginLeft="4mm"
+                android:layout_marginTop="10dp"
+                android:text="9am-11pm"
+                android:textSize="25sp"
+                android:textStyle="italic" />
+
+            <TextView
+                android:id="@+id/txtAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginLeft="6mm"
+                android:layout_marginTop="10dp"
+                android:text="25 Parc,Montreal"
+                android:textSize="25sp"
+                android:textStyle="italic"
+
+                />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2sp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_background_login" />
+
+        <TextView
+            android:id="@+id/txtDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Description"
+            android:textSize="25sp"
+            android:textStyle="italic" />
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/btnDineIn"
-        android:layout_width="209dp"
+        android:layout_width="210dp"
         android:layout_height="61dp"
-        android:layout_below="@id/rcyclrVwOverview"
-        android:background="@drawable/button_background_login"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/mainbackground"
         android:text="Dine-In"
-        android:textSize="35sp"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:textSize="35sp" />
 
     <Button
         android:id="@+id/btnTakeOut"
         android:layout_width="210dp"
         android:layout_height="61dp"
-        android:layout_below="@id/rcyclrVwOverview"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginLeft="113dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginRight="0dp"
+        android:layout_alignParentBottom="true"
         android:layout_toRightOf="@id/btnDineIn"
-        android:background="@drawable/button_background_login"
-        android:textSize="35sp"
+        android:background="@drawable/mainbackground"
+        android:text="Take-Out"
         android:textColor="@color/white"
-        android:text="Take-Out" />
-    
+        android:textSize="35sp" />
+
 </RelativeLayout>
