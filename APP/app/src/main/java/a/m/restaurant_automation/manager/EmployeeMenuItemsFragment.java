@@ -35,7 +35,7 @@ public class EmployeeMenuItemsFragment extends Fragment {
     TextView emptyText;
     View viewMenu;
     Button removeItemButton;
-
+    Call<ResponseModel<ArrayList<MenuItemResponse>>> call;
 
     ArrayList<MenuItemResponse> menuItemResponse;
 
@@ -66,7 +66,7 @@ public class EmployeeMenuItemsFragment extends Fragment {
 
         viewMenu = view;
         IDataService dataService = RetrofitClient.getRetrofitInstance().create(IDataService.class);
-        Call<ResponseModel<ArrayList<MenuItemResponse>>> call =dataService.getMenuItem(category);
+        call =dataService.getMenuItem(category);
 
         call.enqueue(new Callback<ResponseModel<ArrayList<MenuItemResponse>>>() {
             @Override
@@ -91,7 +91,6 @@ public class EmployeeMenuItemsFragment extends Fragment {
             @Override
             public void onFailure(Call<ResponseModel<ArrayList<MenuItemResponse>>> call, Throwable t) {
                 Toast.makeText(getActivity().getApplicationContext(), "Something Went Wrong!" + t.getMessage(), Toast.LENGTH_LONG).show();
-
             }
         });
 
@@ -134,6 +133,11 @@ public class EmployeeMenuItemsFragment extends Fragment {
         }
     };
 
-
-
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        if(call != null){
+            call.cancel();
+        }
+    }
 }

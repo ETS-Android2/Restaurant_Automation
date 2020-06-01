@@ -2,10 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/CustomerOverviewFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".customer.CustomerOverviewFragment"
-    android:id="@+id/CustomerOverviewFragment">
+    android:layout_margin="5dp"
+    tools:context=".customer.CustomerOverviewFragment">
 
 
     <LinearLayout
@@ -17,11 +18,11 @@
             android:id="@+id/imgProfile"
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:background="@drawable/startupRestraProfile" />
+            android:background="@drawable/restaurant_overview" />
 
     </LinearLayout>
 
-    <view
+    <View
         android:id="@+id/view1"
         android:layout_width="match_parent"
         android:layout_height="5dp"
@@ -39,22 +40,21 @@
         <TextView
             android:id="@+id/txtRestoName"
             android:layout_width="wrap_content"
-            android:layout_height="45dp"
-            android:layout_marginLeft="15dp"
-            android:text="@string/apanum_chulha"
+            android:layout_height="wrap_content"
+            android:text="@string/restaurant_name"
             android:textColor="#0E0E0E"
-            android:textSize="35sp"
+            android:textSize="30sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/txtRating"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
             android:layout_marginLeft="60dp"
-            android:text="@string/_4_5"
+            android:text="@string/restaurant_rating"
             android:textColor="#787373"
-            android:textSize="35sp"
-            android:layout_marginStart="60dp" />
+            android:textSize="35sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -62,7 +62,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/lnLy2"
-        android:layout_marginLeft="15dp"
         android:orientation="vertical"
         android:padding="3dp">
 
@@ -70,7 +69,7 @@
             android:id="@+id/txtRestoType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Restaurant- Multi Cuisine"
+            android:text="@string/restaurant_type"
             android:textSize="25sp"
             android:textStyle="italic" />
 
@@ -80,55 +79,65 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/button_background_login" />
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/imageViewClock"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/clock"
-                android:layout_marginStart="55dp"
-                android:contentDescription="TODO" />
+                android:layout_marginTop="10dp"
+                android:background="@drawable/ic_clock"
+                android:contentDescription="TODO"
+                app:layout_constraintBottom_toTopOf="@id/txtOpeningTime"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
 
             <ImageView
+                android:id="@+id/imageViewLocation"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:layout_marginLeft="30mm"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/location" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                android:layout_marginTop="8dp"
+                android:background="@drawable/ic_location"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.689"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/txtOpeningTime"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_marginLeft="4mm"
-                android:layout_marginTop="10dp"
-                android:text="9am-11pm"
-                android:textSize="25sp"
-                android:textStyle="italic" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/restaurant_timing"
+                android:textSize="18sp"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/txtAddress"
+                app:layout_constraintHorizontal_bias="0.06"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imageViewClock"
+                app:layout_constraintVertical_bias="1.0" />
 
             <TextView
                 android:id="@+id/txtAddress"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_marginLeft="6mm"
-                android:layout_marginTop="10dp"
-                android:text="25 Parc,Montreal"
-                android:textSize="25sp"
+                android:layout_height="wrap_content"
+                android:text="@string/restaurant_address"
+                android:textSize="18sp"
                 android:textStyle="italic"
-
-                />
-        </LinearLayout>
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.719"
+                app:layout_constraintStart_toEndOf="@+id/txtOpeningTime"
+                app:layout_constraintTop_toBottomOf="@id/imageViewLocation"
+                android:layout_marginTop="5dp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
             android:layout_width="match_parent"
@@ -141,31 +150,44 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Description"
-            android:textSize="25sp"
+            android:text="@string/restaurant_description"
+            android:gravity=""
+            android:textSize="18sp"
             android:textStyle="italic" />
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnDineIn"
-        android:layout_width="210dp"
-        android:layout_height="61dp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/mainbackground"
-        android:text="Dine-In"
-        android:textColor="@color/white"
-        android:textSize="35sp" />
+        android:layout_margin="10dp"
+        android:weightSum="1">
 
-    <Button
-        android:id="@+id/btnTakeOut"
-        android:layout_width="210dp"
-        android:layout_height="61dp"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@id/btnDineIn"
-        android:background="@drawable/mainbackground"
-        android:text="Take-Out"
-        android:textColor="@color/white"
-        android:textSize="35sp" />
+        <Button
+            android:id="@+id/btnDineIn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/mainbackground"
+            android:text="Dine-In"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:layout_weight="0.5"
+            android:layout_marginRight="3dp"/>
 
+        <Button
+            android:id="@+id/btnTakeOut"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@id/btnDineIn"
+            android:background="@drawable/mainbackground"
+            android:text="Take-Out"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:layout_weight="0.5"
+            android:layout_marginLeft="3dp"/>
+    </LinearLayout>
 </RelativeLayout>

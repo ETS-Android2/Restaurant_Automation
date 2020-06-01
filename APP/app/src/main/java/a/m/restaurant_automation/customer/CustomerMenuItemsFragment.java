@@ -30,7 +30,9 @@ public class CustomerMenuItemsFragment extends Fragment {
     CustomerMenuItemAdapter menuItemAdaptercustomer;
     View viewMenu;
     ArrayList<MenuItemResponse> menuItemResponsecustomer;
+    Call<ResponseModel<ArrayList<MenuItemResponse>>> call;
 
+    public CustomerMenuItemsFragment(){}
 
     public CustomerMenuItemsFragment(int category) {
         this.category = category;
@@ -58,7 +60,7 @@ public class CustomerMenuItemsFragment extends Fragment {
 
         viewMenu = view;
         IDataService dataService = RetrofitClient.getRetrofitInstance().create(IDataService.class);
-        Call<ResponseModel<ArrayList<MenuItemResponse>>> call = dataService.getMenuItem(category);
+        call = dataService.getMenuItem(category);
 
 
         call.enqueue(new Callback<ResponseModel<ArrayList<MenuItemResponse>>>() {
@@ -92,6 +94,14 @@ public class CustomerMenuItemsFragment extends Fragment {
         recyclerView.setAdapter(menuItemAdaptercustomer);
         // menuItemAdaptercustomer.setOnItemClickListener(onClickListener);
         // menuItemAdaptercustomer.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        if(call != null){
+            call.cancel();
+        }
     }
 }
 

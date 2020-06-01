@@ -11,7 +11,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
-public class CashierActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener  {
+public class CashierActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     public BottomNavigationView bottomNavigationView;
     public NavController navController;
 

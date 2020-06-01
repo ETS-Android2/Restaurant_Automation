@@ -11,7 +11,7 @@
         android:label="Overview"
         tools:layout="@layout/fragment_customer_overview" />
     <fragment
-        android:id="@+id/menuItemsFragment"
+        android:id="@+id/customerMenuItemsFragment"
         android:name="a.m.restaurant_automation.customer.CustomerMenuItemsFragment"
         android:label="MenuItems"
         tools:layout="@layout/fragment_customer_menu_items" />
@@ -25,5 +25,10 @@
         android:name="a.m.restaurant_automation.customer.MoreOptionsFragment"
         android:label="More Options"
         tools:layout="@layout/fragment_more_options" />
+    <fragment
+        android:id="@+id/customerTableViewFragment"
+        android:name="a.m.restaurant_automation.customer.CustomerTableViewFragment"
+        android:label="fragment_customer_table_view"
+        tools:layout="@layout/fragment_customer_table_view" />
 
 </navigation>
