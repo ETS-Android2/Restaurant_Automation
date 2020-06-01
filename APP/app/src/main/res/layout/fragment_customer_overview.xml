@@ -1,20 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".customer.CustomerOverviewFragment"
     android:id="@+id/CustomerOverviewFragment">
 
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcyclrVwOverview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="OverView Page, Select menu from the bottom of the page"
-        android:textSize="35dp"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:textColor="#000000"
-        android:textStyle="italic|bold"/>
-</FrameLayout>
+        android:layout_height="666dp"
+        android:layout_marginBottom="5dp"
+        />
+
+    <Button
+        android:id="@+id/btnDineIn"
+        android:layout_width="209dp"
+        android:layout_height="61dp"
+        android:layout_below="@id/rcyclrVwOverview"
+        android:background="@drawable/button_background_login"
+        android:text="Dine-In"
+        android:textSize="35sp"
+        android:textColor="@color/white"/>
+
+    <Button
+        android:id="@+id/btnTakeOut"
+        android:layout_width="210dp"
+        android:layout_height="61dp"
+        android:layout_below="@id/rcyclrVwOverview"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="113dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_toRightOf="@id/btnDineIn"
+        android:background="@drawable/button_background_login"
+        android:textSize="35sp"
+        android:textColor="@color/white"
+        android:text="Take-Out" />
+    
+</RelativeLayout>
