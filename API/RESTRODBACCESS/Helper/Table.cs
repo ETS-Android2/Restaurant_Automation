@@ -12,7 +12,7 @@ namespace RESTRODBACCESS.Helper
 {
     public class Table
     {
-        public List<GetTableResponseModel> getTables(int tableId, out ErrorModel errorModel)
+        public List<GetTableResponseModel> getTables(int tableId, int capacity, out ErrorModel errorModel)
         {
             errorModel = null;
             List<GetTableResponseModel> tableItems = null;
@@ -25,11 +25,9 @@ namespace RESTRODBACCESS.Helper
                     command.CommandType = System.Data.CommandType.StoredProcedure;
 
                     #region Query Parameters
-
-
-
                     command.Parameters.Add(new SqlParameter("@tableId", System.Data.SqlDbType.Int));
                     command.Parameters["@tableId"].Value = tableId;
+                    command.Parameters.AddWithValue("capacity", capacity);
 
                     #endregion
                     connection.Open();
@@ -196,6 +194,43 @@ namespace RESTRODBACCESS.Helper
             finally
             {
                 if(connection != null)
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        public bool istableReserved(int clientId, out ErrorModel errorModel)
+        {
+            errorModel = null;
+            bool isReserved = false;
+            SqlConnection connection = null;
+            try
+            {
+                using (connection = new SqlConnection(Database.getConnectionString()))
+                {
+                    SqlCommand command = new SqlCommand(SqlCommands.SP_orderCartItem, connection);
+                    command.CommandType = System.Data.CommandType.Text;
+                    command.CommandText = "Select Top 1 * from Reservation where reservedBy = " + clientId + " and endTime = ''";
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        isReserved = true;
+                    }
+                    command.Dispose();
+                    return isReserved;
+                }
+            }
+            catch (Exception e)
+            {
+                errorModel = new ErrorModel();
+                errorModel.ErrorMessage = e.Message;
+                return false;
+            }
+            finally
+            {
+                if (connection != null)
                 {
                     connection.Close();
                 }

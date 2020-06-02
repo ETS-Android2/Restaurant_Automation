@@ -35,6 +35,24 @@ public class UserSession {
         userPreferences.edit().putString("tokenCreatedDate", "").commit();
         userPreferences.edit().putString("expireDate", "").commit();
         userPreferences.edit().putInt("userTypeId", 0).commit();
+        userPreferences.edit().putString("isDineIn", "").commit();
+        userPreferences.edit().putString("isTableReserved", "");
+    }
+
+    public String getIsTableReserved(){
+        return userPreferences.getString("isTableReserved", "");
+    }
+
+    public void setIsTableReserved(String status){
+        userPreferences.edit().putString("isTableReserved", status);
+    }
+
+    public String getDiningInOrTakeOut(){
+        return userPreferences.getString("isDineIn", "");
+    }
+
+    public void setDiningInOrTakeOut(String dineInOrTakeOut){
+        userPreferences.edit().putString("isDineIn", dineInOrTakeOut).commit();
     }
 
     public String getToken() {
@@ -58,7 +76,7 @@ public class UserSession {
     }
 
     public String getUserId() {
-        return userPreferences.getString("userId", "");
+        return userPreferences.getString("userId", "").trim();
     }
 
     public void setName(String name) {

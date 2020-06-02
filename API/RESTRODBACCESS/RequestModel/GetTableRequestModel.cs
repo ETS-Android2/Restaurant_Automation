@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace RESTRODBACCESS.RequestModel
 {
-    class GetTableRequestModel
+    public class GetTableRequestModel
     {
         public int tableId { get; set; }
+        public int capacity { get; set; }
     }
 }

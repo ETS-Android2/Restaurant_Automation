@@ -11,13 +11,13 @@ namespace TESTRESTRO.Provider
 {
     public class TableProvider
     {
-        public List<GetTableResponseModel> getTables(int tableId, out ErrorModel errorModel)
+        public List<GetTableResponseModel> getTables(int tableId, int capacity, out ErrorModel errorModel)
         {
             errorModel = null;
             try
             {
                 Table tableHelper = new Table();
-                List<GetTableResponseModel> tableItems = tableHelper.getTables(tableId, out errorModel);
+                List<GetTableResponseModel> tableItems = tableHelper.getTables(tableId, capacity, out errorModel);
                 return tableItems;
             }
             catch (Exception)
@@ -52,6 +52,21 @@ namespace TESTRESTRO.Provider
             catch (Exception)
             {
                 return null;
+            }
+        }
+
+        public bool isTableReserved(int clientId, out ErrorModel errorModel)
+        {
+            errorModel = null;
+            try
+            {
+                Table tableHelper = new Table();
+                bool response = tableHelper.istableReserved(clientId, out errorModel);
+                return response;
+            }
+            catch (Exception)
+            {
+                return false;
             }
         }
     }

@@ -19,7 +19,7 @@
         android:id="@+id/orderFragment"
         android:name="a.m.restaurant_automation.customer.OrderFragment"
         android:label="Your Orders"
-        tools:layout="@layout/fragment_order" />
+        tools:layout="@layout/fragment_cart" />
     <fragment
         android:id="@+id/moreOptionsFragment"
         android:name="a.m.restaurant_automation.customer.MoreOptionsFragment"

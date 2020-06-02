@@ -13,7 +13,7 @@
             />
         <item android:id="@+id/OrderHistory"
             android:icon="@drawable/ic_bookmark_border_black_24dp"
-            android:title="OrderHistroy"
+            android:title="Order History"
             android:iconTint="@color/white"
             />
 

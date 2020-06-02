@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import a.m.restaurant_automation.responseModel.MenuItemResponse;
 import a.m.restaurant_automation.responseModel.RegisterResponseModel;
 import a.m.restaurant_automation.responseModel.ResponseModel;
+import a.m.restaurant_automation.responseModel.TableReservationStatusForCustomerModel;
 import a.m.restaurant_automation.responseModel.TableResponseModel;
 
 import a.m.restaurant_automation.responseModel.UsersResponseModel;
@@ -23,5 +24,6 @@ public interface IDataService {
     @GET("table")
     Call<ResponseModel<ArrayList<TableResponseModel>>> getTable ();
 
-
+    @GET("table/isTableReserved/{clientId}")
+    Call<TableReservationStatusForCustomerModel> getReservationStatus(@Path(value = "clientId")int clientId);
 }

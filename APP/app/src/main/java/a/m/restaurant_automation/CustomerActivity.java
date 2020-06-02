@@ -2,6 +2,7 @@ package a.m.restaurant_automation;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -16,11 +17,18 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import a.m.restaurant_automation.customer.CustomerMenuItemActivity;
+import a.m.restaurant_automation.repository.UserSession;
+import a.m.restaurant_automation.responseModel.TableReservationStatusForCustomerModel;
+import a.m.restaurant_automation.service.IDataService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CustomerActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     public BottomNavigationView bottomNavigationView;
     public NavController navController;
+    UserSession session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +36,8 @@ public class CustomerActivity extends AppCompatActivity implements BottomNavigat
         setContentView(R.layout.activity_customer);
         //loadFragment(new CustomerOverviewFragment());
         setUpNavigation();
+        session = UserSession.getInstance();
+        checkReservationStatus();
     }
 
     public void setUpNavigation(){
@@ -58,31 +68,30 @@ public class CustomerActivity extends AppCompatActivity implements BottomNavigat
         int id = menuItem.getItemId();
 
         switch (id){
-            case R.id.Dashboard:
+            case R.id.tables:
                 // Toast.makeText(getApplicationContext(), "Dashboard", Toast.LENGTH_SHORT).show();
-                navController.navigate(R.id.customerOverviewFragment);
+                navController.navigate(R.id.customerTableViewFragment);
                // fragment=new CustomerOverviewFragment();
                // break;
                 return true;
 
-            case R.id.Menu:
+            case R.id.menu:
                 //  Toast.makeText(getApplicationContext(),"Friend Dashboard",Toast.LENGTH_LONG).show();
                //navController.navigate(R.id.);
-                Intent intent = new Intent(this, CustomerMenuItemActivity.class);
-                startActivity(intent);
+                navController.navigate(R.id.menuItemFragment);
                return true;
 
              //   fragment=new CustomerMenuItemsFragment();
                // break;
-            case R.id.Orders:
+            case R.id.cart:
                 // Toast.makeText(getApplicationContext(),"Account",Toast.LENGTH_LONG).show();
-                navController.navigate(R.id.orderFragment);
+                navController.navigate(R.id.cartFragment);
                 return true;
 
                // fragment=new OrderFragment();
                 //break;
 
-            case R.id.Moremenu:
+            case R.id.moreMenu:
                 // Toast.makeText(getApplicationContext(),"Account",Toast.LENGTH_LONG).show();
                 navController.navigate(R.id.moreOptionsFragment);
                 return true;
@@ -133,5 +142,27 @@ public class CustomerActivity extends AppCompatActivity implements BottomNavigat
             child.clearAnimation();
             child.animate().translationY(height).setDuration(100);
         }
+    }
+
+    private void checkReservationStatus() {
+        IDataService dataService = RetrofitClient.getRetrofitInstance().create(IDataService.class);
+        Call<TableReservationStatusForCustomerModel> call = dataService.getReservationStatus(Integer.parseInt(session.getUserId()));
+        call.enqueue(new Callback<TableReservationStatusForCustomerModel>() {
+            @Override
+            public void onResponse(Call<TableReservationStatusForCustomerModel> call, Response<TableReservationStatusForCustomerModel> response) {
+                if(response.body().Response){
+                    session.setIsTableReserved("Y");
+                    navController.navigate(R.id.menuItemFragment);
+                }
+                else{
+                    session.setIsTableReserved("N");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TableReservationStatusForCustomerModel> call, Throwable t) {
+                Log.i("response", "Fail");
+            }
+        });
     }
 }

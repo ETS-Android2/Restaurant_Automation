@@ -15,11 +15,12 @@ import androidx.navigation.Navigation;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import a.m.restaurant_automation.R;
+import a.m.restaurant_automation.repository.UserSession;
 
 
 public class CustomerOverviewFragment extends Fragment implements View.OnClickListener {
     Button buttonDineIn, buttonTakeOut;
-
+    UserSession session;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -30,6 +31,13 @@ public class CustomerOverviewFragment extends Fragment implements View.OnClickLi
         buttonTakeOut = view.findViewById(R.id.btnTakeOut);
         buttonDineIn.setOnClickListener(this);
         buttonTakeOut.setOnClickListener(this);
+        session = UserSession.getInstance();
+        if(session.getDiningInOrTakeOut().equalsIgnoreCase("D")){
+            Navigation.findNavController(view).navigate(R.id.customerTableViewFragment);
+        }
+        if(session.getDiningInOrTakeOut().equalsIgnoreCase("T")){
+            Navigation.findNavController(view).navigate(R.id.customerMenuItemsFragment);
+        }
     }
 
     @Override
@@ -62,9 +70,11 @@ public class CustomerOverviewFragment extends Fragment implements View.OnClickLi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnDineIn:
+                session.setDiningInOrTakeOut("D");
                 Navigation.findNavController(view).navigate(R.id.customerTableViewFragment);
                 break;
             case R.id.btnTakeOut:
+                session.setDiningInOrTakeOut("T");
                 Navigation.findNavController(view).navigate(R.id.customerMenuItemsFragment);
                 break;
         }

@@ -14,13 +14,13 @@ namespace TESTRESTRO.Controllers
     public class TableController : ApiController
     {
         [HttpGet]
-        [Route("api/table/{tableId:int?}")]
-        public HttpResponseMessage getTables(int tableId = 0)
+        [Route("api/table/getTables/{tableId:int?}/{capacity:int?}")]
+        public HttpResponseMessage getTables(int tableId, int capacity)
         {
             TableProvider tableProvider = new TableProvider();
             ErrorModel errorModel = null;
 
-            var tableItems = tableProvider.getTables(tableId, out errorModel);
+            var tableItems = tableProvider.getTables(tableId, capacity, out errorModel);
             APIResponseModel responseModel = new APIResponseModel();
             responseModel.Response = tableItems;
             responseModel.Error = errorModel;
@@ -58,5 +58,20 @@ namespace TESTRESTRO.Controllers
 
             return Request.CreateResponse(HttpStatusCode.OK, aPIResponseModel);
         }
+
+        [HttpGet]
+        [Route("api/table/isTableReserved/{clientId:int?}")]
+        public HttpResponseMessage isTableReserved(int clientId)
+        {
+            TableProvider tableProvider = new TableProvider();
+            ErrorModel errorModel = null;
+
+            var status = tableProvider.isTableReserved(clientId, out errorModel);
+            APIResponseModel responseModel = new APIResponseModel();
+            responseModel.Response = status;
+            responseModel.Error = errorModel;
+            return Request.CreateResponse(HttpStatusCode.OK, responseModel);
+        }
+
     }
 }
