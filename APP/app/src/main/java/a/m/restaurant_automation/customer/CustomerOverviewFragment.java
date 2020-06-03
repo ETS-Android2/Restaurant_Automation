@@ -37,7 +37,7 @@ public class CustomerOverviewFragment extends Fragment implements View.OnClickLi
         super.onViewCreated(view, savedInstanceState);
 
         bottomNavigationView = getActivity().findViewById(R.id.BottomnavigateMenuCustomer);
-        bottomNavigationView.setVisibility(View.VISIBLE);
+        bottomNavigationView.setVisibility(View.GONE);
         buttonDineIn = view.findViewById(R.id.btnDineIn);
         buttonTakeOut = view.findViewById(R.id.btnTakeOut);
         buttonDineIn.setOnClickListener(this);

@@ -1,6 +1,8 @@
 package a.m.restaurant_automation.customer;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,40 +64,55 @@ public class CustomerTablesAdapter extends RecyclerView.Adapter<CustomerTablesAd
         holder.bookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                Calendar calendar = Calendar.getInstance();
-                Date date= calendar.getTime();
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-                ReserveTableRequest reserveTableRequest = new ReserveTableRequest();
-                reserveTableRequest.tableId = tables.get(position).tableId;
-                reserveTableRequest.numberOfPeople = numberOfPeople;
-                reserveTableRequest.endTime = "00:00:00.000";
-                reserveTableRequest.reservationDate = dateFormat.format(date);
-                reserveTableRequest.reservedBy =Integer.parseInt(session.getUserId());
-                reserveTableRequest.startTime = dateFormat.format(date);
+                new AlertDialog.Builder(context)
+                        .setTitle("Book Now")
+                        .setMessage("Do you want to book Table "+tables.get(position).tableId+"?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                Calendar calendar = Calendar.getInstance();
+                                Date date= calendar.getTime();
+                                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+                                ReserveTableRequest reserveTableRequest = new ReserveTableRequest();
+                                reserveTableRequest.tableId = tables.get(position).tableId;
+                                reserveTableRequest.numberOfPeople = numberOfPeople;
+                                reserveTableRequest.endTime = null;
+                                reserveTableRequest.reservationDate = dateFormat.format(date);
+                                reserveTableRequest.reservedBy =Integer.parseInt(session.getUserId());
+                                reserveTableRequest.startTime = dateFormat.format(date);
 
-                IDataService dataService = RetrofitClient.getRetrofitInstance().create(IDataService.class);
-                Call<ResponseModel<StatusCheckResponse>> call = dataService.reserveTable(reserveTableRequest);
-                call.enqueue(new Callback<ResponseModel<StatusCheckResponse>>() {
-                    @Override
-                    public void onResponse(Call<ResponseModel<StatusCheckResponse>> call, Response<ResponseModel<StatusCheckResponse>> response) {
-                        ResponseModel<StatusCheckResponse> responseModel = response.body();
-                        if(responseModel != null){
-                            if(responseModel.getError() != null){
-                                Toast.makeText(context, ""+responseModel.getError().getErrorMessage(), Toast.LENGTH_SHORT).show();
+                                IDataService dataService = RetrofitClient.getRetrofitInstance().create(IDataService.class);
+                                Call<ResponseModel<StatusCheckResponse>> call = dataService.reserveTable(reserveTableRequest);
+                                call.enqueue(new Callback<ResponseModel<StatusCheckResponse>>() {
+                                    @Override
+                                    public void onResponse(Call<ResponseModel<StatusCheckResponse>> call, Response<ResponseModel<StatusCheckResponse>> response) {
+                                        ResponseModel<StatusCheckResponse> responseModel = response.body();
+                                        if(responseModel != null){
+                                            if(responseModel.getError() != null){
+                                                Toast.makeText(context, "Error: "+responseModel.getError().getErrorMessage(), Toast.LENGTH_SHORT).show();
+                                            }
+                                            else {
+                                                if(responseModel.getData().statusCode.equalsIgnoreCase("1")) {
+                                                    Toast.makeText(context, "" + responseModel.getData().statusMessage, Toast.LENGTH_SHORT).show();
+                                                    session.setIsTableReserved("Y");
+                                                    Navigation.findNavController(view).navigate(R.id.customerMenuItemsFragment);
+                                                }
+                                                else{
+                                                    Toast.makeText(context, "Error: " + responseModel.getData().statusMessage, Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<ResponseModel<StatusCheckResponse>> call, Throwable t) {
+
+                                    }
+                                });
                             }
-                            else {
-                                Toast.makeText(context, ""+responseModel.getData().statusMessage, Toast.LENGTH_SHORT).show();
-                                session.setIsTableReserved("Y");
-                                Navigation.findNavController(view).navigate(R.id.customerMenuItemsFragment);
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseModel<StatusCheckResponse>> call, Throwable t) {
-
-                    }
-                });
+                        })
+                        .setNegativeButton("Cancel", null)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
             }
         });
     }
