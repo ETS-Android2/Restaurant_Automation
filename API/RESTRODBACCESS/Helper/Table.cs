@@ -211,7 +211,7 @@ namespace RESTRODBACCESS.Helper
                 {
                     SqlCommand command = new SqlCommand(SqlCommands.SP_orderCartItem, connection);
                     command.CommandType = System.Data.CommandType.Text;
-                    command.CommandText = "Select Top 1 * from Reservation where reservedBy = " + clientId + " and endTime = ''";
+                    command.CommandText = "Select Top 1 * from Reservation where reservedBy = " + clientId + " and (endTime = '' or endTime is null)";
                     connection.Open();
                     SqlDataReader reader = command.ExecuteReader();
                     if (reader.Read())

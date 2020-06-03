@@ -7,7 +7,7 @@
 
 
         <item android:id="@+id/tables"
-            android:icon="@drawable/ic_dashboard_black_24dp"
+            android:icon="@drawable/ic_tables_48dp"
             android:title="Tables"
             android:iconTint="@android:color/white"
             />
@@ -18,7 +18,7 @@
             />
 
         <item android:id="@+id/cart"
-            android:icon="@drawable/ic_bookmark_border_black_24dp"
+            android:icon="@drawable/ic_cart_48dp"
             android:title="Cart"
             android:iconTint="@color/white"
             />

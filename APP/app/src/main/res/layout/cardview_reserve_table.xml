@@ -1,70 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:layout_marginTop="5dp"
+        android:layout_margin="12dp"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="5dp"
         >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#E9F1EEEE"
-            android:orientation="vertical"
-            android:padding="6dp">
+            android:orientation="horizontal"
+            android:weightSum="1"
+            >
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:layout_weight=".8">
 
                 <TextView
                     android:id="@+id/txtTableNumber"
-                    android:layout_width="160dp"
-                    android:layout_height="35dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="Table Number"
                     android:textColor="@android:color/holo_purple"
-                    android:textSize="25dp"
-                    android:textStyle="bold" />
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp"/>
 
                 <TextView
                     android:id="@+id/txtTablePeopleNumber"
-                    android:layout_width="80dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
                     android:text="People"
                     android:textColor="@android:color/holo_purple"
-                    android:textSize="25dp"
-                    android:textStyle="bold" />
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp"/>
 
-                <TextView
-                    android:id="@+id/txtTableStatus"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:text="Status"
-                    android:textColor="@android:color/holo_purple"
-                    android:textSize="25dp"
-                    android:textStyle="bold" />
 
             </LinearLayout>
 
             <Button
+                android:layout_weight="0.2"
                 android:id="@+id/btnBookTable"
-                android:layout_width="199dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
                 android:background="@drawable/button_background_login"
-                android:text="Book Table"
+                android:text="Book"
                 android:textColor="@color/white"
-                android:textSize="25dp"
-                android:textStyle="bold" />
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_marginRight="10dp"/>
 
         </LinearLayout>
 

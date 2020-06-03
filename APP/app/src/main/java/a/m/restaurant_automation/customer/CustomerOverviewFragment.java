@@ -3,6 +3,8 @@ package a.m.restaurant_automation.customer;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -10,33 +12,77 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import a.m.restaurant_automation.R;
+import a.m.restaurant_automation.RetrofitClient;
 import a.m.restaurant_automation.repository.UserSession;
+import a.m.restaurant_automation.responseModel.TableReservationStatusForCustomerModel;
+import a.m.restaurant_automation.service.IDataService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class CustomerOverviewFragment extends Fragment implements View.OnClickListener {
     Button buttonDineIn, buttonTakeOut;
     UserSession session;
+    Call<TableReservationStatusForCustomerModel> call;
+    BottomNavigationView bottomNavigationView;
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.BottomnavigateMenuCustomer);
-        bottomNavigationView.setVisibility(View.GONE);
+        bottomNavigationView = getActivity().findViewById(R.id.BottomnavigateMenuCustomer);
+        bottomNavigationView.setVisibility(View.VISIBLE);
         buttonDineIn = view.findViewById(R.id.btnDineIn);
         buttonTakeOut = view.findViewById(R.id.btnTakeOut);
         buttonDineIn.setOnClickListener(this);
         buttonTakeOut.setOnClickListener(this);
         session = UserSession.getInstance();
-        if(session.getDiningInOrTakeOut().equalsIgnoreCase("D")){
-            Navigation.findNavController(view).navigate(R.id.customerTableViewFragment);
-        }
-        if(session.getDiningInOrTakeOut().equalsIgnoreCase("T")){
-            Navigation.findNavController(view).navigate(R.id.customerMenuItemsFragment);
+
+        IDataService dataService = RetrofitClient.getRetrofitInstance().create(IDataService.class);
+        call = dataService.getReservationStatus(Integer.parseInt(session.getUserId()));
+        if (session.getIsTableReserved().equalsIgnoreCase(""))
+            call.enqueue(new Callback<TableReservationStatusForCustomerModel>() {
+                @Override
+                public void onResponse(Call<TableReservationStatusForCustomerModel> call, Response<TableReservationStatusForCustomerModel> response) {
+                    if (response.body().Response) {
+                        session.setIsTableReserved("Y");
+                        session.setDiningInOrTakeOut("D");
+                        bottomNavigationView.setSelectedItemId(R.id.menu);
+                        Navigation.findNavController(view).navigate(R.id.customerMenuItemsFragment);
+
+                    } else {
+                        session.setIsTableReserved("N");
+                        if (session.getDiningInOrTakeOut().equalsIgnoreCase("D")) {
+                            bottomNavigationView.setSelectedItemId(R.id.tables);
+                            Navigation.findNavController(view).navigate(R.id.customerTableViewFragment);
+                        }
+                        if (session.getDiningInOrTakeOut().equalsIgnoreCase("T")) {
+                            bottomNavigationView.setSelectedItemId(R.id.menu);
+                            Navigation.findNavController(view).navigate(R.id.customerMenuItemsFragment);
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<TableReservationStatusForCustomerModel> call, Throwable t) {
+
+                }
+            });
+        else{
+            if(session.getIsTableReserved().equalsIgnoreCase("Y") || session.getDiningInOrTakeOut().equalsIgnoreCase("T")){
+                bottomNavigationView.setSelectedItemId(R.id.menu);
+                Navigation.findNavController(view).navigate(R.id.customerMenuItemsFragment);
+            }
+            else if (session.getDiningInOrTakeOut().equalsIgnoreCase("D")) {
+                bottomNavigationView.setSelectedItemId(R.id.tables);
+                Navigation.findNavController(view).navigate(R.id.customerTableViewFragment);
+            }
         }
     }
 
@@ -71,9 +117,11 @@ public class CustomerOverviewFragment extends Fragment implements View.OnClickLi
         switch (view.getId()) {
             case R.id.btnDineIn:
                 session.setDiningInOrTakeOut("D");
+                bottomNavigationView.setSelectedItemId(R.id.tables);
                 Navigation.findNavController(view).navigate(R.id.customerTableViewFragment);
                 break;
             case R.id.btnTakeOut:
+                bottomNavigationView.setSelectedItemId(R.id.menu);
                 session.setDiningInOrTakeOut("T");
                 Navigation.findNavController(view).navigate(R.id.customerMenuItemsFragment);
                 break;

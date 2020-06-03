@@ -134,9 +134,7 @@ public class LoginActivity extends AppCompatActivity implements OnLoginPress,Reg
 
                     if (responseModel != null && responseModel.getError() != null) {
                         Toast.makeText(getApplicationContext(), responseModel.getError().getErrorMessage(), Toast.LENGTH_LONG).show();
-                        Log.i("test", "fail");
                     } else if (responseModel != null && responseModel.getData() != null) {
-                        Log.i("test", "Done");
                         LoginResponseModel loginResponseModel = responseModel.getData();
                         if (loginResponseModel != null) {
                             UserSession session = UserSession.getInstance();
@@ -147,7 +145,7 @@ public class LoginActivity extends AppCompatActivity implements OnLoginPress,Reg
                             session.setUserTypeId(loginResponseModel.getUserTypeId());
                             session.setTokenCreatedDate(loginResponseModel.getTokenCreatedDate());
                             session.setExpireDate(loginResponseModel.getExpireDate());
-
+                            session.setIsTableReserved("");
 
                             int usertypevalue = loginResponseModel.getUserTypeId();
                             switch (usertypevalue) {

@@ -36,7 +36,7 @@ public class UserSession {
         userPreferences.edit().putString("expireDate", "").commit();
         userPreferences.edit().putInt("userTypeId", 0).commit();
         userPreferences.edit().putString("isDineIn", "").commit();
-        userPreferences.edit().putString("isTableReserved", "");
+        userPreferences.edit().putString("isTableReserved", "").commit();
     }
 
     public String getIsTableReserved(){
@@ -44,7 +44,7 @@ public class UserSession {
     }
 
     public void setIsTableReserved(String status){
-        userPreferences.edit().putString("isTableReserved", status);
+        userPreferences.edit().putString("isTableReserved", status).commit();
     }
 
     public String getDiningInOrTakeOut(){
