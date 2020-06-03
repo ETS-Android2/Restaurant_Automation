@@ -25,5 +25,18 @@ namespace TESTRESTRO.Controllers
             aPIResponseModel.Error = errorModel;
             return Request.CreateResponse(HttpStatusCode.OK, aPIResponseModel);
         }
+
+        [HttpGet]
+        [Route("api/orders/getOrdersHistory/{startDate}/{endDate}")]
+        public HttpResponseMessage getOrdersHistory(string startDate, string endDate)
+        {
+            OrderProvider orderProvider = new OrderProvider();
+            ErrorModel errorModel = new ErrorModel();
+            var orders = orderProvider.getOrdersHistory(startDate, endDate, out errorModel);
+            APIResponseModel aPIResponseModel = new APIResponseModel();
+            aPIResponseModel.Response = orders;
+            aPIResponseModel.Error = errorModel;
+            return Request.CreateResponse(HttpStatusCode.OK, aPIResponseModel);
+        }
     }
 }

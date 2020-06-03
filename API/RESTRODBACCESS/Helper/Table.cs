@@ -90,23 +90,18 @@ namespace RESTRODBACCESS.Helper
 
 
 
-                    command.Parameters.Add(new SqlParameter("@tableId", System.Data.SqlDbType.Int));
-                    command.Parameters["@tableId"].Value = reserveTableRequestModel.tableId;
+                    command.Parameters.AddWithValue("@tableId", reserveTableRequestModel.tableId);
 
-                    command.Parameters.Add(new SqlParameter("@reservationDate", System.Data.SqlDbType.DateTime));
-                    command.Parameters["@reservationDate"].Value = reserveTableRequestModel.reservationDate;
+                    command.Parameters.AddWithValue("@reservationDate",  reserveTableRequestModel.reservationDate);
 
-                    command.Parameters.Add(new SqlParameter("@reservedBy", System.Data.SqlDbType.Int));
-                    command.Parameters["@reservedBy"].Value = reserveTableRequestModel.reservedBy;
+                    command.Parameters.AddWithValue("@reservedBy", reserveTableRequestModel.reservedBy);
 
-                    command.Parameters.Add(new SqlParameter("@numberOfPeople", System.Data.SqlDbType.Int));
-                    command.Parameters["@numberOfPeople"].Value = reserveTableRequestModel.numberOfPeople;
+                    command.Parameters.AddWithValue("@numberOfPeople", reserveTableRequestModel.numberOfPeople);
 
-                    command.Parameters.Add(new SqlParameter("@startTime", System.Data.SqlDbType.DateTime));
-                    command.Parameters["@startTime"].Value = reserveTableRequestModel.startTime;
+                    command.Parameters.AddWithValue("@startTime", reserveTableRequestModel.startTime);
 
-                    command.Parameters.Add(new SqlParameter("@endTime", System.Data.SqlDbType.DateTime));
-                    command.Parameters["@endTime"].Value = reserveTableRequestModel.endTime;
+                    command.Parameters.AddWithValue("endTime", reserveTableRequestModel.endTime);
+
                     #endregion
                     connection.Open();
                     SqlDataReader reader = command.ExecuteReader();
@@ -209,7 +204,7 @@ namespace RESTRODBACCESS.Helper
             {
                 using (connection = new SqlConnection(Database.getConnectionString()))
                 {
-                    SqlCommand command = new SqlCommand(SqlCommands.SP_orderCartItem, connection);
+                    SqlCommand command = new SqlCommand("", connection);
                     command.CommandType = System.Data.CommandType.Text;
                     command.CommandText = "Select Top 1 * from Reservation where reservedBy = " + clientId + " and (endTime = '' or endTime is null)";
                     connection.Open();

@@ -25,5 +25,18 @@ namespace TESTRESTRO.Provider
             }
         }
 
+        public List<GetOrderHistoryResponseModel> getOrdersHistory(string startDate, string endDate, out ErrorModel errorModel)
+        {
+            errorModel = null;
+            try
+            {
+                Order orderHelper = new Order();
+                return orderHelper.getOrdersHistory(startDate, endDate, out errorModel);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }
