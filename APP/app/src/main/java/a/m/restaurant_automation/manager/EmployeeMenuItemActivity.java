@@ -159,8 +159,7 @@ public class EmployeeMenuItemActivity extends AppCompatActivity implements Emplo
                         Toast.makeText(getApplicationContext(), responseModel.getError().getErrorMessage(), Toast.LENGTH_LONG).show();
                     } else {
 
-                        Toast.makeText(getApplicationContext(), responseModel.getData().getMenuItemId() + " Price Changed", Toast.LENGTH_LONG).show();
-//
+                        Toast.makeText(getApplicationContext(), responseModel.getData().getMenuItemName() + " Price Changed", Toast.LENGTH_LONG).show();
                     }
                 }
             }

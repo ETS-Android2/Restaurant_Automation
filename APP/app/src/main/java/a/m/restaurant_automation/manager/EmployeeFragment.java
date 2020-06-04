@@ -1,6 +1,7 @@
 package a.m.restaurant_automation.manager;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.media.Image;
 import android.os.Bundle;
@@ -41,6 +42,8 @@ public class EmployeeFragment extends Fragment{
     AddEmployeeAdapter addEmployeeAdapter;
     ArrayList<UsersResponseModel> registerResponse;
     FloatingActionButton floatingActionButton;
+
+    OnDeleteEmployeePress onDeleteEmployeePress;
 
 
 
@@ -138,16 +141,16 @@ public class EmployeeFragment extends Fragment{
         }
         public View.OnClickListener onClickListener =new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-
-                Toast.makeText(getActivity().getApplicationContext(), "Functionality Under Maintenance", Toast.LENGTH_SHORT).show();
-                /*AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
-                        .setTitle("Delete Item")
-                        .setMessage("Are you sure you want to delete this Item?")
+            public void onClick(final View v) {
+                AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
+                        .setTitle("Delete Employee")
+                        .setMessage("Are you sure you want to delete this Employee?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(getActivity().getApplicationContext(), "yes selected", Toast.LENGTH_SHORT).show();
+                             int userId = (int) v.getTag();
+                             boolean delete = true;
+                             onDeleteEmployeePress.onDeleteEmployeePress(userId,delete);
 
                             }
                         })
@@ -159,11 +162,16 @@ public class EmployeeFragment extends Fragment{
                         })
                         .create();
                 alertDialog.show();
-
-                 */
             }
         };
 
+    public interface OnDeleteEmployeePress {
+        void onDeleteEmployeePress (int userId,boolean isDelete);
+    }
 
-
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        onDeleteEmployeePress= (EmployeeFragment.OnDeleteEmployeePress) context;
+    }
 }

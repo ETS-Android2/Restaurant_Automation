@@ -50,6 +50,7 @@ public class AddEmployeeAdapter extends RecyclerView.Adapter<AddEmployeeAdapter.
             }
             holder.employeeUserType.setText("UserType : " +registerResponse.get(position).getUserTypeTitle().toUpperCase());
             holder.employeeEmail.setText("Email : "+registerResponse.get(position).getEmail().toLowerCase());
+            holder.deleteEmployee.setTag(registerResponse.get(position).getUserId());
             //Picasso.get(position).load().into(holder.employeeImage);
 
         }

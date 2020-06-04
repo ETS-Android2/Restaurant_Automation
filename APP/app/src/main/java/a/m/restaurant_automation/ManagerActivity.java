@@ -11,17 +11,20 @@ import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
 import a.m.restaurant_automation.manager.AddEmployeeFragment;
+import a.m.restaurant_automation.manager.EmployeeFragment;
 import a.m.restaurant_automation.manager.EmployeeMenuItemsFragment;
 import a.m.restaurant_automation.manager.EmployeeTableFragment;
 import a.m.restaurant_automation.manager.MenuItemAdapter;
 import a.m.restaurant_automation.model.AppStaticData;
 import a.m.restaurant_automation.requestModel.AddTableRequestModel;
+import a.m.restaurant_automation.requestModel.EmployeeDeleteRequestModel;
 import a.m.restaurant_automation.requestModel.MenuItemRequestModel;
 import a.m.restaurant_automation.requestModel.RegisterRequestModel;
 import a.m.restaurant_automation.responseModel.MenuItemResponse;
 import a.m.restaurant_automation.responseModel.RegisterResponseModel;
 import a.m.restaurant_automation.responseModel.ResponseModel;
 import a.m.restaurant_automation.responseModel.TableResponseModel;
+import a.m.restaurant_automation.responseModel.UsersResponseModel;
 import a.m.restaurant_automation.service.IUserService;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,7 +35,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ManagerActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener,AddEmployeeFragment.OnEmployeeRegisterPress, EmployeeTableFragment.OnTableAddPress {
+public class ManagerActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener,AddEmployeeFragment.OnEmployeeRegisterPress, EmployeeTableFragment.OnTableAddPress, EmployeeFragment.OnDeleteEmployeePress {
     public BottomNavigationView bottomNavigationView;
     public NavController navController;
 
@@ -40,6 +43,8 @@ public class ManagerActivity extends AppCompatActivity implements BottomNavigati
     private int UserType;
 
     private int addCapacity;
+    private int userIdPosition;
+    private boolean deleteEmployee;
 
 
 
@@ -164,7 +169,6 @@ public class ManagerActivity extends AppCompatActivity implements BottomNavigati
                         Toast.makeText(getApplicationContext(), responseModel.getError().getErrorMessage(), Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(getApplicationContext(), responseModel.getData().getTableId() + "Table Added", Toast.LENGTH_LONG).show();
-//
                     }
                 }
             }
@@ -178,7 +182,41 @@ public class ManagerActivity extends AppCompatActivity implements BottomNavigati
 
     }
 
+    public void deleteEmployee(){
+        IUserService userService = RetrofitClient.getRetrofitInstance().create(IUserService.class);
+        EmployeeDeleteRequestModel employeeDeleteRequestModel =  new EmployeeDeleteRequestModel();
+        employeeDeleteRequestModel.userId = userIdPosition;
+        employeeDeleteRequestModel.isDelete = deleteEmployee;
+
+        Call<ResponseModel<UsersResponseModel>>call = userService.deleteEmployee(employeeDeleteRequestModel);
+        call.enqueue(new Callback<ResponseModel<UsersResponseModel>>() {
+            @Override
+            public void onResponse(Call<ResponseModel<UsersResponseModel>> call, Response<ResponseModel<UsersResponseModel>> response) {
+                ResponseModel<UsersResponseModel> responseModel = response.body();
+                if (responseModel != null) {
+                    if (responseModel.getError() != null) {
+                        Toast.makeText(getApplicationContext(), responseModel.getError().getErrorMessage(), Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), responseModel.getData().getEmail() + " Employee Deleted", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel<UsersResponseModel>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "something went wrong" + t.getMessage(), Toast.LENGTH_LONG).show();
+
+            }
+        });
 
 
+    }
 
+    @Override
+    public void onDeleteEmployeePress(int userId, boolean isDelete) {
+        userIdPosition = userId;
+        deleteEmployee = isDelete;
+        deleteEmployee();
+
+    }
 }

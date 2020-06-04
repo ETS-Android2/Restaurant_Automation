@@ -2,6 +2,7 @@ package a.m.restaurant_automation.service;
 
 import a.m.restaurant_automation.requestModel.AddMenuItemRequestModel;
 import a.m.restaurant_automation.requestModel.AddTableRequestModel;
+import a.m.restaurant_automation.requestModel.EmployeeDeleteRequestModel;
 import a.m.restaurant_automation.requestModel.LoginRequestModel;
 import a.m.restaurant_automation.requestModel.MenuItemRequestModel;
 import a.m.restaurant_automation.requestModel.RegisterRequestModel;
@@ -10,6 +11,7 @@ import a.m.restaurant_automation.responseModel.RegisterResponseModel;
 import a.m.restaurant_automation.responseModel.LoginResponseModel;
 import a.m.restaurant_automation.responseModel.ResponseModel;
 import a.m.restaurant_automation.responseModel.TableResponseModel;
+import a.m.restaurant_automation.responseModel.UsersResponseModel;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -30,5 +32,9 @@ public interface IUserService {
 
     @POST ("menu/changePrice")
     Call<ResponseModel<MenuItemResponse>> changePrice (@Body MenuItemRequestModel menuItemRequestModel);
+
+    @POST ("deleteorModifyEmployee")
+    Call<ResponseModel<UsersResponseModel>> deleteEmployee (@Body EmployeeDeleteRequestModel employeeDeleteRequestModel);
+
 
 }
