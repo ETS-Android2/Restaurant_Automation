@@ -5,17 +5,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.material.tabs.TabItem;
-import com.google.android.material.tabs.TabLayout;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.tabs.TabItem;
+import com.google.android.material.tabs.TabLayout;
 
 import a.m.restaurant_automation.R;
-import androidx.viewpager.widget.ViewPager;
 
 
 public class CustomerMenuItemsFragment extends Fragment {
@@ -63,7 +63,7 @@ public class CustomerMenuItemsFragment extends Fragment {
         beverageItem = view.findViewById(R.id.beverageItemcustomer);
         dessertItem = view.findViewById(R.id.dessertItemcustomer);
 
-        pagerAdaptercustomer = new PagerAdapter(getParentFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, mTabLayoutcustomer.getTabCount());
+        pagerAdaptercustomer = new PagerAdapter(getChildFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, mTabLayoutcustomer.getTabCount());
         mViewPagercustomer.setAdapter(pagerAdaptercustomer);
 
 
