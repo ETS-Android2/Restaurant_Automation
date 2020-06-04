@@ -1,40 +1,56 @@
 package a.m.restaurant_automation.customer;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import a.m.restaurant_automation.R;
-import a.m.restaurant_automation.RetrofitClient;
-import a.m.restaurant_automation.customer.CustomerMenuItemAdapter;
-import a.m.restaurant_automation.responseModel.MenuItemResponse;
-import a.m.restaurant_automation.responseModel.ResponseModel;
-import a.m.restaurant_automation.service.IDataService;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
+import a.m.restaurant_automation.R;
+import a.m.restaurant_automation.RetrofitClient;
+import a.m.restaurant_automation.repository.UserSession;
+import a.m.restaurant_automation.responseModel.MenuItemResponse;
+import a.m.restaurant_automation.responseModel.ResponseModel;
+import a.m.restaurant_automation.service.IDataService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-public class CustomerCatergoryItemNavigate extends Fragment {
+
+public class CustomerCatergoryItemNavigate extends Fragment implements View.OnClickListener {
 
     int category;
     CustomerMenuItemAdapter menuItemAdaptercustomer;
     View viewMenu;
     ArrayList<MenuItemResponse> menuItemResponsecustomer;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        onaddToCartPress= (OnaddToCartPress) context;
+    }
+
     Call<ResponseModel<ArrayList<MenuItemResponse>>> call;
     BottomNavigationView bottomNavigationView;
+    TextView  menuItemCapacity;
+    int capacity = 0;
+    Button addItemButton, plusItem , subItem;
+    UserSession session;
+    OnaddToCartPress onaddToCartPress;
+
 
     public CustomerCatergoryItemNavigate(int category) {
         this.category = category;
@@ -60,7 +76,7 @@ public class CustomerCatergoryItemNavigate extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         viewMenu = view;
-        IDataService dataService = RetrofitClient.getRetrofitInstance().create(IDataService.class);
+        final IDataService dataService = RetrofitClient.getRetrofitInstance().create(IDataService.class);
         call = dataService.getMenuItem(category);
         call.enqueue(new Callback<ResponseModel<ArrayList<MenuItemResponse>>>() {
             @Override
@@ -82,6 +98,42 @@ public class CustomerCatergoryItemNavigate extends Fragment {
                 Toast.makeText(getActivity().getApplicationContext(), "Something Went Wrong!" + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
+
+
+
+        menuItemCapacity=view.findViewById(R.id.textviewcapacity);
+        plusItem = view.findViewById(R.id.buttonPlusCapacityItem);
+        subItem= view.findViewById(R.id.buttonMinusCapacityItem);
+        addItemButton = view.findViewById(R.id.customer_addItemButton);
+//        addItemButton.setOnClickListener(this);
+//        plusItem.setOnClickListener(this);
+//        subItem.setOnClickListener(this);
+
+
+      /*  plusItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        subItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+        });
+
+
+        addItemButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+               }
+
+        });
+
+*/
+
+
     }
     public void generateRecyclerView(ArrayList<MenuItemResponse> menuItemResponse, View viewMenu) {
         menuItemAdaptercustomer = new CustomerMenuItemAdapter(menuItemResponse, getActivity().getApplicationContext());
@@ -89,7 +141,46 @@ public class CustomerCatergoryItemNavigate extends Fragment {
         RecyclerView recyclerView = viewMenu.findViewById(R.id.recyclerView_customer_menuItem);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(menuItemAdaptercustomer);
-        // menuItemAdaptercustomer.setOnItemClickListener(onClickListener);
-        // menuItemAdaptercustomer.notifyDataSetChanged();
+        menuItemAdaptercustomer.setOnItemClickListener(onClickListener);
+        menuItemAdaptercustomer.notifyDataSetChanged();
+    }
+    public View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            int id = v.getId();
+            if(id == R.id.customer_addItemButton){
+
+                capacity = Integer.parseInt(menuItemCapacity.getText().toString());
+
+                int itemid =(int) v.getTag();
+                int quantity = capacity;
+                int addedby = Integer.parseInt(session.getUserId());
+
+                onaddToCartPress.onaddToCartPress(itemid,quantity,addedby);
+            }
+
+        }
+    };
+
+    @Override
+    public void onClick(View v) {
+        int id=v.getId();
+
+        if (id == R.id.buttonPlusCapacityItem)
+        {
+            menuItemCapacity.setText(""+(Integer.parseInt(menuItemCapacity.getText().toString())+1));
+        }
+        else if(id == R.id.buttonMinusCapacityItem)
+        {
+            if(Integer.parseInt(menuItemCapacity.getText().toString()) > 1)
+            menuItemCapacity.setText(""+(Integer.parseInt(menuItemCapacity.getText().toString())-1));
+        else
+            Toast.makeText(getActivity().getApplicationContext(), "Items Should be atleast one", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    public interface OnaddToCartPress {
+        void onaddToCartPress (int itemId,int quantity, int addedby);
     }
 }

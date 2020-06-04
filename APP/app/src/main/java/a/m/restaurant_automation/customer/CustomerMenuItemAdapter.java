@@ -22,6 +22,7 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
 
     private ArrayList<MenuItemResponse> menuItemResponsecustomer;
     int size = 0;
+
     private Context context;
     public View.OnClickListener onItemListener_customer;
     String url = "https://cdn2.creativecirclemedia.com/neni/original/20190917-140036-Ratatouille-T5_93975.jpg";
@@ -43,6 +44,7 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
     public void onBindViewHolder(@NonNull CustomerMenuItemAdapter.ViewHolder holder, int position) {
         holder.menuItemName.setText("Name : "+menuItemResponsecustomer.get(position).getMenuItemName());
         holder.menuItemPrice.setText("Price : "+menuItemResponsecustomer.get(position).getPrice().toString() +" $");
+        holder.menuitemid.setTag(menuItemResponsecustomer.get(position).getMenuItemId());
         Picasso.get().load(url).into(holder.menuItemImage);
     }
 
@@ -59,6 +61,9 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
         TextView menuItemName, menuItemPrice;
         Button addItemButton;
         ImageView menuItemImage;
+        TextView menuitemid;
+
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -66,10 +71,11 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
             menuItemName = itemView.findViewById(R.id.textView_menuName_customer);
             menuItemPrice = itemView.findViewById(R.id.textView_menuPrice_customer);
             addItemButton = itemView.findViewById(R.id.customer_addItemButton);
-           // addItemButton = itemView.findViewById(R.id.customer_addItemButton);
+            menuitemid = itemView.findViewById(R.id.textView_menuitemID);
+           addItemButton.setOnClickListener(onItemListener_customer);
 
-          //  addItemButton.setOnClickListener(onItemListener_customer);
-            itemView.setTag(this);
+           itemView.setTag(this);
+
         }
     }
 

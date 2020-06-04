@@ -2,6 +2,8 @@ package a.m.restaurant_automation;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -10,13 +12,21 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import a.m.restaurant_automation.customer.CustomerCatergoryItemNavigate;
 import a.m.restaurant_automation.repository.UserSession;
+import a.m.restaurant_automation.requestModel.AddToCartRequestModel;
+import a.m.restaurant_automation.responseModel.ResponseModel;
+import a.m.restaurant_automation.service.IDataService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-public class CustomerActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class CustomerActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, CustomerCatergoryItemNavigate.OnaddToCartPress {
 
     public BottomNavigationView bottomNavigationView;
     public NavController navController;
     UserSession session;
+    private int Itemid , Quantity , AddedBy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,5 +95,42 @@ public class CustomerActivity extends AppCompatActivity implements BottomNavigat
                 //break;
         }
         return false;
+    }
+
+    public void addToCart(){
+        IDataService dataService = RetrofitClient.getRetrofitInstance().create(IDataService.class);
+        AddToCartRequestModel addToCartRequestModel =  new AddToCartRequestModel();
+        addToCartRequestModel.itemId = Itemid ;
+        addToCartRequestModel.quantity = Quantity;
+        addToCartRequestModel.addedby = AddedBy;
+
+        Call<ResponseModel<AddToCartRequestModel>> call = dataService.addToCart(addToCartRequestModel);
+        call.enqueue(new Callback<ResponseModel<AddToCartRequestModel>>() {
+            @Override
+            public void onResponse(Call<ResponseModel<AddToCartRequestModel>> call, Response<ResponseModel<AddToCartRequestModel>> response) {
+                ResponseModel<AddToCartRequestModel> responseModel = response.body();
+                if (responseModel != null) {
+                    if (responseModel.getError() != null) {
+                        Toast.makeText(getApplicationContext(), responseModel.getError().getErrorMessage(), Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(),  "Added to cart", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel<AddToCartRequestModel>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "something went wrong" + t.getMessage(), Toast.LENGTH_LONG).show();
+
+            }
+        });
+    }
+
+    @Override
+    public void onaddToCartPress(int itemId, int quantity, int addedby) {
+         Itemid = itemId;
+         Quantity = quantity;
+         AddedBy = addedby;
+        addToCart();
     }
 }

@@ -1,23 +1,20 @@
 package a.m.restaurant_automation.service;
 import java.util.ArrayList;
 
+import a.m.restaurant_automation.requestModel.AddToCartRequestModel;
 import a.m.restaurant_automation.requestModel.ReserveTableRequest;
 import a.m.restaurant_automation.responseModel.CustomerReserveTableResponse;
 import a.m.restaurant_automation.responseModel.MenuItemResponse;
-import a.m.restaurant_automation.responseModel.RegisterResponseModel;
 import a.m.restaurant_automation.responseModel.ResponseModel;
 import a.m.restaurant_automation.responseModel.StatusCheckResponse;
 import a.m.restaurant_automation.responseModel.TableReservationStatusForCustomerModel;
 import a.m.restaurant_automation.responseModel.TableResponseModel;
-
 import a.m.restaurant_automation.responseModel.UsersResponseModel;
-
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 public interface IDataService {
 
@@ -38,4 +35,8 @@ public interface IDataService {
 
     @POST("reserveTable")
     Call<ResponseModel<StatusCheckResponse>> reserveTable(@Body ReserveTableRequest reserveTableRequest);
+
+    @POST("cart/addToCart")
+    Call<ResponseModel<AddToCartRequestModel>> addToCart (@Body AddToCartRequestModel addToCartRequestModel);
+
 }

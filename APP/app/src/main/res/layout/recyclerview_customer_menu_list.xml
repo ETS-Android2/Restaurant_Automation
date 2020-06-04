@@ -45,20 +45,64 @@
                 android:textSize="17sp"
                 />
 
+            <TextView
+                android:id="@+id/textView_menuitemID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/imageView_menuItem_customer"
+                android:layout_below="@id/textView_menuPrice_customer"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:text="ID"
+                android:textSize="17sp"
+                android:visibility="invisible"
+                />
+
+
 
 
         </RelativeLayout>
 
-<!--        <Button-->
-<!--            android:id="@+id/btnMinusCapacityTable-"-->
-<!--            android:layout_width="50dp"-->
-<!--            android:layout_height="30dp"-->
-<!--            android:background="#00000000"-->
-<!--            android:gravity="right"-->
-<!--            android:text="-"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:textSize="40sp"-->
-<!--            android:textStyle="bold" />-->
+        <Button
+            android:id="@+id/buttonMinusCapacityItem"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_gravity="bottom|center"
+            android:layout_toRightOf="@id/imageView_menuItem_customer"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/button_drawable"
+            android:text="-"
+            android:layout_marginBottom="30dp"
+            android:textColor="@android:color/white"
+            android:textSize="30sp"
+            />
+        <TextView
+            android:id="@+id/textviewcapacity"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:background="#00131313"
+            android:layout_gravity="bottom|center"
+            android:text="0"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="25sp"
+            android:textStyle="italic" />
+
+        <Button
+            android:id="@+id/buttonPlusCapacityItem"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_gravity="bottom|center"
+            android:layout_toRightOf="@id/imageView_menuItem_customer"
+            android:layout_marginLeft="50dp"
+            android:background="@drawable/button_drawable"
+            android:text="+"
+            android:layout_marginBottom="30dp"
+            android:textColor="@android:color/white"
+            android:textSize="30sp"
+            />
+
 
         <Button
             android:id="@+id/customer_addItemButton"
