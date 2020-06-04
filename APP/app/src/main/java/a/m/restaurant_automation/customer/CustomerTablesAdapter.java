@@ -47,7 +47,7 @@ public class CustomerTablesAdapter extends RecyclerView.Adapter<CustomerTablesAd
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_reserve_table, parent, false);
         context = parent.getContext();
         session = UserSession.getInstance();
-        return new CustomerTablesAdapter.ViewHolder(view);
+        return new ViewHolder(view);
     }
 
     @Override

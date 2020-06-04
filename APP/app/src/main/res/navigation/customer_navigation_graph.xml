@@ -36,4 +36,5 @@
         android:label="fragment_customer_catergory_item_navigate"
         tools:layout="@layout/fragment_customer_catergory_item_navigate" />
 
+
 </navigation>

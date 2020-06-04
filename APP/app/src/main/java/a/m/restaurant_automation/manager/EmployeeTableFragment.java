@@ -7,6 +7,7 @@ import android.os.Bundle;
 import a.m.restaurant_automation.R;
 import a.m.restaurant_automation.RetrofitClient;
 import a.m.restaurant_automation.manager.MenuItemAdapter;
+import a.m.restaurant_automation.responseModel.CustomerReserveTableResponse;
 import a.m.restaurant_automation.responseModel.MenuItemResponse;
 import a.m.restaurant_automation.responseModel.ResponseModel;
 import a.m.restaurant_automation.responseModel.TableResponseModel;
@@ -46,7 +47,7 @@ public class EmployeeTableFragment extends Fragment {
     AlertDialog.Builder alertDialog;
     EditText addCapacity;
 
-    ArrayList<TableResponseModel> tableResponseModel;
+    ArrayList<CustomerReserveTableResponse> tableResponseModel;
 
     public EmployeeTableFragment() {
         // Required empty public constructor
@@ -55,7 +56,7 @@ public class EmployeeTableFragment extends Fragment {
 
 
     @Override
-   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         emptyText = view.findViewById(R.id.textView_emptyTable);
         viewTable = view;
@@ -63,12 +64,13 @@ public class EmployeeTableFragment extends Fragment {
         //addCapacity = view.findViewById(R.id.editText_addCapacity);
 
         IDataService dataService = RetrofitClient.getRetrofitInstance().create(IDataService.class);
-        Call<ResponseModel<ArrayList<TableResponseModel>>> call =dataService.getTable();
 
-        call.enqueue(new Callback<ResponseModel<ArrayList<TableResponseModel>>>() {
+        Call<ResponseModel<ArrayList<CustomerReserveTableResponse>>> call =dataService.getTables(0,0);
+
+        call.enqueue(new Callback<ResponseModel<ArrayList<CustomerReserveTableResponse>>>() {
             @Override
-            public void onResponse(Call<ResponseModel<ArrayList<TableResponseModel>>> call, Response<ResponseModel<ArrayList<TableResponseModel>>> response) {
-                ResponseModel<ArrayList<TableResponseModel>> responseModel =response.body();
+            public void onResponse(Call<ResponseModel<ArrayList<CustomerReserveTableResponse>>> call, Response<ResponseModel<ArrayList<CustomerReserveTableResponse>>> response) {
+                ResponseModel<ArrayList<CustomerReserveTableResponse>> responseModel =response.body();
 
                 if (responseModel != null && responseModel.getError() != null){
                     Toast.makeText(getActivity().getApplicationContext(), responseModel.getError().getErrorMessage(), Toast.LENGTH_LONG).show();
@@ -86,7 +88,7 @@ public class EmployeeTableFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<ResponseModel<ArrayList<TableResponseModel>>> call, Throwable t) {
+            public void onFailure(Call<ResponseModel<ArrayList<CustomerReserveTableResponse>>> call, Throwable t) {
                 Toast.makeText(getActivity().getApplicationContext(), "Something Went Wrong!" + t.getMessage(), Toast.LENGTH_LONG).show();
 
             }
@@ -98,13 +100,13 @@ public class EmployeeTableFragment extends Fragment {
                 alertDialog = new AlertDialog.Builder(getActivity());
                 alertDialog.setTitle("ADD TABLE");
                 alertDialog.setMessage("Enter Table Capacity");
-                    final EditText editText_tableCapacity = new EditText(getActivity().getApplicationContext());
-                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                            LinearLayout.LayoutParams.WRAP_CONTENT,
-                            LinearLayout.LayoutParams.WRAP_CONTENT
-                    );
-                   editText_tableCapacity.setLayoutParams(layoutParams);
-                    alertDialog.setView(editText_tableCapacity);
+                final EditText editText_tableCapacity = new EditText(getActivity().getApplicationContext());
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                );
+                editText_tableCapacity.setLayoutParams(layoutParams);
+                alertDialog.setView(editText_tableCapacity);
                 alertDialog.setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -126,7 +128,7 @@ public class EmployeeTableFragment extends Fragment {
     }
 
 
-    public void generateRecyclerView(ArrayList<TableResponseModel> tableResponseModel, View viewTable) {
+    public void generateRecyclerView(ArrayList<CustomerReserveTableResponse> tableResponseModel, View viewTable) {
         menuItemAdapter =new MenuItemAdapter(tableResponseModel,getActivity().getApplication(),0);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext(),LinearLayoutManager.VERTICAL,false);
         RecyclerView recyclerView =viewTable.findViewById(R.id.recyclerView_viewTable);
@@ -164,7 +166,7 @@ public class EmployeeTableFragment extends Fragment {
         void OnTableAddPress(int capacity);
     }
 
-    }
+}
 
 
 

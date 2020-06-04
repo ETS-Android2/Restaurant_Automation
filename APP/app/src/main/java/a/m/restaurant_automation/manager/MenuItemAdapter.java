@@ -1,7 +1,5 @@
 package a.m.restaurant_automation.manager;
 
-import android.app.AlertDialog;
-import android.app.Application;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,19 +8,20 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import a.m.restaurant_automation.R;
+import a.m.restaurant_automation.responseModel.CustomerReserveTableResponse;
 import a.m.restaurant_automation.responseModel.MenuItemResponse;
-import a.m.restaurant_automation.responseModel.TableResponseModel;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.ViewHolder> {
     private ArrayList<MenuItemResponse> menuItemResponse;
-    private ArrayList<TableResponseModel> tableResponseModel;
+    private ArrayList<CustomerReserveTableResponse> tableResponseModel;
     int size = 0;
     int test=0;
     boolean tableStatus;
@@ -41,7 +40,7 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.ViewHo
         this.context = context;
     }
 
-    public MenuItemAdapter(ArrayList<TableResponseModel> tableResponseModel, Context context,int test) {
+    public MenuItemAdapter(ArrayList<CustomerReserveTableResponse> tableResponseModel, Context context,int test) {
         this.tableResponseModel = tableResponseModel;
         size = this.tableResponseModel.size();
         this.context = context;
