@@ -63,7 +63,7 @@ public class CustomerMenuItemsFragment extends Fragment {
         beverageItem = view.findViewById(R.id.beverageItemcustomer);
         dessertItem = view.findViewById(R.id.dessertItemcustomer);
 
-        pagerAdaptercustomer = new PagerAdapter(getFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, mTabLayoutcustomer.getTabCount());
+        pagerAdaptercustomer = new PagerAdapter(getParentFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, mTabLayoutcustomer.getTabCount());
         mViewPagercustomer.setAdapter(pagerAdaptercustomer);
 
 

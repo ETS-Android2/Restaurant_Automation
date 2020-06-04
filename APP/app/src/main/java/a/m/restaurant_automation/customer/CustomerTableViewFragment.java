@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -38,7 +39,7 @@ public class CustomerTableViewFragment extends Fragment {
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
     Call<ResponseModel<ArrayList<CustomerReserveTableResponse>>> call;
-    EditText editTextCapacity;
+    TextView textViewCapacity;
     Button addCapacity, subcapacity, doneButton;
     int capacity = 0;
     UserSession session;
@@ -66,7 +67,7 @@ public class CustomerTableViewFragment extends Fragment {
         bottomNavigationView = getActivity().findViewById(R.id.BottomnavigateMenuCustomer);
         bottomNavigationView.setVisibility(View.VISIBLE);
         recyclerView = view.findViewById(R.id.recyclerviewReserveTable);
-        editTextCapacity = view.findViewById(R.id.editTextCapacity);
+        textViewCapacity = view.findViewById(R.id.textViewCapacity);
         addCapacity = view.findViewById(R.id.btnPlusCapacityTable);
         subcapacity = view.findViewById(R.id.btnMinusCapacityTable);
         doneButton =view.findViewById(R.id.btnDoneCapacity);
@@ -79,14 +80,14 @@ public class CustomerTableViewFragment extends Fragment {
         addCapacity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                editTextCapacity.setText(""+(Integer.parseInt(editTextCapacity.getText().toString())+1));
+                textViewCapacity.setText(""+(Integer.parseInt(textViewCapacity.getText().toString())+1));
             }
         });
         subcapacity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(Integer.parseInt(editTextCapacity.getText().toString()) > 1)
-                editTextCapacity.setText(""+(Integer.parseInt(editTextCapacity.getText().toString())-1));
+                if(Integer.parseInt(textViewCapacity.getText().toString()) > 1)
+                textViewCapacity.setText(""+(Integer.parseInt(textViewCapacity.getText().toString())-1));
                 else
                     Toast.makeText(getActivity().getApplicationContext(), "Capacity must be greator than 0", Toast.LENGTH_SHORT).show();
             }
@@ -95,7 +96,7 @@ public class CustomerTableViewFragment extends Fragment {
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                capacity = Integer.parseInt(editTextCapacity.getText().toString());
+                capacity = Integer.parseInt(textViewCapacity.getText().toString());
                 if(capacity < 1){
                     Toast.makeText(getActivity().getApplicationContext(), "Capacity must be greator than 0", Toast.LENGTH_SHORT).show();
                 }
