@@ -30,5 +30,10 @@
         android:name="a.m.restaurant_automation.customer.CustomerTableViewFragment"
         android:label="fragment_customer_table_view"
         tools:layout="@layout/fragment_customer_table_view" />
+    <fragment
+        android:id="@+id/customerCatergoryItemNavigate"
+        android:name="a.m.restaurant_automation.customer.CustomerCatergoryItemNavigate"
+        android:label="fragment_customer_catergory_item_navigate"
+        tools:layout="@layout/fragment_customer_catergory_item_navigate" />
 
 </navigation>

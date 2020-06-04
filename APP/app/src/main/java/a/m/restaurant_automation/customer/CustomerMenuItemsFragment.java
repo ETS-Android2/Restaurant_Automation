@@ -2,43 +2,37 @@ package a.m.restaurant_automation.customer;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+
+import com.google.android.material.tabs.TabItem;
+import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.ArrayList;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 
 import a.m.restaurant_automation.R;
-import a.m.restaurant_automation.RetrofitClient;
-import a.m.restaurant_automation.responseModel.MenuItemResponse;
-import a.m.restaurant_automation.responseModel.ResponseModel;
-import a.m.restaurant_automation.service.IDataService;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import androidx.viewpager.widget.ViewPager;
 
 
 public class CustomerMenuItemsFragment extends Fragment {
 
-    int category;
-    CustomerMenuItemAdapter menuItemAdaptercustomer;
-    View viewMenu;
-    ArrayList<MenuItemResponse> menuItemResponsecustomer;
-    Call<ResponseModel<ArrayList<MenuItemResponse>>> call;
+
+
+    ViewPager mViewPagercustomer;
+    TabLayout mTabLayoutcustomer;
+    TabItem appetizerItem, mainCourseItem, beverageItem, dessertItem;
+    PagerAdapter pagerAdaptercustomer;
+
 
     public CustomerMenuItemsFragment(){}
 
-    public CustomerMenuItemsFragment(int category) {
-        this.category = category;
-    }
+//    public CustomerMenuItemsFragment(int category) {
+//        this.category = category;
+//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,50 +54,82 @@ public class CustomerMenuItemsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewMenu = view;
-        IDataService dataService = RetrofitClient.getRetrofitInstance().create(IDataService.class);
-        call = dataService.getMenuItem(category);
+        //tablayout
+        mViewPagercustomer =view.findViewById(R.id.viewpagercustomer);
+        mTabLayoutcustomer = view.findViewById(R.id.tablayoutcustomer);
+
+        appetizerItem = view.findViewById(R.id.appetizerItemcustomer);
+        mainCourseItem = view.findViewById(R.id.mainCourseItemcustomer);
+        beverageItem = view.findViewById(R.id.beverageItemcustomer);
+        dessertItem = view.findViewById(R.id.dessertItemcustomer);
+
+        pagerAdaptercustomer = new PagerAdapter(getFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, mTabLayoutcustomer.getTabCount());
+        mViewPagercustomer.setAdapter(pagerAdaptercustomer);
 
 
-        call.enqueue(new Callback<ResponseModel<ArrayList<MenuItemResponse>>>() {
+        mTabLayoutcustomer.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onResponse(Call<ResponseModel<ArrayList<MenuItemResponse>>> call, Response<ResponseModel<ArrayList<MenuItemResponse>>> response) {
-                ResponseModel<ArrayList<MenuItemResponse>> responseModel = response.body();
-
-                if (responseModel != null && responseModel.getError() != null) {
-                    Toast.makeText(getActivity().getApplicationContext(), responseModel.getError().getErrorMessage(), Toast.LENGTH_LONG).show();
-                } else if (responseModel != null && responseModel.getData() != null) {
-                    menuItemResponsecustomer = responseModel.getData();
-
-                    generateRecyclerView(menuItemResponsecustomer, viewMenu);
-
-                }
+            public void onTabSelected(TabLayout.Tab tab) {
+                mViewPagercustomer.setCurrentItem(tab.getPosition());
             }
 
             @Override
-            public void onFailure(Call<ResponseModel<ArrayList<MenuItemResponse>>> call, Throwable t) {
-                Toast.makeText(getActivity().getApplicationContext(), "Something Went Wrong!" + t.getMessage(), Toast.LENGTH_LONG).show();
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
             }
         });
+
+        mViewPagercustomer.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayoutcustomer));
     }
 
 
-    public void generateRecyclerView(ArrayList<MenuItemResponse> menuItemResponse, View viewMenu) {
-        menuItemAdaptercustomer = new CustomerMenuItemAdapter(menuItemResponse, getActivity().getApplicationContext());
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-        RecyclerView recyclerView = viewMenu.findViewById(R.id.recyclerView_customer_menuItem);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(menuItemAdaptercustomer);
-        // menuItemAdaptercustomer.setOnItemClickListener(onClickListener);
-        // menuItemAdaptercustomer.notifyDataSetChanged();
-    }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        if(call != null){
-            call.cancel();
+    private class PagerAdapter extends FragmentPagerAdapter {
+        private int tabNumber;
+
+        public PagerAdapter(@NonNull FragmentManager fm, int behavior, int mTabs) {
+            super(fm, behavior);
+            this.tabNumber = mTabs;
+        }
+
+
+        @NonNull
+        @Override
+        public Fragment getItem(int position) {
+            switch (position) {
+                case 0:
+                    return new CustomerCatergoryItemNavigate(1);
+                case 1:
+                    return new CustomerCatergoryItemNavigate(2);
+                case 2:
+                    return new CustomerCatergoryItemNavigate(3);
+                case 3:
+                    return new CustomerCatergoryItemNavigate(4);
+
+                default:
+                    return null;
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return tabNumber;
         }
     }
+
+
+
+//    @Override
+//    public void onDetach() {
+//        super.onDetach();
+//        if(call != null){
+//            call.cancel();
+//        }
+//    }
 }
 

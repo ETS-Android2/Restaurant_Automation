@@ -10,12 +10,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import a.m.restaurant_automation.model.AppStaticData;
-import a.m.restaurant_automation.responseModel.LoginResponseModel;
-import a.m.restaurant_automation.responseModel.ResponseModel;
 import androidx.appcompat.app.AppCompatActivity;
 
 import a.m.restaurant_automation.repository.UserSession;
-import okhttp3.Response;
 
 public class SplashActivity extends AppCompatActivity {
     Animation animationTop;

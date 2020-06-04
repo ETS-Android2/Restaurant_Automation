@@ -1,29 +1,17 @@
 package a.m.restaurant_automation;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.view.ViewCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import a.m.restaurant_automation.customer.CustomerMenuItemActivity;
 import a.m.restaurant_automation.repository.UserSession;
-import a.m.restaurant_automation.responseModel.TableReservationStatusForCustomerModel;
-import a.m.restaurant_automation.service.IDataService;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class CustomerActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -35,7 +23,6 @@ public class CustomerActivity extends AppCompatActivity implements BottomNavigat
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer);
-        //loadFragment(new CustomerOverviewFragment());
         setUpNavigation();
     }
 
@@ -99,47 +86,5 @@ public class CustomerActivity extends AppCompatActivity implements BottomNavigat
                 //break;
         }
         return false;
-    }
-
-    private class BottomNavigationViewBehavior extends CoordinatorLayout.Behavior<BottomNavigationView>{
-        private int height;
-
-        @Override
-        public boolean onLayoutChild(CoordinatorLayout parent, BottomNavigationView child, int layoutDirection) {
-            height = child.getHeight();
-            return super.onLayoutChild(parent, child, layoutDirection);
-        }
-
-        @Override
-        public boolean onStartNestedScroll(@NonNull CoordinatorLayout coordinatorLayout,
-                                           BottomNavigationView child, @NonNull
-                                                   View directTargetChild, @NonNull View target,
-                                           int axes, int type)
-        {
-            return axes == ViewCompat.SCROLL_AXIS_VERTICAL;
-        }
-
-        @Override
-        public void onNestedScroll(@NonNull CoordinatorLayout coordinatorLayout, @NonNull BottomNavigationView child,
-                                   @NonNull View target, int dxConsumed, int dyConsumed,
-                                   int dxUnconsumed, int dyUnconsumed,
-                                   @ViewCompat.NestedScrollType int type)
-        {
-            if (dyConsumed > 0) {
-                slideDown(child);
-            } else if (dyConsumed < 0) {
-                slideUp(child);
-            }
-        }
-
-        private void slideUp(BottomNavigationView child) {
-            child.clearAnimation();
-            child.animate().translationY(0).setDuration(100);
-        }
-
-        private void slideDown(BottomNavigationView child) {
-            child.clearAnimation();
-            child.animate().translationY(height).setDuration(100);
-        }
     }
 }
