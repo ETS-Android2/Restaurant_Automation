@@ -68,6 +68,8 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.ViewHo
         if (isMenuItem) {
             holder.menuItemName.setText("Name: " + menuItemResponse.get(position).getMenuItemName());
             holder.menuItemPrice.setText("Price: " + menuItemResponse.get(position).getPrice().toString() + " $");
+            holder.menuItemDescription.setText("Description: " +menuItemResponse.get(position).getMenuItemDescription());
+            holder.removeItemButton.setTag(menuItemResponse.get(position).getMenuItemId());
             Picasso.get().load(url).into(holder.menuItemImage);
         }
         else if (isTable){
@@ -93,10 +95,11 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.ViewHo
 
     public void setOnItemClickListener(View.OnClickListener onClickListener) {
         onItemListener = onClickListener;
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView menuItemName, menuItemPrice;
+        TextView menuItemName, menuItemPrice, menuItemDescription;
         Button removeItemButton;
         ImageView menuItemImage;
 
@@ -108,7 +111,7 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.ViewHo
                 menuItemImage= itemView.findViewById(R.id.imageView_menuItem);
                 menuItemName = itemView.findViewById(R.id.textView_menuName);
                 menuItemPrice = itemView.findViewById(R.id.textView_menuPrice);
-                removeItemButton = itemView.findViewById(R.id.removeItemButton);
+                menuItemDescription = itemView.findViewById(R.id.textView_menuDescription);
                 removeItemButton = itemView.findViewById(R.id.removeItemButton);
                 removeItemButton.setOnClickListener(onItemListener);
             }

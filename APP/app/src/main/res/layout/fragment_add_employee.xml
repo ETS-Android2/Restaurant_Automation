@@ -102,7 +102,7 @@
             android:id="@+id/button_addEmployee"
             android:background="@drawable/button_drawable"
             android:textColor="@color/white"
-            android:text="Register"
+            android:text="Add Employee"
             android:layout_gravity="center"
             android:layout_marginTop="-46dp"
             android:elevation="15dp"/>

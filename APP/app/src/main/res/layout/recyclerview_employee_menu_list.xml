@@ -33,17 +33,32 @@
             android:textSize="17sp"
             />
 
+
             <TextView
                 android:id="@+id/textView_menuPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/imageView_menuItem"
                 android:layout_below="@id/textView_menuName"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginLeft="20dp"
                 android:text="Menu Price"
                 android:textSize="17sp"
                 />
+
+            <TextView
+                android:id="@+id/textView_menuDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/imageView_menuItem"
+                android:layout_below="@id/textView_menuPrice"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:text="Menu Desctiption"
+                android:textSize="12sp"
+                android:maxLines="4"
+                />
+
 
 
         </RelativeLayout>
@@ -55,7 +70,7 @@
             android:layout_toRightOf="@id/imageView_menuItem"
             android:layout_gravity="bottom|right"
             android:layout_margin="30dp"
-            android:text="Remove"
+            android:text="Update"
             android:textSize="12sp"
             android:textColor="@android:color/white"
             android:background="@drawable/button_drawable"

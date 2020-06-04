@@ -11,9 +11,14 @@ import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
 import a.m.restaurant_automation.manager.AddEmployeeFragment;
+import a.m.restaurant_automation.manager.EmployeeMenuItemsFragment;
 import a.m.restaurant_automation.manager.EmployeeTableFragment;
+import a.m.restaurant_automation.manager.MenuItemAdapter;
+import a.m.restaurant_automation.model.AppStaticData;
 import a.m.restaurant_automation.requestModel.AddTableRequestModel;
+import a.m.restaurant_automation.requestModel.MenuItemRequestModel;
 import a.m.restaurant_automation.requestModel.RegisterRequestModel;
+import a.m.restaurant_automation.responseModel.MenuItemResponse;
 import a.m.restaurant_automation.responseModel.RegisterResponseModel;
 import a.m.restaurant_automation.responseModel.ResponseModel;
 import a.m.restaurant_automation.responseModel.TableResponseModel;
@@ -35,6 +40,8 @@ public class ManagerActivity extends AppCompatActivity implements BottomNavigati
     private int UserType;
 
     private int addCapacity;
+
+
 
 
 
@@ -88,10 +95,12 @@ public class ManagerActivity extends AppCompatActivity implements BottomNavigati
         }
         return false;
     }
+
     public void OnTableAddPress( int capacity) {
         addCapacity = capacity;
         AddTable();
     }
+
 
     public void OnEmployeeRegisterPress(String firstName, String lastName, String email, String password, int userType) {
 
@@ -167,7 +176,9 @@ public class ManagerActivity extends AppCompatActivity implements BottomNavigati
             }
         });
 
-
-
     }
+
+
+
+
 }

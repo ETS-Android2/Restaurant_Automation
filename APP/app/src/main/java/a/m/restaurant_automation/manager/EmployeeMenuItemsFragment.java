@@ -1,15 +1,19 @@
 package a.m.restaurant_automation.manager;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import a.m.restaurant_automation.model.AppStaticData;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -35,6 +39,7 @@ public class EmployeeMenuItemsFragment extends Fragment {
     TextView emptyText;
     View viewMenu;
     Button removeItemButton;
+    OnChangePricePress onChangePricePress;
     Call<ResponseModel<ArrayList<MenuItemResponse>>> call;
 
     ArrayList<MenuItemResponse> menuItemResponse;
@@ -111,15 +116,25 @@ public class EmployeeMenuItemsFragment extends Fragment {
 
     public View.OnClickListener onClickListener =new View.OnClickListener() {
         @Override
-        public void onClick(View v) {
-            AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
-                    .setTitle("Delete Item")
-                    .setMessage("Are you sure you want to delete this Item?")
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        public void onClick(final View v) {
+
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+            alertDialog.setTitle("Update Item");
+            alertDialog.setMessage("Enter Updated Price :");
+                    final EditText editText_udaptePrice = new EditText(getActivity().getApplicationContext());
+                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.WRAP_CONTENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                    );
+                    editText_udaptePrice.setLayoutParams(layoutParams);
+                    alertDialog.setView(editText_udaptePrice);
+                    alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Toast.makeText(getActivity().getApplicationContext(), "Functionality Under Maintenance", Toast.LENGTH_SHORT).show();
-
+                           double price = Double.parseDouble(editText_udaptePrice.getText().toString());
+                           int userType = AppStaticData.USERTYPE_MANAGER;
+                           int positionItem = (int) v.getTag();
+                           onChangePricePress.onChangePricePress(price,userType,positionItem);
                         }
                     })
                     .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -139,5 +154,16 @@ public class EmployeeMenuItemsFragment extends Fragment {
         if(call != null){
             call.cancel();
         }
+    }
+
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        onChangePricePress= (EmployeeMenuItemsFragment.OnChangePricePress) context;
+    }
+
+    public interface OnChangePricePress {
+        void onChangePricePress(double price, int UserType, int positionItem);
     }
 }

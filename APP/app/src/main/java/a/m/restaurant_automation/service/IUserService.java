@@ -3,6 +3,7 @@ package a.m.restaurant_automation.service;
 import a.m.restaurant_automation.requestModel.AddMenuItemRequestModel;
 import a.m.restaurant_automation.requestModel.AddTableRequestModel;
 import a.m.restaurant_automation.requestModel.LoginRequestModel;
+import a.m.restaurant_automation.requestModel.MenuItemRequestModel;
 import a.m.restaurant_automation.requestModel.RegisterRequestModel;
 import a.m.restaurant_automation.responseModel.MenuItemResponse;
 import a.m.restaurant_automation.responseModel.RegisterResponseModel;
@@ -26,5 +27,8 @@ public interface IUserService {
 
     @POST ("addTable")
     Call<ResponseModel<TableResponseModel>> addTable (@Body AddTableRequestModel addTableRequestModel);
+
+    @POST ("menu/changePrice")
+    Call<ResponseModel<MenuItemResponse>> changePrice (@Body MenuItemRequestModel menuItemRequestModel);
 
 }

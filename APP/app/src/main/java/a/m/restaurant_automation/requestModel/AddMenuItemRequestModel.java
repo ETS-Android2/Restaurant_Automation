@@ -9,4 +9,7 @@ public class AddMenuItemRequestModel {
     public String itemImage;
     public int createdBy;
 
+
+
+
 }

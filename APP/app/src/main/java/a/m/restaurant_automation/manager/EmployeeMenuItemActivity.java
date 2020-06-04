@@ -3,7 +3,14 @@ package a.m.restaurant_automation.manager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
+import a.m.restaurant_automation.RetrofitClient;
+import a.m.restaurant_automation.model.AppStaticData;
+import a.m.restaurant_automation.requestModel.MenuItemRequestModel;
+import a.m.restaurant_automation.responseModel.MenuItemResponse;
+import a.m.restaurant_automation.responseModel.ResponseModel;
+import a.m.restaurant_automation.service.IUserService;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,8 +25,11 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 import a.m.restaurant_automation.R;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-public class EmployeeMenuItemActivity extends AppCompatActivity {
+public class EmployeeMenuItemActivity extends AppCompatActivity implements EmployeeMenuItemsFragment.OnChangePricePress {
 
 
     ActionBarDrawerToggle actionBarDrawerToggle;
@@ -30,6 +40,10 @@ public class EmployeeMenuItemActivity extends AppCompatActivity {
     PagerAdapter pagerAdapter;
     public NavController navController;
     FloatingActionButton floatingActionButton;
+
+    private double changePrice;
+    private int mUserType = AppStaticData.USERTYPE_MANAGER;
+    private int itemPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +105,8 @@ public class EmployeeMenuItemActivity extends AppCompatActivity {
         finish();
     }
 
+
+
     private class PagerAdapter extends FragmentPagerAdapter{
         private int tabNumber;
 
@@ -123,4 +139,45 @@ public class EmployeeMenuItemActivity extends AppCompatActivity {
            return tabNumber;
        }
    }
+
+
+    public void UpdateMenuItemPrice(){
+
+        IUserService userService = RetrofitClient.getRetrofitInstance().create(IUserService.class);
+        MenuItemRequestModel menuItemRequestModel = new MenuItemRequestModel();
+        menuItemRequestModel.price =changePrice;
+        menuItemRequestModel.updatedBy = mUserType;
+        menuItemRequestModel.itemId = itemPosition;
+
+        Call<ResponseModel<MenuItemResponse>> call = userService.changePrice(menuItemRequestModel);
+        call.enqueue(new Callback<ResponseModel<MenuItemResponse>>() {
+            @Override
+            public void onResponse(Call<ResponseModel<MenuItemResponse>> call, Response<ResponseModel<MenuItemResponse>> response) {
+                ResponseModel<MenuItemResponse> responseModel = response.body();
+                if (responseModel != null) {
+                    if (responseModel.getError() != null) {
+                        Toast.makeText(getApplicationContext(), responseModel.getError().getErrorMessage(), Toast.LENGTH_LONG).show();
+                    } else {
+
+                        Toast.makeText(getApplicationContext(), responseModel.getData().getMenuItemId() + " Price Changed", Toast.LENGTH_LONG).show();
+//
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel<MenuItemResponse>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "something went wrong" + t.getMessage(), Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+    }
+    @Override
+    public void onChangePricePress(double price, int UserType, int positionItem) {
+        changePrice =price;
+        mUserType = UserType;
+        itemPosition = positionItem;
+        UpdateMenuItemPrice();
+    }
 }

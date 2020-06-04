@@ -98,13 +98,13 @@ public class EmployeeTableFragment extends Fragment {
                 alertDialog = new AlertDialog.Builder(getActivity());
                 alertDialog.setTitle("ADD TABLE");
                 alertDialog.setMessage("Enter Table Capacity");
-                final EditText editText_tableCapacity = new EditText(getActivity().getApplicationContext());
-                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.WRAP_CONTENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT
-                );
-               editText_tableCapacity.setLayoutParams(layoutParams);
-                alertDialog.setView(editText_tableCapacity);
+                    final EditText editText_tableCapacity = new EditText(getActivity().getApplicationContext());
+                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.WRAP_CONTENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                    );
+                   editText_tableCapacity.setLayoutParams(layoutParams);
+                    alertDialog.setView(editText_tableCapacity);
                 alertDialog.setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

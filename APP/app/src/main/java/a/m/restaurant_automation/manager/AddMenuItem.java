@@ -96,7 +96,7 @@ public class AddMenuItem extends AppCompatActivity implements View.OnClickListen
             editText_itemPrice.requestFocus();
             return true;
         }
-        else if (!Patterns.EMAIL_ADDRESS.matcher(editText_itemDescription.getText().toString()).matches()){
+        else if (TextUtils.isEmpty(editText_itemDescription.getText().toString())){
             editText_itemDescription.setError("Item Description cannot be Empty!");
             editText_itemDescription.requestFocus();
             return true;
