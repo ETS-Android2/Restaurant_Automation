@@ -10,4 +10,7 @@
         android:name="a.m.restaurant_automation.chef.ChefDashboard"
         android:label="fragment_chef_dashboard"
         tools:layout="@layout/fragment_chef_dashboard" />
+
+
+
 </navigation>

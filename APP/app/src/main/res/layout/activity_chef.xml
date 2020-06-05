@@ -27,5 +27,5 @@
         android:fitsSystemWindows="true"
         android:visibility="visible"
         app:menu="@menu/nav_bottom_manager"
-        tools:ignore="MissingConstraints"/>
+        tools:ignore="MissingConstraints" />
 </RelativeLayout>

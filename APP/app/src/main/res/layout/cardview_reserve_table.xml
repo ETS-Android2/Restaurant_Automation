@@ -3,65 +3,70 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/mainbackground"
     >
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="90dp"
         android:layout_margin="12dp"
         app:cardCornerRadius="15dp"
-        app:cardElevation="5dp"
-        >
+        app:cardElevation="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:weightSum="1"
-            >
+            android:weightSum="1">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="90dp"
+
+                android:src="@drawable/table_icon_2" />
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:orientation="vertical"
-                android:layout_weight=".8">
+                android:layout_weight=".8"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/txtTableNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:text="Table Number"
-                    android:textColor="@android:color/holo_purple"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="10dp"/>
+                    android:textColor="#301C3A"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/txtTablePeopleNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:text="People"
-                    android:textColor="@android:color/holo_purple"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="10dp"/>
+                    android:textColor="#301C3A"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
 
 
             </LinearLayout>
 
             <Button
-                android:layout_weight="0.2"
                 android:id="@+id/btnBookTable"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                android:layout_weight="0.2"
                 android:background="@drawable/button_background_login"
                 android:text="Book"
                 android:textColor="@color/white"
-                android:textSize="18dp"
-                android:textStyle="bold"
-                android:layout_marginRight="10dp"/>
+                android:textSize="25dp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
