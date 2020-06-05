@@ -57,14 +57,7 @@
             app:navGraph="@navigation/customer_navigation_graph"
             />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingButton_cartFragment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_margin="25dp"
-            app:srcCompat="@drawable/ic_add_shopping_cart"/>
+
 
 
     </RelativeLayout>
