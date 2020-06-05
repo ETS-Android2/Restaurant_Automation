@@ -23,5 +23,20 @@ namespace TESTRESTRO.Provider
                 return null;
             }
         }
+
+        public List<GetCartItemsResponseModel> getCartItems(int userId, out ErrorModel errorModel)
+        {
+            errorModel = null;
+            try
+            {
+                Cart cartHelper = new Cart();
+                List<GetCartItemsResponseModel> cartItems = cartHelper.getCartItems(userId, out errorModel);
+                return cartItems;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

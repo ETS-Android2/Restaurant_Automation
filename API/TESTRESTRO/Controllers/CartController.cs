@@ -27,16 +27,16 @@ namespace TESTRESTRO.Controllers
 
 
         [HttpGet]
-        [Route("api/cart/cartItems")]
+        [Route("api/cart/cartItems/{userId:int?}")]
         //[ApiAuthorization]
-        public HttpResponseMessage getCartItems()
+        public HttpResponseMessage getCartItems(int userId)
         {
             CartProvider cartProvider = new CartProvider();
             ErrorModel errorModel = null;
 
-            var cartItems = cartProvider.getCartItems( out errorModel);
+            var cartItems = cartProvider.getCartItems(userId, out errorModel);
             APIResponseModel responseModel = new APIResponseModel();
-            responseModel.Response = menuItems;
+            responseModel.Response = cartItems;
             responseModel.Error = errorModel;
             return Request.CreateResponse(HttpStatusCode.OK, responseModel);
         }

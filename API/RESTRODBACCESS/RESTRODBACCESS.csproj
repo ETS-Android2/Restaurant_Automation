@@ -118,6 +118,7 @@
     <Compile Include="RequestModel\UserRegisterRequestModel.cs" />
     <Compile Include="RequestModel\UsersRequestModel.cs" />
     <Compile Include="ResponseModel\AddToCartResponseModel.cs" />
+    <Compile Include="ResponseModel\GetCartItemsResponseModel.cs" />
     <Compile Include="ResponseModel\GetOrderHistoryResponseModel.cs" />
     <Compile Include="ResponseModel\GetTableResponseModel.cs" />
     <Compile Include="ResponseModel\MenuItemResponseModel.cs" />
