@@ -9,13 +9,16 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import a.m.restaurant_automation.requestModel.AddToCartRequestModel;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -31,25 +34,16 @@ import retrofit2.Response;
 
 
 public class CustomerCatergoryItemNavigate extends Fragment  {
-    TextView  menuItemCapacity;
-    Button addItemButton, plusItem , subItem;
+
+    Button addItemButton;
+    FloatingActionButton floatingActionButton;
     int category;
-    int qty=1;
     CustomerMenuItemAdapter menuItemAdaptercustomer;
     View viewMenu;
     ArrayList<MenuItemResponse> menuItemResponsecustomer;
 
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        onaddToCartPress= (OnaddToCartPress) context;
-    }
 
     Call<ResponseModel<ArrayList<MenuItemResponse>>> call;
-    BottomNavigationView bottomNavigationView;
-
-    int capacity ;
-
     UserSession session;
     OnaddToCartPress onaddToCartPress;
 
@@ -78,10 +72,15 @@ public class CustomerCatergoryItemNavigate extends Fragment  {
         super.onViewCreated(view, savedInstanceState);
 
         viewMenu = view;
-        menuItemCapacity=view.findViewById(R.id.textviewcapacity);
-        plusItem = view.findViewById(R.id.buttonPlusCapacityItem);
-        subItem= view.findViewById(R.id.buttonMinusCapacityItem);
         addItemButton = view.findViewById(R.id.customer_addItemButton);
+        floatingActionButton = view.findViewById(R.id.floatingButton_cartFragment);
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.cartFragmentCustomer);
+            }
+        });
 
 
 
@@ -108,22 +107,7 @@ public class CustomerCatergoryItemNavigate extends Fragment  {
             }
         });
 
-      /* plusItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                menuItemCapacity.setText((Integer.parseInt(menuItemCapacity.getText().toString())+1));
 
-            }
-        });
-        subItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (Integer.parseInt(menuItemCapacity.getText().toString()) > 1)
-                    menuItemCapacity.setText((Integer.parseInt(menuItemCapacity.getText().toString()) - 1));
-                else
-                    Toast.makeText(getActivity().getApplicationContext(), "Items Should be atleast one", Toast.LENGTH_SHORT).show();
-            }
-        });*/
     }
 
     public void generateRecyclerView(ArrayList<MenuItemResponse> menuItemResponse, View viewMenu) {
@@ -140,39 +124,25 @@ public class CustomerCatergoryItemNavigate extends Fragment  {
         @Override
         public void onClick(View v) {
             int id = v.getId();
-
-            if (id==R.id.buttonPlusCapacityItem)
-            {
-                menuItemCapacity.setText(""+Integer.parseInt(menuItemCapacity.getText().toString())+1);
-
-            }
-            else if(id==R.id.buttonMinusCapacityItem)
-            {
-                if (Integer.parseInt(menuItemCapacity.getText().toString()) > 1)
-                    menuItemCapacity.setText(""+(Integer.parseInt(menuItemCapacity.getText().toString()) - 1));
-                else
-                    Toast.makeText(getActivity().getApplicationContext(), "Items Should be atleast one", Toast.LENGTH_SHORT).show();
-
-            }
-
-            if(id == R.id.customer_addItemButton){
-
-                //capacity = Integer.parseInt(menuItemCapacity.getText().toString());
-                //menuItemCapacity=(int) v.getTag(1);
-
-                int itemid =(int) v.getTag();
-                int quantity = (int) v.getTag();/* Integer.parseInt(menuItemCapacity.getText().toString());*/
+            if (id == R.id.customer_addItemButton) {
+                //int itemid = (int) v.getTag();
+                AddToCartRequestModel tag = (AddToCartRequestModel) v.getTag();
                 int addedby = Integer.parseInt(session.getInstance().getUserId());
 
-                onaddToCartPress.onaddToCartPress(itemid,quantity,addedby);
+                onaddToCartPress.onaddToCartPress(tag.itemId, tag.quantity, addedby);
             }
 
         }
     };
 
-
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        onaddToCartPress= (OnaddToCartPress) context;
+    }
 
     public interface OnaddToCartPress {
-        void onaddToCartPress (int itemId,int quantity, int addedby);
-    }
+            void onaddToCartPress(int itemId, int quantity, int addedby);
+        }
+
 }

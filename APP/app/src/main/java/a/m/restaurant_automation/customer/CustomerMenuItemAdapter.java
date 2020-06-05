@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import a.m.restaurant_automation.requestModel.AddToCartRequestModel;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,12 +23,16 @@ import a.m.restaurant_automation.responseModel.MenuItemResponse;
 public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuItemAdapter.ViewHolder> {
 
     private ArrayList<MenuItemResponse> menuItemResponsecustomer;
-    int qty=1;
+    int countQuantity;
     int size = 0;
-
+    AddToCartRequestModel tag;
     private Context context;
     public View.OnClickListener onItemListener_customer;
     String url = "https://cdn2.creativecirclemedia.com/neni/original/20190917-140036-Ratatouille-T5_93975.jpg";
+
+    boolean is =false;
+    boolean isMenuItem = false;
+
 
     public CustomerMenuItemAdapter(ArrayList<MenuItemResponse> menuItemResponse, Context context) {
         this.menuItemResponsecustomer = menuItemResponse;
@@ -49,16 +54,23 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
         holder.menuItemName.setText("Name : "+menuItemResponsecustomer.get(position).getMenuItemName());
         holder.menuItemPrice.setText("Price : "+menuItemResponsecustomer.get(position).getPrice().toString() +" $");
         holder.addItemButton.setTag(menuItemResponsecustomer.get(position).getMenuItemId());
-        //holder.menuItemQuantity.setText(String.valueOf(qty));
         holder.getAdapterPosition() ;
+        tag = new AddToCartRequestModel();
+
+
         holder.plusItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                qty++;
+
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        holder.menuItemQuantity.setText(String.valueOf(qty));
+                        countQuantity = Integer.parseInt(String.valueOf(holder.menuItemQuantity.getText()));
+                        countQuantity++;
+                        tag.itemId = menuItemResponsecustomer.get(position).getMenuItemId();
+                        tag.quantity= countQuantity;
+                        holder.addItemButton.setTag(tag);
+                        holder.menuItemQuantity.setText(""+countQuantity);
                     }
                 });
 
@@ -67,11 +79,18 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
         holder.subItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                qty--;
+
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        holder.menuItemQuantity.setText(String.valueOf(qty));
+                         countQuantity = Integer.parseInt(String.valueOf(holder.menuItemQuantity.getText()));
+                        if (countQuantity==0){
+                            holder.menuItemQuantity.setText("0");
+                        }else {
+                            countQuantity -=1;
+                            holder.menuItemQuantity.setText(""+countQuantity);
+                        }
+
                     }
                 });
 
@@ -96,9 +115,6 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
         Button  addItemButton, plusItem , subItem;
         ImageView menuItemImage;
         //TextView menuitemid,quantity;
-
-
-
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

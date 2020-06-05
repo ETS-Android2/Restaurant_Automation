@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import a.m.restaurant_automation.responseModel.StatusCheckResponse;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -104,26 +105,26 @@ public class CustomerActivity extends AppCompatActivity implements BottomNavigat
         addToCartRequestModel.quantity = Quantity;
         addToCartRequestModel.addedby = AddedBy;
 
-        Call<ResponseModel<AddToCartRequestModel>> call = dataService.addToCart(addToCartRequestModel);
-        call.enqueue(new Callback<ResponseModel<AddToCartRequestModel>>() {
+        Call<ResponseModel<StatusCheckResponse>> call = dataService.addToCart(addToCartRequestModel);
+        call.enqueue(new Callback<ResponseModel<StatusCheckResponse>>() {
             @Override
-            public void onResponse(Call<ResponseModel<AddToCartRequestModel>> call, Response<ResponseModel<AddToCartRequestModel>> response) {
-                ResponseModel<AddToCartRequestModel> responseModel = response.body();
+            public void onResponse(Call<ResponseModel<StatusCheckResponse>> call, Response<ResponseModel<StatusCheckResponse>> response) {
+                ResponseModel<StatusCheckResponse> responseModel = response.body();
                 if (responseModel != null) {
                     if (responseModel.getError() != null) {
                         Toast.makeText(getApplicationContext(), responseModel.getError().getErrorMessage(), Toast.LENGTH_LONG).show();
                     } else {
-                        Toast.makeText(getApplicationContext(),  "Added to cart", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),responseModel.getData().statusCode + " Added to cart", Toast.LENGTH_LONG).show();
                     }
                 }
             }
 
             @Override
-            public void onFailure(Call<ResponseModel<AddToCartRequestModel>> call, Throwable t) {
+            public void onFailure(Call<ResponseModel<StatusCheckResponse>> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "something went wrong" + t.getMessage(), Toast.LENGTH_LONG).show();
-
             }
         });
+
     }
 
     @Override

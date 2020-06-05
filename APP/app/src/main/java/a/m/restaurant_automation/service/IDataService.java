@@ -37,6 +37,6 @@ public interface IDataService {
     Call<ResponseModel<StatusCheckResponse>> reserveTable(@Body ReserveTableRequest reserveTableRequest);
 
     @POST("cart/addToCart")
-    Call<ResponseModel<AddToCartRequestModel>> addToCart (@Body AddToCartRequestModel addToCartRequestModel);
+    Call<ResponseModel<StatusCheckResponse>> addToCart (@Body AddToCartRequestModel addToCartRequestModel);
 
 }
