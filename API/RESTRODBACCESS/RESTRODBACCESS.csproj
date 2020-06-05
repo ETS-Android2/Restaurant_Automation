@@ -113,6 +113,7 @@
     <Compile Include="RequestModel\ReserveTableRequestModel.cs" />
     <Compile Include="RequestModel\GetTableRequestModel.cs" />
     <Compile Include="RequestModel\MenuItemRequestModel.cs" />
+    <Compile Include="RequestModel\TableDeleteRequestModel.cs" />
     <Compile Include="RequestModel\UserLoginRequestModel.cs" />
     <Compile Include="RequestModel\UserRegisterRequestModel.cs" />
     <Compile Include="RequestModel\UsersRequestModel.cs" />

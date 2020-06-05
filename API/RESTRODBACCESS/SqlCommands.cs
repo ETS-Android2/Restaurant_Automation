@@ -8,6 +8,8 @@
         public const string SP_changePrice = "changePrice";
         public const string SP_getCategory = "getCategory";
         public const string SP_deleteorModifyEmployee = "deleteorModifyEmployee";
+        public const string SP_deleteorModifyTable = "deleteorModifyTable";
+
 
 
         public const string SP_addMenuItem = "addMenuItem";

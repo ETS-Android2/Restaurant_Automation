@@ -1,6 +1,7 @@
 package a.m.restaurant_automation.customer;
 
 import android.content.Context;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import a.m.restaurant_automation.responseModel.MenuItemResponse;
 public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuItemAdapter.ViewHolder> {
 
     private ArrayList<MenuItemResponse> menuItemResponsecustomer;
+    int qty=1;
     int size = 0;
 
     private Context context;
@@ -40,11 +42,43 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
         return new ViewHolder(view);
  }
 
+    private final Handler handler=new Handler();
+
     @Override
-    public void onBindViewHolder(@NonNull CustomerMenuItemAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final CustomerMenuItemAdapter.ViewHolder holder, final int position) {
         holder.menuItemName.setText("Name : "+menuItemResponsecustomer.get(position).getMenuItemName());
         holder.menuItemPrice.setText("Price : "+menuItemResponsecustomer.get(position).getPrice().toString() +" $");
-        holder.menuitemid.setTag(menuItemResponsecustomer.get(position).getMenuItemId());
+        holder.addItemButton.setTag(menuItemResponsecustomer.get(position).getMenuItemId());
+        //holder.menuItemQuantity.setText(String.valueOf(qty));
+        holder.getAdapterPosition() ;
+        holder.plusItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                qty++;
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        holder.menuItemQuantity.setText(String.valueOf(qty));
+                    }
+                });
+
+            }
+        });
+        holder.subItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                qty--;
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        holder.menuItemQuantity.setText(String.valueOf(qty));
+                    }
+                });
+
+            }
+        });
+
+
         Picasso.get().load(url).into(holder.menuItemImage);
     }
 
@@ -58,10 +92,11 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView menuItemName, menuItemPrice;
-        Button addItemButton;
+        TextView menuItemName, menuItemPrice,menuItemQuantity;
+        Button  addItemButton, plusItem , subItem;
         ImageView menuItemImage;
-        TextView menuitemid;
+        //TextView menuitemid,quantity;
+
 
 
 
@@ -71,10 +106,14 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
             menuItemName = itemView.findViewById(R.id.textView_menuName_customer);
             menuItemPrice = itemView.findViewById(R.id.textView_menuPrice_customer);
             addItemButton = itemView.findViewById(R.id.customer_addItemButton);
-            menuitemid = itemView.findViewById(R.id.textView_menuitemID);
-           addItemButton.setOnClickListener(onItemListener_customer);
+            plusItem=itemView.findViewById(R.id.buttonPlusCapacityItem);
+            subItem=itemView.findViewById(R.id.buttonMinusCapacityItem);
+            plusItem.setOnClickListener(onItemListener_customer);
+            subItem.setOnClickListener(onItemListener_customer);
 
-           itemView.setTag(this);
+            addItemButton.setOnClickListener(onItemListener_customer);
+            menuItemQuantity=itemView.findViewById(R.id.textviewcapacity);
+            itemView.setTag(this);
 
         }
     }

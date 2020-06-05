@@ -232,5 +232,66 @@ namespace RESTRODBACCESS.Helper
             }
         }
 
+        public GetTableResponseModel deleteorModifyTable(TableDeleteRequestModel tableDeleteRequest, out ErrorModel errorModel)
+        {
+            errorModel = null;
+            GetTableResponseModel getTableResponse = null;
+            SqlConnection connection = null;
+            try
+            {
+                using (connection = new SqlConnection(Database.getConnectionString()))
+                {
+                    SqlCommand command = new SqlCommand(SqlCommands.SP_deleteorModifyTable, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    #region Commands Parameters
+
+                    command.Parameters.Add(new SqlParameter("@isDelete", System.Data.SqlDbType.Bit));
+                    command.Parameters["@isDelete"].Value = tableDeleteRequest.isDelete;
+
+                    command.Parameters.Add(new SqlParameter("@tableId", System.Data.SqlDbType.Int));
+                    command.Parameters["@tableId"].Value = tableDeleteRequest.tableId;
+
+                    #endregion
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    getTableResponse = new GetTableResponseModel();
+                    if (reader.Read())
+                    {
+                        if (reader.isColumnExists("ErrorCode"))
+                        {
+                            errorModel = new ErrorModel();
+                            errorModel.ErrorCode = reader["ErrorCode"].ToString();
+                            errorModel.ErrorMessage = reader["ErrorMessage"].ToString();
+                        }
+                        else
+                        {
+                            getTableResponse.tableId = Convert.ToInt32(reader["TableId"].ToString());
+                            getTableResponse.capacity = Convert.ToInt32(reader["Capacity"].ToString());
+                            getTableResponse.availability = Convert.ToBoolean(reader["Table Active"].ToString());
+
+
+                        }
+                    }
+                    command.Dispose();
+                    return getTableResponse;
+                }
+            }
+            catch (Exception exception)
+            {
+                errorModel = new ErrorModel();
+                errorModel.ErrorMessage = exception.Message;
+                return null;
+            }
+            finally
+            {
+                if (connection != null)
+                {
+                    connection.Close();
+                }
+            }
+        }
+
     }
 }

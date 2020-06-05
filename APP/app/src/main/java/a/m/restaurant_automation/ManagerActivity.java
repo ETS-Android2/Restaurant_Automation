@@ -20,6 +20,8 @@ import a.m.restaurant_automation.requestModel.AddTableRequestModel;
 import a.m.restaurant_automation.requestModel.EmployeeDeleteRequestModel;
 import a.m.restaurant_automation.requestModel.MenuItemRequestModel;
 import a.m.restaurant_automation.requestModel.RegisterRequestModel;
+import a.m.restaurant_automation.requestModel.TableDeleteRequestModel;
+import a.m.restaurant_automation.responseModel.CustomerReserveTableResponse;
 import a.m.restaurant_automation.responseModel.MenuItemResponse;
 import a.m.restaurant_automation.responseModel.RegisterResponseModel;
 import a.m.restaurant_automation.responseModel.ResponseModel;
@@ -35,7 +37,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ManagerActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener,AddEmployeeFragment.OnEmployeeRegisterPress, EmployeeTableFragment.OnTableAddPress, EmployeeFragment.OnDeleteEmployeePress {
+public class ManagerActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener,AddEmployeeFragment.OnEmployeeRegisterPress, EmployeeTableFragment.OnTableAddPress, EmployeeFragment.OnDeleteEmployeePress,EmployeeTableFragment.OnDeleteTablePress {
     public BottomNavigationView bottomNavigationView;
     public NavController navController;
 
@@ -43,8 +45,8 @@ public class ManagerActivity extends AppCompatActivity implements BottomNavigati
     private int UserType;
 
     private int addCapacity;
-    private int userIdPosition;
-    private boolean deleteEmployee;
+    private int userIdPosition,tableIdPosition;
+    private boolean deleteEmployee,deleteTable;
 
 
 
@@ -208,8 +210,34 @@ public class ManagerActivity extends AppCompatActivity implements BottomNavigati
 
             }
         });
+    }
 
+    public void deleteTable(){
+        IUserService userService = RetrofitClient.getRetrofitInstance().create(IUserService.class);
+        TableDeleteRequestModel tableDeleteRequestModel =  new TableDeleteRequestModel();
+        tableDeleteRequestModel.tableId = tableIdPosition;
+        tableDeleteRequestModel.isDelete = deleteTable;
 
+        Call<ResponseModel<CustomerReserveTableResponse>>call = userService.deleteTable(tableDeleteRequestModel);
+        call.enqueue(new Callback<ResponseModel<CustomerReserveTableResponse>>() {
+            @Override
+            public void onResponse(Call<ResponseModel<CustomerReserveTableResponse>> call, Response<ResponseModel<CustomerReserveTableResponse>> response) {
+                ResponseModel<CustomerReserveTableResponse> responseModel = response.body();
+                if (responseModel != null) {
+                    if (responseModel.getError() != null) {
+                        Toast.makeText(getApplicationContext(), responseModel.getError().getErrorMessage(), Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), responseModel.getData().getTableId() + " Table Deleted", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel<CustomerReserveTableResponse>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "something went wrong" + t.getMessage(), Toast.LENGTH_LONG).show();
+
+            }
+        });
     }
 
     @Override
@@ -217,6 +245,14 @@ public class ManagerActivity extends AppCompatActivity implements BottomNavigati
         userIdPosition = userId;
         deleteEmployee = isDelete;
         deleteEmployee();
+
+    }
+
+
+    public void onDeleteTablePress(int tableId, boolean isDelete) {
+        tableIdPosition = tableId;
+        deleteTable = isDelete;
+        deleteTable();
 
     }
 }

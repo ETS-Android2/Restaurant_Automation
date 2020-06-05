@@ -18,7 +18,7 @@ public class SplashActivity extends AppCompatActivity {
     Animation animationTop;
     ImageView imageView;
     UserSession session;
-    private final int SPLASH_DISPLAY_LENGTH = 3000;
+    private final int SPLASH_DISPLAY_LENGTH = 1000;
 
 
     @Override

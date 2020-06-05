@@ -75,6 +75,7 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.ViewHo
             tableStatus=tableResponseModel.get(position).getAvailability();
             holder.tableNumber.setText("Table Number: "+ tableResponseModel.get(position).getTableId());
             holder.tableCapacity.setText("Table Capacity: "+ tableResponseModel.get(position).getCapacity());
+            holder.deleteTable.setTag(tableResponseModel.get(position).getTableId());
             if(tableStatus==true)
             {
                 holder.tableStatus.setText("Table Status: Available");
@@ -93,14 +94,20 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.ViewHo
     }
 
     public void setOnItemClickListener(View.OnClickListener onClickListener) {
-        onItemListener = onClickListener;
+        if(isMenuItem==true) {
+            onItemListener = onClickListener;
+        }
+        else if(isTable==true)
+        {
+            onItemListener=onClickListener;
+        }
 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView menuItemName, menuItemPrice, menuItemDescription;
         Button removeItemButton;
-        ImageView menuItemImage;
+        ImageView menuItemImage,deleteTable;
 
         TextView tableNumber, tableCapacity, tableStatus;
 
@@ -113,13 +120,18 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.ViewHo
                 menuItemDescription = itemView.findViewById(R.id.textView_menuDescription);
                 removeItemButton = itemView.findViewById(R.id.removeItemButton);
                 removeItemButton.setOnClickListener(onItemListener);
+                itemView.setTag(this);
             }
             else if(isTable) {
                 tableNumber = itemView.findViewById(R.id.textView_tableNumber);
                 tableCapacity = itemView.findViewById(R.id.textView_tableCapacity);
                 tableStatus = itemView.findViewById(R.id.textView_tableStatus);
+                deleteTable=itemView.findViewById(R.id.imageDelete);
+                deleteTable.setOnClickListener(onItemListener);
+                itemView.setTag(this);
+
             }
-            itemView.setTag(this);
+
         }
     }
 }

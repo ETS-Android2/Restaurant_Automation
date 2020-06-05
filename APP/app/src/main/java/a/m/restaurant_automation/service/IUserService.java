@@ -6,6 +6,8 @@ import a.m.restaurant_automation.requestModel.EmployeeDeleteRequestModel;
 import a.m.restaurant_automation.requestModel.LoginRequestModel;
 import a.m.restaurant_automation.requestModel.MenuItemRequestModel;
 import a.m.restaurant_automation.requestModel.RegisterRequestModel;
+import a.m.restaurant_automation.requestModel.TableDeleteRequestModel;
+import a.m.restaurant_automation.responseModel.CustomerReserveTableResponse;
 import a.m.restaurant_automation.responseModel.MenuItemResponse;
 import a.m.restaurant_automation.responseModel.RegisterResponseModel;
 import a.m.restaurant_automation.responseModel.LoginResponseModel;
@@ -35,6 +37,9 @@ public interface IUserService {
 
     @POST ("deleteorModifyEmployee")
     Call<ResponseModel<UsersResponseModel>> deleteEmployee (@Body EmployeeDeleteRequestModel employeeDeleteRequestModel);
+
+    @POST ("deleteorModifyTable")
+    Call<ResponseModel<CustomerReserveTableResponse>> deleteTable (@Body TableDeleteRequestModel tableDeleteRequestModel);
 
 
 }

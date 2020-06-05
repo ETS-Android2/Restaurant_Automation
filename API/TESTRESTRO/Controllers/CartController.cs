@@ -24,5 +24,21 @@ namespace TESTRESTRO.Controllers
             aPIResponseModel.Error = errorModel;
             return Request.CreateResponse(HttpStatusCode.OK, aPIResponseModel);
         }
+
+
+        [HttpGet]
+        [Route("api/cart/cartItems")]
+        //[ApiAuthorization]
+        public HttpResponseMessage getCartItems()
+        {
+            CartProvider cartProvider = new CartProvider();
+            ErrorModel errorModel = null;
+
+            var cartItems = cartProvider.getCartItems( out errorModel);
+            APIResponseModel responseModel = new APIResponseModel();
+            responseModel.Response = menuItems;
+            responseModel.Error = errorModel;
+            return Request.CreateResponse(HttpStatusCode.OK, responseModel);
+        }
     }
 }

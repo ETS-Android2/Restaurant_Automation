@@ -46,6 +46,7 @@ public class EmployeeTableFragment extends Fragment {
     OnTableAddPress onTableAddPress;
     AlertDialog.Builder alertDialog;
     EditText addCapacity;
+    OnDeleteTablePress onDeleteTablePress;
 
     ArrayList<CustomerReserveTableResponse> tableResponseModel;
 
@@ -97,32 +98,34 @@ public class EmployeeTableFragment extends Fragment {
         button_addTable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                alertDialog = new AlertDialog.Builder(getActivity());
-                alertDialog.setTitle("ADD TABLE");
-                alertDialog.setMessage("Enter Table Capacity");
-                final EditText editText_tableCapacity = new EditText(getActivity().getApplicationContext());
-                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.WRAP_CONTENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT
-                );
-                editText_tableCapacity.setLayoutParams(layoutParams);
-                alertDialog.setView(editText_tableCapacity);
-                alertDialog.setPositiveButton("Add", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        int capacity = Integer.parseInt(editText_tableCapacity.getText().toString());
-                        onTableAddPress.OnTableAddPress(capacity);
 
-                    }
-                });
-                alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                }).create();
-                alertDialog.show();
-            }
+                    alertDialog = new AlertDialog.Builder(getActivity());
+                    alertDialog.setTitle("ADD TABLE");
+                    alertDialog.setMessage("Enter Table Capacity");
+                    final EditText editText_tableCapacity = new EditText(getActivity().getApplicationContext());
+                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.WRAP_CONTENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                    );
+                    editText_tableCapacity.setLayoutParams(layoutParams);
+                    alertDialog.setView(editText_tableCapacity);
+                    alertDialog.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            int capacity = Integer.parseInt(editText_tableCapacity.getText().toString());
+                            onTableAddPress.OnTableAddPress(capacity);
+
+                        }
+                    });
+                    alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    }).create();
+                    alertDialog.show();
+                }
+
         });
 
     }
@@ -134,8 +137,43 @@ public class EmployeeTableFragment extends Fragment {
         RecyclerView recyclerView =viewTable.findViewById(R.id.recyclerView_viewTable);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(menuItemAdapter);
-        //menuItemAdapter.setOnItemClickListener(onClickListener);
+        menuItemAdapter.setOnItemClickListener(onClickListener);
         menuItemAdapter.notifyDataSetChanged();
+
+    }
+
+    public View.OnClickListener onClickListener =new View.OnClickListener() {
+        @Override
+        public void onClick(final View v) {
+            int id = v.getId();
+            if (id == R.id.imageDelete) {
+                android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(getActivity())
+                        .setTitle("Delete Table")
+                        .setMessage("Are you sure you want to delete this Table?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                int tableId = (int) v.getTag();
+                                boolean delete = true;
+                                onDeleteTablePress.onDeleteTablePress(tableId, delete);
+                                
+
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .create();
+                alertDialog.show();
+            }
+        }
+    };
+
+    public interface OnDeleteTablePress {
+        void onDeleteTablePress (int tableId,boolean isDelete);
     }
 
 
@@ -159,6 +197,7 @@ public class EmployeeTableFragment extends Fragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         onTableAddPress = (EmployeeTableFragment.OnTableAddPress) context;
+        onDeleteTablePress= (EmployeeTableFragment.OnDeleteTablePress) context;
 
     }
 

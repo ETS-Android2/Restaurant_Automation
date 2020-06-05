@@ -73,5 +73,19 @@ namespace TESTRESTRO.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, responseModel);
         }
 
+        [HttpPost]
+        [Route("api/deleteorModifyTable")]
+        public HttpResponseMessage deleteorModifyTable(TableDeleteRequestModel tableDeleteRequest)
+        {
+            TableProvider tableProvider = new TableProvider();
+            ErrorModel errorModel = null;
+            var deleteorModifyTable = tableProvider.deleteorModifyTable(tableDeleteRequest, out errorModel);
+
+            APIResponseModel aPIResponseModel = new APIResponseModel();
+            aPIResponseModel.Response = deleteorModifyTable;
+            aPIResponseModel.Error = errorModel;
+
+            return Request.CreateResponse(HttpStatusCode.OK, aPIResponseModel);
+        }
     }
 }

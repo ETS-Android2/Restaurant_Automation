@@ -69,5 +69,19 @@ namespace TESTRESTRO.Provider
                 return false;
             }
         }
+
+        public GetTableResponseModel deleteorModifyTable(TableDeleteRequestModel tableDeleteRequest, out ErrorModel errorModel)
+        {
+            errorModel = null;
+            try
+            {
+                Table tableHelper = new Table();
+                return tableHelper.deleteorModifyTable(tableDeleteRequest, out errorModel);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

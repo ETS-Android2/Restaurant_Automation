@@ -151,7 +151,6 @@ public class EmployeeFragment extends Fragment{
                              int userId = (int) v.getTag();
                              boolean delete = true;
                              onDeleteEmployeePress.onDeleteEmployeePress(userId,delete);
-
                             }
                         })
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
