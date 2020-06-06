@@ -1,11 +1,14 @@
 package a.m.restaurant_automation.customer;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import a.m.restaurant_automation.R;
 import a.m.restaurant_automation.RetrofitClient;
 import a.m.restaurant_automation.manager.MenuItemAdapter;
 import a.m.restaurant_automation.repository.UserSession;
+import a.m.restaurant_automation.requestModel.AddToCartRequestModel;
+import a.m.restaurant_automation.requestModel.DeleteOrModifyCart;
 import a.m.restaurant_automation.responseModel.CustomerReserveTableResponse;
 import a.m.restaurant_automation.responseModel.GetCartItemResponseModel;
 import a.m.restaurant_automation.responseModel.ResponseModel;
@@ -34,10 +37,11 @@ import java.util.ArrayList;
 public class CartFragmentCustomer extends Fragment {
 
 
-    TextView textView_itemName_cart,textView_itemPrice_cart,emptyTextCart;
-    Button addItem, subtractItem, RemoveItem;
+    TextView textView_itemName_cart,textView_itemPrice_cart,emptyTextCart,textView_quantity_cart;
+    Button addCartItem, subtractCartItem, RemoveItem;
     int userId;
     View viewCartItems;
+    OnAddItemCartPress onAddItemCartPress;
 
     CustomerMenuItemAdapter customerMenuItemAdapter;
     ArrayList<GetCartItemResponseModel> getCartItemResponseModels;
@@ -70,6 +74,9 @@ public class CartFragmentCustomer extends Fragment {
         emptyTextCart = view.findViewById(R.id.emptyTextCart);
         textView_itemName_cart = view.findViewById(R.id.textView_itemName_cart);
         textView_itemPrice_cart = view.findViewById(R.id.textView_itemPrice_cart);
+        addCartItem=view.findViewById(R.id.buttonAddQuantity);
+        subtractCartItem=view.findViewById(R.id.buttonSubtractQuantity);
+        textView_quantity_cart=view.findViewById(R.id.textviewQuantityCart);
         viewCartItems = view;
         UserSession session =UserSession.getInstance();
         String userId = session.getUserId();
@@ -113,7 +120,34 @@ public class CartFragmentCustomer extends Fragment {
         RecyclerView recyclerView =viewCartItems.findViewById(R.id.recyclerView_cart);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(customerMenuItemAdapter);
-      // customerMenuItemAdapter.setOnItemClickListener(onClickListener);
+        customerMenuItemAdapter.setOnItemClickListener(onClickListener);
         customerMenuItemAdapter.notifyDataSetChanged();
+    }
+
+    public View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            int id = v.getId();
+            if (id == R.id.buttonAddQuantity) {
+                DeleteOrModifyCart tag = (DeleteOrModifyCart) v.getTag();
+
+                boolean isDelete =false;
+
+                //int addedby = Integer.parseInt(session.getInstance().getUserId());
+
+               onAddItemCartPress.onAddItemCartPress(tag.cartId,tag.quantity,isDelete);
+            }
+
+        }
+    };
+
+    public interface OnAddItemCartPress {
+        void onAddItemCartPress (int cartId,int quantity,boolean isDelete);
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+       onAddItemCartPress= (OnAddItemCartPress) context;
     }
 }

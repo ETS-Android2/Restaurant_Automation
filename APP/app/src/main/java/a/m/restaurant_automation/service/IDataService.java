@@ -43,6 +43,8 @@ public interface IDataService {
     @GET("cart/cartItems/{userId}")
     Call<ResponseModel<ArrayList<GetCartItemResponseModel>>> getCartItems(@Path(value = "userId") String userId);
 
+    @GET("cart/deleteorModifyCartItems/{cartId}/{quantity}/{isDelete}")
+    Call<ResponseModel<StatusCheckResponse>> deleteOrModifyCartItems(@Path(value = "cartId")int cartId, @Path(value = "quantity")int quantity,@Path(value="isDelete") boolean isDelete);
 
 
 }

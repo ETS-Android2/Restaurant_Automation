@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import a.m.restaurant_automation.requestModel.AddToCartRequestModel;
+import a.m.restaurant_automation.requestModel.DeleteOrModifyCart;
 import a.m.restaurant_automation.responseModel.GetCartItemResponseModel;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,15 +22,17 @@ import java.util.ArrayList;
 import a.m.restaurant_automation.R;
 import a.m.restaurant_automation.responseModel.MenuItemResponse;
 
-public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuItemAdapter.ViewHolder> {
+public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuItemAdapter.ViewHolder>  {
 
     private ArrayList<MenuItemResponse> menuItemResponsecustomer;
     private ArrayList<GetCartItemResponseModel> getCartItemResponseModel;
-    int countQuantity;
+    int countQuantity,countQantityCart;
     int size = 0;
     AddToCartRequestModel tag;
+    DeleteOrModifyCart cartTag;
     private Context context;
     public View.OnClickListener onItemListener_customer;
+    public View.OnClickListener onItemListenerCart;
     String url = "https://cdn2.creativecirclemedia.com/neni/original/20190917-140036-Ratatouille-T5_93975.jpg";
 
     boolean isCart =false;
@@ -52,6 +55,8 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
         this.context = context;
         this.test = test;
         this.isCart = true;
+        this.isMenu=false;
+
     }
 
 
@@ -127,6 +132,53 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
             holder.textView_itemName.setText("Name: "+getCartItemResponseModel.get(position).getMenuItemName());
             holder.itemQuantity.setText(""+getCartItemResponseModel.get(position).getQuantity());
             holder.textView_totalItemPrice.setText(""+getCartItemResponseModel.get(position).getPrice() + " $");
+            holder.getAdapterPosition() ;
+            cartTag = new DeleteOrModifyCart();
+
+
+
+
+            holder.addItemCart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            countQantityCart = Integer.parseInt(String.valueOf(holder.textView_cartQuantity.getText()));
+                            countQantityCart++;
+                            holder.textView_cartQuantity.setText(""+countQantityCart);
+                            cartTag.cartId = getCartItemResponseModel.get(position).getCartId();
+                            cartTag.quantity= countQantityCart;
+                            holder.addItemCart.setTag(cartTag);
+                            holder.textView_cartQuantity.setText(""+countQantityCart);
+                        }
+                    });
+
+                }
+            });
+            holder.subtractItemCart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            countQantityCart = Integer.parseInt(String.valueOf(holder.textView_cartQuantity.getText()));
+                            if (countQantityCart==0){
+                                holder.textView_cartQuantity.setText("0");
+                            }else {
+                                countQantityCart -=1;
+                                holder.textView_cartQuantity.setText(""+countQantityCart);
+                            }
+
+                        }
+                    });
+
+                }
+            });
+
+
         }
 
     }
@@ -140,9 +192,10 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
         if (isMenu==true){
             onItemListener_customer = onClickListener;
         }
-//        else if (isCart== true){
-//
-//        }
+        else if (isCart== true){
+            onItemListenerCart=onClickListener;
+
+       }
 
     }
 
@@ -152,8 +205,8 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
         ImageView menuItemImage;
 
 
-        TextView textView_itemName, textView_itemPrice,itemQuantity,textView_totalItemPrice;
-        Button removeItem, addItem, subtractItem;
+        TextView textView_itemName, textView_itemPrice,itemQuantity,textView_totalItemPrice,textView_cartQuantity;
+        Button removeItem, addItemCart, subtractItemCart;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -177,16 +230,17 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
             else if (isCart){
                 textView_itemName = itemView.findViewById(R.id.textView_itemName_cart);
                 textView_itemPrice = itemView.findViewById(R.id.textView_itemPrice_cart);
-//                removeItem = itemView.findViewById(R.id.remove_item);
-                itemQuantity = itemView.findViewById(R.id.textviewQuantity);
-                //addItem = itemView.findViewById(R.id.buttonAddQuantity);
+//              removeItem = itemView.findViewById(R.id.remove_item);
+                itemQuantity = itemView.findViewById(R.id.textviewQuantityCart);
+                addItemCart = itemView.findViewById(R.id.buttonAddQuantity);
+                addItemCart.setOnClickListener(onItemListenerCart);
+
                 textView_totalItemPrice = itemView.findViewById(R.id.textView_totalItemPrice);
-               // subtractItem = itemView.findViewById(R.id.buttonSubtractQuantity);
+               subtractItemCart = itemView.findViewById(R.id.buttonSubtractQuantity);
+                textView_cartQuantity=itemView.findViewById(R.id.textviewQuantityCart);
                 itemView.setTag(this);
 
             }
-
-
         }
     }
 
