@@ -44,6 +44,8 @@ public class EmployeeMenuItemsFragment extends Fragment {
 
     ArrayList<MenuItemResponse> menuItemResponse;
 
+    public EmployeeMenuItemsFragment(){}
+
     public EmployeeMenuItemsFragment(int category) {
         // Required empty public constructor
         this.category = category;
