@@ -10,6 +10,8 @@
         public const string SP_deleteorModifyEmployee = "deleteorModifyEmployee";
         public const string SP_deleteorModifyTable = "deleteorModifyTable";
         public const string SP_getCartItems = "getCartItems";
+        public const string SP_deleteorModifyCartItems = "deleteorModifyCartItems";
+
 
 
 

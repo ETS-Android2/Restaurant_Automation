@@ -38,5 +38,19 @@ namespace TESTRESTRO.Provider
                 return null;
             }
         }
+
+        public AddToCartResponseModel deleteorModifyCartItems(int cartId,int quantity,bool isDelete, out ErrorModel errorModel)
+        {
+            errorModel = null;
+            try
+            {
+                Cart cartHelper = new Cart();
+                return cartHelper.deleteorModifyCartItems(cartId,quantity,isDelete, out errorModel);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

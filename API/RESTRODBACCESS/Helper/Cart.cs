@@ -123,5 +123,67 @@ namespace RESTRODBACCESS.Helper
                 }
             }
         }
+
+        public AddToCartResponseModel deleteorModifyCartItems(int cartId,int quantity,bool isDelete, out ErrorModel errorModel)
+        {
+            errorModel = null;
+            AddToCartResponseModel addToCartResponse = null;
+            SqlConnection connection = null;
+            try
+            {
+                using (connection = new SqlConnection(Database.getConnectionString()))
+                {
+                    SqlCommand command = new SqlCommand(SqlCommands.SP_deleteorModifyCartItems, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    #region Commands Parameters
+
+                    command.Parameters.Add(new SqlParameter("@isDelete", System.Data.SqlDbType.Bit));
+                    command.Parameters["@isDelete"].Value =isDelete;
+
+                    command.Parameters.Add(new SqlParameter("@cartId", System.Data.SqlDbType.Int));
+                    command.Parameters["@cartId"].Value =cartId;
+
+                    command.Parameters.Add(new SqlParameter("@quantity", System.Data.SqlDbType.Int));
+                    command.Parameters["@quantity"].Value = quantity;
+
+                    #endregion
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    addToCartResponse = new AddToCartResponseModel();
+                    if (reader.Read())
+                    {
+                        if (reader.isColumnExists("ErrorCode"))
+                        {
+                            errorModel = new ErrorModel();
+                            errorModel.ErrorCode = reader["ErrorCode"].ToString();
+                            errorModel.ErrorMessage = reader["ErrorMessage"].ToString();
+                        }
+                        else
+                        {
+                            addToCartResponse.StatusCode = reader["StatusCode"].ToString();
+                            addToCartResponse.StatusMessage = reader["StatusMessage"].ToString();
+
+                        }
+                    }
+                    command.Dispose();
+                    return addToCartResponse;
+                }
+            }
+            catch (Exception exception)
+            {
+                errorModel = new ErrorModel();
+                errorModel.ErrorMessage = exception.Message;
+                return null;
+            }
+            finally
+            {
+                if (connection != null)
+                {
+                    connection.Close();
+                }
+            }
+        }
     }
 }

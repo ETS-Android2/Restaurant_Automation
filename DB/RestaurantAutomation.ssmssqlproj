@@ -49,6 +49,12 @@
           <AssociatedConnUserName>admin</AssociatedConnUserName>
           <FullPath>sp_changePrice.sql</FullPath>
         </FileNode>
+        <FileNode Name="sp_deleteorModifyCartItems.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:restomation.cgtrmzhqrrjw.us-east-2.rds.amazonaws.com,1433:False:admin</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>restomation.cgtrmzhqrrjw.us-east-2.rds.amazonaws.com,1433</AssociatedConnSrvName>
+          <AssociatedConnUserName>admin</AssociatedConnUserName>
+          <FullPath>sp_deleteorModifyCartItems.sql</FullPath>
+        </FileNode>
         <FileNode Name="sp_deleteorModifyEmployee.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:restomation.cgtrmzhqrrjw.us-east-2.rds.amazonaws.com,1433:False:admin</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>restomation.cgtrmzhqrrjw.us-east-2.rds.amazonaws.com,1433</AssociatedConnSrvName>

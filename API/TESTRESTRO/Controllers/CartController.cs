@@ -40,5 +40,20 @@ namespace TESTRESTRO.Controllers
             responseModel.Error = errorModel;
             return Request.CreateResponse(HttpStatusCode.OK, responseModel);
         }
+
+        [HttpPost]
+        [Route("api/cart/deleteorModifyCartItems")]
+        public HttpResponseMessage deleteorModifyCartItems(int cartId,int quantity,bool isDelete)
+        {
+            CartProvider cartProvider = new CartProvider();
+            ErrorModel errorModel = null;
+            var deleteorModifyCartItems = cartProvider.deleteorModifyCartItems(cartId,quantity,isDelete, out errorModel);
+
+            APIResponseModel aPIResponseModel = new APIResponseModel();
+            aPIResponseModel.Response = deleteorModifyCartItems;
+            aPIResponseModel.Error = errorModel;
+
+            return Request.CreateResponse(HttpStatusCode.OK, aPIResponseModel);
+        }
     }
 }
