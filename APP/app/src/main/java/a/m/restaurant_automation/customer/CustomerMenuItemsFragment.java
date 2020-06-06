@@ -30,10 +30,6 @@ public class CustomerMenuItemsFragment extends Fragment {
 
     public CustomerMenuItemsFragment(){}
 
-//    public CustomerMenuItemsFragment(int category) {
-//        this.category = category;
-//    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

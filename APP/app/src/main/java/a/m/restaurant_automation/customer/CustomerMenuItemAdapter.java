@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import a.m.restaurant_automation.requestModel.AddToCartRequestModel;
+import a.m.restaurant_automation.responseModel.GetCartItemResponseModel;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +24,7 @@ import a.m.restaurant_automation.responseModel.MenuItemResponse;
 public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuItemAdapter.ViewHolder> {
 
     private ArrayList<MenuItemResponse> menuItemResponsecustomer;
+    private ArrayList<GetCartItemResponseModel> getCartItemResponseModel;
     int countQuantity;
     int size = 0;
     AddToCartRequestModel tag;
@@ -44,9 +46,9 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
         this.isMenu = true;
     }
 
-    public CustomerMenuItemAdapter(ArrayList<MenuItemResponse> menuItemResponse, Context context,int test) {
-        this.menuItemResponsecustomer = menuItemResponse;
-        size = this.menuItemResponsecustomer.size();
+    public CustomerMenuItemAdapter(ArrayList<GetCartItemResponseModel> getCartItemResponseModel, Context context,int test) {
+        this.getCartItemResponseModel = getCartItemResponseModel;
+        size = this.getCartItemResponseModel.size();
         this.context = context;
         this.test = test;
         this.isCart = true;
@@ -73,8 +75,9 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
     @Override
     public void onBindViewHolder(@NonNull final CustomerMenuItemAdapter.ViewHolder holder, final int position) {
         if (isMenu){
-            holder.menuItemName.setText("Name : "+menuItemResponsecustomer.get(position).getMenuItemName());
-            holder.menuItemPrice.setText("Price : "+menuItemResponsecustomer.get(position).getPrice().toString() +" $");
+            holder.menuItemName.setText("Name: "+menuItemResponsecustomer.get(position).getMenuItemName());
+            holder.menuItemPrice.setText("Price: "+menuItemResponsecustomer.get(position).getPrice().toString() +" $");
+            holder.menuItemDescription.setText("Description: "+menuItemResponsecustomer.get(position).getMenuItemDescription());
             holder.addItemButton.setTag(menuItemResponsecustomer.get(position).getMenuItemId());
             holder.getAdapterPosition() ;
             tag = new AddToCartRequestModel();
@@ -121,7 +124,9 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
             Picasso.get().load(url).into(holder.menuItemImage);
         }
         else if (isCart){
-
+            holder.textView_itemName.setText("Name: "+getCartItemResponseModel.get(position).getMenuItemName());
+            holder.itemQuantity.setText(""+getCartItemResponseModel.get(position).getQuantity());
+            holder.textView_totalItemPrice.setText(""+getCartItemResponseModel.get(position).getPrice() + " $");
         }
 
     }
@@ -142,12 +147,12 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView menuItemName, menuItemPrice,menuItemQuantity;
+        TextView menuItemName, menuItemPrice,menuItemQuantity, menuItemDescription;
         Button  addItemButton, plusItem , subItem;
         ImageView menuItemImage;
 
 
-        TextView textView_itemName, textView_itemPrice;
+        TextView textView_itemName, textView_itemPrice,itemQuantity,textView_totalItemPrice;
         Button removeItem, addItem, subtractItem;
 
 
@@ -157,6 +162,7 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
                 menuItemImage= itemView.findViewById(R.id.imageView_menuItem_customer);
                 menuItemName = itemView.findViewById(R.id.textView_menuName_customer);
                 menuItemPrice = itemView.findViewById(R.id.textView_menuPrice_customer);
+                menuItemDescription=itemView.findViewById(R.id.textView_menuItemDescription);
                 addItemButton = itemView.findViewById(R.id.customer_addItemButton);
                 plusItem=itemView.findViewById(R.id.buttonPlusCapacityItem);
                 subItem=itemView.findViewById(R.id.buttonMinusCapacityItem);
@@ -171,9 +177,11 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
             else if (isCart){
                 textView_itemName = itemView.findViewById(R.id.textView_itemName_cart);
                 textView_itemPrice = itemView.findViewById(R.id.textView_itemPrice_cart);
-                removeItem = itemView.findViewById(R.id.remove_item);
-                addItem = itemView.findViewById(R.id.buttonAddQuantity);
-                subtractItem = itemView.findViewById(R.id.buttonSubtractQuantity);
+//                removeItem = itemView.findViewById(R.id.remove_item);
+                itemQuantity = itemView.findViewById(R.id.textviewQuantity);
+                //addItem = itemView.findViewById(R.id.buttonAddQuantity);
+                textView_totalItemPrice = itemView.findViewById(R.id.textView_totalItemPrice);
+               // subtractItem = itemView.findViewById(R.id.buttonSubtractQuantity);
                 itemView.setTag(this);
 
             }

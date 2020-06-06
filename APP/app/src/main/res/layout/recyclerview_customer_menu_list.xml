@@ -27,10 +27,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/imageView_menuItem_customer"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
                 android:text="Menu Name"
-                android:textSize="17sp"
+                android:textSize="16sp"
                 />
 
             <TextView
@@ -39,23 +39,24 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/imageView_menuItem_customer"
                 android:layout_below="@id/textView_menuName_customer"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
                 android:text="Menu Price"
-                android:textSize="17sp"
+                android:textSize="16sp"
                 />
 
             <TextView
-                android:id="@+id/textView_menuitemID"
+                android:id="@+id/textView_menuItemDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/imageView_menuItem_customer"
                 android:layout_below="@id/textView_menuPrice_customer"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="20dp"
-                android:text="ID"
-                android:textSize="17sp"
-                android:visibility="invisible"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                android:text="Description"
+                android:textSize="13sp"
+                android:lines="3"
                 />
 
 

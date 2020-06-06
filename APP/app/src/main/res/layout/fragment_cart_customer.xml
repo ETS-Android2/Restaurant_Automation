@@ -14,13 +14,16 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_cart"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_above="@+id/radioGroup"/>
 
    <RadioGroup
+       android:id="@+id/radioGroup"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_above="@+id/checkoutButton"
     android:layout_centerHorizontal="true"
+
     android:orientation="horizontal">
 
         <RadioButton

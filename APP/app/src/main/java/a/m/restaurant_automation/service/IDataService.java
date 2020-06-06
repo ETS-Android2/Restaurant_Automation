@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import a.m.restaurant_automation.requestModel.AddToCartRequestModel;
 import a.m.restaurant_automation.requestModel.ReserveTableRequest;
 import a.m.restaurant_automation.responseModel.CustomerReserveTableResponse;
+import a.m.restaurant_automation.responseModel.GetCartItemResponseModel;
 import a.m.restaurant_automation.responseModel.MenuItemResponse;
 import a.m.restaurant_automation.responseModel.ResponseModel;
 import a.m.restaurant_automation.responseModel.StatusCheckResponse;
@@ -38,5 +39,10 @@ public interface IDataService {
 
     @POST("cart/addToCart")
     Call<ResponseModel<StatusCheckResponse>> addToCart (@Body AddToCartRequestModel addToCartRequestModel);
+
+    @GET("cart/cartItems/{userId}")
+    Call<ResponseModel<ArrayList<GetCartItemResponseModel>>> getCartItems(@Path(value = "userId") String userId);
+
+
 
 }
