@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/mainbackground"
     tools:context=".cashier.CashierDashboardFragment">
 
 
@@ -11,5 +12,16 @@
         android:layout_height="wrap_content"
         android:text="Cashier LOGOUT"
         android:id="@+id/logout_cashier"/>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerviewCashier"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+
+
 
 </RelativeLayout>
