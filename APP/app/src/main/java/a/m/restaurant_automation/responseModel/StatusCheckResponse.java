@@ -15,4 +15,7 @@ public class StatusCheckResponse {
     @SerializedName("Quantity")
     public String quantity;
 
+    @SerializedName("ItemTotal")
+    public double itemTotal;
+
 }

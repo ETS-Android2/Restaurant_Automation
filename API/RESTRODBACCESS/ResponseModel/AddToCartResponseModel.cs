@@ -12,5 +12,6 @@ namespace RESTRODBACCESS.ResponseModel
         public string StatusMessage { get; set; }
         public double Total { get; set; }
         public string Quantity { get; set; }
+        public double ItemTotal { get; set; }
     }
 }

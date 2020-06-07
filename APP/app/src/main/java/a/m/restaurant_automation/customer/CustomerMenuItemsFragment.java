@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 
@@ -47,6 +48,8 @@ public class CustomerMenuItemsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.BottomnavigateMenuCustomer);
+        bottomNavigationView.setVisibility(View.VISIBLE);
 
         //tablayout
         mViewPagercustomer =view.findViewById(R.id.viewpagercustomer);

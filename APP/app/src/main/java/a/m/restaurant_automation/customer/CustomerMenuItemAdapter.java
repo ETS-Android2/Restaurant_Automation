@@ -1,6 +1,7 @@
 package a.m.restaurant_automation.customer;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,6 +47,8 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
     boolean isCart =false;
     boolean isMenu = false;
     int test= 0;
+
+    public ItemsChangedListener itemsChangedListener;
 
 
 
@@ -204,12 +207,24 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
     @Override
     public int getItemCount() { return size; }
 
+    public interface ItemsChangedListener {
+        void onItemsChanged(double sum);
+
+    }
+
+    public void setItemsChangedListener(ItemsChangedListener listener) {
+        this.itemsChangedListener = listener;
+    }
+
+
+
 
     public void setOnItemClickListener(View.OnClickListener onClickListener) {
         if (isMenu==true){
             onItemListener_customer = onClickListener;
         }
         else if (isCart== true){
+
             onItemListenerCart=onClickListener;
 
        }
@@ -218,7 +233,7 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView menuItemName, menuItemPrice,menuItemQuantity, menuItemDescription;
-        Button  addItemButton, plusItem , subItem;
+        Button  addItemButton, plusItem , subItem,checkOutButton;
         ImageView menuItemImage;
 
 
@@ -253,8 +268,11 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
                 addItemCart = itemView.findViewById(R.id.buttonAddQuantity);
                 addItemCart.setOnClickListener(onItemListenerCart);
                 textView_totalItemPrice = itemView.findViewById(R.id.textView_totalItemPrice);
+               // checkOutButton = itemView.findViewById(R.id.checkoutButton);
                subtractItemCart = itemView.findViewById(R.id.buttonSubtractQuantity);
                 itemView.setTag(this);
+
+
 
             }
         }
@@ -285,7 +303,7 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
                         }
                         else if(responseModel.getData().statusCode.equals("1")){
                             holder.itemQuantity.setText(responseModel.getData().quantity);
-                            // holder.textView_totalItemPrice.setText(Double.toString(responseModel.getData().total) );
+                            holder.textView_totalItemPrice.setText(Double.toString(responseModel.getData().itemTotal));
                         }
                         Toast.makeText(context.getApplicationContext(),responseModel.getData().statusMessage, Toast.LENGTH_LONG).show();
                     }

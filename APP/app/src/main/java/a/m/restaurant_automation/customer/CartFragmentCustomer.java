@@ -38,7 +38,7 @@ public class CartFragmentCustomer extends Fragment {
 
 
     TextView textView_itemName_cart,textView_itemPrice_cart,emptyTextCart,textView_quantity_cart;
-    Button addCartItem, subtractCartItem, RemoveItem;
+    Button addCartItem, subtractCartItem, RemoveItem, checkoutButton;
     int userId;
     View viewCartItems;
 
@@ -76,9 +76,12 @@ public class CartFragmentCustomer extends Fragment {
         addCartItem=view.findViewById(R.id.buttonAddQuantity);
         subtractCartItem=view.findViewById(R.id.buttonSubtractQuantity);
         textView_quantity_cart=view.findViewById(R.id.textviewQuantityCart);
+        checkoutButton = view.findViewById(R.id.checkoutButton);
         viewCartItems = view;
         UserSession session =UserSession.getInstance();
         String userId = session.getUserId();
+
+      //  checkoutButton.setText("Checkout " + view.getTag()+ "$");
 
         IDataService dataService = RetrofitClient.getRetrofitInstance().create(IDataService.class);
         Call<ResponseModel<ArrayList<GetCartItemResponseModel>>> call =dataService.getCartItems(userId);
@@ -119,7 +122,8 @@ public class CartFragmentCustomer extends Fragment {
         RecyclerView recyclerView =viewCartItems.findViewById(R.id.recyclerView_cart);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(customerMenuItemAdapter);
-       // customerMenuItemAdapter.setOnItemClickListener(onClickListener);
+       // customerMenuItemAdapter.setOnItemCl
+        // ickListener(onClickListener);
         customerMenuItemAdapter.notifyDataSetChanged();
     }
 
