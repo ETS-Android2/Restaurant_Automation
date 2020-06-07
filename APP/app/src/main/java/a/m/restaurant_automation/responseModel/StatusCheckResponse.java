@@ -8,4 +8,11 @@ public class StatusCheckResponse {
 
     @SerializedName("StatusMessage")
     public String statusMessage;
+
+    @SerializedName("Total")
+    public double total;
+
+    @SerializedName("Quantity")
+    public String quantity;
+
 }

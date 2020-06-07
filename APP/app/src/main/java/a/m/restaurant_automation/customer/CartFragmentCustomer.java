@@ -41,7 +41,6 @@ public class CartFragmentCustomer extends Fragment {
     Button addCartItem, subtractCartItem, RemoveItem;
     int userId;
     View viewCartItems;
-    OnAddItemCartPress onAddItemCartPress;
 
     CustomerMenuItemAdapter customerMenuItemAdapter;
     ArrayList<GetCartItemResponseModel> getCartItemResponseModels;
@@ -120,34 +119,10 @@ public class CartFragmentCustomer extends Fragment {
         RecyclerView recyclerView =viewCartItems.findViewById(R.id.recyclerView_cart);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(customerMenuItemAdapter);
-        customerMenuItemAdapter.setOnItemClickListener(onClickListener);
+       // customerMenuItemAdapter.setOnItemClickListener(onClickListener);
         customerMenuItemAdapter.notifyDataSetChanged();
     }
 
-    public View.OnClickListener onClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            int id = v.getId();
-            if (id == R.id.buttonAddQuantity) {
-                DeleteOrModifyCart tag = (DeleteOrModifyCart) v.getTag();
 
-                boolean isDelete =false;
 
-                //int addedby = Integer.parseInt(session.getInstance().getUserId());
-
-               onAddItemCartPress.onAddItemCartPress(tag.cartId,tag.quantity,isDelete);
-            }
-
-        }
-    };
-
-    public interface OnAddItemCartPress {
-        void onAddItemCartPress (int cartId,int quantity,boolean isDelete);
-    }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-       onAddItemCartPress= (OnAddItemCartPress) context;
-    }
 }

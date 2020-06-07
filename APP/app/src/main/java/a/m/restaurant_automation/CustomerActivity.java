@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import a.m.restaurant_automation.customer.CartFragmentCustomer;
 import a.m.restaurant_automation.customer.CustomerMenuItemAdapter;
+import a.m.restaurant_automation.requestModel.DeleteOrModifyCart;
 import a.m.restaurant_automation.responseModel.StatusCheckResponse;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,7 +25,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CustomerActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, CustomerCatergoryItemNavigate.OnaddToCartPress, CartFragmentCustomer.OnAddItemCartPress {
+public class CustomerActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, CustomerCatergoryItemNavigate.OnaddToCartPress {
 
     public BottomNavigationView bottomNavigationView;
     public NavController navController;
@@ -131,32 +132,6 @@ public class CustomerActivity extends AppCompatActivity implements BottomNavigat
 
     }
 
-    public void deleteOrModifyCart()
-    {
-        IDataService dataService = RetrofitClient.getRetrofitInstance().create(IDataService.class);
-
-        Call<ResponseModel<StatusCheckResponse>> call = dataService.deleteOrModifyCartItems(cartIdCart,cartQuantity,cartIsDelete);
-        call.enqueue(new Callback<ResponseModel<StatusCheckResponse>>() {
-            @Override
-            public void onResponse(Call<ResponseModel<StatusCheckResponse>> call, Response<ResponseModel<StatusCheckResponse>> response) {
-                ResponseModel<StatusCheckResponse> responseModel = response.body();
-                if (responseModel != null) {
-                    if (responseModel.getError() != null) {
-                        Toast.makeText(getApplicationContext(), responseModel.getError().getErrorMessage(), Toast.LENGTH_LONG).show();
-                    } else {
-                        Toast.makeText(getApplicationContext(),responseModel.getData().statusMessage, Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseModel<StatusCheckResponse>> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "something went wrong" + t.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
-
-
-    }
 
     @Override
     public void onaddToCartPress(int itemId, int quantity, int addedby) {
@@ -166,12 +141,4 @@ public class CustomerActivity extends AppCompatActivity implements BottomNavigat
         addToCart();
     }
 
-    @Override
-    public void onAddItemCartPress(int cartId, int quantity, boolean isDelete) {
-        cartIdCart=cartId;
-        cartQuantity=quantity;
-        cartIsDelete=isDelete;
-        deleteOrModifyCart();
-
-    }
 }

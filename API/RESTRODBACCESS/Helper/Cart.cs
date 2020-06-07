@@ -164,6 +164,8 @@ namespace RESTRODBACCESS.Helper
                         {
                             addToCartResponse.StatusCode = reader["StatusCode"].ToString();
                             addToCartResponse.StatusMessage = reader["StatusMessage"].ToString();
+                            addToCartResponse.Total = !string.IsNullOrEmpty( reader["Total"].ToString())?Convert.ToDouble(reader["Total"].ToString()):0;
+                            addToCartResponse.Quantity = reader["Quantity"].ToString();
 
                         }
                     }

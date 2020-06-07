@@ -2,6 +2,7 @@ package a.m.restaurant_automation.service;
 import java.util.ArrayList;
 
 import a.m.restaurant_automation.requestModel.AddToCartRequestModel;
+import a.m.restaurant_automation.requestModel.DeleteOrModifyCart;
 import a.m.restaurant_automation.requestModel.ReserveTableRequest;
 import a.m.restaurant_automation.responseModel.CustomerReserveTableResponse;
 import a.m.restaurant_automation.responseModel.GetCartItemResponseModel;
@@ -16,6 +17,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface IDataService {
 
@@ -43,8 +45,7 @@ public interface IDataService {
     @GET("cart/cartItems/{userId}")
     Call<ResponseModel<ArrayList<GetCartItemResponseModel>>> getCartItems(@Path(value = "userId") String userId);
 
-    @GET("cart/deleteorModifyCartItems/{cartId}/{quantity}/{isDelete}")
-    Call<ResponseModel<StatusCheckResponse>> deleteOrModifyCartItems(@Path(value = "cartId")int cartId, @Path(value = "quantity")int quantity,@Path(value="isDelete") boolean isDelete);
-
+    @POST("cart/deleteorModifyCartItems")
+    Call<ResponseModel<StatusCheckResponse>> deleteOrModifyCartItems(@Query(value = "cartId") int cartId, @Query(value = "quantity") int quantity, @Query(value="isDelete") boolean isDelete);
 
 }

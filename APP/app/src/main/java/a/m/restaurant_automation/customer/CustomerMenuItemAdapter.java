@@ -8,10 +8,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import a.m.restaurant_automation.RetrofitClient;
 import a.m.restaurant_automation.requestModel.AddToCartRequestModel;
 import a.m.restaurant_automation.requestModel.DeleteOrModifyCart;
 import a.m.restaurant_automation.responseModel.GetCartItemResponseModel;
+import a.m.restaurant_automation.responseModel.ResponseModel;
+import a.m.restaurant_automation.responseModel.StatusCheckResponse;
+import a.m.restaurant_automation.service.IDataService;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,6 +26,9 @@ import java.util.ArrayList;
 
 import a.m.restaurant_automation.R;
 import a.m.restaurant_automation.responseModel.MenuItemResponse;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuItemAdapter.ViewHolder>  {
 
@@ -55,7 +63,7 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
         this.context = context;
         this.test = test;
         this.isCart = true;
-        this.isMenu=false;
+        //this.isMenu=false;
 
     }
 
@@ -86,6 +94,7 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
             holder.addItemButton.setTag(menuItemResponsecustomer.get(position).getMenuItemId());
             holder.getAdapterPosition() ;
             tag = new AddToCartRequestModel();
+
 
 
             holder.plusItem.setOnClickListener(new View.OnClickListener() {
@@ -129,56 +138,64 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
             Picasso.get().load(url).into(holder.menuItemImage);
         }
         else if (isCart){
-            holder.textView_itemName.setText("Name: "+getCartItemResponseModel.get(position).getMenuItemName());
-            holder.itemQuantity.setText(""+getCartItemResponseModel.get(position).getQuantity());
-            holder.textView_totalItemPrice.setText(""+getCartItemResponseModel.get(position).getPrice() + " $");
-            holder.getAdapterPosition() ;
-            cartTag = new DeleteOrModifyCart();
+            if (getCartItemResponseModel.size()>0) {
 
 
+                holder.textView_itemName.setText("Name: " + getCartItemResponseModel.get(position).getMenuItemName());
+                holder.itemQuantity.setText("" + getCartItemResponseModel.get(position).getQuantity());
+                holder.textView_totalItemPrice.setText("" + getCartItemResponseModel.get(position).getPrice() + " $");
+                holder.getAdapterPosition();
+                cartTag = new DeleteOrModifyCart();
 
+                holder.removeItem.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        deleteOrModifyCart(getCartItemResponseModel.get(position).getCartId(), 0, true, holder, position);
+                    }
+                });
 
-            holder.addItemCart.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+                holder.addItemCart.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            countQantityCart = Integer.parseInt(String.valueOf(holder.textView_cartQuantity.getText()));
-                            countQantityCart++;
-                            holder.textView_cartQuantity.setText(""+countQantityCart);
-                            cartTag.cartId = getCartItemResponseModel.get(position).getCartId();
-                            cartTag.quantity= countQantityCart;
-                            holder.addItemCart.setTag(cartTag);
-                            holder.textView_cartQuantity.setText(""+countQantityCart);
-                        }
-                    });
-
-                }
-            });
-            holder.subtractItemCart.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            countQantityCart = Integer.parseInt(String.valueOf(holder.textView_cartQuantity.getText()));
-                            if (countQantityCart==0){
-                                holder.textView_cartQuantity.setText("0");
-                            }else {
-                                countQantityCart -=1;
-                                holder.textView_cartQuantity.setText(""+countQantityCart);
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                countQantityCart = Integer.parseInt(String.valueOf(holder.itemQuantity.getText()));
+                                countQantityCart++;
+                                cartTag.cartId = getCartItemResponseModel.get(position).getCartId();
+                                cartTag.quantity = countQantityCart;
+                                holder.addItemCart.setTag(cartTag);
+                                holder.itemQuantity.setText("" + countQantityCart);
+                                deleteOrModifyCart(cartTag.cartId, cartTag.quantity, false, holder, position);
                             }
+                        });
 
-                        }
-                    });
+                    }
+                });
+                holder.subtractItemCart.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-                }
-            });
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                countQantityCart = Integer.parseInt(String.valueOf(holder.itemQuantity.getText()));
+                                if (countQantityCart == 1) {
+                                    holder.itemQuantity.setText("1");
+                                } else {
+                                    countQantityCart -= 1;
+                                    holder.itemQuantity.setText("" + countQantityCart);
+                                    deleteOrModifyCart(getCartItemResponseModel.get(position).getCartId(), countQantityCart, false, holder, position);
+                                }
 
+                            }
+                        });
 
+                    }
+                });
+
+            }
         }
 
     }
@@ -206,7 +223,8 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
 
 
         TextView textView_itemName, textView_itemPrice,itemQuantity,textView_totalItemPrice,textView_cartQuantity;
-        Button removeItem, addItemCart, subtractItemCart;
+        Button addItemCart, subtractItemCart;
+        ImageView removeItem;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -230,18 +248,58 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
             else if (isCart){
                 textView_itemName = itemView.findViewById(R.id.textView_itemName_cart);
                 textView_itemPrice = itemView.findViewById(R.id.textView_itemPrice_cart);
-//              removeItem = itemView.findViewById(R.id.remove_item);
+                removeItem = itemView.findViewById(R.id.remove_item);
                 itemQuantity = itemView.findViewById(R.id.textviewQuantityCart);
                 addItemCart = itemView.findViewById(R.id.buttonAddQuantity);
                 addItemCart.setOnClickListener(onItemListenerCart);
-
                 textView_totalItemPrice = itemView.findViewById(R.id.textView_totalItemPrice);
                subtractItemCart = itemView.findViewById(R.id.buttonSubtractQuantity);
-                textView_cartQuantity=itemView.findViewById(R.id.textviewQuantityCart);
                 itemView.setTag(this);
 
             }
         }
     }
+    public void deleteOrModifyCart(int cartIdCart, int  cartQuantity, final boolean cartIsDelete, final CustomerMenuItemAdapter.ViewHolder holder, final int Postition)
+    {
+        IDataService dataService = RetrofitClient.getRetrofitInstance().create(IDataService.class);
+        DeleteOrModifyCart deleteOrModifyCart =  new DeleteOrModifyCart();
+        deleteOrModifyCart.cartId = cartIdCart;
+        deleteOrModifyCart.quantity = cartQuantity;
+        deleteOrModifyCart.isDelete = cartIsDelete;
+
+
+        Call<ResponseModel<StatusCheckResponse>> call = dataService.deleteOrModifyCartItems(cartIdCart,cartQuantity,cartIsDelete);
+        call.enqueue(new Callback<ResponseModel<StatusCheckResponse>>() {
+            @Override
+            public void onResponse(Call<ResponseModel<StatusCheckResponse>> call, Response<ResponseModel<StatusCheckResponse>> response) {
+                ResponseModel<StatusCheckResponse> responseModel = response.body();
+                if (responseModel != null) {
+                    if (responseModel.getError() != null) {
+                        Toast.makeText(context, responseModel.getError().getErrorMessage(), Toast.LENGTH_LONG).show();
+                    } else {
+
+                        if (cartIsDelete && responseModel.getData().statusCode.equals("1")){
+                            getCartItemResponseModel.remove(Postition);
+                            size=getCartItemResponseModel.size();
+                            notifyDataSetChanged();
+                        }
+                        else if(responseModel.getData().statusCode.equals("1")){
+                            holder.itemQuantity.setText(responseModel.getData().quantity);
+                            // holder.textView_totalItemPrice.setText(Double.toString(responseModel.getData().total) );
+                        }
+                        Toast.makeText(context.getApplicationContext(),responseModel.getData().statusMessage, Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel<StatusCheckResponse>> call, Throwable t) {
+                Toast.makeText(context, "something went wrong" + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+    }
+
 
 }
