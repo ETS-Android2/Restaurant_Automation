@@ -34,5 +34,6 @@
         public const string SP_addToCart = "addToCart";
 
         public const string SP_orderCartItem = "orderCartItem";
+        public const string SP_getOrders = "getOrders";
     }
 }

@@ -38,5 +38,19 @@ namespace TESTRESTRO.Provider
                 return null;
             }
         }
+
+        public List<GetOrdersResponseModel> getOrders(GetOrdersRequestModel getOrdersRequestModel, out ErrorModel errorModel)
+        {
+            errorModel = null;
+            try
+            {
+                Order orderHelper = new Order();
+                return orderHelper.getOrders(getOrdersRequestModel, out errorModel);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

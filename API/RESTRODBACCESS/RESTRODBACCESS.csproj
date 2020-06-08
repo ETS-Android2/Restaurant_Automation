@@ -108,6 +108,7 @@
     <Compile Include="RequestModel\AddTableRequestModel.cs" />
     <Compile Include="RequestModel\AddToCartRequestModel.cs" />
     <Compile Include="RequestModel\EmployeeDeleteRequestModel.cs" />
+    <Compile Include="RequestModel\GetOrdersRequestModel.cs" />
     <Compile Include="RequestModel\OrderCartItemRequestModel.cs" />
     <Compile Include="RequestModel\RegisterEmployeeRequestModel.cs" />
     <Compile Include="RequestModel\ReserveTableRequestModel.cs" />
@@ -120,6 +121,7 @@
     <Compile Include="ResponseModel\AddToCartResponseModel.cs" />
     <Compile Include="ResponseModel\GetCartItemsResponseModel.cs" />
     <Compile Include="ResponseModel\GetOrderHistoryResponseModel.cs" />
+    <Compile Include="ResponseModel\GetOrdersResponseModel.cs" />
     <Compile Include="ResponseModel\GetTableResponseModel.cs" />
     <Compile Include="ResponseModel\MenuItemResponseModel.cs" />
     <Compile Include="ResponseModel\OrderCartItemResponseModel.cs" />

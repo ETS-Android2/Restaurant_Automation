@@ -119,5 +119,77 @@ namespace RESTRODBACCESS.Helper
                 }
             }
         }
+
+
+        public List<GetOrdersResponseModel> getOrders(GetOrdersRequestModel getOrdersRequestModel, out ErrorModel errorModel)
+        {
+            errorModel = null;
+            List<GetOrdersResponseModel> orders = null;
+            SqlConnection connection = null;
+            try
+            {
+                using(connection = new SqlConnection(Database.getConnectionString()))
+                {
+                    SqlCommand command = new SqlCommand(SqlCommands.SP_getOrders, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("customer_id", getOrdersRequestModel.customerId);
+                    command.Parameters.AddWithValue("fromDate", getOrdersRequestModel.fromDate);
+                    command.Parameters.AddWithValue("toDate", getOrdersRequestModel.toDate);
+                    command.Parameters.AddWithValue("email", getOrdersRequestModel.email);
+                    connection.Open();
+                    orders = new List<GetOrdersResponseModel>();
+                    SqlDataReader reader = command.ExecuteReader();
+                    GetOrdersResponseModel getOrdersResponseModel = null;
+                    int orderIdCheck = 0;
+                    while (reader.Read())
+                    {
+                        MenuItems menuItems = new MenuItems();
+                        if(orderIdCheck != Convert.ToInt32(reader["orderId"].ToString()))
+                        {
+                            if(orderIdCheck != 0)
+                            {
+                                orders.Add(getOrdersResponseModel);
+                            }
+                            getOrdersResponseModel = new GetOrdersResponseModel();
+                            getOrdersResponseModel.menuItems = new List<MenuItems>();
+                            getOrdersResponseModel.orderId = Convert.ToInt32(reader["orderId"].ToString());
+                            getOrdersResponseModel.orderDate = reader["orderDate"].ToString();
+                            getOrdersResponseModel.isDiningIn = Convert.ToBoolean(reader["isDiningIn"].ToString());
+                            getOrdersResponseModel.orderStatusTitle = reader["orderStatusTitle"].ToString();
+                            getOrdersResponseModel.billingAmount = Convert.ToDouble(reader["billingAmount"].ToString());
+                            getOrdersResponseModel.isCardPayment = Convert.ToBoolean(reader["isCardPayment"].ToString());
+                            getOrdersResponseModel.firstName = reader["FirstName"].ToString();
+                            getOrdersResponseModel.lastName = reader["lastName"].ToString();
+                            orderIdCheck = getOrdersResponseModel.orderId;
+                        }
+                        menuItems.itemName = reader["itemName"].ToString();
+                        menuItems.itemQty = Convert.ToInt32(reader["itemQty"].ToString());
+                        menuItems.itemDescription = reader["itemDescription"].ToString();
+                        menuItems.itemPrice = Convert.ToDouble(reader["price"].ToString());
+                        menuItems.category = reader["categoryTitle"].ToString();
+                        getOrdersResponseModel.menuItems.Add(menuItems);
+                    }
+                    if(getOrdersResponseModel != null)
+                    {
+                        orders.Add(getOrdersResponseModel);
+                    }
+                    command.Dispose();
+                }
+                return orders;
+            }
+            catch(Exception e)
+            {
+                errorModel = new ErrorModel();
+                errorModel.ErrorMessage = e.Message;
+                return null;
+            }
+            finally
+            {
+                if(connection != null)
+                {
+                    connection.Close();
+                }
+            }
+        }
     }
 }
