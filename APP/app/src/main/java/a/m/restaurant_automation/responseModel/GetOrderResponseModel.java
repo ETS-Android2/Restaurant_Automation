@@ -1,8 +1,9 @@
 package a.m.restaurant_automation.responseModel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class GetOrderResponseModel {
+public class GetOrderResponseModel implements Serializable {
     public int orderId;
     public String orderDate;
     public boolean isDiningIn;
