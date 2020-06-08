@@ -54,13 +54,12 @@ public class ChefActivity extends AppCompatActivity implements BottomNavigationV
                 return true;
 
             case R.id.OrderHistory:
-//                navController.navigate(R.id.managerOrderHistoryFragment);
-//                return true;
-
+                navController.navigate(R.id.chefOrderHistoryFragment);
+                return true;
 
             case R.id.Moremenu:
-//                fragment=new OrderFragment();
-//                break;
+                navController.navigate(R.id.chefMoreItemsFragment);
+                return true;
 
         }
         return false;

@@ -8,9 +8,18 @@
     <fragment
         android:id="@+id/chefDashboard"
         android:name="a.m.restaurant_automation.chef.ChefDashboard"
-        android:label="fragment_chef_dashboard"
+        android:label="DashBoard"
         tools:layout="@layout/fragment_chef_dashboard" />
-
+    <fragment
+        android:id="@+id/chefOrderHistoryFragment"
+        android:name="a.m.restaurant_automation.chef.ChefOrderHistoryFragment"
+        android:label="Order History"
+        tools:layout="@layout/fragment_chef_order_history" />
+    <fragment
+        android:id="@+id/chefMoreItemsFragment"
+        android:name="a.m.restaurant_automation.chef.ChefMoreItemsFragment"
+        android:label="More Items"
+        tools:layout="@layout/fragment_chef_more_items" />
 
 
 </navigation>

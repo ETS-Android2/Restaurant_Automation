@@ -16,6 +16,7 @@ namespace RESTRODBACCESS.ResponseModel
         public bool isCardPayment { get; set; }
         public string firstName { get; set; }
         public string lastName { get; set; }
+        public int tableId { get; set; }
         public List<MenuItems> menuItems { get; set; }
     }
     public class MenuItems

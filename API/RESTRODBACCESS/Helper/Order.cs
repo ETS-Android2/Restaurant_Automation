@@ -160,6 +160,7 @@ namespace RESTRODBACCESS.Helper
                             getOrdersResponseModel.isCardPayment = Convert.ToBoolean(reader["isCardPayment"].ToString());
                             getOrdersResponseModel.firstName = reader["FirstName"].ToString();
                             getOrdersResponseModel.lastName = reader["lastName"].ToString();
+                            getOrdersResponseModel.tableId = Convert.ToInt32(reader["tableId"].ToString());
                             orderIdCheck = getOrdersResponseModel.orderId;
                         }
                         menuItems.itemName = reader["itemName"].ToString();
