@@ -1,4 +1,5 @@
 ﻿using RESTRODBACCESS.RequestModel;
+using RESTRODBACCESS.ResponseModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,6 +58,19 @@ namespace TESTRESTRO.Controllers
             var orders = orderProvider.getOrders(requestModel, out errorModel);
             APIResponseModel aPIResponseModel = new APIResponseModel();
             aPIResponseModel.Response = orders;
+            aPIResponseModel.Error = errorModel;
+            return Request.CreateResponse(HttpStatusCode.OK, aPIResponseModel);
+        }
+
+        [HttpPost]
+        [Route("api/orders/updateOrderStatus")]
+        public HttpResponseMessage updateOrderStatus(ChangeOrdersStatusRequestModel changeOrdersStatusRequestModel)
+        {
+            ErrorModel errorModel = null;
+            OrderProvider provider = new OrderProvider();
+            var status = provider.updateOrderStatus(changeOrdersStatusRequestModel, out errorModel);
+            APIResponseModel aPIResponseModel = new APIResponseModel();
+            aPIResponseModel.Response = status;
             aPIResponseModel.Error = errorModel;
             return Request.CreateResponse(HttpStatusCode.OK, aPIResponseModel);
         }

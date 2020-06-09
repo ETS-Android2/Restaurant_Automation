@@ -35,5 +35,6 @@
 
         public const string SP_orderCartItem = "orderCartItem";
         public const string SP_getOrders = "getOrders";
+        public const string SP_updateOrderStatus = "updateOrderStatus";
     }
 }

@@ -52,5 +52,19 @@ namespace TESTRESTRO.Provider
                 return null;
             }
         }
+
+        public ChangeOrderStatusResponseModel updateOrderStatus(ChangeOrdersStatusRequestModel changeOrdersStatusRequestModel, out ErrorModel errorModel)
+        {
+            errorModel = null;
+            try
+            {
+                Order orderHelper = new Order();
+                return orderHelper.changeOrderStatus(changeOrdersStatusRequestModel, out errorModel);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }
