@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import a.m.restaurant_automation.LoginActivity;
@@ -25,6 +26,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,12 +44,15 @@ import java.util.TimerTask;
 
 
 public class ChefDashboard extends Fragment {
-    static RecyclerView recyclerView;
-    static Call<ResponseModel<ArrayList<GetOrderResponseModel>>> call;
-    static Set<Integer> ordersSet;
-    static ChefDashboardAdapter dashboardAdapter;
-    static LinearLayoutManager layoutManager;
-    static Context context;
+    RecyclerView recyclerView;
+    Call<ResponseModel<ArrayList<GetOrderResponseModel>>> call;
+    Set<Integer> ordersSet;
+    ChefDashboardAdapter dashboardAdapter;
+    LinearLayoutManager layoutManager;
+    Context context;
+    static Timer timer;
+    static TimerTask timertask;
+    ChefDashboard chefDashboard;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,26 +70,10 @@ public class ChefDashboard extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.recyclerViewChefDashboard);
-
         context = getActivity().getApplicationContext();
-        final Handler handler = new Handler();
-        TimerTask timertask = new TimerTask() {
-            @Override
-            public void run() {
-                handler.post(new Runnable() {
-                    public void run() {
-                        IDataService dataService = RetrofitClient.getRetrofitInstance().create(IDataService.class);
-                        call = dataService.getOrders(0, "0", "0", "0");
-                        fetchOrders();
-                    }
-                });
-            }
-        };
-        Timer timer = new Timer();
-        timer.schedule(timertask, 0, 10000);
     }
 
-    public static void fetchOrders() {
+    public void fetchOrders() {
         call.enqueue(new Callback<ResponseModel<ArrayList<GetOrderResponseModel>>>() {
             @Override
             public void onResponse(Call<ResponseModel<ArrayList<GetOrderResponseModel>>> call, Response<ResponseModel<ArrayList<GetOrderResponseModel>>> response) {
@@ -105,6 +96,13 @@ public class ChefDashboard extends Fragment {
                             Uri alarmSound =
                                     RingtoneManager. getDefaultUri (RingtoneManager. TYPE_NOTIFICATION );
                             MediaPlayer mp = MediaPlayer. create (context, alarmSound);
+                            Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                v.vibrate(VibrationEffect.createOneShot(1000, VibrationEffect.DEFAULT_AMPLITUDE));
+                            } else {
+                                //deprecated in API 26
+                                v.vibrate(1000);
+                            }
                             mp.start();
                             dashboardAdapter.notifyDataSetChanged();
                         }
@@ -130,4 +128,36 @@ public class ChefDashboard extends Fragment {
         });
     }
 
+    public void createTimerTask(){
+        final Handler handler = new Handler();
+        timertask = new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(new Runnable() {
+                    public void run() {
+                        IDataService dataService = RetrofitClient.getRetrofitInstance().create(IDataService.class);
+                        call = dataService.getOrders(0, "0", "0", "0");
+                        fetchOrders();
+                    }
+                });
+            }
+        };
+        timer = new Timer();
+        timer.schedule(timertask, 0, 10000);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(timer != null){
+            timer.cancel();
+            ordersSet = null;
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        createTimerTask();
+    }
 }
