@@ -1,60 +1,48 @@
 package a.m.restaurant_automation.chef;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Calendar;
 
 import a.m.restaurant_automation.R;
+import a.m.restaurant_automation.RetrofitClient;
+import a.m.restaurant_automation.responseModel.GetOrderResponseModel;
+import a.m.restaurant_automation.responseModel.ResponseModel;
+import a.m.restaurant_automation.service.IDataService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ChefOrderHistoryFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ChefOrderHistoryFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    RecyclerView recyclerView;
+    RecyclerView.LayoutManager layoutManager;
+    EditText fromDateET, toDateET;
+    ImageButton fromDateIB, toDateIB, doneIB;
     public ChefOrderHistoryFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ChefOrderHistoryFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ChefOrderHistoryFragment newInstance(String param1, String param2) {
-        ChefOrderHistoryFragment fragment = new ChefOrderHistoryFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
@@ -62,5 +50,85 @@ public class ChefOrderHistoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_chef_order_history, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view,@Nullable Bundle savedInstanceState) {
+        super.onViewCreated( view,savedInstanceState );
+        recyclerView = view.findViewById( R.id.recyclerViewChefOrderHistory );
+        layoutManager = new LinearLayoutManager( getActivity().getApplicationContext() );
+        fromDateET = view.findViewById( R.id.editTextFromDate );
+        toDateET = view.findViewById( R.id.editTextToDate );
+        fromDateIB = view.findViewById( R.id.imageButtonFromDate );
+        toDateIB = view.findViewById( R.id.imageButtonToDate );
+        doneIB = view.findViewById( R.id.doneIB );
+        doneIB.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!checkEmptyData()){
+                    IDataService iDataService = RetrofitClient.getRetrofitInstance().create( IDataService.class );
+                    Call<ResponseModel<ArrayList<GetOrderResponseModel>>> call = iDataService.getOrders( 0, fromDateET.getText().toString(), toDateET.getText().toString(), "0" );
+                    call.enqueue( new Callback<ResponseModel<ArrayList<GetOrderResponseModel>>>() {
+                        @Override
+                        public void onResponse(Call<ResponseModel<ArrayList<GetOrderResponseModel>>> call,Response<ResponseModel<ArrayList<GetOrderResponseModel>>> response) {
+                            ResponseModel<ArrayList<GetOrderResponseModel>> responseModel = response.body();
+                            if(responseModel.getError() != null){
+                                Toast.makeText( getActivity().getApplicationContext(),""+responseModel.getError().getErrorMessage(),Toast.LENGTH_SHORT ).show();
+                            }
+                            else{
+                                ChefOrderHistoryAdapter chefOrderHistoryAdapter = new ChefOrderHistoryAdapter(responseModel.getData());
+                                recyclerView.setAdapter( chefOrderHistoryAdapter );
+                                recyclerView.setLayoutManager( layoutManager );
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseModel<ArrayList<GetOrderResponseModel>>> call,Throwable t) {
+
+                        }
+                    } );
+                }
+            }
+        } );
+
+        fromDateIB.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar calendar = Calendar.getInstance();
+                DatePickerDialog datePickerDialog = new DatePickerDialog( getActivity().getApplicationContext(),new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view,int year,int month,int dayOfMonth) {
+                        fromDateET.setText(year+"-"+month+"-"+dayOfMonth);
+                    }
+                }, calendar.get( Calendar.YEAR ), calendar.get( Calendar.MONTH ), calendar.get( Calendar.DAY_OF_MONTH ));
+            }
+        } );
+
+        toDateIB.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar calendar = Calendar.getInstance();
+                DatePickerDialog datePickerDialog = new DatePickerDialog( getActivity().getApplicationContext(),new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view,int year,int month,int dayOfMonth) {
+                        toDateET.setText(year+"-"+month+"-"+dayOfMonth);
+                    }
+                }, calendar.get( Calendar.YEAR ), calendar.get( Calendar.MONTH ), calendar.get( Calendar.DAY_OF_MONTH ));
+            }
+        } );
+    }
+
+    public boolean checkEmptyData(){
+        if(TextUtils.isEmpty( fromDateET.getText().toString() )){
+            fromDateET.setError("From Date Cannot be Empty!");
+            fromDateET.requestFocus();
+            return true;
+        }
+        else if(TextUtils.isEmpty( toDateET.getText().toString() )){
+            toDateET.setError("From Date Cannot be Empty!");
+            toDateET.requestFocus();
+            return true;
+        }
+        return false;
     }
 }
