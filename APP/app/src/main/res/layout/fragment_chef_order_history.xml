@@ -15,10 +15,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/mainbackground"
-        android:orientation="horizontal"
-        android:layout_weight=".1">
+        android:orientation="horizontal">
 
         <EditText
             android:layout_margin="5dp"
@@ -28,6 +27,7 @@
             android:background="#90000000"
             android:gravity="center"
             android:hint="From: yyyy-mm-dd"
+            android:textColorHint="#90ffffff"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -43,12 +43,12 @@
             android:layout_width="30dp"
             android:layout_height="22sp"
             android:background="@drawable/calendar"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextFromDate"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.056"
             app:layout_constraintStart_toEndOf="@+id/editTextFromDate"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.16" />
+            app:layout_constraintTop_toTopOf="@+id/editTextFromDate"
+            app:layout_constraintVertical_bias="1.0" />
 
         <EditText
             android:id="@+id/editTextToDate"
@@ -58,6 +58,7 @@
             android:background="#90000000"
             android:gravity="center"
             android:hint="To: yyyy-mm-dd"
+            android:textColorHint="#90ffffff"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -73,12 +74,12 @@
             android:layout_width="30dp"
             android:layout_height="22sp"
             android:background="@drawable/calendar"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextToDate"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.056"
             app:layout_constraintStart_toEndOf="@+id/editTextToDate"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.72" />
+            app:layout_constraintTop_toTopOf="@+id/editTextToDate"
+            app:layout_constraintVertical_bias="1.0" />
 
         <ImageButton
             android:id="@+id/doneIB"
@@ -90,7 +91,6 @@
             app:layout_constraintHorizontal_bias="0.955"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
             android:background="@drawable/ic_tick"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -104,6 +104,10 @@
         >
 
     </androidx.recyclerview.widget.RecyclerView>
+        <TextView
+            android:id="@+id/textViewNoResult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 </FrameLayout>

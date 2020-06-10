@@ -176,11 +176,11 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:background="@drawable/ic_keyboard_arrow_down_black_24dp"
-                app:layout_constraintBottom_toBottomOf="@+id/recyclerViewChefScreenOrder"
-                app:layout_constraintEnd_toEndOf="@+id/recyclerViewChefScreenOrder"
+                app:layout_constraintBottom_toBottomOf="@+id/recyclerViewChefOrderHistory"
+                app:layout_constraintEnd_toEndOf="@+id/recyclerViewChefOrderHistory"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="@+id/recyclerViewChefScreenOrder"
-                app:layout_constraintTop_toTopOf="@+id/recyclerViewChefScreenOrder"
+                app:layout_constraintStart_toStartOf="@+id/recyclerViewChefOrderHistory"
+                app:layout_constraintTop_toTopOf="@+id/recyclerViewChefOrderHistory"
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
@@ -193,7 +193,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/recyclerViewChefScreenOrder" />
+                app:layout_constraintTop_toBottomOf="@id/recyclerViewChefOrderHistory" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

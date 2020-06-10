@@ -10,14 +10,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -35,6 +38,7 @@ public class ChefOrderHistoryFragment extends Fragment {
     RecyclerView.LayoutManager layoutManager;
     EditText fromDateET, toDateET;
     ImageButton fromDateIB, toDateIB, doneIB;
+    TextView noResultTV;
     public ChefOrderHistoryFragment() {
         // Required empty public constructor
     }
@@ -55,13 +59,16 @@ public class ChefOrderHistoryFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view,@Nullable Bundle savedInstanceState) {
         super.onViewCreated( view,savedInstanceState );
-        recyclerView = view.findViewById( R.id.recyclerViewChefOrderHistory );
+        recyclerView = view.findViewById( R.id.recyclerviewChefOrderHistory );
         layoutManager = new LinearLayoutManager( getActivity().getApplicationContext() );
         fromDateET = view.findViewById( R.id.editTextFromDate );
         toDateET = view.findViewById( R.id.editTextToDate );
         fromDateIB = view.findViewById( R.id.imageButtonFromDate );
         toDateIB = view.findViewById( R.id.imageButtonToDate );
         doneIB = view.findViewById( R.id.doneIB );
+        noResultTV = view.findViewById(R.id.textViewNoResult);
+        noResultTV.setVisibility(View.GONE);
+
         doneIB.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,10 +82,18 @@ public class ChefOrderHistoryFragment extends Fragment {
                             if(responseModel.getError() != null){
                                 Toast.makeText( getActivity().getApplicationContext(),""+responseModel.getError().getErrorMessage(),Toast.LENGTH_SHORT ).show();
                             }
-                            else{
+                            else if(responseModel != null && !responseModel.getData().isEmpty()){
                                 ChefOrderHistoryAdapter chefOrderHistoryAdapter = new ChefOrderHistoryAdapter(responseModel.getData());
                                 recyclerView.setAdapter( chefOrderHistoryAdapter );
                                 recyclerView.setLayoutManager( layoutManager );
+                                recyclerView.setVisibility(View.VISIBLE);
+                                noResultTV.setVisibility(View.GONE);
+                                Log.i("info", responseModel.getData().toString());
+                            }
+                            else{
+                                recyclerView.setVisibility(View.GONE);
+                                noResultTV.setVisibility(View.VISIBLE);
+                                noResultTV.setText("No result found between these two dates!!!");
                             }
                         }
 
@@ -90,17 +105,20 @@ public class ChefOrderHistoryFragment extends Fragment {
                 }
             }
         } );
-
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         fromDateIB.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final Calendar calendar = Calendar.getInstance();
-                DatePickerDialog datePickerDialog = new DatePickerDialog( getActivity().getApplicationContext(),new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog datePickerDialog = new DatePickerDialog( getActivity(),new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view,int year,int month,int dayOfMonth) {
-                        fromDateET.setText(year+"-"+month+"-"+dayOfMonth);
+                        Calendar tempCalendar = Calendar.getInstance();
+                        tempCalendar.set(year, month, dayOfMonth);
+                        fromDateET.setText(simpleDateFormat.format(tempCalendar.getTime()));
                     }
                 }, calendar.get( Calendar.YEAR ), calendar.get( Calendar.MONTH ), calendar.get( Calendar.DAY_OF_MONTH ));
+                datePickerDialog.show();
             }
         } );
 
@@ -108,12 +126,15 @@ public class ChefOrderHistoryFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 final Calendar calendar = Calendar.getInstance();
-                DatePickerDialog datePickerDialog = new DatePickerDialog( getActivity().getApplicationContext(),new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog datePickerDialog = new DatePickerDialog( getActivity(),new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view,int year,int month,int dayOfMonth) {
-                        toDateET.setText(year+"-"+month+"-"+dayOfMonth);
+                        Calendar tempCalendar = Calendar.getInstance();
+                        tempCalendar.set(year, month, dayOfMonth);
+                        toDateET.setText(simpleDateFormat.format(tempCalendar.getTime()));
                     }
                 }, calendar.get( Calendar.YEAR ), calendar.get( Calendar.MONTH ), calendar.get( Calendar.DAY_OF_MONTH ));
+                datePickerDialog.show();
             }
         } );
     }

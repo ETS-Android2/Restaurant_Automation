@@ -33,6 +33,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -53,6 +54,7 @@ public class ChefDashboard extends Fragment {
     static Timer timer;
     static TimerTask timertask;
     ChefDashboard chefDashboard;
+    TextView noOrdersTV;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +72,8 @@ public class ChefDashboard extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.recyclerViewChefDashboard);
+        noOrdersTV = view.findViewById(R.id.textViewNoOrders);
+        noOrdersTV.setVisibility(View.GONE);
         context = getActivity().getApplicationContext();
     }
 
@@ -78,6 +82,11 @@ public class ChefDashboard extends Fragment {
             @Override
             public void onResponse(Call<ResponseModel<ArrayList<GetOrderResponseModel>>> call, Response<ResponseModel<ArrayList<GetOrderResponseModel>>> response) {
                 ResponseModel<ArrayList<GetOrderResponseModel>> orders = response.body();
+                if(orders != null && orders.getData().isEmpty()){
+                    noOrdersTV.setText("No Orders!!!");
+                    noOrdersTV.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
+                }
                 if(orders != null && orders.getData() != null){
                     ArrayList<GetOrderResponseModel> ordersArrayList = orders.getData();
                     if(ordersSet != null){
@@ -111,6 +120,8 @@ public class ChefDashboard extends Fragment {
                         recyclerView.setAdapter(dashboardAdapter);
                         layoutManager = new LinearLayoutManager(context);
                         recyclerView.setLayoutManager(layoutManager);
+                        recyclerView.setVisibility(View.VISIBLE);
+                        noOrdersTV.setVisibility(View.GONE);
                         ordersSet = new HashSet<>();
                         for(int i = 0; i < ordersArrayList.size(); i++){
                             ordersSet.add(ordersArrayList.get(i).orderId);

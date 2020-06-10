@@ -21,15 +21,16 @@ public class ChefOrderHistoryAdapter extends RecyclerView.Adapter<ChefOrderHisto
     ArrayList<GetOrderResponseModel> orders;
     Context context;
 
-    public ChefOrderHistoryAdapter(ArrayList<GetOrderResponseModel> orders){
+    public ChefOrderHistoryAdapter(ArrayList<GetOrderResponseModel> orders) {
         this.orders = orders;
     }
+
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent,int viewType) {
-        View v = LayoutInflater.from( parent.getContext()).inflate( R.layout.cardview_chef_order_history, parent, false);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_chef_order_history, parent, false);
         this.context = parent.getContext();
-        return new ViewHolder( v );
+        return new ViewHolder(v);
     }
 
     @Override
@@ -43,7 +44,7 @@ public class ChefOrderHistoryAdapter extends RecyclerView.Adapter<ChefOrderHisto
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
         holder.recyclerViewItems.setLayoutManager(layoutManager);
 
-        holder.orderStatusTV.setText( orders.get( position ).orderStatusTitle );
+        holder.orderStatusTV.setText(orders.get(position).orderStatusTitle);
 
         holder.expandCollapseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,7 +66,7 @@ public class ChefOrderHistoryAdapter extends RecyclerView.Adapter<ChefOrderHisto
 
     @Override
     public int getItemCount() {
-        return orders.size();
+            return orders.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
