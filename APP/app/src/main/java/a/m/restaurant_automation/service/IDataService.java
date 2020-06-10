@@ -3,11 +3,13 @@ import java.util.ArrayList;
 
 import a.m.restaurant_automation.requestModel.AddToCartRequestModel;
 import a.m.restaurant_automation.requestModel.DeleteOrModifyCart;
+import a.m.restaurant_automation.requestModel.OrderStatusUpdateRequest;
 import a.m.restaurant_automation.requestModel.ReserveTableRequest;
 import a.m.restaurant_automation.responseModel.CustomerReserveTableResponse;
 import a.m.restaurant_automation.responseModel.GetCartItemResponseModel;
 import a.m.restaurant_automation.responseModel.GetOrderResponseModel;
 import a.m.restaurant_automation.responseModel.MenuItemResponse;
+import a.m.restaurant_automation.responseModel.OrderStatusUpdateResponse;
 import a.m.restaurant_automation.responseModel.ResponseModel;
 import a.m.restaurant_automation.responseModel.StatusCheckResponse;
 import a.m.restaurant_automation.responseModel.TableReservationStatusForCustomerModel;
@@ -52,4 +54,6 @@ public interface IDataService {
     @GET("orders/getOrders/{customerId}/{fromDate}/{toDate}/{email}/")
     Call<ResponseModel<ArrayList<GetOrderResponseModel>>> getOrders(@Path(value = "customerId")int customerId, @Path(value = "fromDate") String fromDate, @Path(value = "toDate") String toDate, @Path(value = "email") String email);
 
+    @POST("orders/updateOrderStatus")
+    Call<ResponseModel<OrderStatusUpdateResponse>> updateOrderStatus(@Body OrderStatusUpdateRequest orderStatusUpdateRequest);
 }

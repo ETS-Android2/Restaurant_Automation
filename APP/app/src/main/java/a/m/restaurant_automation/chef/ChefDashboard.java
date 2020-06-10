@@ -44,7 +44,7 @@ import java.util.TimerTask;
 
 
 public class ChefDashboard extends Fragment {
-    RecyclerView recyclerView;
+    static RecyclerView recyclerView;
     Call<ResponseModel<ArrayList<GetOrderResponseModel>>> call;
     Set<Integer> ordersSet;
     ChefDashboardAdapter dashboardAdapter;
@@ -160,4 +160,5 @@ public class ChefDashboard extends Fragment {
         super.onResume();
         createTimerTask();
     }
+
 }
