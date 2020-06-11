@@ -75,5 +75,31 @@ namespace TESTRESTRO.Controllers
             aPIResponseModel.Error = errorModel;
             return Request.CreateResponse(HttpStatusCode.OK, aPIResponseModel);
         }
+
+        [HttpPost]
+        [Route("api/order/changePaymentStatus")]
+        public HttpResponseMessage changePaymentStatus(ChangePaymentStatusRequestModel changePaymentStatusRequest)
+        {
+            ErrorModel errorModel = null;
+            OrderProvider provider = new OrderProvider();
+            var status = provider.changePaymentStatus(changePaymentStatusRequest, out errorModel);
+            APIResponseModel aPIResponseModel = new APIResponseModel();
+            aPIResponseModel.Response = status;
+            aPIResponseModel.Error = errorModel;
+            return Request.CreateResponse(HttpStatusCode.OK, aPIResponseModel);
+        }
+
+        [HttpPost]
+        [Route("api/orders/readyToPay")]
+        public HttpResponseMessage readyToPay(ReadyForPaymentRequestModel readyForPaymentRequest)
+        {
+            ErrorModel errorModel = null;
+            OrderProvider provider = new OrderProvider();
+            var status = provider.readyToPay(readyForPaymentRequest, out errorModel);
+            APIResponseModel aPIResponseModel = new APIResponseModel();
+            aPIResponseModel.Response = status;
+            aPIResponseModel.Error = errorModel;
+            return Request.CreateResponse(HttpStatusCode.OK, aPIResponseModel);
+        }
     }
 }

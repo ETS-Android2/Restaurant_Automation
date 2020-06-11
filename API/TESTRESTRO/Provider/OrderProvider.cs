@@ -66,5 +66,36 @@ namespace TESTRESTRO.Provider
                 return null;
             }
         }
+
+        public ChangeOrderStatusResponseModel changePaymentStatus(ChangePaymentStatusRequestModel changePaymentStatusRequest, out ErrorModel errorModel)
+        {
+            errorModel = null;
+            try
+            {
+                Order orderHelper = new Order();
+                ChangeOrderStatusResponseModel response = orderHelper.changePaymentStatus(changePaymentStatusRequest, out errorModel);
+                return response;
+              }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public ChangeOrderStatusResponseModel readyToPay(ReadyForPaymentRequestModel readyForPaymentRequest, out ErrorModel errorModel)
+        {
+            errorModel = null;
+            try
+            {
+                Order orderHelper = new Order();
+                return orderHelper.readyToPay(readyForPaymentRequest, out errorModel);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+
     }
 }

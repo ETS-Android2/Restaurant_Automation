@@ -11,6 +11,9 @@
         public const string SP_deleteorModifyTable = "deleteorModifyTable";
         public const string SP_getCartItems = "getCartItems";
         public const string SP_deleteorModifyCartItems = "deleteorModifyCartItems";
+        public const string SP_readyToPay = "readyToPay";
+        public const string SP_changePaymentStatus = "changePaymentStatus";
+
 
 
 

@@ -239,5 +239,83 @@ namespace RESTRODBACCESS.Helper
                 }
             }
         }
+
+        public ChangeOrderStatusResponseModel changePaymentStatus(ChangePaymentStatusRequestModel changePaymentStatusRequest, out ErrorModel errorModel)
+        {
+            errorModel = null;
+            ChangeOrderStatusResponseModel changeOrderStatusResponse = new ChangeOrderStatusResponseModel();
+            SqlConnection connection = null;
+            try
+            {
+                using (connection = new SqlConnection(Database.getConnectionString()))
+                {
+                    SqlCommand command = new SqlCommand(SqlCommands.SP_changePaymentStatus, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("billId", changePaymentStatusRequest.billId);
+                  
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        changeOrderStatusResponse.StatusCode = reader["StatusCode"].ToString();
+                        changeOrderStatusResponse.StatusMessage = reader["StatusMessage"].ToString();
+                    }
+                    command.Dispose();
+                    return changeOrderStatusResponse;
+                }
+            }
+            catch (Exception e)
+            {
+                errorModel = new ErrorModel();
+                errorModel.ErrorMessage = e.Message;
+                return null;
+            }
+            finally
+            {
+                if (connection != null)
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+
+        public ChangeOrderStatusResponseModel readyToPay(ReadyForPaymentRequestModel readyForPaymentRequest, out ErrorModel errorModel)
+        {
+            errorModel = null;
+            ChangeOrderStatusResponseModel changeOrderStatusResponse = new ChangeOrderStatusResponseModel();
+            SqlConnection connection = null;
+            try
+            {
+                using (connection = new SqlConnection(Database.getConnectionString()))
+                {
+                    SqlCommand command = new SqlCommand(SqlCommands.SP_readyToPay, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("orderId", readyForPaymentRequest.orderId);
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        changeOrderStatusResponse.StatusCode = reader["StatusCode"].ToString();
+                        changeOrderStatusResponse.StatusMessage = reader["StatusMessage"].ToString();
+                    }
+                    command.Dispose();
+                    return changeOrderStatusResponse;
+                }
+            }
+            catch (Exception e)
+            {
+                errorModel = new ErrorModel();
+                errorModel.ErrorMessage = e.Message;
+                return null;
+            }
+            finally
+            {
+                if (connection != null)
+                {
+                    connection.Close();
+                }
+            }
+        }
     }
 }
