@@ -3,10 +3,7 @@ package a.m.restaurant_automation;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
-import a.m.restaurant_automation.customer.CartFragmentCustomer;
-import a.m.restaurant_automation.customer.CustomerMenuItemAdapter;
-import a.m.restaurant_automation.requestModel.DeleteOrModifyCart;
-import a.m.restaurant_automation.responseModel.StatusCheckResponse;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -14,6 +11,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import a.m.restaurant_automation.customer.CartFragmentCustomer;
 import a.m.restaurant_automation.customer.CustomerCatergoryItemNavigate;
 import a.m.restaurant_automation.repository.UserSession;
 import a.m.restaurant_automation.requestModel.AddToCartRequestModel;
@@ -77,14 +76,13 @@ public class CustomerActivity extends AppCompatActivity implements BottomNavigat
                //navController.navigate(R.id.);
                 navController.navigate(R.id.customerMenuItemsFragment);
                return true;
-
              //   fragment=new CustomerMenuItemsFragment();
                // break;
+
             case R.id.cart:
                 // Toast.makeText(getApplicationContext(),"Account",Toast.LENGTH_LONG).show();
                 navController.navigate(R.id.orderFragment);
                 return true;
-
                // fragment=new OrderFragment();
                 //break;
 
@@ -92,7 +90,6 @@ public class CustomerActivity extends AppCompatActivity implements BottomNavigat
                 // Toast.makeText(getApplicationContext(),"Account",Toast.LENGTH_LONG).show();
                 navController.navigate(R.id.moreOptionsFragment);
                 return true;
-
                // fragment=new MoreOptionsFragment();
                 //break;
         }
@@ -125,9 +122,7 @@ public class CustomerActivity extends AppCompatActivity implements BottomNavigat
                 Toast.makeText(getApplicationContext(), "something went wrong" + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
-
     }
-
 
     @Override
     public void onaddToCartPress(int itemId, int quantity, int addedby) {
@@ -164,8 +159,8 @@ public class CustomerActivity extends AppCompatActivity implements BottomNavigat
                 Toast.makeText(getApplicationContext(), "something went wrong" + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
-
     }
+
     @Override
     public void onCheckoutPress(int orderBy, boolean isDiningIn, boolean isCardPayment) {
         OrderBy = orderBy;

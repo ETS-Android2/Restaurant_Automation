@@ -28,9 +28,9 @@ public interface IDataService {
     @GET("menu/{categoryId}")
     Call<ResponseModel<ArrayList<MenuItemResponse>>> getMenuItem(@Path(value = "categoryId")int categoryId);
 
-
     @GET("users")
     Call<ResponseModel<ArrayList<UsersResponseModel>>> getEmployees(/*@Query(value = "userType")int[] userType*/);
+
     @GET("table")
     Call<ResponseModel<ArrayList<TableResponseModel>>> getTable ();
 
@@ -51,7 +51,6 @@ public interface IDataService {
 
     @POST("cart/deleteorModifyCartItems")
     Call<ResponseModel<StatusCheckResponse>> deleteOrModifyCartItems(@Query(value = "cartId") int cartId, @Query(value = "quantity") int quantity, @Query(value="isDelete") boolean isDelete);
-
 
     @GET("orders/getOrders/{customerId}/{fromDate}/{toDate}/{email}/{needUnpaidOnly}")
     Call<ResponseModel<ArrayList<GetOrderResponseModel>>> getOrders(@Path(value = "customerId")int customerId, @Path(value = "fromDate") String fromDate, @Path(value = "toDate") String toDate, @Path(value = "email") String email, @Path(value = "needUnpaidOnly") boolean needUnpaidOnly);
