@@ -8,66 +8,102 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
-import a.m.restaurant_automation.LoginActivity;
-import a.m.restaurant_automation.repository.UserSession;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import a.m.restaurant_automation.LoginActivity;
 import a.m.restaurant_automation.R;
+import a.m.restaurant_automation.repository.UserSession;
 
 
-public class MoreOptionsFragment extends Fragment {
+public class MoreOptionsFragment extends Fragment implements View.OnClickListener {
 
-    CardView logoutCustomer;
+    Button logoutCustomer;
+    TextView editProfile;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.BottomnavigateMenuCustomer);
         bottomNavigationView.setVisibility(View.VISIBLE);
+        logoutCustomer=view.findViewById(R.id.logoutCustomer);
+        logoutCustomer.setOnClickListener(this);
+        editProfile=view.findViewById(R.id.EditProfile);
 
+        editProfile.setOnClickListener(this);
 
-        logoutCustomer=view.findViewById(R.id.cardView_logoutCustomer);
-        logoutCustomer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
-                        .setTitle("Logout")
-                        .setMessage("Are you sure you want to logout?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                UserSession.getInstance().clearSession();
-                                Intent _intent = new Intent(getActivity(), LoginActivity.class);
-                                startActivity(_intent);
-                                getActivity().finish();
-
-
-
-                            }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        })
-                        .create();
-                alertDialog.show();
+//        logoutCustomer.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
+//                        .setTitle("Logout")
+//                        .setMessage("Are you sure you want to logout?")
+//                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                UserSession.getInstance().clearSession();
+//                                Intent _intent = new Intent(getActivity(), LoginActivity.class);
+//                                startActivity(_intent);
+//                                getActivity().finish();
+//
+//
+//
+//                            }
+//                        })
+//                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//
+//                            }
+//                        })
+//                        .create();
+//                alertDialog.show();
 
             }
-        });
-    }
 
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        if(id == R.id.logoutCustomer)
+        {
+            AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
+                    .setTitle("Logout")
+                    .setMessage("Are you sure you want to logout?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            UserSession.getInstance().clearSession();
+                            Intent _intent = new Intent(getActivity(), LoginActivity.class);
+                            startActivity(_intent);
+                            getActivity().finish();
+
+
+
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    })
+                    .create();
+            alertDialog.show();
+        }
+        else if(id == R.id.EditProfile)
+        {
+            Navigation.findNavController(v).navigate(R.id.editProfileFragment);
+        }
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override

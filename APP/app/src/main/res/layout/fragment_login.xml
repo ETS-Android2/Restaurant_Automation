@@ -120,7 +120,6 @@
                     android:background="@drawable/button_background_login"
                     tools:ignore="RtlCompat" />
 
-
             </LinearLayout>
 
             <LinearLayout

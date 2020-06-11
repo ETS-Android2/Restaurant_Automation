@@ -47,12 +47,12 @@ public class CustomerOverviewFragment extends Fragment implements View.OnClickLi
             call.enqueue(new Callback<TableReservationStatusForCustomerModel>() {
                 @Override
                 public void onResponse(Call<TableReservationStatusForCustomerModel> call, Response<TableReservationStatusForCustomerModel> response) {
-                    if (response.body().Response) {
+                    if (response.body().Response)
+                    {
                         session.setIsTableReserved("Y");
                         session.setDiningInOrTakeOut("D");
                         bottomNavigationView.setSelectedItemId(R.id.menu);
                         Navigation.findNavController(view).navigate(R.id.customerMenuItemsFragment);
-
                     } else {
                         session.setIsTableReserved("N");
                         if (session.getDiningInOrTakeOut().equalsIgnoreCase("D")) {

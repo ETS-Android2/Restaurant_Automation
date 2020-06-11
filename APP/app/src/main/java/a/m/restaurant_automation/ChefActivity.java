@@ -3,13 +3,13 @@ package a.m.restaurant_automation;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ChefActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     public BottomNavigationView bottomNavigationView;
@@ -20,12 +20,10 @@ public class ChefActivity extends AppCompatActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chef);
         setUpNavigation();
-
-
     }
 
-    public void setUpNavigation(){
-
+    public void setUpNavigation()
+    {
         bottomNavigationView= findViewById(R.id.BottomnavigateMenuChef);
         navController= Navigation.findNavController(this,R.id.chefHostFragment);
         NavigationUI.setupWithNavController(bottomNavigationView,navController);

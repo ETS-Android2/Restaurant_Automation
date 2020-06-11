@@ -40,6 +40,11 @@
         android:name="a.m.restaurant_automation.customer.CartFragmentCustomer"
         android:label="fragment_cart_customer"
         tools:layout="@layout/fragment_cart_customer" />
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="a.m.restaurant_automation.customer.EditProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" />
 
 
 </navigation>

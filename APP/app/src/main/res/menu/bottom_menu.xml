@@ -18,8 +18,8 @@
             />
 
         <item android:id="@+id/cart"
-            android:icon="@drawable/ic_cart_48dp"
-            android:title="Cart"
+            android:icon="@drawable/ic_bookmark_border_black_24dp"
+            android:title="Orders"
             android:iconTint="@color/white"
             />
 
