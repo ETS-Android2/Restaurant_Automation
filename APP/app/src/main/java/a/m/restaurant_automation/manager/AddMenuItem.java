@@ -9,6 +9,7 @@ import a.m.restaurant_automation.responseModel.ResponseModel;
 import a.m.restaurant_automation.service.IUserService;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 
 import retrofit2.Call;
@@ -58,6 +59,7 @@ public class AddMenuItem extends AppCompatActivity implements View.OnClickListen
     private int mUserType = AppStaticData.USERTYPE_MANAGER;
     String imgDecodableString;
     boolean imageUploaded = false;
+    ConstraintLayout progressWindow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +73,7 @@ public class AddMenuItem extends AppCompatActivity implements View.OnClickListen
         editText_itemImage = findViewById(R.id.editText_itemImage);
         spinner_category = findViewById(R.id.spinner_category);
         button_addItem = findViewById(R.id.button_addItem);
+        progressWindow = findViewById(R.id.loadingLayout);
 
         List<String> selectCategory = new ArrayList<>();
         Set<String> set = AppStaticData.categories.keySet();
@@ -102,7 +105,7 @@ public class AddMenuItem extends AppCompatActivity implements View.OnClickListen
                         double itemPrice = Double.parseDouble(editText_itemPrice.getText().toString());
                         String itemDescription = editText_itemDescription.getText().toString();
                         int itemQuantity = Integer.parseInt(editText_addQuantity.getText().toString());
-
+                        progressWindow.setVisibility(View.VISIBLE);
                         uploadImage(imgDecodableString, itemName, itemPrice, itemDescription, itemQuantity, id);
                     }
                 } else {
@@ -161,14 +164,14 @@ public class AddMenuItem extends AppCompatActivity implements View.OnClickListen
         addMenuItemRequestModel.availablequantity = menuItemQuantity;
         addMenuItemRequestModel.categoryId = categoryId;
         addMenuItemRequestModel.createdBy = createdBy;
-        addMenuItemRequestModel.itemImage = "https://elasticbeanstalk-us-west-2-458214277381.s3-us-west-2.amazonaws.com/Menu+Items/"+menuItemName;
+        addMenuItemRequestModel.itemImage = "https://elasticbeanstalk-us-west-2-458214277381.s3-us-west-2.amazonaws.com/Menu+Items/"+menuItemName+".jpg";
         Call<ResponseModel<MenuItemResponse>> call = userService.addMenuItem(addMenuItemRequestModel);
 
         call.enqueue(new Callback<ResponseModel<MenuItemResponse>>() {
             @Override
             public void onResponse(Call<ResponseModel<MenuItemResponse>> call, Response<ResponseModel<MenuItemResponse>> response) {
                 ResponseModel<MenuItemResponse> responseModel = response.body();
-
+                progressWindow.setVisibility(View.GONE);
                 if (responseModel != null && responseModel.getError() != null && !responseModel.getError().equals("")) {
                     Toast.makeText(getApplicationContext(), responseModel.getError().getErrorMessage(), Toast.LENGTH_LONG).show();
                 } else {
@@ -184,7 +187,7 @@ public class AddMenuItem extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onFailure(Call<ResponseModel<MenuItemResponse>> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "Something went wrong not able to add item" + t.getMessage(), Toast.LENGTH_LONG).show();
-
+                progressWindow.setVisibility(View.GONE);
             }
         });
 
@@ -195,12 +198,12 @@ public class AddMenuItem extends AppCompatActivity implements View.OnClickListen
     public void uploadImage(final String image, final String fileName, final double itemPrice, final String itemDescription, final int itemQuantity, final int spinId) {
         imageUploaded = false;
         File file = new File(image);
-        AWSCredentials awsCredentials = new BasicAWSCredentials("AKIAWVL5TAEC5LWSNHEU", "VgmF9RFfR7KpHQ71Qq1aR83+ymIlA05dfrpun09Z");
+        AWSCredentials awsCredentials = new BasicAWSCredentials("AKIAWVL5TAEC46AWEGGT", "e1G/aSU4EbcoqCMhJ6AzQNmakbf7lvpaR/dLYqTR");
         AmazonS3 s3 = new AmazonS3Client(awsCredentials);
         TransferUtility transferUtility = new TransferUtility(s3, getApplicationContext());
         final TransferObserver observer = transferUtility.upload(
                 "elasticbeanstalk-us-west-2-458214277381",  //this is the bucket name on S3
-                "Menu Items/"+fileName, //this is the path and name
+                "Menu Items/"+fileName+".jpg", //this is the path and name
                 file, //path to the file locally
                 CannedAccessControlList.PublicRead //to make the file public
         );
@@ -213,6 +216,7 @@ public class AddMenuItem extends AppCompatActivity implements View.OnClickListen
                     Toast.makeText(AddMenuItem.this, "Image uploaded succesfully", Toast.LENGTH_SHORT).show();
                 } else if (state.equals(TransferState.FAILED)) {
                     Toast.makeText(AddMenuItem.this, "Image Upload Failed!!!", Toast.LENGTH_SHORT).show();
+                    progressWindow.setVisibility(View.GONE);
                 }
             }
 

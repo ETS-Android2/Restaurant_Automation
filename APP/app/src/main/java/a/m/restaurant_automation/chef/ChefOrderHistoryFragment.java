@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,6 +40,7 @@ public class ChefOrderHistoryFragment extends Fragment {
     EditText fromDateET, toDateET;
     ImageButton fromDateIB, toDateIB, doneIB;
     TextView noResultTV;
+    ConstraintLayout progressWindow;
     public ChefOrderHistoryFragment() {
         // Required empty public constructor
     }
@@ -67,12 +69,14 @@ public class ChefOrderHistoryFragment extends Fragment {
         toDateIB = view.findViewById( R.id.imageButtonToDate );
         doneIB = view.findViewById( R.id.doneIB );
         noResultTV = view.findViewById(R.id.textViewNoResult);
+        progressWindow = view.findViewById(R.id.loadingLayout);
         noResultTV.setVisibility(View.GONE);
 
         doneIB.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(!checkEmptyData()){
+                    progressWindow.setVisibility(View.VISIBLE);
                     IDataService iDataService = RetrofitClient.getRetrofitInstance().create( IDataService.class );
                     Call<ResponseModel<ArrayList<GetOrderResponseModel>>> call = iDataService.getOrders( 0, fromDateET.getText().toString(), toDateET.getText().toString(), "0" );
                     call.enqueue( new Callback<ResponseModel<ArrayList<GetOrderResponseModel>>>() {
@@ -95,11 +99,13 @@ public class ChefOrderHistoryFragment extends Fragment {
                                 noResultTV.setVisibility(View.VISIBLE);
                                 noResultTV.setText("No result found between these two dates!!!");
                             }
+                            progressWindow.setVisibility(View.GONE);
                         }
 
                         @Override
                         public void onFailure(Call<ResponseModel<ArrayList<GetOrderResponseModel>>> call,Throwable t) {
-
+                            Toast.makeText(getActivity().getApplicationContext(), "Failed: "+t.getMessage(), Toast.LENGTH_SHORT).show();
+                            progressWindow.setVisibility(View.GONE);
                         }
                     } );
                 }

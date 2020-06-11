@@ -123,6 +123,8 @@
             android:elevation="15dp"/>
     </LinearLayout>
 
+    <include layout="@layout/progress_window"/>
+
    <!-- <EditText
 
         android:id="@+id/editText_itemName"

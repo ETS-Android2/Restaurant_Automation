@@ -21,6 +21,7 @@ import retrofit2.Response;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -46,6 +47,7 @@ import java.util.TimerTask;
 
 public class ChefDashboard extends Fragment {
     static RecyclerView recyclerView;
+    ConstraintLayout progressWindow;
     Call<ResponseModel<ArrayList<GetOrderResponseModel>>> call;
     Set<Integer> ordersSet;
     ChefDashboardAdapter dashboardAdapter;
@@ -75,6 +77,7 @@ public class ChefDashboard extends Fragment {
         noOrdersTV = view.findViewById(R.id.textViewNoOrders);
         noOrdersTV.setVisibility(View.GONE);
         context = getActivity().getApplicationContext();
+        progressWindow = view.findViewById(R.id.loadingLayout);
     }
 
     public void fetchOrders() {
@@ -87,7 +90,7 @@ public class ChefDashboard extends Fragment {
                     noOrdersTV.setVisibility(View.VISIBLE);
                     recyclerView.setVisibility(View.GONE);
                 }
-                if(orders != null && orders.getData() != null){
+                else if(!orders.getData().isEmpty()){
                     ArrayList<GetOrderResponseModel> ordersArrayList = orders.getData();
                     if(ordersSet != null){
                         Set<Integer> tempSet = new HashSet<>();
@@ -130,10 +133,12 @@ public class ChefDashboard extends Fragment {
                 }else{
                     Toast.makeText(context, ""+orders.getError(), Toast.LENGTH_SHORT).show();
                 }
+                progressWindow.setVisibility(View.GONE);
             }
 
             @Override
             public void onFailure(Call<ResponseModel<ArrayList<GetOrderResponseModel>>> call, Throwable t) {
+                progressWindow.setVisibility(View.GONE);
                 Toast.makeText(context, "Failed: "+t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -169,6 +174,7 @@ public class ChefDashboard extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        progressWindow.setVisibility(View.VISIBLE);
         createTimerTask();
     }
 
