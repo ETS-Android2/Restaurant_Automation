@@ -152,7 +152,7 @@ public class ChefDashboard extends Fragment {
                 handler.post(new Runnable() {
                     public void run() {
                         IDataService dataService = RetrofitClient.getRetrofitInstance().create(IDataService.class);
-                        call = dataService.getOrders(0, "0", "0", "0");
+                        call = dataService.getOrders(0, "0", "0", "0", false);
                         fetchOrders();
                     }
                 });

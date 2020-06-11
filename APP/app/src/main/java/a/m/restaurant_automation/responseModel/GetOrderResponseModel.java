@@ -13,6 +13,8 @@ public class GetOrderResponseModel implements Serializable {
     public String firstName;
     public String lastName;
     public String tableId;
+    public int statusId;
+    public boolean isPaid;
     public ArrayList<MenuItems> menuItems;
 }
 

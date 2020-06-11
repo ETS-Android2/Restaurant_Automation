@@ -78,7 +78,7 @@ public class ChefOrderHistoryFragment extends Fragment {
                 if(!checkEmptyData()){
                     progressWindow.setVisibility(View.VISIBLE);
                     IDataService iDataService = RetrofitClient.getRetrofitInstance().create( IDataService.class );
-                    Call<ResponseModel<ArrayList<GetOrderResponseModel>>> call = iDataService.getOrders( 0, fromDateET.getText().toString(), toDateET.getText().toString(), "0" );
+                    Call<ResponseModel<ArrayList<GetOrderResponseModel>>> call = iDataService.getOrders( 0, fromDateET.getText().toString(), toDateET.getText().toString(), "0" , false);
                     call.enqueue( new Callback<ResponseModel<ArrayList<GetOrderResponseModel>>>() {
                         @Override
                         public void onResponse(Call<ResponseModel<ArrayList<GetOrderResponseModel>>> call,Response<ResponseModel<ArrayList<GetOrderResponseModel>>> response) {

@@ -12,5 +12,6 @@ namespace RESTRODBACCESS.RequestModel
         public string fromDate { get; set; }
         public string toDate { get; set; }
         public string email { get; set; }
+        public bool needUnpaidOnly { get; set; }
     }
 }

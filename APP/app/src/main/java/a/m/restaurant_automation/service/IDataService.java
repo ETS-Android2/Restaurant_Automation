@@ -51,8 +51,8 @@ public interface IDataService {
     @POST("cart/deleteorModifyCartItems")
     Call<ResponseModel<StatusCheckResponse>> deleteOrModifyCartItems(@Query(value = "cartId") int cartId, @Query(value = "quantity") int quantity, @Query(value="isDelete") boolean isDelete);
 
-    @GET("orders/getOrders/{customerId}/{fromDate}/{toDate}/{email}/")
-    Call<ResponseModel<ArrayList<GetOrderResponseModel>>> getOrders(@Path(value = "customerId")int customerId, @Path(value = "fromDate") String fromDate, @Path(value = "toDate") String toDate, @Path(value = "email") String email);
+    @GET("orders/getOrders/{customerId}/{fromDate}/{toDate}/{email}/{needUnpaidOnly}")
+    Call<ResponseModel<ArrayList<GetOrderResponseModel>>> getOrders(@Path(value = "customerId")int customerId, @Path(value = "fromDate") String fromDate, @Path(value = "toDate") String toDate, @Path(value = "email") String email, @Path(value = "needUnpaidOnly") boolean needUnpaidOnly);
 
     @POST("orders/updateOrderStatus")
     Call<ResponseModel<OrderStatusUpdateResponse>> updateOrderStatus(@Body OrderStatusUpdateRequest orderStatusUpdateRequest);

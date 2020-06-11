@@ -136,6 +136,7 @@ namespace RESTRODBACCESS.Helper
                     command.Parameters.AddWithValue("fromDate", getOrdersRequestModel.fromDate);
                     command.Parameters.AddWithValue("toDate", getOrdersRequestModel.toDate);
                     command.Parameters.AddWithValue("email", getOrdersRequestModel.email);
+                    command.Parameters.AddWithValue("needUnpaidOnly", getOrdersRequestModel.needUnpaidOnly);
                     connection.Open();
                     orders = new List<GetOrdersResponseModel>();
                     SqlDataReader reader = command.ExecuteReader();
@@ -160,6 +161,8 @@ namespace RESTRODBACCESS.Helper
                             getOrdersResponseModel.isCardPayment = Convert.ToBoolean(reader["isCardPayment"].ToString());
                             getOrdersResponseModel.firstName = reader["FirstName"].ToString();
                             getOrdersResponseModel.lastName = reader["lastName"].ToString();
+                            getOrdersResponseModel.statusId = Convert.ToInt32(reader["orderStatusId"].ToString());
+                            getOrdersResponseModel.isPaid = Convert.ToBoolean(reader["isPaid"].ToString());
                             int temp = 0;
                             int.TryParse(reader["tableId"].ToString(), out temp);
                             if (temp != 0)

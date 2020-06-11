@@ -17,6 +17,8 @@ namespace RESTRODBACCESS.ResponseModel
         public string firstName { get; set; }
         public string lastName { get; set; }
         public int? tableId { get; set; }
+        public int statusId { get; set; }
+        public bool isPaid { get; set; }
         public List<MenuItems> menuItems { get; set; }
     }
     public class MenuItems
