@@ -2,13 +2,14 @@ package a.m.restaurant_automation.service;
 import java.util.ArrayList;
 
 import a.m.restaurant_automation.requestModel.AddToCartRequestModel;
-import a.m.restaurant_automation.requestModel.DeleteOrModifyCart;
+import a.m.restaurant_automation.requestModel.OrderCartItemRequestModel;
 import a.m.restaurant_automation.requestModel.OrderStatusUpdateRequest;
 import a.m.restaurant_automation.requestModel.ReserveTableRequest;
 import a.m.restaurant_automation.responseModel.CustomerReserveTableResponse;
 import a.m.restaurant_automation.responseModel.GetCartItemResponseModel;
 import a.m.restaurant_automation.responseModel.GetOrderResponseModel;
 import a.m.restaurant_automation.responseModel.MenuItemResponse;
+import a.m.restaurant_automation.responseModel.OrderCartItemResponseModel;
 import a.m.restaurant_automation.responseModel.OrderStatusUpdateResponse;
 import a.m.restaurant_automation.responseModel.ResponseModel;
 import a.m.restaurant_automation.responseModel.StatusCheckResponse;
@@ -51,8 +52,12 @@ public interface IDataService {
     @POST("cart/deleteorModifyCartItems")
     Call<ResponseModel<StatusCheckResponse>> deleteOrModifyCartItems(@Query(value = "cartId") int cartId, @Query(value = "quantity") int quantity, @Query(value="isDelete") boolean isDelete);
 
+
     @GET("orders/getOrders/{customerId}/{fromDate}/{toDate}/{email}/{needUnpaidOnly}")
     Call<ResponseModel<ArrayList<GetOrderResponseModel>>> getOrders(@Path(value = "customerId")int customerId, @Path(value = "fromDate") String fromDate, @Path(value = "toDate") String toDate, @Path(value = "email") String email, @Path(value = "needUnpaidOnly") boolean needUnpaidOnly);
+
+    @POST ("orders/addOrders")
+    Call<ResponseModel<OrderCartItemResponseModel>> addOrder (@Body OrderCartItemRequestModel orderCartItemRequestModel);
 
     @POST("orders/updateOrderStatus")
     Call<ResponseModel<OrderStatusUpdateResponse>> updateOrderStatus(@Body OrderStatusUpdateRequest orderStatusUpdateRequest);

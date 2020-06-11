@@ -15,10 +15,10 @@
         android:id="@+id/recyclerView_cart"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/radioGroup"/>
+        android:layout_above="@+id/radioGroupPaymentmethod"/>
 
    <RadioGroup
-       android:id="@+id/radioGroup"
+       android:id="@+id/radioGroupPaymentmethod"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_above="@+id/checkoutButton"

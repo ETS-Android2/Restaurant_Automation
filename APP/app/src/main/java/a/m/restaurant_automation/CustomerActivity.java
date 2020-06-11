@@ -3,7 +3,6 @@ package a.m.restaurant_automation;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
-
 import a.m.restaurant_automation.customer.CartFragmentCustomer;
 import a.m.restaurant_automation.customer.CustomerMenuItemAdapter;
 import a.m.restaurant_automation.requestModel.DeleteOrModifyCart;
@@ -15,17 +14,19 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import a.m.restaurant_automation.customer.CustomerCatergoryItemNavigate;
 import a.m.restaurant_automation.repository.UserSession;
 import a.m.restaurant_automation.requestModel.AddToCartRequestModel;
+import a.m.restaurant_automation.requestModel.OrderCartItemRequestModel;
+import a.m.restaurant_automation.responseModel.OrderCartItemResponseModel;
 import a.m.restaurant_automation.responseModel.ResponseModel;
+import a.m.restaurant_automation.responseModel.StatusCheckResponse;
 import a.m.restaurant_automation.service.IDataService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CustomerActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, CustomerCatergoryItemNavigate.OnaddToCartPress {
+public class CustomerActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, CustomerCatergoryItemNavigate.OnaddToCartPress , CartFragmentCustomer.OnCheckoutPress {
 
     public BottomNavigationView bottomNavigationView;
     public NavController navController;
@@ -33,16 +34,19 @@ public class CustomerActivity extends AppCompatActivity implements BottomNavigat
     private int Itemid , Quantity , AddedBy;
     private int cartIdCart,cartQuantity;
     private boolean cartIsDelete;
+    private int OrderBy;
+    private boolean IsDiningIn , IsCardPayment;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer);
         setUpNavigation();
     }
 
-    public void setUpNavigation(){
-
+    public void setUpNavigation()
+    {
         bottomNavigationView= findViewById(R.id.BottomnavigateMenuCustomer);
         navController= Navigation.findNavController(this,R.id.customerhostfragment);
         NavigationUI.setupWithNavController(bottomNavigationView,navController);
@@ -50,24 +54,16 @@ public class CustomerActivity extends AppCompatActivity implements BottomNavigat
         NavigationUI.setupActionBarWithNavController(this,navController);
         NavigationUI.setupWithNavController(bottomNavigationView,navController);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
-
-
     }
-
-
 
     @Override
     public void onBackPressed() { super.onBackPressed(); }
 
-
-
-
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem)
+    {
         menuItem.setCheckable(true);
-
         int id = menuItem.getItemId();
-
         switch (id){
             case R.id.tables:
                 // Toast.makeText(getApplicationContext(), "Dashboard", Toast.LENGTH_SHORT).show();
@@ -141,4 +137,40 @@ public class CustomerActivity extends AppCompatActivity implements BottomNavigat
         addToCart();
     }
 
+    public void onOrder()
+    {
+        IDataService dataService = RetrofitClient.getRetrofitInstance().create(IDataService.class);
+        OrderCartItemRequestModel orderCartItemRequestModel =  new OrderCartItemRequestModel();
+        orderCartItemRequestModel.orderBy = OrderBy ;
+        orderCartItemRequestModel.isDiningIn = IsDiningIn;
+        orderCartItemRequestModel.isCardPayment = IsCardPayment;
+
+        Call<ResponseModel<OrderCartItemResponseModel>> call = dataService.addOrder(orderCartItemRequestModel);
+        call.enqueue(new Callback<ResponseModel<OrderCartItemResponseModel>>() {
+            @Override
+            public void onResponse(Call<ResponseModel<OrderCartItemResponseModel>> call, Response<ResponseModel<OrderCartItemResponseModel>> response) {
+                ResponseModel<OrderCartItemResponseModel> responseModel = response.body();
+                if (responseModel != null) {
+                    if (responseModel.getError() != null) {
+                        Toast.makeText(getApplicationContext(), responseModel.getError().getErrorMessage(), Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getApplicationContext()," Added to orders", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel<OrderCartItemResponseModel>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "something went wrong" + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
+    @Override
+    public void onCheckoutPress(int orderBy, boolean isDiningIn, boolean isCardPayment) {
+        OrderBy = orderBy;
+        IsDiningIn = isDiningIn;
+        IsCardPayment = isCardPayment;
+        onOrder();
+    }
 }

@@ -5,14 +5,12 @@ import a.m.restaurant_automation.requestModel.AddTableRequestModel;
 import a.m.restaurant_automation.requestModel.EmployeeDeleteRequestModel;
 import a.m.restaurant_automation.requestModel.LoginRequestModel;
 import a.m.restaurant_automation.requestModel.MenuItemRequestModel;
-import a.m.restaurant_automation.requestModel.OrderCartItemRequestModel;
 import a.m.restaurant_automation.requestModel.RegisterRequestModel;
 import a.m.restaurant_automation.requestModel.TableDeleteRequestModel;
 import a.m.restaurant_automation.responseModel.CustomerReserveTableResponse;
-import a.m.restaurant_automation.responseModel.MenuItemResponse;
-import a.m.restaurant_automation.responseModel.OrderCartItemResponseModel;
-import a.m.restaurant_automation.responseModel.RegisterResponseModel;
 import a.m.restaurant_automation.responseModel.LoginResponseModel;
+import a.m.restaurant_automation.responseModel.MenuItemResponse;
+import a.m.restaurant_automation.responseModel.RegisterResponseModel;
 import a.m.restaurant_automation.responseModel.ResponseModel;
 import a.m.restaurant_automation.responseModel.TableResponseModel;
 import a.m.restaurant_automation.responseModel.UsersResponseModel;
@@ -43,8 +41,7 @@ public interface IUserService {
     @POST ("deleteorModifyTable")
     Call<ResponseModel<CustomerReserveTableResponse>> deleteTable (@Body TableDeleteRequestModel tableDeleteRequestModel);
 
-    @POST ("orders/addOrders")
-    Call<ResponseModel<OrderCartItemResponseModel>> addOrder (@Body OrderCartItemRequestModel orderCartItemRequestModel);
+
 
 
 
