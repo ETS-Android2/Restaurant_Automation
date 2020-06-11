@@ -1,6 +1,7 @@
 package a.m.restaurant_automation.manager;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,7 +70,13 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.ViewHo
             holder.menuItemPrice.setText("Price: " + menuItemResponse.get(position).getPrice().toString() + " $");
             holder.menuItemDescription.setText("Description: " +menuItemResponse.get(position).getMenuItemDescription());
             holder.removeItemButton.setTag(menuItemResponse.get(position).getMenuItemId());
-            Picasso.get().load(url).into(holder.menuItemImage);
+            if (menuItemResponse.get(position).getItemImage() ==null || menuItemResponse.get(position).getItemImage().equals("")){
+                Picasso.get().load(url).into(holder.menuItemImage);
+            }
+            else {
+                Picasso.get().load((menuItemResponse.get(position).getItemImage())).into(holder.menuItemImage);
+            }
+
         }
         else if (isTable){
             tableStatus=tableResponseModel.get(position).getAvailability();

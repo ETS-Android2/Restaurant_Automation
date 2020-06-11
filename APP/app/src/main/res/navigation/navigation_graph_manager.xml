@@ -43,5 +43,11 @@
         android:label="More Options"
         tools:layout="@layout/fragment_manager_more_options" />
 
+    <fragment
+        android:id="@+id/chefOrderHistoryFragment"
+        android:name="a.m.restaurant_automation.chef.ChefOrderHistoryFragment"
+        android:label="Order History"
+        tools:layout="@layout/fragment_chef_order_history" />
+
 
 </navigation>

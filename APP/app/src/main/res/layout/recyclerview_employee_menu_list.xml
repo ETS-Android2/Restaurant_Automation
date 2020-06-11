@@ -20,15 +20,17 @@
         <ImageView
             android:id="@+id/imageView_menuItem"
             android:layout_width="100dp"
-            android:layout_height="150dp"
-            android:layout_margin="20dp"/>
+            android:layout_height="120dp"
+            android:layout_margin="20dp"
+            android:scaleType="fitStart"
+            />
         <TextView
             android:id="@+id/textView_menuName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/imageView_menuItem"
             android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="10dp"
             android:text="Menu Name"
             android:textSize="17sp"
             />
@@ -41,7 +43,7 @@
                 android:layout_toRightOf="@id/imageView_menuItem"
                 android:layout_below="@id/textView_menuName"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="10dp"
                 android:text="Menu Price"
                 android:textSize="17sp"
                 />
@@ -53,8 +55,9 @@
                 android:layout_toRightOf="@id/imageView_menuItem"
                 android:layout_below="@id/textView_menuPrice"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="10dp"
                 android:text="Menu Desctiption"
+                android:layout_marginRight="5dp"
                 android:textSize="12sp"
                 android:maxLines="4"
                 />
@@ -65,13 +68,14 @@
 
         <Button
             android:id="@+id/removeItemButton"
-            android:layout_width="70dp"
-            android:layout_height="30dp"
-            android:layout_toRightOf="@id/imageView_menuItem"
+            android:layout_width="50dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="20dp"
             android:layout_gravity="bottom|right"
+            android:layout_below="@id/textView_menuDescription"
             android:layout_margin="30dp"
             android:text="Update"
-            android:textSize="12sp"
+            android:textSize="8sp"
             android:textColor="@android:color/white"
             android:background="@drawable/button_drawable"
             />

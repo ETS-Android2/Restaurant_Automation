@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -54,6 +55,7 @@ import java.util.Set;
 
 public class AddMenuItem extends AppCompatActivity implements View.OnClickListener {
     EditText editText_itemName, editText_itemPrice, editText_itemDescription, editText_addQuantity, editText_itemImage;
+    CircleImageView circleImageView;
     Spinner spinner_category;
     Button button_addItem;
     private int mUserType = AppStaticData.USERTYPE_MANAGER;

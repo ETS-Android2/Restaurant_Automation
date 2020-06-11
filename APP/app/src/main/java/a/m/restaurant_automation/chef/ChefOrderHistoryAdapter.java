@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -76,8 +75,8 @@ public class ChefOrderHistoryAdapter extends RecyclerView.Adapter<ChefOrderHisto
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tableIdTV = itemView.findViewById(R.id.txtTableNumberChef);
-            orderIdTV = itemView.findViewById(R.id.txtOrderNumberChef);
+            tableIdTV = itemView.findViewById(R.id.textView_tableNumberChef);
+            orderIdTV = itemView.findViewById(R.id.textView_orderNumberChef);
             personNameTV = itemView.findViewById(R.id.txtpersonNameChef);
             recyclerViewItems = itemView.findViewById(R.id.recyclerViewChefOrderHistory);
             expandCollapseBtn = itemView.findViewById(R.id.btnArrowDown);

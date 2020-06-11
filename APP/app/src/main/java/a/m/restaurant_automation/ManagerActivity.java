@@ -91,7 +91,7 @@ public class ManagerActivity extends AppCompatActivity implements BottomNavigati
                 return true;
 
             case R.id.OrderHistory:
-                navController.navigate(R.id.managerOrderHistoryFragment);
+                navController.navigate(R.id.chefOrderHistoryFragment);
                 return true;
 
 

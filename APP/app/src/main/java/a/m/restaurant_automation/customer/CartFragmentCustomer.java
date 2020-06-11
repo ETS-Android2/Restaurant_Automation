@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -46,7 +47,7 @@ public class CartFragmentCustomer extends Fragment implements View.OnClickListen
     UserSession session;
     CustomerMenuItemAdapter customerMenuItemAdapter;
     ArrayList<GetCartItemResponseModel> getCartItemResponseModels;
-
+    CustomerMenuItemAdapter.ItemsChangedListener listener;
     public CartFragmentCustomer() {
         // Required empty public constructor
     }
@@ -88,6 +89,13 @@ public class CartFragmentCustomer extends Fragment implements View.OnClickListen
         UserSession session =UserSession.getInstance();
         String userId = session.getUserId();
 
+        listener = new CustomerMenuItemAdapter.ItemsChangedListener(){
+            @Override
+            public void onItemsChanged(double sum) {
+                buttonCheckout.setText("Checkout: ( " + Double.toString(sum)+" $ )");
+            }
+        };
+
         IDataService dataService = RetrofitClient.getRetrofitInstance().create(IDataService.class);
         Call<ResponseModel<ArrayList<GetCartItemResponseModel>>> call =dataService.getCartItems(userId);
         call.enqueue(new Callback<ResponseModel<ArrayList<GetCartItemResponseModel>>>() {
@@ -117,7 +125,7 @@ public class CartFragmentCustomer extends Fragment implements View.OnClickListen
     }
 
     private void generateRecyclerView(ArrayList<GetCartItemResponseModel> getCartItemResponseModels, View viewCartItems) {
-        customerMenuItemAdapter =new CustomerMenuItemAdapter(getCartItemResponseModels,getActivity().getApplication(),0);
+        customerMenuItemAdapter =new CustomerMenuItemAdapter(getCartItemResponseModels,getActivity().getApplication(),listener);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext(),LinearLayoutManager.VERTICAL,false);
         RecyclerView recyclerView =viewCartItems.findViewById(R.id.recyclerView_cart);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -145,6 +153,7 @@ public class CartFragmentCustomer extends Fragment implements View.OnClickListen
             boolean isCardPayment = false;
             onCheckoutPress.onCheckoutPress(orderBy,isDiningIn,isCardPayment);
         }
+            Navigation.findNavController(v).navigate(R.id.orderFragment);
     }
 }
 

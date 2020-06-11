@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import a.m.restaurant_automation.RetrofitClient;
+import a.m.restaurant_automation.chef.ChefDashboard;
 import a.m.restaurant_automation.requestModel.AddToCartRequestModel;
 import a.m.restaurant_automation.requestModel.DeleteOrModifyCart;
 import a.m.restaurant_automation.responseModel.GetCartItemResponseModel;
@@ -43,7 +44,6 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
     public View.OnClickListener onItemListener_customer;
     public View.OnClickListener onItemListenerCart;
     String url = "https://cdn2.creativecirclemedia.com/neni/original/20190917-140036-Ratatouille-T5_93975.jpg";
-
     boolean isCart =false;
     boolean isMenu = false;
     int test= 0;
@@ -60,14 +60,14 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
         this.isMenu = true;
     }
 
-    public CustomerMenuItemAdapter(ArrayList<GetCartItemResponseModel> getCartItemResponseModel, Context context,int test) {
+    public CustomerMenuItemAdapter(ArrayList<GetCartItemResponseModel> getCartItemResponseModel, Context context,ItemsChangedListener listener) {
         this.getCartItemResponseModel = getCartItemResponseModel;
         size = this.getCartItemResponseModel.size();
         this.context = context;
         this.test = test;
         this.isCart = true;
+        itemsChangedListener = listener;
         //this.isMenu=false;
-
     }
 
 
@@ -91,9 +91,17 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
     @Override
     public void onBindViewHolder(@NonNull final CustomerMenuItemAdapter.ViewHolder holder, final int position) {
         if (isMenu){
+
             holder.menuItemName.setText("Name: "+menuItemResponsecustomer.get(position).getMenuItemName());
             holder.menuItemPrice.setText("Price: "+menuItemResponsecustomer.get(position).getPrice().toString() +" $");
             holder.menuItemDescription.setText("Description: "+menuItemResponsecustomer.get(position).getMenuItemDescription());
+            if (menuItemResponsecustomer.get(position).getItemImage() == null || menuItemResponsecustomer.get(position).getItemImage().equals("")){
+                Picasso.get().load(url).into(holder.menuItemImage);
+            }
+            else {
+               Picasso.get().load(menuItemResponsecustomer.get(position).getItemImage()).into(holder.menuItemImage);
+            }
+
             holder.addItemButton.setTag(menuItemResponsecustomer.get(position).getMenuItemId());
             holder.getAdapterPosition() ;
             tag = new AddToCartRequestModel();
@@ -138,7 +146,7 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
 
                 }
             });
-            Picasso.get().load(url).into(holder.menuItemImage);
+
         }
         else if (isCart){
             if (getCartItemResponseModel.size()>0) {
@@ -147,6 +155,12 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
                 holder.textView_itemName.setText("Name: " + getCartItemResponseModel.get(position).getMenuItemName());
                 holder.itemQuantity.setText("" + getCartItemResponseModel.get(position).getQuantity());
                 holder.textView_totalItemPrice.setText("" + getCartItemResponseModel.get(position).getPrice() + " $");
+
+                double sum = 0;
+                for (int i = 0; i < getCartItemResponseModel.size(); i++) {
+                    sum = sum   + getCartItemResponseModel.get(position).getPrice();
+                }
+                itemsChangedListener.onItemsChanged(sum);
                 holder.getAdapterPosition();
                 cartTag = new DeleteOrModifyCart();
 
@@ -209,7 +223,6 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
 
     public interface ItemsChangedListener {
         void onItemsChanged(double sum);
-
     }
 
     public void setItemsChangedListener(ItemsChangedListener listener) {
@@ -232,7 +245,7 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView menuItemName, menuItemPrice,menuItemQuantity, menuItemDescription;
+        TextView menuItemName, menuItemPrice,menuItemQuantity, menuItemDescription,test;
         Button  addItemButton, plusItem , subItem,checkOutButton;
         ImageView menuItemImage;
 
@@ -240,7 +253,6 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
         TextView textView_itemName, textView_itemPrice,itemQuantity,textView_totalItemPrice,textView_cartQuantity;
         Button addItemCart, subtractItemCart;
         ImageView removeItem;
-
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -295,7 +307,7 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
                     if (responseModel.getError() != null) {
                         Toast.makeText(context, responseModel.getError().getErrorMessage(), Toast.LENGTH_LONG).show();
                     } else {
-
+                        itemsChangedListener.onItemsChanged(responseModel.getData().total);
                         if (cartIsDelete && responseModel.getData().statusCode.equals("1")){
                             getCartItemResponseModel.remove(Postition);
                             size=getCartItemResponseModel.size();
@@ -303,9 +315,10 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
                         }
                         else if(responseModel.getData().statusCode.equals("1")){
                             holder.itemQuantity.setText(responseModel.getData().quantity);
-                            holder.textView_totalItemPrice.setText(Double.toString(responseModel.getData().itemTotal));
+                            holder.textView_totalItemPrice.setText(Double.toString(responseModel.getData().itemTotal) +" $");
+
                         }
-                        Toast.makeText(context.getApplicationContext(),responseModel.getData().statusMessage, Toast.LENGTH_LONG).show();
+                      //  Toast.makeText(context.getApplicationContext(),responseModel.getData().statusMessage, Toast.LENGTH_LONG).show();
                     }
                 }
             }

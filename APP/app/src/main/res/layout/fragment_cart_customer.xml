@@ -42,12 +42,15 @@
    </RadioGroup>
 
 
-
-
     <Button
+        android:background="@drawable/button_background_login"
         android:id="@+id/checkoutButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="Checkout"/>
+        android:text="Checkout"
+        android:textColor="@color/white"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"/>
 </RelativeLayout>

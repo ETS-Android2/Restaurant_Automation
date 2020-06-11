@@ -3,7 +3,6 @@ package a.m.restaurant_automation.chef;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -113,13 +112,13 @@ public class ChefDashboardAdapter extends RecyclerView.Adapter<ChefDashboardAdap
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tableIdTV = itemView.findViewById(R.id.txtTableNumberChef);
-            orderIdTV = itemView.findViewById(R.id.txtOrderNumberChef);
+            tableIdTV = itemView.findViewById(R.id.textView_tableNumberChef);
+            orderIdTV = itemView.findViewById(R.id.textView_orderNumberChef);
             personNameTV = itemView.findViewById(R.id.txtpersonNameChef);
-            recyclerViewItems = itemView.findViewById(R.id.recyclerViewChefScreenOrder);
+            recyclerViewItems = itemView.findViewById(R.id.recyclerView_chefOrder);
             expandCollapseBtn = itemView.findViewById(R.id.btnArrowDown);
             changeStatusButton = itemView.findViewById(R.id.buttonStatusChange);
-            cardView = itemView.findViewById(R.id.cardViewOrdersChef);
+            cardView = itemView.findViewById(R.id.cardViewOrderChef);
         }
     }
 

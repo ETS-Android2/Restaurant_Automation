@@ -43,6 +43,18 @@ public class MenuItemResponse {
     @Expose
     private String categoryTitle;
 
+    public String getItemImage() {
+        return itemImage;
+    }
+
+    public void setItemImage(String itemImage) {
+        this.itemImage = itemImage;
+    }
+
+    @SerializedName("itemImage")
+    @Expose
+    private String itemImage;
+
     public Integer getCategoryId() {
         return categoryId;
     }
