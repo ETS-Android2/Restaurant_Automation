@@ -90,7 +90,7 @@ public class ChefDashboard extends Fragment {
                     noOrdersTV.setVisibility(View.VISIBLE);
                     recyclerView.setVisibility(View.GONE);
                 }
-                else if(!orders.getData().isEmpty()){
+                else if(orders != null && orders.getData() != null && !orders.getData().isEmpty()){
                     ArrayList<GetOrderResponseModel> ordersArrayList = orders.getData();
                     if(ordersSet != null){
                         Set<Integer> tempSet = new HashSet<>();
