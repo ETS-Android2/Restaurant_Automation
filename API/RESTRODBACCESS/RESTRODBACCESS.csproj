@@ -126,6 +126,7 @@
     <Compile Include="ResponseModel\GetCartItemsResponseModel.cs" />
     <Compile Include="ResponseModel\GetOrderHistoryResponseModel.cs" />
     <Compile Include="ResponseModel\GetOrdersResponseModel.cs" />
+    <Compile Include="ResponseModel\GetReadyForPayment.cs" />
     <Compile Include="ResponseModel\GetTableResponseModel.cs" />
     <Compile Include="ResponseModel\MenuItemResponseModel.cs" />
     <Compile Include="ResponseModel\OrderCartItemResponseModel.cs" />

@@ -318,5 +318,81 @@ namespace RESTRODBACCESS.Helper
                 }
             }
         }
+
+
+        public List<GetReadyForPayment> getReadyForPayment(out ErrorModel errorModel)
+        {
+            errorModel = null;
+            List<GetReadyForPayment> readyForPay = null;
+            SqlConnection connection = null;
+            try
+            {
+                using (connection = new SqlConnection(Database.getConnectionString()))
+                {
+                    SqlCommand command = new SqlCommand(SqlCommands.SP_getreadyforPayment, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    #region Query Parameters
+
+
+                    #endregion
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    readyForPay = new List<GetReadyForPayment>();
+                    while (reader.Read())
+                    {
+                        if (reader.isColumnExists("ErrorCode"))
+                        {
+                            errorModel = new ErrorModel();
+                            errorModel.ErrorCode = reader["ErrorCode"].ToString();
+                            errorModel.ErrorMessage = reader["ErrorMessage"].ToString();
+                        }
+                        else
+                        {
+                            GetReadyForPayment getReadyResponse = new GetReadyForPayment();
+
+                            getReadyResponse.billId = Convert.ToInt32(reader["billId"].ToString());
+                            getReadyResponse.billingAmount=Convert.ToDouble(reader["billingAmount"].ToString());
+
+                            getReadyResponse.billDate= reader["billDate"].ToString(); 
+                            getReadyResponse.orderId= Convert.ToInt32(reader["orderId"].ToString()); 
+                            getReadyResponse.isPaid= Convert.ToBoolean(reader["isPaid"].ToString()); 
+                            getReadyResponse.isReadyToPay= Convert.ToBoolean(reader["isReadyToPay"].ToString()); 
+                            getReadyResponse.icCardPayment= Convert.ToBoolean(reader["isCardPayment"].ToString());
+                            getReadyResponse.FirstName = reader["FirstName"].ToString();
+                            getReadyResponse.lastName=reader["lastName"].ToString();
+                            if (getReadyResponse.tableID == null)
+                            {
+                                getReadyResponse.tableID = 0;
+                            }
+                            else
+                            {
+                                getReadyResponse.tableID = Convert.ToInt32(reader["tableID"].ToString());
+                            }
+                            readyForPay.Add(getReadyResponse);
+                        }
+                    }
+                    command.Dispose();
+                    connection.Close();
+                }
+
+                return readyForPay;
+            }
+            catch (Exception exception)
+            {
+                errorModel = new ErrorModel();
+                errorModel.ErrorMessage = exception.Message;
+                return null;
+            }
+            finally
+            {
+                if (connection != null)
+                {
+                    connection.Close();
+                }
+            }
+        }
     }
+
+
 }

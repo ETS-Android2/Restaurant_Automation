@@ -13,6 +13,8 @@
         public const string SP_deleteorModifyCartItems = "deleteorModifyCartItems";
         public const string SP_readyToPay = "readyToPay";
         public const string SP_changePaymentStatus = "changePaymentStatus";
+        public const string SP_getreadyforPayment = "getReadyForPayment";
+
 
 
 

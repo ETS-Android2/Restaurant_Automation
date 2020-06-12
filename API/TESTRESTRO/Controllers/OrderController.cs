@@ -101,5 +101,20 @@ namespace TESTRESTRO.Controllers
             aPIResponseModel.Error = errorModel;
             return Request.CreateResponse(HttpStatusCode.OK, aPIResponseModel);
         }
+
+
+        [HttpGet]
+        [Route("api/orders/getReadyForPayment")]
+        public HttpResponseMessage getReadyForPayment()
+        {
+            ErrorModel errorModel = null;
+            OrderProvider provider = new OrderProvider();
+
+            var readyForPayment = provider.getReadyForPayment(out errorModel);
+            APIResponseModel responseModel = new APIResponseModel();
+            responseModel.Response = readyForPayment;
+            responseModel.Error = errorModel;
+            return Request.CreateResponse(HttpStatusCode.OK, responseModel);
+        }
     }
 }

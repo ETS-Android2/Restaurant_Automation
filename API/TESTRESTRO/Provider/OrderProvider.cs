@@ -96,6 +96,20 @@ namespace TESTRESTRO.Provider
             }
         }
 
+        public List<GetReadyForPayment> getReadyForPayment(out ErrorModel errorModel)
+        {
+            errorModel = null;
+            try
+            {
+                Order orderHelper = new Order();
+                List<GetReadyForPayment> readyForPay = orderHelper.getReadyForPayment(out errorModel);
+                return readyForPay;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
 
     }
 }
