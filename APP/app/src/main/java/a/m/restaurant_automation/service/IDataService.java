@@ -11,6 +11,7 @@ import a.m.restaurant_automation.responseModel.ChangePaymentStatusResponse;
 import a.m.restaurant_automation.responseModel.CustomerReserveTableResponse;
 import a.m.restaurant_automation.responseModel.GetCartItemResponseModel;
 import a.m.restaurant_automation.responseModel.GetOrderResponseModel;
+import a.m.restaurant_automation.responseModel.GetReadyForPaymentResponseModel;
 import a.m.restaurant_automation.responseModel.MenuItemResponse;
 import a.m.restaurant_automation.responseModel.OrderCartItemResponseModel;
 import a.m.restaurant_automation.responseModel.OrderStatusUpdateResponse;
@@ -69,6 +70,9 @@ public interface IDataService {
 
     @POST("orders/readyToPay")
     Call<ResponseModel<StatusCheckResponse>> readyForPayment (@Body ReadyForPaymentRequestModel readyForPaymentRequestModel);
+
+    @GET("orders/getReadyForPayment")
+    Call<ResponseModel<ArrayList<GetReadyForPaymentResponseModel>>> getReadyForPayment();
 
 
 }

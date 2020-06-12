@@ -49,19 +49,18 @@ public class CashierActivity extends AppCompatActivity implements BottomNavigati
         int id = menuItem.getItemId();
 
         switch (id){
-            case R.id.Dashboard:
+            case R.id.DashboardCashier:
                 navController.navigate(R.id.cashierDashboardFragment);
                 return true;
 
-            case R.id.OrderHistory:
-//                navController.navigate(R.id.managerOrderHistoryFragment);
-//                return true;
+            case R.id.NewPaymentsCashier:
+               navController.navigate(R.id.cashierReadyForPaymentFragment);
+                return true;
 
 
-            case R.id.Moremenu:
-//                fragment=new OrderFragment();
-//                break;
-
+            case R.id.MoremenuCashier:
+                navController.navigate(R.id.cashierMoreItemsFragment);
+                return true;
         }
         return false;
     }

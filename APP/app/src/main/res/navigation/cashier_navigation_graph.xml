@@ -16,8 +16,8 @@
         android:label="fragment_cashier_more_items"
         tools:layout="@layout/fragment_cashier_more_items" />
     <fragment
-        android:id="@+id/cashierOrderHistoryFragment"
-        android:name="a.m.restaurant_automation.cashier.CashierOrderHistoryFragment"
-        android:label="fragment_cashier_order_history"
-        tools:layout="@layout/fragment_cashier_order_history" />
+        android:id="@+id/cashierReadyForPaymentFragment"
+        android:name="a.m.restaurant_automation.cashier.CashierReadyForPaymentFragment"
+        android:label="fragment_cashier_ready_for_payment"
+        tools:layout="@layout/fragment_cashier_ready_for_payment" />
 </navigation>
