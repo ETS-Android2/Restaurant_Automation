@@ -99,10 +99,4 @@ public class UserSession {
         userPreferences.edit().putString("expireDate",expireDate).commit();
     }
     public String getExpireDate(){return userPreferences.getString("expireDate","");}
-
-
-
-
-
-
 }
