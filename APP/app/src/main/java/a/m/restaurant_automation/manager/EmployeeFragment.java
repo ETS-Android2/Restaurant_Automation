@@ -45,30 +45,10 @@ public class EmployeeFragment extends Fragment{
 
     OnDeleteEmployeePress onDeleteEmployeePress;
 
-
-
-//        userTypeM[0] = 2;
-//        userTypeM[1] = 3;
-//        userTypeM[2] = 4;
-//        userTypeM[3] = 5;
-
-
-       // return userTypeM;
-
-
-
-
-
     public EmployeeFragment()
     {
 
     }
-
-//    public EmployeeFragment(int[] userTypeM) {
-//        // Required empty public constructor
-//        this.userTypeM = userTypeM;
-//    }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

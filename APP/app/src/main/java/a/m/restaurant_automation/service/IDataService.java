@@ -5,6 +5,7 @@ import a.m.restaurant_automation.requestModel.AddToCartRequestModel;
 import a.m.restaurant_automation.requestModel.ChangePaymentStatusRequest;
 import a.m.restaurant_automation.requestModel.OrderCartItemRequestModel;
 import a.m.restaurant_automation.requestModel.OrderStatusUpdateRequest;
+import a.m.restaurant_automation.requestModel.ReadyForPaymentRequestModel;
 import a.m.restaurant_automation.requestModel.ReserveTableRequest;
 import a.m.restaurant_automation.responseModel.ChangePaymentStatusResponse;
 import a.m.restaurant_automation.responseModel.CustomerReserveTableResponse;
@@ -65,4 +66,9 @@ public interface IDataService {
 
     @POST("order/changePaymentStatus")
     Call<ResponseModel<ChangePaymentStatusResponse>> changePaymentStatus(@Body ChangePaymentStatusRequest changePaymentStatusRequest);
+
+    @POST("orders/readyToPay")
+    Call<ResponseModel<StatusCheckResponse>> readyForPayment (@Body ReadyForPaymentRequestModel readyForPaymentRequestModel);
+
+
 }

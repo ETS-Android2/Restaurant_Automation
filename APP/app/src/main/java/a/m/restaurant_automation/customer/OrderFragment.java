@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import a.m.restaurant_automation.RetrofitClient;
 import a.m.restaurant_automation.repository.UserSession;
-import a.m.restaurant_automation.responseModel.GetCartItemResponseModel;
 import a.m.restaurant_automation.responseModel.GetOrderResponseModel;
 import a.m.restaurant_automation.responseModel.ResponseModel;
 import a.m.restaurant_automation.service.IDataService;
@@ -29,13 +28,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class OrderHistoryFragment extends Fragment {
+public class OrderFragment extends Fragment {
     RecyclerView recyclerView;
     TextView emptyText;
 
     ArrayList<GetOrderResponseModel> getOrderResponseModel;
     View viewOrders;
-    OrderHistoryAdapterCustomer orderHistoryAdapterCustomer;
+    OrderAdapterCustomer orderAdapterCustomer;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -84,12 +83,12 @@ public class OrderHistoryFragment extends Fragment {
     }
 
     private void generateRecyclerView(ArrayList<GetOrderResponseModel> getOrderResponseModel, View viewOrders) {
-      orderHistoryAdapterCustomer =new OrderHistoryAdapterCustomer(getOrderResponseModel,getActivity().getApplication());
+      orderAdapterCustomer =new OrderAdapterCustomer(getOrderResponseModel,getActivity().getApplication());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext(),LinearLayoutManager.VERTICAL,false);
         RecyclerView recyclerView =viewOrders.findViewById(R.id.recyclerView_customerOrder);
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(orderHistoryAdapterCustomer);
-        orderHistoryAdapterCustomer.notifyDataSetChanged();
+        recyclerView.setAdapter(orderAdapterCustomer);
+        orderAdapterCustomer.notifyDataSetChanged();
     }
 
     @Override
