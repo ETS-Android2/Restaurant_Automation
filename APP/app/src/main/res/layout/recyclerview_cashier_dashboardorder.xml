@@ -10,6 +10,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/cardview_cashiercard"
         android:layout_margin="6dp"
         app:cardCornerRadius="8dp"
         android:padding="5dp"
@@ -36,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="15dp"
-                    android:text="Order :"
+                    android:text="Bill :"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="25dp"
                     android:textStyle="bold" />
@@ -234,6 +235,7 @@
                     android:textSize="20sp"
                     android:textColor="@color/gray"
                     android:layout_marginLeft="20dp"
+                    android:id="@+id/textview_pricecashier"
                     />
 
             </LinearLayout>

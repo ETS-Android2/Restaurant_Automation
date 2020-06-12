@@ -2,9 +2,11 @@ package a.m.restaurant_automation.service;
 import java.util.ArrayList;
 
 import a.m.restaurant_automation.requestModel.AddToCartRequestModel;
+import a.m.restaurant_automation.requestModel.ChangePaymentStatusRequest;
 import a.m.restaurant_automation.requestModel.OrderCartItemRequestModel;
 import a.m.restaurant_automation.requestModel.OrderStatusUpdateRequest;
 import a.m.restaurant_automation.requestModel.ReserveTableRequest;
+import a.m.restaurant_automation.responseModel.ChangePaymentStatusResponse;
 import a.m.restaurant_automation.responseModel.CustomerReserveTableResponse;
 import a.m.restaurant_automation.responseModel.GetCartItemResponseModel;
 import a.m.restaurant_automation.responseModel.GetOrderResponseModel;
@@ -60,4 +62,7 @@ public interface IDataService {
 
     @POST("orders/updateOrderStatus")
     Call<ResponseModel<OrderStatusUpdateResponse>> updateOrderStatus(@Body OrderStatusUpdateRequest orderStatusUpdateRequest);
+
+    @POST("order/changePaymentStatus")
+    Call<ResponseModel<ChangePaymentStatusResponse>> changePaymentStatus(@Body ChangePaymentStatusRequest changePaymentStatusRequest);
 }

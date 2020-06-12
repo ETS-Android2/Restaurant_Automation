@@ -163,6 +163,7 @@ namespace RESTRODBACCESS.Helper
                             getOrdersResponseModel.lastName = reader["lastName"].ToString();
                             getOrdersResponseModel.statusId = Convert.ToInt32(reader["orderStatusId"].ToString());
                             getOrdersResponseModel.isPaid = Convert.ToBoolean(reader["isPaid"].ToString());
+                            getOrdersResponseModel.billId = Convert.ToInt32(reader["billId"].ToString());
                             int temp = 0;
                             int.TryParse(reader["tableId"].ToString(), out temp);
                             if (temp != 0)

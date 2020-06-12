@@ -50,7 +50,7 @@ public class CashierActivity extends AppCompatActivity implements BottomNavigati
 
         switch (id){
             case R.id.Dashboard:
-                navController.navigate(R.id.cashierHostFragment);
+                navController.navigate(R.id.cashierDashboardFragment);
                 return true;
 
             case R.id.OrderHistory:

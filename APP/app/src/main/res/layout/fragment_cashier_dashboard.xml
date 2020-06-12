@@ -7,11 +7,6 @@
     tools:context=".cashier.CashierDashboardFragment">
 
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cashier LOGOUT"
-        android:id="@+id/logout_cashier"/>
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -20,6 +15,16 @@
         android:layout_height="match_parent">
 
     </androidx.recyclerview.widget.RecyclerView>
+    <TextView
+        android:id="@+id/textViewNoOrdersCashier"
+        android:elevation="10dp"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:background="@drawable/mainbackground"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 
 

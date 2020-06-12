@@ -44,7 +44,7 @@ public class CustomerTablesAdapter extends RecyclerView.Adapter<CustomerTablesAd
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_reserve_table, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_reserviewtable, parent, false);
         context = parent.getContext();
         session = UserSession.getInstance();
         return new ViewHolder(view);

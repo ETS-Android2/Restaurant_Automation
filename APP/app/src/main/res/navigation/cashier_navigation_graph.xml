@@ -10,4 +10,14 @@
         android:name="a.m.restaurant_automation.cashier.CashierDashboardFragment"
         android:label="fragment_cashier_dashboard"
         tools:layout="@layout/fragment_cashier_dashboard" />
+    <fragment
+        android:id="@+id/cashierMoreItemsFragment"
+        android:name="a.m.restaurant_automation.cashier.CashierMoreItemsFragment"
+        android:label="fragment_cashier_more_items"
+        tools:layout="@layout/fragment_cashier_more_items" />
+    <fragment
+        android:id="@+id/cashierOrderHistoryFragment"
+        android:name="a.m.restaurant_automation.cashier.CashierOrderHistoryFragment"
+        android:label="fragment_cashier_order_history"
+        tools:layout="@layout/fragment_cashier_order_history" />
 </navigation>

@@ -39,7 +39,7 @@ public class ChefDashboardAdapter extends RecyclerView.Adapter<ChefDashboardAdap
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_chef_screen_orders, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_chef_dashboardorders, parent, false);
         this.context = parent.getContext();
         return new ViewHolder(v);
     }

@@ -27,7 +27,7 @@ public class ChefOrderHistoryAdapter extends RecyclerView.Adapter<ChefOrderHisto
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_chef_order_history, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_chef_orderhistory, parent, false);
         this.context = parent.getContext();
         return new ViewHolder(v);
     }
