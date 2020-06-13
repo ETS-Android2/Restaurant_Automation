@@ -55,7 +55,15 @@ public class OrderAdapterCustomer extends RecyclerView.Adapter<OrderAdapterCusto
         holder.textView_tableNumber.setText(""+getOrderResponseModel.get(position).tableId);
         holder.textView_orderNumber.setText(""+getOrderResponseModel.get(position).orderId);
         holder.textView_orderStatus.setText("Status: "+getOrderResponseModel.get(position).orderStatusTitle);
-        holder.payNow.setText("Pay Now ( "+getOrderResponseModel.get(position).billingAmount +" $ )");
+        if(getOrderResponseModel.get(position).isPaid)
+        {
+            holder.payNow.setText("Bill Amount ( " + getOrderResponseModel.get(position).billingAmount + " $ )");
+        }
+        else if(!getOrderResponseModel.get(position).isPaid){
+
+                holder.payNow.setText("Pay Now ( " + getOrderResponseModel.get(position).billingAmount + " $ )");
+           
+        }
 
         ChefDashBoardItemsAdapter itemsAdapter = new ChefDashBoardItemsAdapter(getOrderResponseModel.get(position).menuItems);
         holder.recyclerViewItems.setAdapter(itemsAdapter);
@@ -79,28 +87,42 @@ public class OrderAdapterCustomer extends RecyclerView.Adapter<OrderAdapterCusto
             }
         });
 
+
         holder.payNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick( final View v) {
-                alertDialogPayment = new AlertDialog.Builder(context);
-                alertDialogPayment.setTitle("Payment")
-                        .setMessage("Do you want to pay the bill and checkout?")
-                        .setPositiveButton("Pay Now", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                int orderId = getOrderResponseModel.get(position).orderId;
-                                payTheBill(orderId);
-                                holder.payNow.setText("Payed");
 
-                            }
-                        })
-                        .setNegativeButton("Not Now", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
-                            }
-                        }).create();
-                            alertDialogPayment.show();
+                if(!getOrderResponseModel.get(position).isPaid) {
+                    alertDialogPayment = new AlertDialog.Builder(context);
+                    alertDialogPayment.setTitle("Payment")
+                            .setMessage("Do you want to pay the bill and checkout?")
+                            .setPositiveButton("Pay Now", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    if(getOrderResponseModel.get(position).statusId==3) {
+                                        int orderId = getOrderResponseModel.get(position).orderId;
+                                        payTheBill(orderId);
+                                        holder.payNow.setText("Bill Amount ( " + getOrderResponseModel.get(position).billingAmount + " $ )");
+                                    }
+                                    else if(getOrderResponseModel.get(position).statusId!=3){
+                                        Toast.makeText(context,"Your order is not completed yet",Toast.LENGTH_LONG).show();
+                                    }
+
+
+
+                                }
+                            })
+                            .setNegativeButton("Not Now", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            }).create();
+                    alertDialogPayment.show();
+                }
+                else if(getOrderResponseModel.get(position).isPaid) {
+                    Toast.makeText(context,"You Paid "+getOrderResponseModel.get(position).billingAmount + " $ on " + getOrderResponseModel.get(position).orderDate.substring(0,10),Toast.LENGTH_LONG).show();
+                }
 
             }
         });

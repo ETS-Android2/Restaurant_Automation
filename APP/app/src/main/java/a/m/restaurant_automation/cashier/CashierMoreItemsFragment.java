@@ -1,5 +1,7 @@
 package a.m.restaurant_automation.cashier;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -45,10 +47,28 @@ public class CashierMoreItemsFragment extends Fragment {
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UserSession.getInstance().clearSession();
-                Intent _intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(_intent);
-                getActivity().finish();
+                AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
+                        .setTitle("Logout")
+                        .setMessage("Are you sure you want to logout?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                UserSession.getInstance().clearSession();
+                                Intent _intent = new Intent(getActivity(), LoginActivity.class);
+                                startActivity(_intent);
+                                getActivity().finish();
+
+
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .create();
+                alertDialog.show();
             }
         });
     }
