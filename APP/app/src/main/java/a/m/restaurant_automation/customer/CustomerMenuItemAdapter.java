@@ -28,6 +28,7 @@ import java.util.ArrayList;
 
 import a.m.restaurant_automation.R;
 import a.m.restaurant_automation.responseModel.MenuItemResponse;
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -155,6 +156,12 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
                 holder.textView_itemName.setText("Name: " + getCartItemResponseModel.get(position).getMenuItemName());
                 holder.itemQuantity.setText("" + getCartItemResponseModel.get(position).getQuantity());
                 holder.textView_totalItemPrice.setText("" + getCartItemResponseModel.get(position).getPrice() + " $");
+                if (getCartItemResponseModel.get(position).getItemImage() == null || getCartItemResponseModel.get(position).getItemImage().equals("")){
+                    Picasso.get().load(url).into(holder.itemImageCart);
+                }
+                else {
+                    Picasso.get().load(getCartItemResponseModel.get(position).getItemImage()).into(holder.itemImageCart);
+                }
 
                 double sum = 0;
                 for (int i = 0; i < getCartItemResponseModel.size(); i++) {
@@ -250,9 +257,9 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
         ImageView menuItemImage;
 
 
-        TextView textView_itemName, textView_itemPrice,itemQuantity,textView_totalItemPrice,textView_cartQuantity;
-        Button addItemCart, subtractItemCart;
-        ImageView removeItem;
+        TextView textView_itemName, textView_itemPrice,itemQuantity,textView_totalItemPrice;
+        ImageView removeItem,addItemCart, subtractItemCart;
+        CircleImageView itemImageCart;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -280,8 +287,8 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
                 addItemCart = itemView.findViewById(R.id.buttonAddQuantity);
                 addItemCart.setOnClickListener(onItemListenerCart);
                 textView_totalItemPrice = itemView.findViewById(R.id.textView_totalItemPrice);
-               // checkOutButton = itemView.findViewById(R.id.checkoutButton);
                subtractItemCart = itemView.findViewById(R.id.buttonSubtractQuantity);
+               itemImageCart = itemView.findViewById(R.id.itemImageCart);
                 itemView.setTag(this);
 
 

@@ -82,11 +82,6 @@ public class OrderAdapterCustomer extends RecyclerView.Adapter<OrderAdapterCusto
         holder.payNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick( final View v) {
-//                int orderId = getOrderResponseModel.get(position).orderId;
-//                                payTheBill(orderId);
-//                              holder.payNow.setText("Payed");
-
-
                 alertDialogPayment = new AlertDialog.Builder(context);
                 alertDialogPayment.setTitle("Payment")
                         .setMessage("Do you want to pay the bill and checkout?")
@@ -131,7 +126,6 @@ public class OrderAdapterCustomer extends RecyclerView.Adapter<OrderAdapterCusto
             textView_tableNumber = itemView.findViewById(R.id.textView_tableNumberCustomer);
             textView_orderStatus = itemView.findViewById(R.id.orderStatusCustomer);
             payNow = itemView.findViewById(R.id.payNow);
-           // payNow.setOnClickListener(onclickPayNow);
             expandCollapseBtn = itemView.findViewById(R.id.buttonArrowDown);
             recyclerViewItems = itemView.findViewById(R.id.recyclerView_customerOrderHistory);
         }
