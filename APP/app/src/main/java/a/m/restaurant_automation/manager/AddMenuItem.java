@@ -200,7 +200,7 @@ public class AddMenuItem extends AppCompatActivity implements View.OnClickListen
     public void uploadImage(final String image, final String fileName, final double itemPrice, final String itemDescription, final int itemQuantity, final int spinId) {
         imageUploaded = false;
         File file = new File(image);
-        AWSCredentials awsCredentials = new BasicAWSCredentials("AKIAWVL5TAEC46AWEGGT", "e1G/aSU4EbcoqCMhJ6AzQNmakbf7lvpaR/dLYqTR");
+        AWSCredentials awsCredentials = new BasicAWSCredentials("AKIAWVL5TAECZHQXLUM2", "ZF9UDWpkk50MwUsa9MviOT0xJiNvm0J+h0U9AyWw");
         AmazonS3 s3 = new AmazonS3Client(awsCredentials);
         TransferUtility transferUtility = new TransferUtility(s3, getApplicationContext());
         final TransferObserver observer = transferUtility.upload(

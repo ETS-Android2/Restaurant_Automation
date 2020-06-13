@@ -1,5 +1,7 @@
 package a.m.restaurant_automation.customer;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -76,6 +78,26 @@ public class CustomerTableViewFragment extends Fragment {
             Toast.makeText(getActivity().getApplicationContext(), "You already have a table reserved!!! To reserve other table you must end reservation for existing table!!!", Toast.LENGTH_LONG).show();
             bottomNavigationView.setSelectedItemId(R.id.menu);
             Navigation.findNavController(view).navigate(R.id.customerMenuItemsFragment);
+        }
+        if(session.getDiningInOrTakeOut().equalsIgnoreCase("T")){
+            final View v = view;
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage("You opt Take-Out before, Do you want to reserve a table?");
+            builder.setTitle("Reserve table!!!");
+            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    session.setDiningInOrTakeOut("D");
+                }
+            });
+            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    bottomNavigationView.setSelectedItemId(R.id.menu);
+                    Navigation.findNavController(v).navigate(R.id.customerMenuItemsFragment);
+                }
+            });
+            builder.show();
         }
         addCapacity.setOnClickListener(new View.OnClickListener() {
             @Override
