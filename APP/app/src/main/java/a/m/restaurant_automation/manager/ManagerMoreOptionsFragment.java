@@ -10,6 +10,7 @@ import a.m.restaurant_automation.R;
 import a.m.restaurant_automation.repository.UserSession;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
@@ -80,6 +81,7 @@ public class ManagerMoreOptionsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_manager_more_options, container, false);
     }

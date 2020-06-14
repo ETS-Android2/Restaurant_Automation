@@ -69,8 +69,13 @@ public class OrderAdapterCustomer extends RecyclerView.Adapter<OrderAdapterCusto
         holder.recyclerViewItems.setAdapter(itemsAdapter);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
         holder.recyclerViewItems.setLayoutManager(layoutManager);
+        ViewGroup.LayoutParams layoutParams = holder.recyclerViewItems.getLayoutParams();
+        layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
 
-        holder.expandCollapseBtn.setOnClickListener(new View.OnClickListener() {
+        holder.recyclerViewItems.setLayoutParams(layoutParams);
+
+
+        /*holder.expandCollapseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ViewGroup.LayoutParams layoutParams = holder.recyclerViewItems.getLayoutParams();
@@ -85,7 +90,7 @@ public class OrderAdapterCustomer extends RecyclerView.Adapter<OrderAdapterCusto
                 }
 
             }
-        });
+        });*/
 
 
         holder.payNow.setOnClickListener(new View.OnClickListener() {
@@ -144,7 +149,7 @@ public class OrderAdapterCustomer extends RecyclerView.Adapter<OrderAdapterCusto
             textView_tableNumber = itemView.findViewById(R.id.textView_tableNumberCustomer);
             textView_orderStatus = itemView.findViewById(R.id.orderStatusCustomer);
             payNow = itemView.findViewById(R.id.payNow);
-            expandCollapseBtn = itemView.findViewById(R.id.buttonArrowDown);
+            //expandCollapseBtn = itemView.findViewById(R.id.buttonArrowDown);
             recyclerViewItems = itemView.findViewById(R.id.recyclerView_customerOrderHistory);
         }
     }

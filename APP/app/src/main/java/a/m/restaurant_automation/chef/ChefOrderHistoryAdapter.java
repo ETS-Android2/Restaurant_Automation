@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import a.m.restaurant_automation.repository.UserSession;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,7 +35,25 @@ public class ChefOrderHistoryAdapter extends RecyclerView.Adapter<ChefOrderHisto
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        holder.tableIdTV.setText("" + orders.get(position).tableId);
+        if(orders.get(position).tableId==null || orders.get(position).tableId.equals("null"))
+        {
+            if(orders.get(position).isDiningIn == false)
+            {
+                holder.tableIdTV.setText("Take Away");
+            }
+            else
+            {
+                holder.tableIdTV.setVisibility(View.INVISIBLE);
+            }
+        }
+        else if(orders.get(position).tableId!=null)
+        {
+            if(orders.get(position).isDiningIn == true)
+            {
+                holder.tableIdTV.setText("" + orders.get(position).tableId);
+            }
+        }
+
         holder.orderIdTV.setText("" + orders.get(position).orderId);
         holder.personNameTV.setText(orders.get(position).firstName + " " + orders.get(position).lastName);
 

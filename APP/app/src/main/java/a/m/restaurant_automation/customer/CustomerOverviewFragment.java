@@ -50,16 +50,16 @@ public class CustomerOverviewFragment extends Fragment implements View.OnClickLi
                     if (response.body().Response)
                     {
                         session.setIsTableReserved("Y");
-                        session.setDiningInOrTakeOut("D");
+                        session.setDiningInOrTakeOut("TRUE");
                         bottomNavigationView.setSelectedItemId(R.id.menu);
                         Navigation.findNavController(view).navigate(R.id.customerMenuItemsFragment);
                     } else {
                         session.setIsTableReserved("N");
-                        if (session.getDiningInOrTakeOut().equalsIgnoreCase("D")) {
+                        if (session.getDiningInOrTakeOut().equalsIgnoreCase("TRUE")) {
                             bottomNavigationView.setSelectedItemId(R.id.tables);
                             Navigation.findNavController(view).navigate(R.id.customerTableViewFragment);
                         }
-                        if (session.getDiningInOrTakeOut().equalsIgnoreCase("T")) {
+                        if (session.getDiningInOrTakeOut().equalsIgnoreCase("FALSE")) {
                             bottomNavigationView.setSelectedItemId(R.id.menu);
                             Navigation.findNavController(view).navigate(R.id.customerMenuItemsFragment);
                         }
@@ -72,11 +72,11 @@ public class CustomerOverviewFragment extends Fragment implements View.OnClickLi
                 }
             });
         else{
-            if(session.getIsTableReserved().equalsIgnoreCase("Y") || session.getDiningInOrTakeOut().equalsIgnoreCase("T")){
+            if(session.getIsTableReserved().equalsIgnoreCase("Y") || session.getDiningInOrTakeOut().equalsIgnoreCase("FALSE")){
                 bottomNavigationView.setSelectedItemId(R.id.menu);
                 Navigation.findNavController(view).navigate(R.id.customerMenuItemsFragment);
             }
-            else if (session.getDiningInOrTakeOut().equalsIgnoreCase("D")) {
+            else if (session.getDiningInOrTakeOut().equalsIgnoreCase("TRUE")) {
                 bottomNavigationView.setSelectedItemId(R.id.tables);
                 Navigation.findNavController(view).navigate(R.id.customerTableViewFragment);
             }
@@ -113,13 +113,13 @@ public class CustomerOverviewFragment extends Fragment implements View.OnClickLi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnDineIn:
-                session.setDiningInOrTakeOut("D");
+                session.setDiningInOrTakeOut("TRUE");
                 bottomNavigationView.setSelectedItemId(R.id.tables);
                 Navigation.findNavController(view).navigate(R.id.customerTableViewFragment);
                 break;
             case R.id.btnTakeOut:
                 bottomNavigationView.setSelectedItemId(R.id.menu);
-                session.setDiningInOrTakeOut("T");
+                session.setDiningInOrTakeOut("FALSE");
                 Navigation.findNavController(view).navigate(R.id.customerMenuItemsFragment);
                 break;
         }

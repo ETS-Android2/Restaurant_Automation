@@ -28,6 +28,7 @@ public class CashierActivity extends AppCompatActivity implements BottomNavigati
 
         bottomNavigationView= findViewById(R.id.BottomnavigateMenuCashier);
         navController= Navigation.findNavController(this,R.id.cashierHostFragment);
+        bottomNavigationView.setSelectedItemId(R.id.NewPaymentsCashier);
         NavigationUI.setupWithNavController(bottomNavigationView,navController);
 
         NavigationUI.setupActionBarWithNavController(this,navController);
@@ -38,6 +39,7 @@ public class CashierActivity extends AppCompatActivity implements BottomNavigati
 
     @Override
     public void onBackPressed() {
+
         super.onBackPressed();
     }
 

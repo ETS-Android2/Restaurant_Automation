@@ -32,15 +32,15 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.01">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="15dp"
-                    android:text="Table:"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_marginLeft="15dp"-->
+<!--                    android:text="Table:"-->
+<!--                    android:textColor="@color/colorPrimaryDark"-->
+<!--                    android:textSize="17sp"-->
+<!--                    android:textStyle="bold" />-->
 
                 <TextView
                     android:id="@+id/textView_tableNumberChef"
@@ -48,7 +48,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="5dp"
-                    android:text="25"
+                    android:text=""
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="17sp"
                     android:textStyle="bold" />

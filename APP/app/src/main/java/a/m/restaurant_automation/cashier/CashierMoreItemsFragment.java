@@ -10,6 +10,7 @@ import a.m.restaurant_automation.R;
 import a.m.restaurant_automation.repository.UserSession;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -33,9 +34,12 @@ public class CashierMoreItemsFragment extends Fragment {
 
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_cashier_more_items, container, false);
     }
@@ -43,6 +47,7 @@ public class CashierMoreItemsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         logOut = view.findViewById(R.id.logout_cashier);
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override

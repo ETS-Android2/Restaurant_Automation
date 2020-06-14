@@ -361,14 +361,10 @@ namespace RESTRODBACCESS.Helper
                             getReadyResponse.icCardPayment= Convert.ToBoolean(reader["isCardPayment"].ToString());
                             getReadyResponse.FirstName = reader["FirstName"].ToString();
                             getReadyResponse.lastName=reader["lastName"].ToString();
-                            if (getReadyResponse.tableID == null)
-                            {
-                                getReadyResponse.tableID = 0;
-                            }
-                            else
-                            {
-                                getReadyResponse.tableID = Convert.ToInt32(reader["tableID"].ToString());
-                            }
+                           
+                           
+                            getReadyResponse.tableID = Convert.ToInt32(reader["tableID"].ToString());
+                            
                             readyForPay.Add(getReadyResponse);
                         }
                     }

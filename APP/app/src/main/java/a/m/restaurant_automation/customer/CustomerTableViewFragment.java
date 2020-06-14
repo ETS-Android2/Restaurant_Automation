@@ -67,7 +67,7 @@ public class CustomerTableViewFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         bottomNavigationView = getActivity().findViewById(R.id.BottomnavigateMenuCustomer);
-        bottomNavigationView.setVisibility(View.VISIBLE);
+        bottomNavigationView.setVisibility(View.INVISIBLE);
         recyclerView = view.findViewById(R.id.recyclerviewReserveTable);
         textViewCapacity = view.findViewById(R.id.textViewCapacity);
         addCapacity = view.findViewById(R.id.btnPlusCapacityTable);
@@ -79,7 +79,7 @@ public class CustomerTableViewFragment extends Fragment {
             bottomNavigationView.setSelectedItemId(R.id.menu);
             Navigation.findNavController(view).navigate(R.id.customerMenuItemsFragment);
         }
-        if(session.getDiningInOrTakeOut().equalsIgnoreCase("T")){
+        if(session.getDiningInOrTakeOut().equalsIgnoreCase("FALSE")){
             final View v = view;
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setMessage("You opt Take-Out before, Do you want to reserve a table?");
