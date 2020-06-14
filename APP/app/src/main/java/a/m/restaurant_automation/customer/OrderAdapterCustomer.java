@@ -57,12 +57,12 @@ public class OrderAdapterCustomer extends RecyclerView.Adapter<OrderAdapterCusto
         holder.textView_orderStatus.setText("Status: "+getOrderResponseModel.get(position).orderStatusTitle);
         if(getOrderResponseModel.get(position).isPaid)
         {
-            holder.payNow.setText("Bill Amount ( " + getOrderResponseModel.get(position).billingAmount + " $ )");
+            holder.payNow.setText("Bill Amount : " + getOrderResponseModel.get(position).billingAmount + " $");
         }
         else if(!getOrderResponseModel.get(position).isPaid){
 
                 holder.payNow.setText("Pay Now ( " + getOrderResponseModel.get(position).billingAmount + " $ )");
-           
+
         }
 
         ChefDashBoardItemsAdapter itemsAdapter = new ChefDashBoardItemsAdapter(getOrderResponseModel.get(position).menuItems);
@@ -102,14 +102,12 @@ public class OrderAdapterCustomer extends RecyclerView.Adapter<OrderAdapterCusto
                                     if(getOrderResponseModel.get(position).statusId==3) {
                                         int orderId = getOrderResponseModel.get(position).orderId;
                                         payTheBill(orderId);
-                                        holder.payNow.setText("Bill Amount ( " + getOrderResponseModel.get(position).billingAmount + " $ )");
+                                        //holder.payNow.setText("Bill Amount ( " + getOrderResponseModel.get(position).billingAmount + " $ )");
+                                        holder.payNow.setVisibility(View.INVISIBLE);
                                     }
                                     else if(getOrderResponseModel.get(position).statusId!=3){
                                         Toast.makeText(context,"Your order is not completed yet",Toast.LENGTH_LONG).show();
                                     }
-
-
-
                                 }
                             })
                             .setNegativeButton("Not Now", new DialogInterface.OnClickListener() {
@@ -123,10 +121,8 @@ public class OrderAdapterCustomer extends RecyclerView.Adapter<OrderAdapterCusto
                 else if(getOrderResponseModel.get(position).isPaid) {
                     Toast.makeText(context,"You Paid "+getOrderResponseModel.get(position).billingAmount + " $ on " + getOrderResponseModel.get(position).orderDate.substring(0,10),Toast.LENGTH_LONG).show();
                 }
-
             }
         });
-
     }
 
 

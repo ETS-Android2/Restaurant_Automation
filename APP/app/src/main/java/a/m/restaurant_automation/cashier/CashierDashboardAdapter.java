@@ -51,6 +51,7 @@ public class CashierDashboardAdapter extends RecyclerView.Adapter<CashierDashboa
         holder.personNameTV.setText(orders.get(position).firstName + " " + orders.get(position).lastName);
         holder.priceTV.setText(""+orders.get(position).billingAmount);
 
+
         CashierDashBoardItemsAdapter itemsAdapter = new CashierDashBoardItemsAdapter(orders.get(position).menuItems);
         holder.recyclerViewItems.setAdapter(itemsAdapter);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
@@ -58,7 +59,8 @@ public class CashierDashboardAdapter extends RecyclerView.Adapter<CashierDashboa
 
 
 
-        if (!orders.get(position).isPaid) {
+
+      /*  if (!orders.get(position).isPaid) {
 
             holder.paymentButton.setText("PAYMENT");
         }
@@ -71,7 +73,7 @@ public class CashierDashboardAdapter extends RecyclerView.Adapter<CashierDashboa
                     showAlert("Change the payment status of the order.", orders.get(position).billId);
                 }
             }
-        });
+        });*/
 
         holder.expandCollapseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,7 +117,7 @@ public class CashierDashboardAdapter extends RecyclerView.Adapter<CashierDashboa
         }
     }
 
-    public void changePaymentStatus(int billId) {
+   /* public void changePaymentStatus(int billId) {
         IDataService dataService = RetrofitClient.getRetrofitInstance().create(IDataService.class);
         ChangePaymentStatusRequest changePaymentStatusRequest =  new ChangePaymentStatusRequest();
         changePaymentStatusRequest.billId=billId;
@@ -145,9 +147,9 @@ public class CashierDashboardAdapter extends RecyclerView.Adapter<CashierDashboa
                 Toast.makeText(context, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-    }
+    }*/
 
-    public void showAlert(String message, final int billId) {
+ /*   public void showAlert(String message, final int billId) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Change Order Status!!!");
         builder.setMessage(message);
@@ -159,5 +161,5 @@ public class CashierDashboardAdapter extends RecyclerView.Adapter<CashierDashboa
         });
         builder.setNegativeButton("No", null);
         builder.show();
-    }
+    }*/
 }

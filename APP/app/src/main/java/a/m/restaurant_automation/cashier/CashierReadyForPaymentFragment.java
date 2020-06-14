@@ -2,6 +2,7 @@ package a.m.restaurant_automation.cashier;
 
 import android.os.Bundle;
 
+import a.m.restaurant_automation.CashierActivity;
 import a.m.restaurant_automation.R;
 import a.m.restaurant_automation.RetrofitClient;
 import a.m.restaurant_automation.customer.CustomerMenuItemAdapter;
