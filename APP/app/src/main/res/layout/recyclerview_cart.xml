@@ -41,6 +41,7 @@
                 android:layout_toRightOf="@id/itemImageCart"
                 android:text="Menu Name"
                 android:textSize="17sp"
+                android:textColor="@android:color/black"
                 />
             <LinearLayout
                 android:layout_toRightOf="@+id/itemImageCart"
@@ -59,18 +60,19 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_below="@id/textView_itemName_cart"
-                android:text="Price"
+                android:text="PRICE"
+                android:textColor="@android:color/black"
                 android:textSize="17sp"
                 />
 
             <LinearLayout
                 android:layout_width="110dp"
-                android:layout_height="30dp"
+                android:layout_height="27dp"
                 android:orientation="horizontal"
                 android:weightSum="2"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="7dp"
                 android:layout_gravity="center"
-                android:background="@drawable/roundbox">
+                android:background="@drawable/button_drawable">
 
                 <ImageView
                     android:id="@+id/buttonSubtractQuantity"
@@ -84,7 +86,8 @@
                     android:id="@+id/textviewQuantityCart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="25sp"
+                    android:textSize="22sp"
+                    android:textColor="@color/white"
                     android:text="1"/>
 
                 <ImageView
@@ -95,39 +98,6 @@
                     android:layout_weight="1"
                     />
             </LinearLayout>
-
-           <!--     <Button
-                    android:layout_marginLeft="10dp"
-                    android:id="@+id/buttonSubtractQuantity"
-                    android:layout_width="40dp"
-                    android:layout_height="30dp"
-                    android:background="@drawable/button_drawable"
-                    android:textColor="@android:color/white"
-                    android:text="-"
-                    android:textSize="20dp"
-                    />
-
-                <TextView
-                    android:layout_marginLeft="10dp"
-                    android:id="@+id/textviewQuantityCart"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:background="#00131313"
-                    android:text="0"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="19sp"
-                    android:textStyle="bold" />
-
-                <Button
-                    android:layout_marginLeft="10dp"
-                    android:id="@+id/buttonAddQuantity"
-                    android:layout_width="50dp"
-                    android:layout_height="30dp"
-                    android:background="@drawable/button_drawable"
-                    android:textColor="@android:color/white"
-                    android:text="+"
-                    android:textSize="20dp"
-                    /> -->
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -141,9 +111,10 @@
                     android:id="@+id/textView_totalItemPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="3dp"
                     android:text="200$"
                     android:textSize="19sp"
+                    android:textColor="@android:color/holo_green_dark"
                     android:layout_gravity="center"
                     />
 

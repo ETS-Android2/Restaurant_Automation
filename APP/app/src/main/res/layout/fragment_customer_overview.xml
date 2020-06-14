@@ -285,7 +285,7 @@
                     android:layout_height="wrap_content"
                     app:srcCompat="@drawable/ic_check_circle_black_24dp"/>
                 <TextView
-                    android:text="Takeaway Avaialble"
+                    android:text="Takeaway Available"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="2dp"
                     android:layout_width="wrap_content"

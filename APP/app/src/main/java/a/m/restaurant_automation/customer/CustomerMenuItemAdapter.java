@@ -93,9 +93,9 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
     public void onBindViewHolder(@NonNull final CustomerMenuItemAdapter.ViewHolder holder, final int position) {
         if (isMenu){
 
-            holder.menuItemName.setText("Name: "+menuItemResponsecustomer.get(position).getMenuItemName());
-            holder.menuItemPrice.setText("Price: "+menuItemResponsecustomer.get(position).getPrice().toString() +" $");
-            holder.menuItemDescription.setText("Description: "+menuItemResponsecustomer.get(position).getMenuItemDescription());
+            holder.menuItemName.setText("NAME: "+menuItemResponsecustomer.get(position).getMenuItemName());
+            holder.menuItemPrice.setText("PRICE: "+menuItemResponsecustomer.get(position).getPrice().toString() +" $");
+            holder.menuItemDescription.setText("DESCRIPTION: "+menuItemResponsecustomer.get(position).getMenuItemDescription());
             if (menuItemResponsecustomer.get(position).getItemImage() == null || menuItemResponsecustomer.get(position).getItemImage().equals("")){
                 Picasso.get().load(url).into(holder.menuItemImage);
             }
@@ -153,7 +153,7 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
             if (getCartItemResponseModel.size()>0) {
 
 
-                holder.textView_itemName.setText("Name: " + getCartItemResponseModel.get(position).getMenuItemName());
+                holder.textView_itemName.setText("NAME: " + getCartItemResponseModel.get(position).getMenuItemName());
                 holder.itemQuantity.setText("" + getCartItemResponseModel.get(position).getQuantity());
                 holder.textView_totalItemPrice.setText("" + getCartItemResponseModel.get(position).getPrice() + " $");
                 if (getCartItemResponseModel.get(position).getItemImage() == null || getCartItemResponseModel.get(position).getItemImage().equals("")){
@@ -253,8 +253,8 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView menuItemName, menuItemPrice,menuItemQuantity, menuItemDescription,test;
-        Button  addItemButton, plusItem , subItem,checkOutButton;
-        ImageView menuItemImage;
+        Button  addItemButton;
+        ImageView menuItemImage,plusItem , subItem;
 
 
         TextView textView_itemName, textView_itemPrice,itemQuantity,textView_totalItemPrice;

@@ -58,7 +58,7 @@ public class CustomerTablesAdapter extends RecyclerView.Adapter<CustomerTablesAd
             holder.capacityTextView.setVisibility(View.GONE);
         }
         else{
-            holder.tableIdTextView.setText("Table "+tables.get(position).tableId);
+            holder.tableIdTextView.setText("Table Number: "+tables.get(position).tableId);
             holder.capacityTextView.setText("Capacity: "+tables.get(position).capacity);
         }
         holder.bookButton.setOnClickListener(new View.OnClickListener() {

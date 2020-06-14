@@ -33,6 +33,7 @@
             android:layout_marginLeft="10dp"
             android:text="Menu Name"
             android:textSize="17sp"
+            android:textColor="@android:color/black"
             />
 
 
@@ -46,6 +47,7 @@
                 android:layout_marginLeft="10dp"
                 android:text="Menu Price"
                 android:textSize="17sp"
+                android:textColor="@android:color/black"
                 />
 
             <TextView

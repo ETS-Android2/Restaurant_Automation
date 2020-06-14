@@ -6,7 +6,7 @@
     tools:context=".customer.CustomerTableViewFragment">
 
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#F2F8F8"
@@ -15,19 +15,30 @@
 
         <TextView
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hello Customer!"
+            android:textColor="@color/white"
+            android:gravity="center_horizontal"
+            android:textSize="25sp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="serif"
+            android:background="@drawable/mainbackground"/>
+
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@drawable/mainbackground"
-            android:gravity="center_horizontal"
-            android:text="How many people?"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="Please Choose the capacity for table?"
             android:textColor="@color/white"
-            android:textSize="25sp"
-            android:textStyle="italic" />
+            android:textSize="18sp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@drawable/mainbackground"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center">
 
             <Button
                 android:id="@+id/btnMinusCapacityTable"
@@ -49,7 +60,7 @@
                 android:text="1"
                 android:textColor="@color/white"
                 android:textSize="25sp"
-                android:textStyle="italic" />
+                />
 
             <Button
                 android:id="@+id/btnPlusCapacityTable"
@@ -63,12 +74,18 @@
                 android:textStyle="bold" />
 
             <Button
+
                 android:id="@+id/btnDoneCapacity"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="100dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="10dp"
                 android:layout_gravity="start"
-                android:layout_marginLeft="80dp"
-                android:background="@drawable/ic_tick" />
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/button_background_login"
+                android:text="Show Result"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
 
         </LinearLayout>
 
