@@ -128,8 +128,15 @@ public class CustomerCatergoryItemNavigate extends Fragment  {
                 //int itemid = (int) v.getTag();
                 AddToCartRequestModel tag = (AddToCartRequestModel) v.getTag();
                 int addedby = Integer.parseInt(session.getInstance().getUserId());
-
-                onaddToCartPress.onaddToCartPress(tag.itemId, tag.quantity, addedby);
+                if(tag != null) {
+                    if(tag.quantity != 0)
+                    onaddToCartPress.onaddToCartPress(tag.itemId, tag.quantity, addedby);
+                    else
+                        Toast.makeText(getContext().getApplicationContext(), "Please add atleast a single quantity of item!!!", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(getContext().getApplicationContext(), "Please add atleast a single quantity of item!!!", Toast.LENGTH_SHORT).show();
+                }
             }
 
         }

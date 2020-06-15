@@ -102,12 +102,10 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
             else {
                Picasso.get().load(menuItemResponsecustomer.get(position).getItemImage()).into(holder.menuItemImage);
             }
-
-            holder.addItemButton.setTag(menuItemResponsecustomer.get(position).getMenuItemId());
             holder.getAdapterPosition() ;
+
+            holder.addItemButton.setTag(tag);
             tag = new AddToCartRequestModel();
-
-
 
             holder.plusItem.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -141,7 +139,9 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
                                 countQuantity -=1;
                                 holder.menuItemQuantity.setText(""+countQuantity);
                             }
-
+                            tag.itemId = menuItemResponsecustomer.get(position).getMenuItemId();
+                            tag.quantity= countQuantity;
+                            holder.addItemButton.setTag(tag);
                         }
                     });
 
