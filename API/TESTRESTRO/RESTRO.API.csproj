@@ -198,6 +198,7 @@
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="Controllers\NotificationsController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\TableController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -213,6 +214,7 @@
     <Compile Include="Provider\EmployeeProvider.cs" />
     <Compile Include="Provider\ErrorCode.cs" />
     <Compile Include="Provider\MenuProvider.cs" />
+    <Compile Include="Provider\NotificationProvider.cs" />
     <Compile Include="Provider\OrderProvider.cs" />
     <Compile Include="Provider\TableProvider.cs" />
     <Compile Include="Provider\UserProvider.cs" />
