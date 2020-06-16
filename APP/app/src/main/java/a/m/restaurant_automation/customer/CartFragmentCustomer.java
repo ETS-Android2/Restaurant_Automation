@@ -35,12 +35,12 @@ import retrofit2.Response;
 
 public class CartFragmentCustomer extends Fragment implements View.OnClickListener {
 
-    TextView textView_itemName_cart,textView_itemPrice_cart,emptyTextCart,textView_quantity_cart;
+    TextView textView_itemName_cart, textView_itemPrice_cart, emptyTextCart, textView_quantity_cart;
     Button addCartItem, subtractCartItem, RemoveItem, checkoutButton;
     int userId;
     View viewCartItems;
     RadioGroup radioGroupPaymentMethod;
-    RadioButton radioButtoncardPayment, radioButtoncashPayment ,radioButtonType;
+    RadioButton radioButtoncardPayment, radioButtoncashPayment, radioButtonType;
     int selectedRadioType;
     Button buttonCheckout;
     OnCheckoutPress onCheckoutPress;
@@ -48,10 +48,12 @@ public class CartFragmentCustomer extends Fragment implements View.OnClickListen
     CustomerMenuItemAdapter customerMenuItemAdapter;
     ArrayList<GetCartItemResponseModel> getCartItemResponseModels;
     CustomerMenuItemAdapter.ItemsChangedListener listener;
+
     public CartFragmentCustomer() {
         // Required empty public constructor
     }
-//    public CartFragmentCustomer(int userId) {
+
+    //    public CartFragmentCustomer(int userId) {
 //        this.userId = userId;
 //        //  public constructor to get the parameter
 //    }
@@ -75,9 +77,9 @@ public class CartFragmentCustomer extends Fragment implements View.OnClickListen
         emptyTextCart = view.findViewById(R.id.emptyTextCart);
         textView_itemName_cart = view.findViewById(R.id.textView_itemName_cart);
         textView_itemPrice_cart = view.findViewById(R.id.textView_itemPrice_cart);
-        addCartItem=view.findViewById(R.id.buttonAddQuantity);
-        subtractCartItem=view.findViewById(R.id.buttonSubtractQuantity);
-        textView_quantity_cart=view.findViewById(R.id.textviewQuantityCart);
+        addCartItem = view.findViewById(R.id.buttonAddQuantity);
+        subtractCartItem = view.findViewById(R.id.buttonSubtractQuantity);
+        textView_quantity_cart = view.findViewById(R.id.textviewQuantityCart);
         viewCartItems = view;
         radioGroupPaymentMethod = view.findViewById(R.id.radioGroupPaymentmethod);
         radioButtoncardPayment = view.findViewById(R.id.cardPayment_radioButton);
@@ -86,33 +88,32 @@ public class CartFragmentCustomer extends Fragment implements View.OnClickListen
         radioButtonType = view.findViewById(selectedRadioType);
         buttonCheckout = view.findViewById(R.id.checkoutButton);
         buttonCheckout.setOnClickListener(this);
-        UserSession session =UserSession.getInstance();
+        UserSession session = UserSession.getInstance();
         String userId = session.getUserId();
 
-        listener = new CustomerMenuItemAdapter.ItemsChangedListener(){
+        listener = new CustomerMenuItemAdapter.ItemsChangedListener() {
             @Override
             public void onItemsChanged(double sum) {
-                buttonCheckout.setText("Checkout: ( " + Double.toString(sum)+" $ )");
+                buttonCheckout.setText("Checkout: ( " + Double.toString(sum) + " $ ) + tax(14.975%)");
             }
         };
 
         IDataService dataService = RetrofitClient.getRetrofitInstance().create(IDataService.class);
-        Call<ResponseModel<ArrayList<GetCartItemResponseModel>>> call =dataService.getCartItems(userId);
+        Call<ResponseModel<ArrayList<GetCartItemResponseModel>>> call = dataService.getCartItems(userId);
         call.enqueue(new Callback<ResponseModel<ArrayList<GetCartItemResponseModel>>>() {
             @Override
             public void onResponse(Call<ResponseModel<ArrayList<GetCartItemResponseModel>>> call, Response<ResponseModel<ArrayList<GetCartItemResponseModel>>> response) {
-                ResponseModel<ArrayList<GetCartItemResponseModel>> responseModel =response.body();
+                ResponseModel<ArrayList<GetCartItemResponseModel>> responseModel = response.body();
 
-                if (responseModel != null && responseModel.getError() != null){
+                if (responseModel != null && responseModel.getError() != null) {
                     Toast.makeText(getActivity().getApplicationContext(), responseModel.getError().getErrorMessage(), Toast.LENGTH_LONG).show();
-                }
-                else if (responseModel!= null && responseModel.getData() != null){
-                    getCartItemResponseModels =responseModel.getData();
-                    if (getCartItemResponseModels == null || getCartItemResponseModels.size() == 0){
+                } else if (responseModel != null && responseModel.getData() != null) {
+                    getCartItemResponseModels = responseModel.getData();
+                    if (getCartItemResponseModels == null || getCartItemResponseModels.size() == 0) {
                         emptyTextCart.setVisibility(View.VISIBLE);
-                    }else {
+                    } else {
                         emptyTextCart.setVisibility(View.GONE);
-                        generateRecyclerView(getCartItemResponseModels,viewCartItems);
+                        generateRecyclerView(getCartItemResponseModels, viewCartItems);
                     }
                 }
             }
@@ -125,41 +126,37 @@ public class CartFragmentCustomer extends Fragment implements View.OnClickListen
     }
 
     private void generateRecyclerView(ArrayList<GetCartItemResponseModel> getCartItemResponseModels, View viewCartItems) {
-        customerMenuItemAdapter =new CustomerMenuItemAdapter(getCartItemResponseModels,getActivity().getApplication(),listener);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext(),LinearLayoutManager.VERTICAL,false);
-        RecyclerView recyclerView =viewCartItems.findViewById(R.id.recyclerView_cart);
+        customerMenuItemAdapter = new CustomerMenuItemAdapter(getCartItemResponseModels, getActivity().getApplication(), listener);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+        RecyclerView recyclerView = viewCartItems.findViewById(R.id.recyclerView_cart);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(customerMenuItemAdapter);
-       //customerMenuItemAdapter.setOnItemClickListener(onClickListener);
+        //customerMenuItemAdapter.setOnItemClickListener(onClickListener);
         customerMenuItemAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onClick(View v) {
-    int id = v.getId();
-        if(id==R.id.checkoutButton){
-        if(radioButtoncardPayment.isChecked())
-        {
-            int orderBy = Integer.parseInt(session.getInstance().getUserId());
-            boolean isDiningIn = Boolean.parseBoolean(session.getInstance().getDiningInOrTakeOut());
-            boolean isCardPayment = true;
-            onCheckoutPress.onCheckoutPress(orderBy,isDiningIn,isCardPayment);
-        }
-        else if(radioButtoncashPayment.isChecked())
-        {
-            //OrderCartItemRequestModel tag = (OrderCartItemRequestModel) v.getTag();
-            int orderBy = Integer.parseInt(session.getInstance().getUserId());
-            boolean isDiningIn = Boolean.parseBoolean(session.getInstance().getDiningInOrTakeOut());
-            boolean isCardPayment = false;
-            onCheckoutPress.onCheckoutPress(orderBy,isDiningIn,isCardPayment);
-        }
+        int id = v.getId();
+        if (id == R.id.checkoutButton) {
+            if (radioButtoncardPayment.isChecked()) {
+                int orderBy = Integer.parseInt(session.getInstance().getUserId());
+                boolean isDiningIn = Boolean.parseBoolean(session.getInstance().getDiningInOrTakeOut());
+                boolean isCardPayment = true;
+                onCheckoutPress.onCheckoutPress(orderBy, isDiningIn, isCardPayment);
+            } else if (radioButtoncashPayment.isChecked()) {
+                //OrderCartItemRequestModel tag = (OrderCartItemRequestModel) v.getTag();
+                int orderBy = Integer.parseInt(session.getInstance().getUserId());
+                boolean isDiningIn = Boolean.parseBoolean(session.getInstance().getDiningInOrTakeOut());
+                boolean isCardPayment = false;
+                onCheckoutPress.onCheckoutPress(orderBy, isDiningIn, isCardPayment);
+            }
             Navigation.findNavController(v).navigate(R.id.orderFragment);
+        }
     }
-}
 
-    public interface OnCheckoutPress
-    {
-        void onCheckoutPress (int orderBy, boolean isDiningIn ,boolean isCardPayment);
+    public interface OnCheckoutPress {
+        void onCheckoutPress(int orderBy, boolean isDiningIn, boolean isCardPayment);
     }
 
     @Override

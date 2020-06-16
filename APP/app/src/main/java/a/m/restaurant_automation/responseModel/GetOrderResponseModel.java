@@ -17,5 +17,10 @@ public class GetOrderResponseModel implements Serializable {
     public boolean isPaid;
     public ArrayList<MenuItems> menuItems;
     public int billId ;
+    public double GST;
+    public double PST;
+    public double totalAfterTax;
+    public double tip;
+    public boolean isReadyToPay;
 }
 

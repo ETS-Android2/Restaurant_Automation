@@ -250,14 +250,71 @@
                 android:id="@+id/payNow"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_margin="5dp"
                 android:background="@drawable/button_background_login"
                 android:text="Pay"
                 android:textColor="@color/white"
-                android:layout_margin="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.473"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/recyclerView_customerOrderHistory" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewPST" />
+
+            <TextView
+                android:id="@+id/textViewGST"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="GST"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.043"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerView_customerOrderHistory"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/textViewPST"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="PST"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/textViewGST"
+                app:layout_constraintTop_toBottomOf="@+id/textViewGST"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/totalBeforeTaxTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total(Before Tax):"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewGST"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.703"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewGST"
+                app:layout_constraintVertical_bias="0"
+                />
+
+            <TextView
+                android:id="@+id/textViewTip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tip: "
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewPST"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/totalBeforeTaxTextView"
+                app:layout_constraintTop_toTopOf="@+id/textViewPST"
+                app:layout_constraintVertical_bias="0.0" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

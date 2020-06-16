@@ -9,5 +9,6 @@ namespace RESTRODBACCESS.RequestModel
     public class ReadyForPaymentRequestModel
     {
         public int orderId { get; set; }
+        public decimal tip { get; set; }
     }
 }

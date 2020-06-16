@@ -164,6 +164,11 @@ namespace RESTRODBACCESS.Helper
                             getOrdersResponseModel.statusId = Convert.ToInt32(reader["orderStatusId"].ToString());
                             getOrdersResponseModel.isPaid = Convert.ToBoolean(reader["isPaid"].ToString());
                             getOrdersResponseModel.billId = Convert.ToInt32(reader["billId"].ToString());
+                            getOrdersResponseModel.GST = Convert.ToDecimal(reader["gst"].ToString());
+                            getOrdersResponseModel.PST = Convert.ToDecimal(reader["pst"].ToString());
+                            getOrdersResponseModel.totalAfterTax = Convert.ToDecimal(reader["totalAfterTax"].ToString());
+                            getOrdersResponseModel.tip = Convert.ToDecimal(reader["tip"].ToString());
+                            getOrdersResponseModel.isReadyToPay = Convert.ToBoolean(reader["isReadyToPay"].ToString());
                             int temp = 0;
                             int.TryParse(reader["tableId"].ToString(), out temp);
                             if (temp != 0)
@@ -293,6 +298,7 @@ namespace RESTRODBACCESS.Helper
                     SqlCommand command = new SqlCommand(SqlCommands.SP_readyToPay, connection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("orderId", readyForPaymentRequest.orderId);
+                    command.Parameters.AddWithValue("tip", readyForPaymentRequest.tip);
                     connection.Open();
                     SqlDataReader reader = command.ExecuteReader();
                     if (reader.Read())

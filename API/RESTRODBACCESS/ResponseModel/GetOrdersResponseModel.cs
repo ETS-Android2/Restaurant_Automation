@@ -20,6 +20,11 @@ namespace RESTRODBACCESS.ResponseModel
         public int statusId { get; set; }
         public bool isPaid { get; set; }
         public int billId { get; set; }
+        public decimal GST { get; set; }
+        public decimal PST { get; set; }
+        public decimal totalAfterTax { get; set; }
+        public decimal tip { get; set; }
+        public bool isReadyToPay { get; set; }
         public List<MenuItems> menuItems { get; set; }
     }
     public class MenuItems
