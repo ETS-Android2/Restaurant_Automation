@@ -38,5 +38,19 @@ namespace TESTRESTRO.Provider
                 return null;
             }
         }
+
+        public EditProfileResponseModel editProfile(EditProfileRequestModel editProfileRequestModel, out ErrorModel errorModel)
+        {
+            errorModel = null;
+            User user = new User();
+            try
+            {
+                return user.editProfile(editProfileRequestModel, out errorModel);
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }

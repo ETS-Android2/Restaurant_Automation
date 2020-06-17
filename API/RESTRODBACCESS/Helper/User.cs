@@ -1,4 +1,5 @@
-﻿using RESTRODBACCESS.ResponseModel;
+﻿using RESTRODBACCESS.RequestModel;
+using RESTRODBACCESS.ResponseModel;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -131,6 +132,64 @@ namespace RESTRODBACCESS.Helper
             {
                 errorModel = new ErrorModel();
                 errorModel.ErrorMessage = exception.Message;
+                return null;
+            }
+            finally
+            {
+                if (connection != null)
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        public EditProfileResponseModel editProfile(EditProfileRequestModel editProfileRequestModel, out ErrorModel errorModel)
+        {
+            errorModel = null;
+            EditProfileResponseModel editProfile = null;
+            SqlConnection connection = null;
+            try
+            {
+                using(connection = new SqlConnection(Database.getConnectionString()))
+                {
+                    SqlCommand command = new SqlCommand(SqlCommands.SP_editProfile, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    #region command Parameters
+                    command.Parameters.AddWithValue("userId", editProfileRequestModel.userId);
+                    command.Parameters.AddWithValue("firstName", editProfileRequestModel.firstName);
+                    command.Parameters.AddWithValue("lastName", editProfileRequestModel.lastName);
+                    command.Parameters.AddWithValue("email", editProfileRequestModel.email);
+                    command.Parameters.AddWithValue("gender", editProfileRequestModel.gender);
+                    command.Parameters.AddWithValue("phone", editProfileRequestModel.phone);
+                    #endregion
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        if (reader.isColumnExists("ErrorCode"))
+                        {
+                            errorModel = new ErrorModel();
+                            errorModel.ErrorCode = reader["ErrorCode"].ToString();
+                            errorModel.ErrorMessage = reader["ErrorMessage"].ToString();
+                        }
+                        else
+                        {
+                            editProfile = new EditProfileResponseModel();
+                            editProfile.firstName = reader["FirstName"].ToString();
+                            editProfile.userId = Convert.ToInt32(reader["userId"].ToString());
+                            editProfile.gender = reader["gender"].ToString();
+                            editProfile.email = reader["email"].ToString();
+                            editProfile.phone = reader["phoneNo"].ToString();
+                            editProfile.lastName = reader["lastName"].ToString();
+                        }
+                    }
+                }
+                return editProfile;
+            }
+            catch (Exception e)
+            {
+                errorModel = new ErrorModel();
+                errorModel.ErrorMessage = e.Message;
                 return null;
             }
             finally

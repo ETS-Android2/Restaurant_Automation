@@ -43,5 +43,7 @@
         public const string SP_updateOrderStatus = "updateOrderStatus";
 
         public const string SP_customerNotification = "getCustomerNotification";
+
+        public const string SP_editProfile = "editProfile";
     }
 }

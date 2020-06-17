@@ -50,6 +50,19 @@ namespace TESTRESTRO.Controllers
             responseModel.Error = ErrorCode.BadRequest;
             return Request.CreateResponse(HttpStatusCode.OK, responseModel);
         }
+
+        [HttpPost]
+        [Route("api/users/editProfile")]
+        public HttpResponseMessage editProfile(EditProfileRequestModel editProfileRequestModel)
+        {
+            ErrorModel errorModel = null;
+            UserProvider userProvider = new UserProvider();
+            var result = userProvider.editProfile(editProfileRequestModel, out errorModel);
+            APIResponseModel aPIResponseModel = new APIResponseModel();
+            aPIResponseModel.Response = result;
+            aPIResponseModel.Error = errorModel;
+            return Request.CreateResponse(HttpStatusCode.OK, aPIResponseModel);
+        }
     }
 
 }
