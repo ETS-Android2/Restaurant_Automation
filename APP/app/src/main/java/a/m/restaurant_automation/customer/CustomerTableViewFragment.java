@@ -138,6 +138,10 @@ public class CustomerTableViewFragment extends Fragment {
                                         recyclerView.setAdapter(tablesAdapter);
                                         layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
                                         recyclerView.setLayoutManager(layoutManager);
+                                        if(responseModel.getData().isEmpty()){
+                                            CustomerNotificationService.capacity = capacity;
+                                            CustomerNotificationService.userNotifiedForTableAvailability = false;
+                                        }
                                     }
                                 } else {
 

@@ -3,6 +3,7 @@ package a.m.restaurant_automation.customer;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,18 +44,20 @@ public class CustomerOverviewFragment extends Fragment implements View.OnClickLi
         session = UserSession.getInstance();
         IDataService dataService = RetrofitClient.getRetrofitInstance().create(IDataService.class);
         call = dataService.getReservationStatus(Integer.parseInt(session.getUserId()));
-        if (session.getIsTableReserved().equalsIgnoreCase(""))
+        if (session.getIsTableReserved().equalsIgnoreCase("") || session.getIsTableReserved().equalsIgnoreCase("Y"))
             call.enqueue(new Callback<TableReservationStatusForCustomerModel>() {
                 @Override
                 public void onResponse(Call<TableReservationStatusForCustomerModel> call, Response<TableReservationStatusForCustomerModel> response) {
                     if (response.body().Response)
                     {
                         session.setIsTableReserved("Y");
+                        session.setDiningInOrTakeOut("FALSE");
                         session.setDiningInOrTakeOut("TRUE");
                         bottomNavigationView.setSelectedItemId(R.id.menu);
                         Navigation.findNavController(view).navigate(R.id.customerMenuItemsFragment);
                     } else {
                         session.setIsTableReserved("N");
+
                         if (session.getDiningInOrTakeOut().equalsIgnoreCase("TRUE")) {
                             bottomNavigationView.setSelectedItemId(R.id.tables);
                             Navigation.findNavController(view).navigate(R.id.customerTableViewFragment);

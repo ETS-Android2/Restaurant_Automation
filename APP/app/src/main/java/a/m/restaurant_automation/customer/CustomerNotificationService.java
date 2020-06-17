@@ -131,7 +131,8 @@ public class CustomerNotificationService extends Service {
 
                     if(!userNotifiedForTableAvailability){
                         if(responseModel.getData().istableAvailable){
-                            //Notify User Here
+                            //Notifying user about table
+                            notifyTableAvailability();
                             userNotifiedForTableAvailability = true;
                         }
                     }
@@ -208,5 +209,6 @@ public class CustomerNotificationService extends Service {
                 .setContentInfo("Go reserve table before it is reserved by someone else!!!");
 
         notificationManager.notify(/*notification id*/1, notificationBuilder.build());
+        userNotifiedForTableAvailability = true;
     }
 }

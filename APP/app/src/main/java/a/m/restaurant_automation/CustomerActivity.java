@@ -123,7 +123,12 @@ public class CustomerActivity extends AppCompatActivity implements BottomNavigat
                     if (responseModel.getError() != null) {
                         Toast.makeText(getApplicationContext(), responseModel.getError().getErrorMessage(), Toast.LENGTH_LONG).show();
                     } else {
-                        Toast.makeText(getApplicationContext(), responseModel.getData().statusCode + " Added to cart", Toast.LENGTH_LONG).show();
+                        if (responseModel.getData().statusCode.equalsIgnoreCase("1")) {
+                            Toast.makeText(getApplicationContext(), "Added to cart", Toast.LENGTH_LONG).show();
+                        }
+                        else{
+                            Toast.makeText(getApplicationContext(), ""+responseModel.getData().statusMessage, Toast.LENGTH_LONG).show();
+                        }
                     }
                 }
             }

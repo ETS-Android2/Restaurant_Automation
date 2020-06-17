@@ -111,7 +111,13 @@ public class CustomerCatergoryItemNavigate extends Fragment  {
     }
 
     public void generateRecyclerView(ArrayList<MenuItemResponse> menuItemResponse, View viewMenu) {
-        menuItemAdaptercustomer = new CustomerMenuItemAdapter(menuItemResponse, getActivity().getApplicationContext());
+        ArrayList<MenuItemResponse> temp = new ArrayList<>();
+        for(int i = 0; i < menuItemResponse.size(); i++){
+            if(menuItemResponse.get(i).getAvailablequantity() > 0){
+                temp.add(menuItemResponse.get(i));
+            }
+        }
+        menuItemAdaptercustomer = new CustomerMenuItemAdapter(temp, getActivity().getApplicationContext());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         RecyclerView recyclerView = viewMenu.findViewById(R.id.recyclerView_customer_menuItem);
         recyclerView.setLayoutManager(linearLayoutManager);
