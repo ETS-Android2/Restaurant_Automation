@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +18,18 @@ import androidx.navigation.Navigation;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
+
 import a.m.restaurant_automation.LoginActivity;
 import a.m.restaurant_automation.R;
+import a.m.restaurant_automation.RetrofitClient;
 import a.m.restaurant_automation.repository.UserSession;
+import a.m.restaurant_automation.responseModel.CustomerNotificationResponseModel;
+import a.m.restaurant_automation.responseModel.ResponseModel;
+import a.m.restaurant_automation.service.INotificationService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class MoreOptionsFragment extends Fragment implements View.OnClickListener {
@@ -36,6 +46,7 @@ public class MoreOptionsFragment extends Fragment implements View.OnClickListene
         logoutCustomer.setOnClickListener(this);
         editProfile=view.findViewById(R.id.EditProfile);
 
+        view.getContext().stopService(new Intent(view.getContext(), CustomerNotificationService.class));
         editProfile.setOnClickListener(this);
 
 //        logoutCustomer.setOnClickListener(new View.OnClickListener() {

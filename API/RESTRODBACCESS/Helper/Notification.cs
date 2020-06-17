@@ -33,14 +33,16 @@ namespace RESTRODBACCESS.Helper
                     while (reader.Read())
                     {
                         customerNotificationResponseModel.istableAvailable = Convert.ToBoolean(reader["isTableAvailable"].ToString());
-                        
-                       OrderStatusChangeNotification temp = new OrderStatusChangeNotification();
+                        if (reader.isColumnExists("orderId")) {
+                            OrderStatusChangeNotification temp = new OrderStatusChangeNotification();
                             temp.orderId = Convert.ToInt32(reader["orderId"].ToString());
                             temp.statusId = Convert.ToInt32(reader["orderStatusId"].ToString());
                             temp.orderStatusTitle = reader["orderStatusTitle"].ToString();
                             customerNotificationResponseModel.orderChange.Add(temp);
+                        }
                         
                     }
+                    connection.Close();
                     command.Dispose();
                 }
                

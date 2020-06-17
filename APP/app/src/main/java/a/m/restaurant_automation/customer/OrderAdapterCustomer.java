@@ -25,9 +25,11 @@ import a.m.restaurant_automation.responseModel.GetOrderResponseModel;
 import a.m.restaurant_automation.responseModel.ResponseModel;
 import a.m.restaurant_automation.responseModel.StatusCheckResponse;
 import a.m.restaurant_automation.service.IDataService;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -38,44 +40,48 @@ public class OrderAdapterCustomer extends RecyclerView.Adapter<OrderAdapterCusto
     Context context;
     int size = 0;
     AlertDialog.Builder alertDialogPayment;
-    private final Handler handler=new Handler();
+    private final Handler handler = new Handler();
 
     public OrderAdapterCustomer(ArrayList<GetOrderResponseModel> getOrderResponseModel, Context context) {
         this.getOrderResponseModel = getOrderResponseModel;
         size = this.getOrderResponseModel.size();
         this.context = context;
     }
+
     @NonNull
     @Override
     public OrderAdapterCustomer.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-      View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_customer_order_history,parent,false);
-      context = parent.getContext();
-      return new ViewHolder(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_customer_order_history, parent, false);
+        context = parent.getContext();
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final OrderAdapterCustomer.ViewHolder holder, final int position) {
-        holder.textView_FirstName.setText(""+getOrderResponseModel.get(position).firstName);
-        holder.textView_tableNumber.setText(""+getOrderResponseModel.get(position).tableId);
-        holder.textView_orderNumber.setText(""+getOrderResponseModel.get(position).orderId);
-        holder.textView_orderStatus.setText("Status: "+getOrderResponseModel.get(position).orderStatusTitle);
-        holder.textView_Total.setText("Total(Before Tax): $"+(getOrderResponseModel.get(position).billingAmount + getOrderResponseModel.get(position).tip));
-        holder.textView_GST.setText("GST: $"+getOrderResponseModel.get(position).GST);
-        holder.textView_PST.setText("PST: $"+getOrderResponseModel.get(position).PST);
-        if(getOrderResponseModel.get(position).tip == 0)
+        holder.textView_FirstName.setText("" + getOrderResponseModel.get(position).firstName);
+        if (getOrderResponseModel.get(position).isDiningIn) {
+            holder.textView_tableNumber.setText("" + getOrderResponseModel.get(position).tableId);
+        } else {
+            holder.textView_tableNumber.setVisibility(View.INVISIBLE);
+            holder.textView_Table.setText("Take-Out");
+        }
+        holder.textView_orderNumber.setText("" + getOrderResponseModel.get(position).orderId);
+        holder.textView_orderStatus.setText("Status: " + getOrderResponseModel.get(position).orderStatusTitle);
+        holder.textView_Total.setText("Total(Before Tax): $" + (getOrderResponseModel.get(position).billingAmount + getOrderResponseModel.get(position).tip));
+        holder.textView_GST.setText("GST: $" + getOrderResponseModel.get(position).GST);
+        holder.textView_PST.setText("PST: $" + getOrderResponseModel.get(position).PST);
+        if (getOrderResponseModel.get(position).tip == 0)
             holder.textView_Tip.setVisibility(View.INVISIBLE);
 
-        if(getOrderResponseModel.get(position).isReadyToPay && !getOrderResponseModel.get(position).isPaid){
+        if (getOrderResponseModel.get(position).isReadyToPay && !getOrderResponseModel.get(position).isPaid) {
             holder.payNow.setVisibility(View.GONE);
         }
-        holder.textView_Tip.setText("Tip: "+getOrderResponseModel.get(position).tip);
-        if(getOrderResponseModel.get(position).isPaid)
-        {
+        holder.textView_Tip.setText("Tip: " + getOrderResponseModel.get(position).tip);
+        if (getOrderResponseModel.get(position).isPaid) {
             holder.payNow.setText("Bill Amount : " + (getOrderResponseModel.get(position).totalAfterTax + getOrderResponseModel.get(position).tip) + " $");
-        }
-        else if(!getOrderResponseModel.get(position).isPaid){
+        } else if (!getOrderResponseModel.get(position).isPaid) {
 
-                holder.payNow.setText("Pay Now ( " + (getOrderResponseModel.get(position).totalAfterTax + getOrderResponseModel.get(position).tip) + " $ )");
+            holder.payNow.setText("Pay Now ( " + (getOrderResponseModel.get(position).totalAfterTax + getOrderResponseModel.get(position).tip) + " $ )");
 
         }
 
@@ -109,9 +115,9 @@ public class OrderAdapterCustomer extends RecyclerView.Adapter<OrderAdapterCusto
 
         holder.payNow.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick( final View v) {
+            public void onClick(final View v) {
 
-                if(!getOrderResponseModel.get(position).isPaid) {
+                if (!getOrderResponseModel.get(position).isPaid) {
                     alertDialogPayment = new AlertDialog.Builder(context);
                     final EditText input = new EditText(context);
                     input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
@@ -122,18 +128,17 @@ public class OrderAdapterCustomer extends RecyclerView.Adapter<OrderAdapterCusto
                             .setPositiveButton("Pay Now", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    if(getOrderResponseModel.get(position).statusId==3) {
+                                    if (getOrderResponseModel.get(position).statusId == 3) {
                                         double tip = 0;
-                                        if(!TextUtils.isEmpty(input.getText().toString())){
+                                        if (!TextUtils.isEmpty(input.getText().toString())) {
                                             tip = Double.parseDouble(input.getText().toString());
                                         }
                                         int orderId = getOrderResponseModel.get(position).orderId;
                                         payTheBill(orderId, tip);
                                         //holder.payNow.setText("Bill Amount ( " + getOrderResponseModel.get(position).billingAmount + " $ )");
                                         holder.payNow.setVisibility(View.GONE);
-                                    }
-                                    else if(getOrderResponseModel.get(position).statusId!=3){
-                                        Toast.makeText(context,"Your order is not completed yet",Toast.LENGTH_LONG).show();
+                                    } else if (getOrderResponseModel.get(position).statusId != 3) {
+                                        Toast.makeText(context, "Your order is not completed yet", Toast.LENGTH_LONG).show();
                                     }
                                 }
                             })
@@ -144,14 +149,12 @@ public class OrderAdapterCustomer extends RecyclerView.Adapter<OrderAdapterCusto
                                 }
                             }).create();
                     alertDialogPayment.show();
-                }
-                else if(getOrderResponseModel.get(position).isPaid) {
-                    Toast.makeText(context,"You Paid "+(getOrderResponseModel.get(position).totalAfterTax + getOrderResponseModel.get(position).tip) + " $ on " + getOrderResponseModel.get(position).orderDate.substring(0,10),Toast.LENGTH_LONG).show();
+                } else if (getOrderResponseModel.get(position).isPaid) {
+                    Toast.makeText(context, "You Paid " + (getOrderResponseModel.get(position).totalAfterTax + getOrderResponseModel.get(position).tip) + " $ on " + getOrderResponseModel.get(position).orderDate.substring(0, 10), Toast.LENGTH_LONG).show();
                 }
             }
         });
     }
-
 
 
     @Override
@@ -160,9 +163,10 @@ public class OrderAdapterCustomer extends RecyclerView.Adapter<OrderAdapterCusto
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView textView_tableNumber, textView_orderNumber, textView_FirstName, textView_orderStatus, textView_GST,textView_PST, textView_Total, textView_Tip;
-        Button payNow,expandCollapseBtn;
+        TextView textView_tableNumber, textView_orderNumber, textView_FirstName, textView_orderStatus, textView_GST, textView_PST, textView_Total, textView_Tip, textView_Table;
+        Button payNow, expandCollapseBtn;
         RecyclerView recyclerViewItems;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -175,12 +179,13 @@ public class OrderAdapterCustomer extends RecyclerView.Adapter<OrderAdapterCusto
             textView_PST = itemView.findViewById(R.id.textViewPST);
             textView_Total = itemView.findViewById(R.id.totalBeforeTaxTextView);
             textView_Tip = itemView.findViewById(R.id.textViewTip);
+            textView_Table = itemView.findViewById(R.id.textViewTable);
             //expandCollapseBtn = itemView.findViewById(R.id.buttonArrowDown);
             recyclerViewItems = itemView.findViewById(R.id.recyclerView_customerOrderHistory);
         }
     }
 
-    public void payTheBill(int orderId, double tip){
+    public void payTheBill(int orderId, double tip) {
 
         IDataService dataService = RetrofitClient.getRetrofitInstance().create(IDataService.class);
         ReadyForPaymentRequestModel readyForPaymentRequestModel = new ReadyForPaymentRequestModel();
@@ -195,7 +200,7 @@ public class OrderAdapterCustomer extends RecyclerView.Adapter<OrderAdapterCusto
                     if (responseModel.getError() != null) {
                         Toast.makeText(context, responseModel.getError().getErrorMessage(), Toast.LENGTH_LONG).show();
                     } else {
-                        Toast.makeText(context,responseModel.getData().statusMessage + "Thank You!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, responseModel.getData().statusMessage + "Thank You!", Toast.LENGTH_LONG).show();
                     }
                 }
             }

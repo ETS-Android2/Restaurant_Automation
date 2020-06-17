@@ -1,6 +1,8 @@
 package a.m.restaurant_automation;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -14,6 +16,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import a.m.restaurant_automation.customer.CartFragmentCustomer;
 import a.m.restaurant_automation.customer.CustomerCatergoryItemNavigate;
+import a.m.restaurant_automation.customer.CustomerNotificationService;
 import a.m.restaurant_automation.repository.UserSession;
 import a.m.restaurant_automation.requestModel.AddToCartRequestModel;
 import a.m.restaurant_automation.requestModel.OrderCartItemRequestModel;
@@ -25,81 +28,89 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CustomerActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, CustomerCatergoryItemNavigate.OnaddToCartPress , CartFragmentCustomer.OnCheckoutPress {
+public class CustomerActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, CustomerCatergoryItemNavigate.OnaddToCartPress, CartFragmentCustomer.OnCheckoutPress {
 
     public BottomNavigationView bottomNavigationView;
     public NavController navController;
     UserSession session;
-    private int Itemid , Quantity , AddedBy;
-    private int cartIdCart,cartQuantity;
+    private int Itemid, Quantity, AddedBy;
+    private int cartIdCart, cartQuantity;
     private boolean cartIsDelete;
     private int OrderBy;
-    private boolean IsDiningIn , IsCardPayment;
+    private boolean IsDiningIn, IsCardPayment;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer);
+        session = UserSession.getInstance();
         setUpNavigation();
+        getNotifications();
     }
 
-    public void setUpNavigation()
-    {
-        bottomNavigationView= findViewById(R.id.BottomnavigateMenuCustomer);
-        navController= Navigation.findNavController(this,R.id.customerhostfragment);
-        NavigationUI.setupWithNavController(bottomNavigationView,navController);
+    public void getNotifications() {
+        Intent serviceIntent = new Intent(this, CustomerNotificationService.class);
+        serviceIntent.putExtra("capacity", 0);
+        serviceIntent.putExtra("userId", Integer.parseInt(session.getUserId()));
+        if (!CustomerNotificationService.isRunning) startService(serviceIntent);
+    }
 
-        NavigationUI.setupActionBarWithNavController(this,navController);
-        NavigationUI.setupWithNavController(bottomNavigationView,navController);
+    public void setUpNavigation() {
+        bottomNavigationView = findViewById(R.id.BottomnavigateMenuCustomer);
+        navController = Navigation.findNavController(this, R.id.customerhostfragment);
+        NavigationUI.setupWithNavController(bottomNavigationView, navController);
+
+        NavigationUI.setupActionBarWithNavController(this, navController);
+        NavigationUI.setupWithNavController(bottomNavigationView, navController);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
     }
 
     @Override
-    public void onBackPressed() { super.onBackPressed(); }
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem)
-    {
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         menuItem.setCheckable(true);
         int id = menuItem.getItemId();
-        switch (id){
+        switch (id) {
             case R.id.tables:
                 // Toast.makeText(getApplicationContext(), "Dashboard", Toast.LENGTH_SHORT).show();
                 navController.navigate(R.id.customerTableViewFragment);
-               // fragment=new CustomerOverviewFragment();
-               // break;
+                // fragment=new CustomerOverviewFragment();
+                // break;
                 return true;
 
             case R.id.menu:
                 //  Toast.makeText(getApplicationContext(),"Friend Dashboard",Toast.LENGTH_LONG).show();
-               //navController.navigate(R.id.);
+                //navController.navigate(R.id.);
                 navController.navigate(R.id.customerMenuItemsFragment);
-               return true;
-             //   fragment=new CustomerMenuItemsFragment();
-               // break;
+                return true;
+            //   fragment=new CustomerMenuItemsFragment();
+            // break;
 
             case R.id.cart:
                 // Toast.makeText(getApplicationContext(),"Account",Toast.LENGTH_LONG).show();
                 navController.navigate(R.id.orderFragment);
                 return true;
-               // fragment=new OrderFragment();
-                //break;
+            // fragment=new OrderFragment();
+            //break;
 
             case R.id.moreMenu:
                 // Toast.makeText(getApplicationContext(),"Account",Toast.LENGTH_LONG).show();
                 navController.navigate(R.id.moreOptionsFragment);
                 return true;
-               // fragment=new MoreOptionsFragment();
-                //break;
+            // fragment=new MoreOptionsFragment();
+            //break;
         }
         return false;
     }
 
-    public void addToCart(){
+    public void addToCart() {
         IDataService dataService = RetrofitClient.getRetrofitInstance().create(IDataService.class);
-        AddToCartRequestModel addToCartRequestModel =  new AddToCartRequestModel();
-        addToCartRequestModel.itemId = Itemid ;
+        AddToCartRequestModel addToCartRequestModel = new AddToCartRequestModel();
+        addToCartRequestModel.itemId = Itemid;
         addToCartRequestModel.quantity = Quantity;
         addToCartRequestModel.addedby = AddedBy;
 
@@ -112,7 +123,7 @@ public class CustomerActivity extends AppCompatActivity implements BottomNavigat
                     if (responseModel.getError() != null) {
                         Toast.makeText(getApplicationContext(), responseModel.getError().getErrorMessage(), Toast.LENGTH_LONG).show();
                     } else {
-                        Toast.makeText(getApplicationContext(),responseModel.getData().statusCode + " Added to cart", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), responseModel.getData().statusCode + " Added to cart", Toast.LENGTH_LONG).show();
                     }
                 }
             }
@@ -126,17 +137,16 @@ public class CustomerActivity extends AppCompatActivity implements BottomNavigat
 
     @Override
     public void onaddToCartPress(int itemId, int quantity, int addedby) {
-         Itemid = itemId;
-         Quantity = quantity;
-         AddedBy = addedby;
+        Itemid = itemId;
+        Quantity = quantity;
+        AddedBy = addedby;
         addToCart();
     }
 
-    public void onOrder()
-    {
+    public void onOrder() {
         IDataService dataService = RetrofitClient.getRetrofitInstance().create(IDataService.class);
-        OrderCartItemRequestModel orderCartItemRequestModel =  new OrderCartItemRequestModel();
-        orderCartItemRequestModel.orderBy = OrderBy ;
+        OrderCartItemRequestModel orderCartItemRequestModel = new OrderCartItemRequestModel();
+        orderCartItemRequestModel.orderBy = OrderBy;
         orderCartItemRequestModel.isDiningIn = IsDiningIn;
         orderCartItemRequestModel.isCardPayment = IsCardPayment;
 
@@ -149,7 +159,7 @@ public class CustomerActivity extends AppCompatActivity implements BottomNavigat
                     if (responseModel.getError() != null) {
                         Toast.makeText(getApplicationContext(), responseModel.getError().getErrorMessage(), Toast.LENGTH_LONG).show();
                     } else {
-                        Toast.makeText(getApplicationContext()," Added to orders", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), " Added to orders", Toast.LENGTH_LONG).show();
                     }
                 }
             }

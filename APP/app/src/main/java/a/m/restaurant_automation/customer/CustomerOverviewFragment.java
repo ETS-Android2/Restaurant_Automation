@@ -1,6 +1,7 @@
 package a.m.restaurant_automation.customer;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,7 +41,6 @@ public class CustomerOverviewFragment extends Fragment implements View.OnClickLi
         buttonDineIn.setOnClickListener(this);
         buttonTakeOut.setOnClickListener(this);
         session = UserSession.getInstance();
-
         IDataService dataService = RetrofitClient.getRetrofitInstance().create(IDataService.class);
         call = dataService.getReservationStatus(Integer.parseInt(session.getUserId()));
         if (session.getIsTableReserved().equalsIgnoreCase(""))
