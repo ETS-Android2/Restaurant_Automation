@@ -3,13 +3,16 @@ package a.m.restaurant_automation.customer;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -21,7 +24,9 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.prefs.Preferences;
 
+import a.m.restaurant_automation.CustomerActivity;
 import a.m.restaurant_automation.R;
 import a.m.restaurant_automation.RetrofitClient;
 import a.m.restaurant_automation.responseModel.CustomerNotificationOrders;
@@ -73,7 +78,7 @@ public class CustomerNotificationService extends Service {
         };
         timer = new Timer();
         timer.schedule(timerTask, 0, 10000);
-        return super.onStartCommand(intent, flags, startId);
+        return START_STICKY;
     }
 
     @Override
@@ -87,7 +92,18 @@ public class CustomerNotificationService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        NotificationCompat.Builder b = new NotificationCompat.Builder(this, "channel_customer");
+
+        b.setOngoing(true)
+                .setContentTitle("Restomation")
+                .setContentText("Fetching Notifications")
+                .setSmallIcon(R.drawable.logo_restromation)
+                .setTicker("Fetching");
+
+
+        startForeground(1, b.build());
     }
+
 
     public void getData(int capacity, int userId) {
         INotificationService notificationService = RetrofitClient.getRetrofitInstance().create(INotificationService.class);
@@ -99,38 +115,36 @@ public class CustomerNotificationService extends Service {
                 Log.i("Data", "Fetched");
                 if (responseModel.getError() != null) {
                 } else {
-                    if(firstTime) {
+                    if (firstTime) {
                         for (int i = 0; i < responseModel.getData().orders.size(); i++) {
                             CustomerNotificationOrders model = responseModel.getData().orders.get(i);
                             hashMap.put(model.orderId, model.statusId);
                         }
                         firstTime = false;
-                    }
-                    else{
+                    } else {
                         for (int i = 0; i < responseModel.getData().orders.size(); i++) {
                             CustomerNotificationOrders model = responseModel.getData().orders.get(i);
-                            if(hashMap.containsKey(model.orderId)){
-                                if(hashMap.get(model.orderId) != model.statusId){
+                            if (hashMap.containsKey(model.orderId)) {
+                                if (hashMap.get(model.orderId) != model.statusId) {
                                     //Notification to user
                                     String status = "";
                                     int statusId = model.statusId;
-                                    if(statusId == 1) status = "Ordered";
-                                    else if(statusId == 2) status = "In Progress";
-                                    else if(statusId == 3) status = "Completed";
-                                    else if(statusId == 4) status = "Cancelled";
+                                    if (statusId == 1) status = "Ordered";
+                                    else if (statusId == 2) status = "In Progress";
+                                    else if (statusId == 3) status = "Completed";
+                                    else if (statusId == 4) status = "Cancelled";
                                     notifyOrderStatusUpdate(model.orderId, status);
                                     hashMap.put(model.orderId, model.statusId);
                                 }
-                            }
-                            else{
+                            } else {
                                 hashMap.put(model.orderId, model.statusId);
                             }
                         }
                     }
 
 
-                    if(!userNotifiedForTableAvailability){
-                        if(responseModel.getData().istableAvailable){
+                    if (!userNotifiedForTableAvailability) {
+                        if (responseModel.getData().istableAvailable) {
                             //Notifying user about table
                             notifyTableAvailability();
                             userNotifiedForTableAvailability = true;
@@ -147,7 +161,7 @@ public class CustomerNotificationService extends Service {
         });
     }
 
-    public void notifyOrderStatusUpdate(int orderId, String orderStatus){
+    public void notifyOrderStatusUpdate(int orderId, String orderStatus) {
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         String NOTIFICATION_CHANNEL_ID = "channel_customer_order_update";
 
@@ -165,7 +179,8 @@ public class CustomerNotificationService extends Service {
 
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
-
+        PendingIntent contentIntent =
+                PendingIntent.getActivity(this, 0, new Intent(this, CustomerActivity.class), 0);
         notificationBuilder.setAutoCancel(true)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setWhen(System.currentTimeMillis())
@@ -173,13 +188,13 @@ public class CustomerNotificationService extends Service {
                 .setTicker("Order Status Updated")
                 //     .setPriority(Notification.PRIORITY_MAX)
                 .setContentTitle("Order Update")
-                .setContentText("Order "+orderId+": "+orderStatus)
+                .setContentText("Order " + orderId + ": " + orderStatus)
                 .setContentInfo("Info");
-
+        notificationBuilder.setContentIntent(contentIntent);
         notificationManager.notify(/*notification id*/1, notificationBuilder.build());
     }
 
-    public void notifyTableAvailability(){
+    public void notifyTableAvailability() {
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         String NOTIFICATION_CHANNEL_ID = "channel_customer_table_update";
 
@@ -194,7 +209,8 @@ public class CustomerNotificationService extends Service {
             notificationChannel.enableVibration(true);
             notificationManager.createNotificationChannel(notificationChannel);
         }
-
+        PendingIntent contentIntent =
+                PendingIntent.getActivity(this, 0, new Intent(this, CustomerActivity.class), 0);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
 
@@ -205,8 +221,9 @@ public class CustomerNotificationService extends Service {
                 .setTicker("Table Availability")
                 //     .setPriority(Notification.PRIORITY_MAX)
                 .setContentTitle("Table Availability Update")
-                .setContentText("Table for  "+capacity+" is available to reserve.")
-                .setContentInfo("Go reserve table before it is reserved by someone else!!!");
+                .setContentText("Table for  " + capacity + " is available to reserve.")
+                .setContentInfo("Go reserve table before it is reserved by someone else!!!")
+                .setContentIntent(contentIntent);
 
         notificationManager.notify(/*notification id*/1, notificationBuilder.build());
         userNotifiedForTableAvailability = true;

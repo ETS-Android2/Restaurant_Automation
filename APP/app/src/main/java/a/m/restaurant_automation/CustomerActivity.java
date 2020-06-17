@@ -1,6 +1,9 @@
 package a.m.restaurant_automation;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -8,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
@@ -52,7 +56,23 @@ public class CustomerActivity extends AppCompatActivity implements BottomNavigat
         Intent serviceIntent = new Intent(this, CustomerNotificationService.class);
         serviceIntent.putExtra("capacity", 0);
         serviceIntent.putExtra("userId", Integer.parseInt(session.getUserId()));
-        if (!CustomerNotificationService.isRunning) startService(serviceIntent);
+        if (!CustomerNotificationService.isRunning) {
+            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+            // Android O requires a Notification Channel.
+            if (Build.VERSION.SDK_INT >= 26) {
+                CharSequence name = getString(R.string.app_name);
+                // Create the channel for the notification
+
+                NotificationChannel mChannel = new NotificationChannel("channel_customer", name, NotificationManager.IMPORTANCE_HIGH);
+                // Set the Notification Channel for the Notification Manager.
+                if (notificationManager != null) {
+                    notificationManager.createNotificationChannel(mChannel);
+                }
+
+                startForegroundService(new Intent(CustomerActivity.this, CustomerNotificationService.class));
+            }
+        }
     }
 
     public void setUpNavigation() {
@@ -125,9 +145,8 @@ public class CustomerActivity extends AppCompatActivity implements BottomNavigat
                     } else {
                         if (responseModel.getData().statusCode.equalsIgnoreCase("1")) {
                             Toast.makeText(getApplicationContext(), "Added to cart", Toast.LENGTH_LONG).show();
-                        }
-                        else{
-                            Toast.makeText(getApplicationContext(), ""+responseModel.getData().statusMessage, Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "" + responseModel.getData().statusMessage, Toast.LENGTH_LONG).show();
                         }
                     }
                 }
