@@ -40,6 +40,7 @@ public class ChefOrderHistoryAdapter extends RecyclerView.Adapter<ChefOrderHisto
             if(orders.get(position).isDiningIn == false)
             {
                 holder.tableIdTV.setText("Take Away");
+                holder.textViewTable.setVisibility(View.GONE);
             }
             else
             {
@@ -88,7 +89,7 @@ public class ChefOrderHistoryAdapter extends RecyclerView.Adapter<ChefOrderHisto
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tableIdTV, orderIdTV, personNameTV, orderStatusTV;
+        TextView tableIdTV, orderIdTV, personNameTV, orderStatusTV, textViewTable;
         RecyclerView recyclerViewItems;
         Button expandCollapseBtn;
 
@@ -100,6 +101,7 @@ public class ChefOrderHistoryAdapter extends RecyclerView.Adapter<ChefOrderHisto
             recyclerViewItems = itemView.findViewById(R.id.recyclerViewChefOrderHistory);
             expandCollapseBtn = itemView.findViewById(R.id.btnArrowDown);
             orderStatusTV = itemView.findViewById(R.id.textViewStatus);
+            textViewTable = itemView.findViewById(R.id.textViewTable);
         }
     }
 }
