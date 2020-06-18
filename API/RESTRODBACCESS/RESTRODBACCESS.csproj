@@ -109,6 +109,7 @@
     <Compile Include="RequestModel\AddTableRequestModel.cs" />
     <Compile Include="RequestModel\AddToCartRequestModel.cs" />
     <Compile Include="RequestModel\ChangeOrdersStatusRequestModel.cs" />
+    <Compile Include="RequestModel\ChangePasswordRequestModel.cs" />
     <Compile Include="RequestModel\ChangePaymentStatusRequestModel.cs" />
     <Compile Include="RequestModel\EditProfileRequestModel.cs" />
     <Compile Include="RequestModel\EmployeeDeleteRequestModel.cs" />

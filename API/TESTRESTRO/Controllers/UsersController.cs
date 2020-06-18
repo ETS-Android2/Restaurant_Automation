@@ -63,6 +63,19 @@ namespace TESTRESTRO.Controllers
             aPIResponseModel.Error = errorModel;
             return Request.CreateResponse(HttpStatusCode.OK, aPIResponseModel);
         }
+
+        [HttpPost]
+        [Route("api/users/changePassword")]
+        public HttpResponseMessage changePassword(ChangePasswordRequestModel changePasswordRequest)
+        {
+            ErrorModel errorModel = null;
+            UserProvider userProvider = new UserProvider();
+            var result = userProvider.changePassword(changePasswordRequest, out errorModel);
+            APIResponseModel aPIResponseModel = new APIResponseModel();
+            aPIResponseModel.Response = result;
+            aPIResponseModel.Error = errorModel;
+            return Request.CreateResponse(HttpStatusCode.OK, aPIResponseModel);
+        }
     }
 
 }

@@ -52,5 +52,19 @@ namespace TESTRESTRO.Provider
                 return null;
             }
         }
+
+        public bool changePassword(ChangePasswordRequestModel changePasswordRequest, out ErrorModel errorModel)
+        {
+            errorModel = null;
+            User user = new User();
+            try
+            {
+                return user.changePassword(changePasswordRequest, out errorModel);
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

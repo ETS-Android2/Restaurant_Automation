@@ -1,4 +1,5 @@
-﻿using RESTRODBACCESS.RequestModel;
+﻿using Org.BouncyCastle.Bcpg;
+using RESTRODBACCESS.RequestModel;
 using RESTRODBACCESS.ResponseModel;
 using System;
 using System.Collections.Generic;
@@ -191,6 +192,40 @@ namespace RESTRODBACCESS.Helper
                 errorModel = new ErrorModel();
                 errorModel.ErrorMessage = e.Message;
                 return null;
+            }
+            finally
+            {
+                if (connection != null)
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        public bool changePassword(ChangePasswordRequestModel changePasswordRequest, out ErrorModel errorModel)
+        {
+            SqlConnection connection = null;
+            errorModel = null;
+            try
+            {
+                using (connection = new SqlConnection(Database.getConnectionString()))
+                {
+                    SqlCommand command = new SqlCommand("", connection);
+                    command.CommandText = "update users set password = CONVERT(varchar(64), HASHBYTES('SHA2_256', '" + changePasswordRequest.password + "') ,2) where userId = " + changePasswordRequest.userId;
+                    connection.Open();
+                    int reader = command.ExecuteNonQuery();
+                    if (reader != 0)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            catch(Exception e)
+            {
+                errorModel = new ErrorModel();
+                errorModel.ErrorMessage = e.Message;
+                return false;
             }
             finally
             {
