@@ -53,7 +53,7 @@ namespace TESTRESTRO.Provider
             }
         }
 
-        public bool changePassword(ChangePasswordRequestModel changePasswordRequest, out ErrorModel errorModel)
+        public ChangeOrderStatusResponseModel changePassword(ChangePasswordRequestModel changePasswordRequest, out ErrorModel errorModel)
         {
             errorModel = null;
             User user = new User();
@@ -63,7 +63,7 @@ namespace TESTRESTRO.Provider
             }
             catch
             {
-                return false;
+                return null;
             }
         }
     }

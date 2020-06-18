@@ -9,6 +9,9 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import a.m.restaurant_automation.customer.MoreOptionsFragment;
+import a.m.restaurant_automation.requestModel.ChangePasswordRequestModel;
+import a.m.restaurant_automation.service.IUserService;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
@@ -32,7 +35,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CustomerActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, CustomerCatergoryItemNavigate.OnaddToCartPress, CartFragmentCustomer.OnCheckoutPress {
+public class CustomerActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, CustomerCatergoryItemNavigate.OnaddToCartPress, CartFragmentCustomer.OnCheckoutPress, MoreOptionsFragment.OnChangePasswordPress {
 
     public BottomNavigationView bottomNavigationView;
     public NavController navController;
@@ -42,6 +45,9 @@ public class CustomerActivity extends AppCompatActivity implements BottomNavigat
     private boolean cartIsDelete;
     private int OrderBy;
     private boolean IsDiningIn, IsCardPayment;
+
+    private String newPassword;
+    private int customerId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -201,5 +207,44 @@ public class CustomerActivity extends AppCompatActivity implements BottomNavigat
         IsDiningIn = isDiningIn;
         IsCardPayment = isCardPayment;
         onOrder();
+    }
+
+
+    public void changePassword (){
+
+        IUserService userService = RetrofitClient.getRetrofitInstance().create(IUserService.class);
+        ChangePasswordRequestModel changePasswordRequestModel = new ChangePasswordRequestModel();
+        changePasswordRequestModel.password = newPassword;
+        changePasswordRequestModel.userId = customerId;
+
+        Log.i("abc", changePasswordRequestModel.password+" "+changePasswordRequestModel.userId);
+        Call<ResponseModel<StatusCheckResponse>> call = userService.changePassword(changePasswordRequestModel);
+        call.enqueue(new Callback<ResponseModel<StatusCheckResponse>>() {
+            @Override
+            public void onResponse(Call<ResponseModel<StatusCheckResponse>> call, Response<ResponseModel<StatusCheckResponse>> response) {
+                ResponseModel<StatusCheckResponse> responseModel = response.body();
+
+                if (responseModel != null) {
+                    if (responseModel.getError() != null) {
+                        Toast.makeText(getApplicationContext(), responseModel.getError().getErrorMessage(), Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), responseModel.getData().statusMessage + "Password Changed", Toast.LENGTH_LONG).show();
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel<StatusCheckResponse>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "something went wrong" + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    @Override
+    public void OnChangePasswordPress(String password, int userId) {
+        newPassword = password;
+        customerId = userId;
+        changePassword();
     }
 }

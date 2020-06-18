@@ -18,6 +18,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -47,6 +49,8 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.BottomnavigateMenuCustomer);
+        bottomNavigationView.setVisibility(View.GONE);
         super.onViewCreated(view, savedInstanceState);
         session = UserSession.getInstance();
         phoneTV = view.findViewById(R.id.phoneNumberTV);

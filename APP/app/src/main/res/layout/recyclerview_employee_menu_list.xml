@@ -17,11 +17,22 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <ImageView
+                android:id="@+id/deleteItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_clear_black_24dp"
+                android:layout_alignParentRight="true"
+                android:layout_margin="10dp"
+                />
+
         <ImageView
             android:id="@+id/imageView_menuItem"
             android:layout_width="100dp"
-            android:layout_height="120dp"
-            android:layout_margin="20dp"
+            android:layout_height="110dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="5dp"
             android:scaleType="fitStart"
             />
         <TextView
@@ -29,8 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/imageView_menuItem"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginTop="30dp"
             android:text="Menu Name"
             android:textSize="17sp"
             android:textColor="@android:color/black"
@@ -44,7 +54,6 @@
                 android:layout_toRightOf="@id/imageView_menuItem"
                 android:layout_below="@id/textView_menuName"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
                 android:text="Menu Price"
                 android:textSize="17sp"
                 android:textColor="@android:color/black"
@@ -57,30 +66,33 @@
                 android:layout_toRightOf="@id/imageView_menuItem"
                 android:layout_below="@id/textView_menuPrice"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
                 android:text="Menu Desctiption"
                 android:layout_marginRight="5dp"
                 android:textSize="12sp"
                 android:maxLines="4"
                 />
 
+            <Button
+                android:id="@+id/updateItemButton"
+                android:layout_width="50dp"
+                android:layout_height="25dp"
+                android:layout_gravity="bottom|right"
+                android:layout_below="@id/textView_menuDescription"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:text="Update"
+                android:textSize="9sp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/button_drawable"
+                android:layout_alignParentRight="true"
+                />
+
 
 
         </RelativeLayout>
 
-        <Button
-            android:id="@+id/removeItemButton"
-            android:layout_width="50dp"
-            android:layout_height="25dp"
-            android:layout_marginTop="20dp"
-            android:layout_gravity="bottom|right"
-            android:layout_below="@id/textView_menuDescription"
-            android:layout_margin="30dp"
-            android:text="Update"
-            android:textSize="8sp"
-            android:textColor="@android:color/white"
-            android:background="@drawable/button_drawable"
-            />
+
 
     </androidx.cardview.widget.CardView>
 

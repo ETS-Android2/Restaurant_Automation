@@ -11,7 +11,7 @@
 
     />
     <androidx.cardview.widget.CardView
-        android:layout_height="250dp"
+        android:layout_height="200dp"
         android:layout_width="match_parent"
         android:id="@+id/cardview"
         app:cardBackgroundColor="@color/Background">

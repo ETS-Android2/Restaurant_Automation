@@ -40,6 +40,7 @@ public class EmployeeMenuItemsFragment extends Fragment {
     View viewMenu;
     Button removeItemButton;
     OnChangePricePress onChangePricePress;
+    OnDeleteItemPress onDeleteItemPress;
     Call<ResponseModel<ArrayList<MenuItemResponse>>> call;
 
     ArrayList<MenuItemResponse> menuItemResponse;
@@ -120,33 +121,62 @@ public class EmployeeMenuItemsFragment extends Fragment {
         @Override
         public void onClick(final View v) {
 
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-            alertDialog.setTitle("Update Item");
-            alertDialog.setMessage("Enter Updated Price :");
-                    final EditText editText_udaptePrice = new EditText(getActivity().getApplicationContext());
-                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                            LinearLayout.LayoutParams.WRAP_CONTENT,
-                            LinearLayout.LayoutParams.WRAP_CONTENT
-                    );
-                    editText_udaptePrice.setLayoutParams(layoutParams);
-                    alertDialog.setView(editText_udaptePrice);
-                    alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                           double price = Double.parseDouble(editText_udaptePrice.getText().toString());
-                           int userType = AppStaticData.USERTYPE_MANAGER;
-                           int positionItem = (int) v.getTag();
-                           onChangePricePress.onChangePricePress(price,userType,positionItem);
-                        }
-                    })
-                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+            int id = v.getId();
+            if (id == R.id.updateItemButton){
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                alertDialog.setTitle("Update Item");
+                alertDialog.setMessage("Enter Updated Price :");
+                final EditText editText_udaptePrice = new EditText(getActivity().getApplicationContext());
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                );
+                editText_udaptePrice.setLayoutParams(layoutParams);
+                alertDialog.setView(editText_udaptePrice);
+                alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        double price = Double.parseDouble(editText_udaptePrice.getText().toString());
+                        int userType = AppStaticData.USERTYPE_MANAGER;
+                        int positionItem = (int) v.getTag();
+                        boolean isDelete = false;
+                        onChangePricePress.onChangePricePress(price,userType,positionItem,isDelete);
+                    }
+                })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        })
+                        .create();
+                alertDialog.show();
+            }
+            else if (id == R.id.deleteItem){
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                alertDialog.setTitle("Delete Item");
+                alertDialog.setMessage("Do you want to delete this item?");
+                alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        double price = 0;
+                        int userType = 0;
+                        int positionItem = (int) v.getTag();
+                        boolean isDelete = true;
+                        onDeleteItemPress.onDeleteItemPress(price,userType,positionItem,isDelete);
+                    }
+                })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
 
-                        }
-                    })
-                    .create();
-            alertDialog.show();
+                            }
+                        })
+                        .create();
+                alertDialog.show();
+
+            }
         }
     };
 
@@ -163,9 +193,14 @@ public class EmployeeMenuItemsFragment extends Fragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         onChangePricePress= (EmployeeMenuItemsFragment.OnChangePricePress) context;
+        onDeleteItemPress = (OnDeleteItemPress) context;
     }
 
     public interface OnChangePricePress {
-        void onChangePricePress(double price, int UserType, int positionItem);
+        void onChangePricePress(double price, int UserType, int positionItem,boolean isDelete);
+    }
+
+    public interface OnDeleteItemPress {
+        void onDeleteItemPress(double price, int UserType, int positionItem, boolean isDelete);
     }
 }
