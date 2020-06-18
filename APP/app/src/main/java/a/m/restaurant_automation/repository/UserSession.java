@@ -31,7 +31,10 @@ public class UserSession {
         userPreferences.edit().putString("token", "").commit();
         userPreferences.edit().putString("userId", "").commit();
         userPreferences.edit().putString("email", "").commit();
-        userPreferences.edit().putString("name", "").commit();
+        userPreferences.edit().putString("firstName", "").commit();
+        userPreferences.edit().putString("lastName", "").commit();
+        userPreferences.edit().putString("gender", "").commit();
+        userPreferences.edit().putString("phoneNumber", "").commit();
         userPreferences.edit().putString("tokenCreatedDate", "").commit();
         userPreferences.edit().putString("expireDate", "").commit();
         userPreferences.edit().putInt("userTypeId", 0).commit();
@@ -79,11 +82,6 @@ public class UserSession {
         return userPreferences.getString("userId", "").trim();
     }
 
-    public void setName(String name) {
-        userPreferences.edit().putString("name",name).apply();
-    }
-    public String getName(){return userPreferences.getString("name","");}
-
     public void setUserTypeId(int userTypeId) {
         userPreferences.edit().putInt("userTypeId",userTypeId).apply();
     }
@@ -99,4 +97,25 @@ public class UserSession {
         userPreferences.edit().putString("expireDate",expireDate).commit();
     }
     public String getExpireDate(){return userPreferences.getString("expireDate","");}
+
+
+    public void setFirstName(String firstName) {
+        userPreferences.edit().putString("firstName",firstName).apply();
+    }
+    public String getFirstName(){return userPreferences.getString("firstName","");}
+
+    public void setLastName(String lastName) {
+        userPreferences.edit().putString("lastName",lastName).apply();
+    }
+    public String getLastName(){return userPreferences.getString("lastName","");}
+
+    public void setGender(String gender) {
+        userPreferences.edit().putString("gender",gender).apply();
+    }
+    public String getGender(){return userPreferences.getString("gender","");}
+
+    public void setPhoneNumber(String phoneNumber) {
+        userPreferences.edit().putString("phoneNumber",phoneNumber).apply();
+    }
+    public String getPhoneNumber(){return userPreferences.getString("phoneNumber","");}
 }

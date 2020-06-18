@@ -2,12 +2,14 @@ package a.m.restaurant_automation.service;
 
 import a.m.restaurant_automation.requestModel.AddMenuItemRequestModel;
 import a.m.restaurant_automation.requestModel.AddTableRequestModel;
+import a.m.restaurant_automation.requestModel.EditProfileRequestModel;
 import a.m.restaurant_automation.requestModel.EmployeeDeleteRequestModel;
 import a.m.restaurant_automation.requestModel.LoginRequestModel;
 import a.m.restaurant_automation.requestModel.MenuItemRequestModel;
 import a.m.restaurant_automation.requestModel.RegisterRequestModel;
 import a.m.restaurant_automation.requestModel.TableDeleteRequestModel;
 import a.m.restaurant_automation.responseModel.CustomerReserveTableResponse;
+import a.m.restaurant_automation.responseModel.EditProfileReponseModel;
 import a.m.restaurant_automation.responseModel.LoginResponseModel;
 import a.m.restaurant_automation.responseModel.MenuItemResponse;
 import a.m.restaurant_automation.responseModel.RegisterResponseModel;
@@ -40,6 +42,9 @@ public interface IUserService {
 
     @POST ("deleteorModifyTable")
     Call<ResponseModel<CustomerReserveTableResponse>> deleteTable (@Body TableDeleteRequestModel tableDeleteRequestModel);
+
+    @POST("users/editProfile")
+    Call<ResponseModel<EditProfileReponseModel>> updateProfile(@Body EditProfileRequestModel editProfileRequestModel);
 
 
 
