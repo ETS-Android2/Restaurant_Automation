@@ -17,6 +17,6 @@ namespace RESTRODBACCESS.ResponseModel
          public bool   isReadyToPay{ get; set; }
         public string FirstName { get; set; }
         public string lastName { get; set; }
-        public int? tableID { get; set; }
+        public int tableID { get; set; }
     }
 }

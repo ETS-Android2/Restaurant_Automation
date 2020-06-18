@@ -56,7 +56,19 @@ public class CashierGetReadyPaymentAdapter extends RecyclerView.Adapter<CashierG
 
         holder.billId.setText("BillId : "+getReadyForPaymentResponseModels.get(position).getBillId());
         holder.billAmt.setText("Amount : "+getReadyForPaymentResponseModels.get(position).getBillingAmount());
-        holder.tableId.setText("Table : "+getReadyForPaymentResponseModels.get(position).getTableID());
+
+        if(getReadyForPaymentResponseModels.get(position).getTableID()==0)
+        {
+            holder.tableId.setText("Take Away");
+
+
+        }
+        else
+        {
+            holder.tableId.setText("Table : "+getReadyForPaymentResponseModels.get(position).getTableID());
+
+        }
+
         holder.fName.setText("Name : "+getReadyForPaymentResponseModels.get(position).getFirstName());
         holder.lName.setText(" "+getReadyForPaymentResponseModels.get(position).getLastName());
         if(getReadyForPaymentResponseModels.get(position).getIcCardPayment()) {

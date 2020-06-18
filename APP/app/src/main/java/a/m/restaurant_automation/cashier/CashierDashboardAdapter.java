@@ -46,7 +46,12 @@ public class CashierDashboardAdapter extends RecyclerView.Adapter<CashierDashboa
 
     @Override
     public void onBindViewHolder(@NonNull final CashierDashboardAdapter.ViewHolder holder, final int position) {
-        holder.tableIdTV.setText("" + orders.get(position).tableId);
+        if(orders.get(position).tableId==null) {
+            holder.tableIdTV.setText("TakeAway");
+        }
+        else{
+            holder.tableIdTV.setText("" + orders.get(position).tableId);
+        }
         holder.orderIdTV.setText("" + orders.get(position).billId);
         holder.personNameTV.setText(orders.get(position).firstName + " " + orders.get(position).lastName);
         holder.priceTV.setText(""+orders.get(position).billingAmount);
