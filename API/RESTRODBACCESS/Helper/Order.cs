@@ -132,6 +132,7 @@ namespace RESTRODBACCESS.Helper
                 {
                     SqlCommand command = new SqlCommand(SqlCommands.SP_getOrders, connection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("chefOrCashier", getOrdersRequestModel.chefOrCashier);
                     command.Parameters.AddWithValue("customer_id", getOrdersRequestModel.customerId);
                     command.Parameters.AddWithValue("fromDate", getOrdersRequestModel.fromDate);
                     command.Parameters.AddWithValue("toDate", getOrdersRequestModel.toDate);

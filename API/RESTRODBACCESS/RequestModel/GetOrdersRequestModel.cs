@@ -8,6 +8,7 @@ namespace RESTRODBACCESS.RequestModel
 {
     public class GetOrdersRequestModel
     {
+        public bool chefOrCashier { get; set; }
         public int customerId { get; set; }
         public string fromDate { get; set; }
         public string toDate { get; set; }

@@ -50,11 +50,11 @@ public class CashierDashboardAdapter extends RecyclerView.Adapter<CashierDashboa
             holder.tableIdTV.setText("TakeAway");
         }
         else{
-            holder.tableIdTV.setText("" + orders.get(position).tableId);
+            holder.tableIdTV.setText("Table : " + orders.get(position).tableId);
         }
         holder.orderIdTV.setText("" + orders.get(position).billId);
         holder.personNameTV.setText(orders.get(position).firstName + " " + orders.get(position).lastName);
-        holder.priceTV.setText(""+orders.get(position).billingAmount+ "$");
+        holder.priceTV.setText("Amount Paid : "+orders.get(position).billingAmount+ "$");
 
 
         CashierDashBoardItemsAdapter itemsAdapter = new CashierDashBoardItemsAdapter(orders.get(position).menuItems);

@@ -41,10 +41,11 @@ namespace TESTRESTRO.Controllers
         }
 
         [HttpGet]
-        [Route("api/orders/getOrders/{customerId:int?}/{fromDate}/{toDate}/{email}/{needUnpaidOnly}")]
-        public HttpResponseMessage getOrders(int customerId, string fromDate, string toDate, string email, bool needUnpaidOnly)
+        [Route("api/orders/getOrders/{chefOrCashier}/{customerId:int?}/{fromDate}/{toDate}/{email}/{needUnpaidOnly}")]
+        public HttpResponseMessage getOrders(bool chefOrCashier,int customerId, string fromDate, string toDate, string email, bool needUnpaidOnly)
         {
             GetOrdersRequestModel requestModel = new GetOrdersRequestModel();
+            requestModel.chefOrCashier = chefOrCashier;
             requestModel.customerId = customerId;
             requestModel.fromDate = fromDate;
             requestModel.toDate = toDate;

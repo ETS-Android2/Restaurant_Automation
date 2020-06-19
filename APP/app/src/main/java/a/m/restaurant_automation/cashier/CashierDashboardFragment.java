@@ -154,7 +154,7 @@ public class CashierDashboardFragment extends Fragment {
                 handler.post(new Runnable() {
                     public void run() {
                         IDataService dataService = RetrofitClient.getRetrofitInstance().create(IDataService.class);
-                        call = dataService.getOrders(0, "0", "0", "0", true);
+                        call = dataService.getOrders(true,0, "0", "0", "0", false);
                         fetchOrders();
                     }
                 });

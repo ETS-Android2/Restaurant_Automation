@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/cashierDashboardFragment"
         android:name="a.m.restaurant_automation.cashier.CashierDashboardFragment"
-        android:label="Incomplete Orders"
+        android:label="Completed Payments"
         tools:layout="@layout/fragment_cashier_dashboard" />
     <fragment
         android:id="@+id/cashierMoreItemsFragment"

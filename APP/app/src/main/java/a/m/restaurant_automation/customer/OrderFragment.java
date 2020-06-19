@@ -53,7 +53,7 @@ public class OrderFragment extends Fragment {
 
 
         IDataService dataService = RetrofitClient.getRetrofitInstance().create(IDataService.class);
-        Call<ResponseModel<ArrayList<GetOrderResponseModel>>> call =dataService.getOrders(UserId,"0","0",emailId,isPayment);
+        Call<ResponseModel<ArrayList<GetOrderResponseModel>>> call =dataService.getOrders(false,UserId,"0","0",emailId,isPayment);
 
         call.enqueue(new Callback<ResponseModel<ArrayList<GetOrderResponseModel>>>() {
             @Override
