@@ -101,6 +101,7 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.ViewHo
     }
 
     public void setOnItemClickListener(View.OnClickListener onClickListener) {
+
         if(isMenuItem==true) {
             onItemListener = onClickListener;
         }
@@ -113,8 +114,9 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView menuItemName, menuItemPrice, menuItemDescription;
-        Button updateItemButton;
-        ImageView menuItemImage,deleteTable,removeItemButton;
+        Button updateItemButton,removeItemButton;
+        ImageView menuItemImage,deleteTable;
+
 
         TextView tableNumber, tableCapacity, tableStatus;
 

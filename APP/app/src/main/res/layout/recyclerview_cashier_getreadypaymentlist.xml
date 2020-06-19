@@ -22,15 +22,17 @@
                 android:id="@+id/textView_billIdGRP"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="Bill Id"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:text="Bill id"
                 />
 
             <TextView
                 android:id="@+id/textView_tableIDGRP"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="70dp"
+                android:layout_marginLeft="55dp"
+                android:layout_marginTop="10dp"
                 android:layout_toRightOf="@id/textView_billIdGRP"
                 android:text="Table Id"
                 />
@@ -40,9 +42,8 @@
                 android:id="@+id/textView_FirstNameGRP"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-
                 android:layout_below="@id/textView_billIdGRP"
                 android:text="FirstName"
 
@@ -52,13 +53,9 @@
                 android:id="@+id/textView_LastNameGRP"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:layout_marginTop="10dp"
-
-
                 android:layout_below="@id/textView_billIdGRP"
                 android:layout_toRightOf="@id/textView_FirstNameGRP"
-
                 android:text="LastName"
                 />
 
@@ -68,8 +65,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textView_FirstNameGRP"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="10dp"
                 android:text="Billing Amount"
+                android:layout_marginBottom="10dp"
                 />
 
 
@@ -80,9 +78,9 @@
                 android:layout_below="@id/textView_FirstNameGRP"
                 android:layout_toRightOf="@id/textView_billingAmtGRP"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="30dp"
-
+                android:layout_marginLeft="20dp"
                 android:text="Payment Type"
+                android:layout_marginBottom="10dp"
                 />
 
 
@@ -90,15 +88,14 @@
 
         <Button
             android:id="@+id/button_paymentGRP"
-            android:layout_width="50dp"
-            android:layout_height="25dp"
-            android:layout_gravity="bottom|right"
-            android:layout_margin="30dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/button_drawable"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:layout_gravity="right|center"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/button_background_login"
             android:text="PAY"
             android:textColor="@android:color/white"
-            android:textSize="8sp" />
+            android:textSize="11sp" />
 
     </androidx.cardview.widget.CardView>
 

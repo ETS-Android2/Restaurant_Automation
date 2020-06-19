@@ -54,7 +54,7 @@ public class CashierDashboardAdapter extends RecyclerView.Adapter<CashierDashboa
         }
         holder.orderIdTV.setText("" + orders.get(position).billId);
         holder.personNameTV.setText(orders.get(position).firstName + " " + orders.get(position).lastName);
-        holder.priceTV.setText(""+orders.get(position).billingAmount);
+        holder.priceTV.setText(""+orders.get(position).billingAmount+ "$");
 
 
         CashierDashBoardItemsAdapter itemsAdapter = new CashierDashBoardItemsAdapter(orders.get(position).menuItems);
@@ -116,7 +116,7 @@ public class CashierDashboardAdapter extends RecyclerView.Adapter<CashierDashboa
             personNameTV = itemView.findViewById(R.id.txtpersonNameCashier);
             recyclerViewItems = itemView.findViewById(R.id.recyclerViewCashierScreenOrder);
             expandCollapseBtn = itemView.findViewById(R.id.btnArrowDownCashier);
-            paymentButton = itemView.findViewById(R.id.btnPay);
+            //paymentButton = itemView.findViewById(R.id.btnPay);
             priceTV=itemView.findViewById(R.id.textview_pricecashier);
             cardView = itemView.findViewById(R.id.cardview_cashiercard);
         }

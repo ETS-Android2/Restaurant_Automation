@@ -52,5 +52,5 @@ public interface IUserService {
     @POST("users/changePassword")
     Call<ResponseModel<StatusCheckResponse>> changePassword (@Body ChangePasswordRequestModel changePasswordRequestModel);
 
-    
+
 }

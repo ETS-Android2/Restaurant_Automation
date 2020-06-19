@@ -12,6 +12,9 @@
         android:layout_height="wrap_content"
         app:cardCornerRadius="8dp"
         android:layout_margin="8dp"
+        app:cardElevation="1dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardPreventCornerOverlap="true"
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -164,7 +167,7 @@
                 android:id="@+id/recyclerViewChefOrderHistory"
                 android:layout_width="match_parent"
                 android:layout_marginTop="7dp"
-                android:layout_height="45dp"
+                android:layout_height="60dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintVertical_bias="0"

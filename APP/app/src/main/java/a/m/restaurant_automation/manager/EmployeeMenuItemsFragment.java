@@ -164,6 +164,7 @@ public class EmployeeMenuItemsFragment extends Fragment {
                         int positionItem = (int) v.getTag();
                         boolean isDelete = true;
                         onDeleteItemPress.onDeleteItemPress(price,userType,positionItem,isDelete);
+                        menuItemAdapter.notifyDataSetChanged();
                     }
                 })
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {

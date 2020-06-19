@@ -28,7 +28,7 @@
             android:layout_marginLeft="10dp"
             android:fontFamily="monospace"
             android:textColor="@color/colorPrimary"
-            android:textSize="35dp">
+            android:textSize="25dp">
 
         </TextView>
 
@@ -40,20 +40,17 @@
                 android:visibility="visible"
                 android:fontFamily="monospace"
                 android:textColor="@color/colorPrimary"
-                android:textSize="35dp"></TextView>
+                android:textSize="25dp">
+
+            </TextView>
 
         </LinearLayout>>
 
-        <View
-            android:layout_width="match_parent"
-            android:id="@+id/viewline5"
-            android:layout_height="2sp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/button_background_login"/>
     <LinearLayout
     android:orientation="vertical"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
         >
 
 
@@ -70,18 +67,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:fontFamily="sans-serif-smallcaps"
+        android:fontFamily="serif"
         android:text="Edit Profile"
         android:textColor="@color/colorPrimary"
-        android:textSize="35dp" />
+        android:textSize="25dp" />
 
             </androidx.cardview.widget.CardView>
-        <View
-            android:layout_width="match_parent"
-            android:id="@+id/viewline1"
-            android:layout_height="2sp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/button_background_login"/>
+
 
     </LinearLayout>>
 
@@ -89,13 +81,12 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:orientation="vertical"
-            android:layout_marginTop="10dp"
             >
 
             <androidx.cardview.widget.CardView
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:layout_margin="5dp"
+                android:layout_margin="10dp"
                 app:cardElevation="5dp"
                 android:id="@+id/cardviewChangepassword"
                 android:clickable="true">
@@ -105,30 +96,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:fontFamily="sans-serif-smallcaps"
+                    android:fontFamily="serif"
                     android:text="Change Password"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="35dp" />
+                    android:textSize="25dp" />
 
 
             </androidx.cardview.widget.CardView>
-            <View
-                android:layout_width="match_parent"
-                android:id="@+id/viewline4"
-                android:layout_height="2sp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/button_background_login"/>
 
         </LinearLayout>
     <LinearLayout
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_marginTop="10dp">
+        android:orientation="vertical">
             <androidx.cardview.widget.CardView
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:layout_margin="5dp"
+                android:layout_margin="10dp"
                 app:cardElevation="5dp"
                 android:id="@+id/cardviewFeedback"
                 android:clickable="true">
@@ -138,18 +122,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:fontFamily="sans-serif-smallcaps"
+                    android:fontFamily="serif"
                     android:text="FeedBack"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="35dp" />
+                    android:textSize="25dp" />
 
             </androidx.cardview.widget.CardView>
-            <View
-                android:layout_width="match_parent"
-                android:id="@+id/viewline2"
-                android:layout_height="2sp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/button_background_login"/>
 
         </LinearLayout>>
 
@@ -157,13 +135,12 @@
         <LinearLayout
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_marginTop="10dp">
+            android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:layout_margin="5dp"
+                android:layout_margin="10dp"
                 app:cardElevation="5dp"
                 android:id="@+id/cardviewAboutUS"
                 android:clickable="true">
@@ -173,18 +150,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:fontFamily="sans-serif-smallcaps"
+                    android:fontFamily="serif"
                     android:text="About Us"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="35dp" />
+                    android:textSize="25dp" />
 
             </androidx.cardview.widget.CardView>
-            <View
-                android:layout_width="match_parent"
-                android:id="@+id/viewline3"
-                android:layout_height="2sp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/button_background_login"/>
 
         </LinearLayout>>
 
