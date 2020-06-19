@@ -9,7 +9,7 @@ namespace RESTRODBACCESS.RequestModel
     public class MenuItemRequestModel
     {
        
-
+        public bool isDelete { get; set; }
         public int itemId { get; set; }
 
         public double price { get; set; }

@@ -51,11 +51,14 @@ namespace RESTRODBACCESS.Helper
                             userLoginResponseModel = new UserLoginResponseModel();
                             userLoginResponseModel.Email = reader["Email"].ToString();
                             userLoginResponseModel.UserId = reader["UserId"].ToString();
-                            userLoginResponseModel.Name = reader["Name"].ToString();
+                            userLoginResponseModel.firstName = reader["firstName"].ToString();
                             userLoginResponseModel.UserTypeId = Convert.ToInt32(reader["UserTypeId"].ToString());
                             userLoginResponseModel.Token = reader["Token"].ToString();
                             userLoginResponseModel.TokenCreatedDate = reader["TokenCreatedDate"].ToString();
                             userLoginResponseModel.ExpireDate = reader["ExpireDate"].ToString();
+                            userLoginResponseModel.gender = reader["gender"].ToString();
+                            userLoginResponseModel.lastName = reader["lastName"].ToString();
+                            userLoginResponseModel.phoneNo = reader["phone"].ToString();
 
                         }
                     }

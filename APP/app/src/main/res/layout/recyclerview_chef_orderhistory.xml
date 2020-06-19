@@ -12,6 +12,9 @@
         android:layout_height="wrap_content"
         app:cardCornerRadius="8dp"
         android:layout_margin="8dp"
+        app:cardElevation="1dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardPreventCornerOverlap="true"
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,15 +35,16 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.01">
 
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_gravity="center"-->
-<!--                    android:layout_marginLeft="15dp"-->
-<!--                    android:text="Table:"-->
-<!--                    android:textColor="@color/colorPrimaryDark"-->
-<!--                    android:textSize="17sp"-->
-<!--                    android:textStyle="bold" />-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="15dp"
+                    android:text="Table:"
+                    android:id="@+id/textViewTable"
+                    android:textColor="@color/colorPrimaryDark"
+                   android:textSize="17sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textView_tableNumberChef"
@@ -163,7 +167,7 @@
                 android:id="@+id/recyclerViewChefOrderHistory"
                 android:layout_width="match_parent"
                 android:layout_marginTop="7dp"
-                android:layout_height="45dp"
+                android:layout_height="60dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintVertical_bias="0"

@@ -48,7 +48,7 @@ namespace TESTRESTRO.Provider
             try
             {
                 Menu menuProvider = new Menu();
-                MenuItemResponseModel menuItemResponse = menuProvider.changePrice(menuItemRequest.itemId, menuItemRequest.price, menuItemRequest.updatedBy,  out errorModel);
+                MenuItemResponseModel menuItemResponse = menuProvider.changePrice(menuItemRequest,  out errorModel);
                 return menuItemResponse;
             }
             catch (Exception e)

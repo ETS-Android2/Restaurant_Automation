@@ -9,9 +9,9 @@ public class LoginResponseModel {
     @Expose
     private String userId;
 
-    @SerializedName("Name")
+    @SerializedName("firstName")
     @Expose
-    private String name;
+    private String firstName;
 
     @SerializedName("Email")
     @Expose
@@ -20,6 +20,18 @@ public class LoginResponseModel {
     @SerializedName("Token")
     @Expose
     private String token;
+
+    @SerializedName("lastName")
+    @Expose
+    private String lastName;
+
+    @SerializedName("gender")
+    @Expose
+    private String gender;
+
+    @SerializedName("phoneNo")
+    @Expose
+    private String phoneNo;
 
 
 
@@ -85,12 +97,36 @@ public class LoginResponseModel {
         this.email = email;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getPhoneNo() {
+        return phoneNo;
+    }
+
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
     }
 }
 

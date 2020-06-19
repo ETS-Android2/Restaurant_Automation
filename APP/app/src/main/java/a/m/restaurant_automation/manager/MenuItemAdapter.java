@@ -101,6 +101,7 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.ViewHo
     }
 
     public void setOnItemClickListener(View.OnClickListener onClickListener) {
+
         if(isMenuItem==true) {
             onItemListener = onClickListener;
         }
@@ -113,8 +114,9 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView menuItemName, menuItemPrice, menuItemDescription;
-        Button removeItemButton;
+        Button updateItemButton,removeItemButton;
         ImageView menuItemImage,deleteTable;
+
 
         TextView tableNumber, tableCapacity, tableStatus;
 
@@ -125,7 +127,9 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.ViewHo
                 menuItemName = itemView.findViewById(R.id.textView_menuName);
                 menuItemPrice = itemView.findViewById(R.id.textView_menuPrice);
                 menuItemDescription = itemView.findViewById(R.id.textView_menuDescription);
-                removeItemButton = itemView.findViewById(R.id.removeItemButton);
+                updateItemButton = itemView.findViewById(R.id.updateItemButton);
+                updateItemButton.setOnClickListener(onItemListener);
+                removeItemButton= itemView.findViewById(R.id.deleteItem);
                 removeItemButton.setOnClickListener(onItemListener);
                 itemView.setTag(this);
             }

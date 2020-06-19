@@ -1,4 +1,5 @@
-﻿using RESTRODBACCESS.ResponseModel;
+﻿using RESTRODBACCESS.RequestModel;
+using RESTRODBACCESS.ResponseModel;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -145,7 +146,7 @@ namespace RESTRODBACCESS.Helper
             }
         }
 
-        public MenuItemResponseModel changePrice(int itemId, double price, int updatedBy, out ErrorModel errorModel)
+        public MenuItemResponseModel changePrice(MenuItemRequestModel menuItemRequestModel , out ErrorModel errorModel)
         {
             errorModel = null;
             MenuItemResponseModel menuItemResponseModel = null;
@@ -158,14 +159,18 @@ namespace RESTRODBACCESS.Helper
                     command.CommandType = System.Data.CommandType.StoredProcedure;
 
                     #region Query Parameters
+
+                    command.Parameters.Add(new SqlParameter("@isDelete", System.Data.SqlDbType.Bit));
+                    command.Parameters["@isDelete"].Value = menuItemRequestModel.isDelete;
+
                     command.Parameters.Add(new SqlParameter("@itemId", System.Data.SqlDbType.Int));
-                    command.Parameters["@itemId"].Value = itemId;
+                    command.Parameters["@itemId"].Value = menuItemRequestModel.itemId;
 
                     command.Parameters.Add(new SqlParameter("@price", System.Data.SqlDbType.Decimal,4));
-                    command.Parameters["@price"].Value = price;
+                    command.Parameters["@price"].Value = menuItemRequestModel.price;
 
                     command.Parameters.Add(new SqlParameter("@updatedBy", System.Data.SqlDbType.Int));
-                    command.Parameters["@updatedBy"].Value = updatedBy;
+                    command.Parameters["@updatedBy"].Value = menuItemRequestModel.updatedBy;
                     #endregion
                     connection.Open();
                     SqlDataReader reader = command.ExecuteReader();

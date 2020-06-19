@@ -159,11 +159,12 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
 
                 double sum = 0;
                 for (int i = 0; i < getCartItemResponseModel.size(); i++) {
-                    sum = sum + getCartItemResponseModel.get(position).getPrice();
+                    sum = sum + getCartItemResponseModel.get(i).getPrice();
                 }
                 itemsChangedListener.onItemsChanged(sum);
                 holder.getAdapterPosition();
                 cartTag = new DeleteOrModifyCart();
+
 
                 holder.removeItem.setOnClickListener(new View.OnClickListener() {
                     @Override

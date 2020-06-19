@@ -141,7 +141,10 @@ public class LoginActivity extends AppCompatActivity implements OnLoginPress,Reg
                             session.setEmail(loginResponseModel.getEmail());
                             session.setToken(loginResponseModel.getToken());
                             session.setUserId(loginResponseModel.getUserId());
-                            session.setName(loginResponseModel.getName());
+                            session.setFirstName(loginResponseModel.getFirstName());
+                            session.setLastName(loginResponseModel.getLastName());
+                            session.setPhoneNumber(loginResponseModel.getPhoneNo());
+                            session.setGender(loginResponseModel.getGender());
                             session.setUserTypeId(loginResponseModel.getUserTypeId());
                             session.setTokenCreatedDate(loginResponseModel.getTokenCreatedDate());
                             session.setExpireDate(loginResponseModel.getExpireDate());

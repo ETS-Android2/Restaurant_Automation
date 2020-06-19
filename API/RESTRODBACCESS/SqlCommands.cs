@@ -44,6 +44,6 @@
 
         public const string SP_customerNotification = "getCustomerNotification";
 
-        public const string SP_editProfile = "editProfile";
+        public const string SP_editProfile = "updateProfile";
     }
 }

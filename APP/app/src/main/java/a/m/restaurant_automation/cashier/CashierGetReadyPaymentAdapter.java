@@ -54,17 +54,29 @@ public class CashierGetReadyPaymentAdapter extends RecyclerView.Adapter<CashierG
     @Override
     public void onBindViewHolder(@NonNull CashierGetReadyPaymentAdapter.ViewHolder holder,final int position) {
 
-        holder.billId.setText("BillId : "+getReadyForPaymentResponseModels.get(position).getBillId());
-        holder.billAmt.setText("Amount : "+getReadyForPaymentResponseModels.get(position).getBillingAmount());
-        holder.tableId.setText("Table : "+getReadyForPaymentResponseModels.get(position).getTableID());
-        holder.fName.setText("Name : "+getReadyForPaymentResponseModels.get(position).getFirstName());
-        holder.lName.setText(" "+getReadyForPaymentResponseModels.get(position).getLastName());
-        if(getReadyForPaymentResponseModels.get(position).getIcCardPayment()) {
-            holder.paymentType.setText("Payment Type : "+"Card");
+        holder.billId.setText("Bill id: "+getReadyForPaymentResponseModels.get(position).getBillId());
+        holder.billAmt.setText("Amount: "+getReadyForPaymentResponseModels.get(position).getBillingAmount()+ " $");
+
+        if(getReadyForPaymentResponseModels.get(position).getTableID()==0)
+        {
+            holder.tableId.setText("Take Away");
+
+
         }
         else
         {
-            holder.paymentType.setText("Payment Type : "+"Cash");
+            holder.tableId.setText("Table Number: "+getReadyForPaymentResponseModels.get(position).getTableID());
+
+        }
+
+        holder.fName.setText("Name : "+getReadyForPaymentResponseModels.get(position).getFirstName());
+        holder.lName.setText(" "+getReadyForPaymentResponseModels.get(position).getLastName());
+        if(getReadyForPaymentResponseModels.get(position).getIcCardPayment()) {
+            holder.paymentType.setText("Payment Type: "+"Card");
+        }
+        else
+        {
+            holder.paymentType.setText("Payment Type: "+"Cash");
         }
         holder.btnPay.setOnClickListener(new View.OnClickListener() {
             @Override

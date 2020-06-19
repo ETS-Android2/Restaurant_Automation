@@ -46,6 +46,10 @@ public class ChefDashboardAdapter extends RecyclerView.Adapter<ChefDashboardAdap
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
+        if(orders.get(position).tableId == null){
+            holder.tableIdTV.setText("XX");
+        }
+        else
         holder.tableIdTV.setText("" + orders.get(position).tableId);
         holder.orderIdTV.setText("" + orders.get(position).orderId);
         holder.personNameTV.setText(orders.get(position).firstName + " " + orders.get(position).lastName);
@@ -55,16 +59,9 @@ public class ChefDashboardAdapter extends RecyclerView.Adapter<ChefDashboardAdap
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
         holder.recyclerViewItems.setLayoutManager(layoutManager);
 
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showAlert("Do you want to accept this order?", orders.get(position).orderId, 2, "Order Accepted ", position);
-            }
-        });
-
 
         if (orders.get(position).orderStatusTitle.equalsIgnoreCase("Ordered")) {
-            holder.changeStatusButton.setText("REJECT");
+            holder.changeStatusButton.setText("ACCEPT");
         } else if (orders.get(position).orderStatusTitle.equalsIgnoreCase("Inprogress")) {
             holder.changeStatusButton.setText("DONE");
         }
@@ -74,7 +71,7 @@ public class ChefDashboardAdapter extends RecyclerView.Adapter<ChefDashboardAdap
             @Override
             public void onClick(View view) {
                 if (orders.get(position).orderStatusTitle.equalsIgnoreCase("Ordered")) {
-                    showAlert("Do you really want to cancel this Order!!!!!", orders.get(position).orderId, 4, "Order Cancelled ", position);
+                    showAlert("Do you want to accept this order?", orders.get(position).orderId, 2, "Order Accepted ", position);
                 } else {
                     showAlert("Is Order prepared?", orders.get(position).orderId, 3, "Order prepared ", position);
                 }

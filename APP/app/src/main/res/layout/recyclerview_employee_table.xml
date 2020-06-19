@@ -8,9 +8,9 @@
     android:id="@+id/cardViewTable"
     android:layout_width="match_parent"
     android:layout_height="110dp"
-    android:layout_margin="12dp"
-    app:cardCornerRadius="15dp"
-    app:cardElevation="5dp"
+    android:layout_margin="11dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="2dp"
     >
 
     <RelativeLayout

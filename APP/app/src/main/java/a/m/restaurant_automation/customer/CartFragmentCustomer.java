@@ -94,7 +94,7 @@ public class CartFragmentCustomer extends Fragment implements View.OnClickListen
         listener = new CustomerMenuItemAdapter.ItemsChangedListener() {
             @Override
             public void onItemsChanged(double sum) {
-                buttonCheckout.setText("Checkout: ( " + Double.toString(sum) + " $ ) + tax(14.975%)");
+                buttonCheckout.setText("Checkout: ( " + String.format("%.2f", sum) + " $ ) + tax(14.975%)");
             }
         };
 

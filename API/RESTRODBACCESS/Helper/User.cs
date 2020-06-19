@@ -202,7 +202,7 @@ namespace RESTRODBACCESS.Helper
             }
         }
 
-        public bool changePassword(ChangePasswordRequestModel changePasswordRequest, out ErrorModel errorModel)
+        public ChangeOrderStatusResponseModel changePassword(ChangePasswordRequestModel changePasswordRequest, out ErrorModel errorModel)
         {
             SqlConnection connection = null;
             errorModel = null;
@@ -216,16 +216,26 @@ namespace RESTRODBACCESS.Helper
                     int reader = command.ExecuteNonQuery();
                     if (reader != 0)
                     {
-                        return true;
+                        ChangeOrderStatusResponseModel changeOrderStatusResponseModel = new ChangeOrderStatusResponseModel();
+                        changeOrderStatusResponseModel.StatusCode = "1";
+                        changeOrderStatusResponseModel.StatusMessage = "Password changed Successfully";
+                        return changeOrderStatusResponseModel;
+                    }
+                    else
+                    {
+                        ChangeOrderStatusResponseModel changeOrderStatusResponseModel = new ChangeOrderStatusResponseModel();
+                        changeOrderStatusResponseModel.StatusCode = "0";
+                        changeOrderStatusResponseModel.StatusMessage = "Not Succesfull updated";
+                        return changeOrderStatusResponseModel;
                     }
                 }
-                return false;
+                return null;
             }
             catch(Exception e)
             {
                 errorModel = new ErrorModel();
                 errorModel.ErrorMessage = e.Message;
-                return false;
+                return null;
             }
             finally
             {

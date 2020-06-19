@@ -29,7 +29,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class EmployeeMenuItemActivity extends AppCompatActivity implements EmployeeMenuItemsFragment.OnChangePricePress {
+public class EmployeeMenuItemActivity extends AppCompatActivity implements EmployeeMenuItemsFragment.OnChangePricePress, EmployeeMenuItemsFragment.OnDeleteItemPress {
 
 
     ActionBarDrawerToggle actionBarDrawerToggle;
@@ -44,6 +44,8 @@ public class EmployeeMenuItemActivity extends AppCompatActivity implements Emplo
     private double changePrice;
     private int mUserType = AppStaticData.USERTYPE_MANAGER;
     private int itemPosition;
+    private boolean removeItem;
+    private int usertype;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +109,7 @@ public class EmployeeMenuItemActivity extends AppCompatActivity implements Emplo
 
 
 
+
     private class PagerAdapter extends FragmentPagerAdapter{
         private int tabNumber;
 
@@ -148,6 +151,7 @@ public class EmployeeMenuItemActivity extends AppCompatActivity implements Emplo
         menuItemRequestModel.price =changePrice;
         menuItemRequestModel.updatedBy = mUserType;
         menuItemRequestModel.itemId = itemPosition;
+        menuItemRequestModel.isDelete = removeItem;
 
         Call<ResponseModel<MenuItemResponse>> call = userService.changePrice(menuItemRequestModel);
         call.enqueue(new Callback<ResponseModel<MenuItemResponse>>() {
@@ -167,16 +171,58 @@ public class EmployeeMenuItemActivity extends AppCompatActivity implements Emplo
             @Override
             public void onFailure(Call<ResponseModel<MenuItemResponse>> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "something went wrong" + t.getMessage(), Toast.LENGTH_LONG).show();
-
             }
         });
 
     }
     @Override
-    public void onChangePricePress(double price, int UserType, int positionItem) {
+    public void onChangePricePress(double price, int UserType, int positionItem,boolean isDelete) {
         changePrice =price;
         mUserType = UserType;
         itemPosition = positionItem;
+        removeItem = isDelete;
         UpdateMenuItemPrice();
+    }
+
+    public void DeletItem(){
+
+        IUserService userService = RetrofitClient.getRetrofitInstance().create(IUserService.class);
+        MenuItemRequestModel menuItemRequestModel = new MenuItemRequestModel();
+        menuItemRequestModel.price =changePrice;
+        menuItemRequestModel.updatedBy = mUserType;
+        menuItemRequestModel.itemId = itemPosition;
+        menuItemRequestModel.isDelete = removeItem;
+
+        Call<ResponseModel<MenuItemResponse>> call = userService.changePrice(menuItemRequestModel);
+        call.enqueue(new Callback<ResponseModel<MenuItemResponse>>() {
+            @Override
+            public void onResponse(Call<ResponseModel<MenuItemResponse>> call, Response<ResponseModel<MenuItemResponse>> response) {
+                ResponseModel<MenuItemResponse> responseModel = response.body();
+                if (responseModel != null) {
+                    if (responseModel.getError() != null) {
+                        Toast.makeText(getApplicationContext(), responseModel.getError().getErrorMessage(), Toast.LENGTH_LONG).show();
+                    } else {
+
+                        Toast.makeText(getApplicationContext(), responseModel.getData().getMenuItemName() + "Item Deleted", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<ResponseModel<MenuItemResponse>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "something went wrong" + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
+
+    @Override
+    public void onDeleteItemPress(double price, int UserType, int positionItem, boolean isDelete) {
+        changePrice = price;
+        usertype = UserType;
+        itemPosition = positionItem;
+        removeItem = isDelete;
+        DeletItem();
+
+
     }
 }

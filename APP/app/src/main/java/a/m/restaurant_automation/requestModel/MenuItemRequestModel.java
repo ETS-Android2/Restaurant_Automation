@@ -6,4 +6,5 @@ public class MenuItemRequestModel {
     public int itemId;
     public int updatedBy;
     public double price;
+    public boolean isDelete;
 }

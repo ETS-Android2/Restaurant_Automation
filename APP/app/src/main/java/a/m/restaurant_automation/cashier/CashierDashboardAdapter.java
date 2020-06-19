@@ -46,10 +46,15 @@ public class CashierDashboardAdapter extends RecyclerView.Adapter<CashierDashboa
 
     @Override
     public void onBindViewHolder(@NonNull final CashierDashboardAdapter.ViewHolder holder, final int position) {
-        holder.tableIdTV.setText("" + orders.get(position).tableId);
+        if(orders.get(position).tableId==null) {
+            holder.tableIdTV.setText("TakeAway");
+        }
+        else{
+            holder.tableIdTV.setText("" + orders.get(position).tableId);
+        }
         holder.orderIdTV.setText("" + orders.get(position).billId);
         holder.personNameTV.setText(orders.get(position).firstName + " " + orders.get(position).lastName);
-        holder.priceTV.setText(""+orders.get(position).billingAmount);
+        holder.priceTV.setText(""+orders.get(position).billingAmount+ "$");
 
 
         CashierDashBoardItemsAdapter itemsAdapter = new CashierDashBoardItemsAdapter(orders.get(position).menuItems);
@@ -111,7 +116,7 @@ public class CashierDashboardAdapter extends RecyclerView.Adapter<CashierDashboa
             personNameTV = itemView.findViewById(R.id.txtpersonNameCashier);
             recyclerViewItems = itemView.findViewById(R.id.recyclerViewCashierScreenOrder);
             expandCollapseBtn = itemView.findViewById(R.id.btnArrowDownCashier);
-            paymentButton = itemView.findViewById(R.id.btnPay);
+            //paymentButton = itemView.findViewById(R.id.btnPay);
             priceTV=itemView.findViewById(R.id.textview_pricecashier);
             cardView = itemView.findViewById(R.id.cardview_cashiercard);
         }
