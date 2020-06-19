@@ -102,33 +102,21 @@ public class CustomerActivity extends AppCompatActivity implements BottomNavigat
         int id = menuItem.getItemId();
         switch (id) {
             case R.id.tables:
-                // Toast.makeText(getApplicationContext(), "Dashboard", Toast.LENGTH_SHORT).show();
                 navController.navigate(R.id.customerTableViewFragment);
-                // fragment=new CustomerOverviewFragment();
-                // break;
                 return true;
 
             case R.id.menu:
-                //  Toast.makeText(getApplicationContext(),"Friend Dashboard",Toast.LENGTH_LONG).show();
-                //navController.navigate(R.id.);
                 navController.navigate(R.id.customerMenuItemsFragment);
                 return true;
-            //   fragment=new CustomerMenuItemsFragment();
-            // break;
+
 
             case R.id.cart:
-                // Toast.makeText(getApplicationContext(),"Account",Toast.LENGTH_LONG).show();
                 navController.navigate(R.id.orderFragment);
                 return true;
-            // fragment=new OrderFragment();
-            //break;
 
             case R.id.moreMenu:
-                // Toast.makeText(getApplicationContext(),"Account",Toast.LENGTH_LONG).show();
                 navController.navigate(R.id.moreOptionsFragment);
                 return true;
-            // fragment=new MoreOptionsFragment();
-            //break;
         }
         return false;
     }
@@ -217,7 +205,6 @@ public class CustomerActivity extends AppCompatActivity implements BottomNavigat
         changePasswordRequestModel.password = newPassword;
         changePasswordRequestModel.userId = customerId;
 
-        Log.i("abc", changePasswordRequestModel.password+" "+changePasswordRequestModel.userId);
         Call<ResponseModel<StatusCheckResponse>> call = userService.changePassword(changePasswordRequestModel);
         call.enqueue(new Callback<ResponseModel<StatusCheckResponse>>() {
             @Override

@@ -37,6 +37,7 @@ public class MoreOptionsFragment extends Fragment implements View.OnClickListene
     TextView editProfile,nameTV, Feedback, changePassword;
     String username;
     UserSession session;
+    EditText editText_changePassword;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -95,28 +96,25 @@ public class MoreOptionsFragment extends Fragment implements View.OnClickListene
             alertDialog = new AlertDialog.Builder(getActivity());
             alertDialog.setTitle("Change Password")
                     .setMessage("Do you want to change your password?");
-            final EditText editText_changePassword = new EditText(getActivity().getApplicationContext());
+            editText_changePassword = new EditText(getActivity().getApplicationContext());
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
             );
             editText_changePassword.setLayoutParams(layoutParams);
-            editText_changePassword.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
-            if (TextUtils.isEmpty(editText_changePassword.getText().toString())) {
-                editText_changePassword.setError("Password Cannot be Empty!");
-                editText_changePassword.requestFocus();
-            } else if (editText_changePassword.getText().length() < 6) {
-                editText_changePassword.setError("Password Cannot be less than 6 Characters.");
-                editText_changePassword.requestFocus();
-            }
+            editText_changePassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
             alertDialog.setView(editText_changePassword)
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            String newPassword = editText_changePassword.getText().toString();
-                            UserSession session = UserSession.getInstance();
-                            int userId = Integer.parseInt(session.getUserId());
-                            onChangePasswordPress.OnChangePasswordPress(newPassword, userId);
+                            if (!checkEmptyFields()){
+                                if (!checkPassword()){
+                                    String newPassword = editText_changePassword.getText().toString();
+                                    UserSession session = UserSession.getInstance();
+                                    int userId = Integer.parseInt(session.getUserId());
+                                    onChangePasswordPress.OnChangePasswordPress(newPassword, userId);
+                                }
+                            }
                         }
                     })
                     .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -170,6 +168,26 @@ public class MoreOptionsFragment extends Fragment implements View.OnClickListene
             builder.show();
         }
     }
+
+    public boolean checkPassword (){
+        if (editText_changePassword.getText().length() <6){
+            editText_changePassword.setError("Password Cannot be less than 6 Characters.");
+            editText_changePassword.requestFocus();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkEmptyFields() {
+      if (TextUtils.isEmpty(editText_changePassword.getText().toString())){
+            editText_changePassword.setError("Password Cannot be Empty!");
+            editText_changePassword.requestFocus();
+            return true;
+        }
+        return false;
+    }
+
+
 
 
 

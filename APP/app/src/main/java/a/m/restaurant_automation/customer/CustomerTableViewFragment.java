@@ -67,7 +67,7 @@ public class CustomerTableViewFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         bottomNavigationView = getActivity().findViewById(R.id.BottomnavigateMenuCustomer);
-        bottomNavigationView.setVisibility(View.VISIBLE);
+        bottomNavigationView.setVisibility(View.GONE);
         recyclerView = view.findViewById(R.id.recyclerviewReserveTable);
         textViewCapacity = view.findViewById(R.id.textViewCapacity);
         addCapacity = view.findViewById(R.id.btnPlusCapacityTable);

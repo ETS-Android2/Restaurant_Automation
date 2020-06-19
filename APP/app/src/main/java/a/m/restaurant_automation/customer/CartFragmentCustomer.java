@@ -76,7 +76,7 @@ public class CartFragmentCustomer extends Fragment implements View.OnClickListen
         bottomNavigationView.setVisibility(View.GONE);
         emptyTextCart = view.findViewById(R.id.emptyTextCart);
         textView_itemName_cart = view.findViewById(R.id.textView_itemName_cart);
-        textView_itemPrice_cart = view.findViewById(R.id.textView_itemPrice_cart);
+       // textView_itemPrice_cart = view.findViewById(R.id.textView_itemPrice_cart);
         addCartItem = view.findViewById(R.id.buttonAddQuantity);
         subtractCartItem = view.findViewById(R.id.buttonSubtractQuantity);
         textView_quantity_cart = view.findViewById(R.id.textviewQuantityCart);

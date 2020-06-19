@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="12dp"
         app:cardCornerRadius="10dp"
-        app:cardElevation="2dp"
+        app:cardElevation="3dp"
         android:background="@android:color/transparent"
         >
 
@@ -64,11 +64,12 @@
                 android:layout_width="130dp"
                 android:layout_height="30dp"
                 android:orientation="horizontal"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="7dp"
                 android:weightSum="2"
                 android:layout_gravity="center"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/button_drawable">
+                android:background="@drawable/border"
+                android:padding="2dp">
 
                 <ImageView
                     android:id="@+id/buttonMinusCapacityItem"
@@ -82,9 +83,9 @@
                     android:id="@+id/textviewcapacity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="22sp"
-                    android:textColor="@color/white"
-                    android:text="0"/>
+                    android:textSize="20sp"
+                    android:textColor="@android:color/black"
+                    android:text="0" />
 
                 <ImageView
                     android:id="@+id/buttonPlusCapacityItem"
@@ -107,7 +108,7 @@
             android:text="Add"
             android:textSize="12sp"
             android:textColor="@android:color/white"
-            android:background="@drawable/button_drawable"
+            android:background="@drawable/button_background_login"
             />
 
 

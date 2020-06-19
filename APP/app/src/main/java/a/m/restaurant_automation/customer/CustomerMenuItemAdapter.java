@@ -274,7 +274,7 @@ public class CustomerMenuItemAdapter extends RecyclerView.Adapter<CustomerMenuIt
 
             } else if (isCart) {
                 textView_itemName = itemView.findViewById(R.id.textView_itemName_cart);
-                textView_itemPrice = itemView.findViewById(R.id.textView_itemPrice_cart);
+               // textView_itemPrice = itemView.findViewById(R.id.textView_itemPrice_cart);
                 removeItem = itemView.findViewById(R.id.remove_item);
                 itemQuantity = itemView.findViewById(R.id.textviewQuantityCart);
                 addItemCart = itemView.findViewById(R.id.buttonAddQuantity);
