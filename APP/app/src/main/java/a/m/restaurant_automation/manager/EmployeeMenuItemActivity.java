@@ -40,6 +40,7 @@ public class EmployeeMenuItemActivity extends AppCompatActivity implements Emplo
     PagerAdapter pagerAdapter;
     public NavController navController;
     FloatingActionButton floatingActionButton;
+    MenuItemAdapter menuItemAdapter;
 
     private double changePrice;
     private int mUserType = AppStaticData.USERTYPE_MANAGER;
@@ -187,7 +188,7 @@ public class EmployeeMenuItemActivity extends AppCompatActivity implements Emplo
     public void DeletItem(){
 
         IUserService userService = RetrofitClient.getRetrofitInstance().create(IUserService.class);
-        MenuItemRequestModel menuItemRequestModel = new MenuItemRequestModel();
+        final MenuItemRequestModel menuItemRequestModel = new MenuItemRequestModel();
         menuItemRequestModel.price =changePrice;
         menuItemRequestModel.updatedBy = mUserType;
         menuItemRequestModel.itemId = itemPosition;
@@ -202,8 +203,15 @@ public class EmployeeMenuItemActivity extends AppCompatActivity implements Emplo
                     if (responseModel.getError() != null) {
                         Toast.makeText(getApplicationContext(), responseModel.getError().getErrorMessage(), Toast.LENGTH_LONG).show();
                     } else {
-
-                        Toast.makeText(getApplicationContext(), responseModel.getData().getMenuItemName() + "Item Deleted", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), responseModel.getData().getMenuItemName() + " Item Deleted", Toast.LENGTH_LONG).show();
+                        for(int i = 0; i < menuItemAdapter.menuItemResponse.size(); i++){
+                            if(menuItemAdapter.menuItemResponse.get(i).getMenuItemId() == menuItemRequestModel.itemId){
+                                menuItemAdapter.menuItemResponse.remove(i);
+                                menuItemAdapter.size--;
+                                menuItemAdapter.notifyDataSetChanged();
+                                break;
+                            }
+                        }
                     }
                 }
             }
@@ -216,11 +224,12 @@ public class EmployeeMenuItemActivity extends AppCompatActivity implements Emplo
     }
 
     @Override
-    public void onDeleteItemPress(double price, int UserType, int positionItem, boolean isDelete) {
+    public void onDeleteItemPress(double price, int UserType, int positionItem, boolean isDelete, MenuItemAdapter menuItemAdapter) {
         changePrice = price;
         usertype = UserType;
         itemPosition = positionItem;
         removeItem = isDelete;
+        this.menuItemAdapter = menuItemAdapter;
         DeletItem();
 
 

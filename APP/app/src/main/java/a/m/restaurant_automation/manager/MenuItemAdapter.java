@@ -21,7 +21,7 @@ import a.m.restaurant_automation.responseModel.CustomerReserveTableResponse;
 import a.m.restaurant_automation.responseModel.MenuItemResponse;
 
 public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.ViewHolder> {
-    private ArrayList<MenuItemResponse> menuItemResponse;
+    public ArrayList<MenuItemResponse> menuItemResponse;
     private ArrayList<CustomerReserveTableResponse> tableResponseModel;
     int size = 0;
     int test=0;

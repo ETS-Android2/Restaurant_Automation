@@ -163,7 +163,7 @@ public class EmployeeMenuItemsFragment extends Fragment {
                         int userType = 0;
                         int positionItem = (int) v.getTag();
                         boolean isDelete = true;
-                        onDeleteItemPress.onDeleteItemPress(price,userType,positionItem,isDelete);
+                        onDeleteItemPress.onDeleteItemPress(price,userType,positionItem,isDelete, menuItemAdapter);
                         menuItemAdapter.notifyDataSetChanged();
                     }
                 })
@@ -202,6 +202,6 @@ public class EmployeeMenuItemsFragment extends Fragment {
     }
 
     public interface OnDeleteItemPress {
-        void onDeleteItemPress(double price, int UserType, int positionItem, boolean isDelete);
+        void onDeleteItemPress(double price, int UserType, int positionItem, boolean isDelete, MenuItemAdapter menuItemAdapter);
     }
 }
