@@ -29,6 +29,7 @@ import java.util.prefs.Preferences;
 import a.m.restaurant_automation.CustomerActivity;
 import a.m.restaurant_automation.R;
 import a.m.restaurant_automation.RetrofitClient;
+import a.m.restaurant_automation.repository.UserSession;
 import a.m.restaurant_automation.responseModel.CustomerNotificationOrders;
 import a.m.restaurant_automation.responseModel.CustomerNotificationResponseModel;
 import a.m.restaurant_automation.responseModel.ResponseModel;
@@ -41,7 +42,7 @@ import retrofit2.Response;
 public class CustomerNotificationService extends Service {
     static public boolean isRunning = false;
     static public int capacity = 0;
-    static public int userId = 0;
+    static public int userId = Integer.parseInt(UserSession.getInstance().getUserId());
     static public boolean userNotifiedForTableAvailability = false;
     static public boolean firstTime = true;
     static public HashMap<Integer, Integer> hashMap;
@@ -71,7 +72,7 @@ public class CustomerNotificationService extends Service {
             public void run() {
                 handler.post(new Runnable() {
                     public void run() {
-                        getData(capacity, userId);
+                        getData(capacity, Integer.parseInt(UserSession.getInstance().getUserId()));
                     }
                 });
             }
@@ -106,14 +107,16 @@ public class CustomerNotificationService extends Service {
 
 
     public void getData(int capacity, int userId) {
+        Log.i("abcxyz", "UserId: "+userId);
         INotificationService notificationService = RetrofitClient.getRetrofitInstance().create(INotificationService.class);
         Call<ResponseModel<CustomerNotificationResponseModel>> call = notificationService.getNotificationDataCustomer(userId, capacity);
         call.enqueue(new Callback<ResponseModel<CustomerNotificationResponseModel>>() {
             @Override
             public void onResponse(Call<ResponseModel<CustomerNotificationResponseModel>> call, Response<ResponseModel<CustomerNotificationResponseModel>> response) {
                 ResponseModel<CustomerNotificationResponseModel> responseModel = response.body();
-                Log.i("Data", "Fetched");
+                Log.i("abcxyz", "Fetched");
                 if (responseModel.getError() != null) {
+                    Log.i("abcxyz", responseModel.getError().getErrorMessage());
                 } else {
                     if (firstTime) {
                         for (int i = 0; i < responseModel.getData().orders.size(); i++) {

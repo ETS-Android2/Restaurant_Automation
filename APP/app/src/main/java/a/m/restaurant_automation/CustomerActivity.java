@@ -61,7 +61,6 @@ public class CustomerActivity extends AppCompatActivity implements BottomNavigat
     public void getNotifications() {
         Intent serviceIntent = new Intent(this, CustomerNotificationService.class);
         serviceIntent.putExtra("capacity", 0);
-        serviceIntent.putExtra("userId", Integer.parseInt(session.getUserId()));
         if (!CustomerNotificationService.isRunning) {
             NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
