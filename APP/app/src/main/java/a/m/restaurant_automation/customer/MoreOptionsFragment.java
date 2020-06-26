@@ -54,8 +54,6 @@ public class MoreOptionsFragment extends Fragment implements View.OnClickListene
         Feedback = view.findViewById(R.id.Feedback);
         Feedback.setOnClickListener(this);
         nameTV.setText(username);
-
-        view.getContext().stopService(new Intent(view.getContext(), CustomerNotificationService.class));
         editProfile.setOnClickListener(this);
         changePassword.setOnClickListener(this);
             }
@@ -73,6 +71,7 @@ public class MoreOptionsFragment extends Fragment implements View.OnClickListene
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             UserSession.getInstance().clearSession();
+                            getContext().stopService(new Intent(getContext(), CustomerNotificationService.class));
                             Intent _intent = new Intent(getActivity(), LoginActivity.class);
                             startActivity(_intent);
                             getActivity().finish();
