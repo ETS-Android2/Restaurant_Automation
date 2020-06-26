@@ -22,9 +22,9 @@
             android:id="@+id/imageView_menuItem"
             android:layout_width="100dp"
             android:layout_height="110dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="7dp"
+            android:layout_marginRight="10dp"
             android:scaleType="fitStart"
             />
         <TextView
@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/imageView_menuItem"
                 android:layout_below="@id/textView_menuName"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="7dp"
                 android:text="Menu Price"
                 android:textSize="17sp"
                 android:textColor="@android:color/black"
@@ -57,26 +57,36 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/imageView_menuItem"
                 android:layout_below="@id/textView_menuPrice"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="7dp"
                 android:text="Menu Desctiption"
                 android:layout_marginRight="5dp"
                 android:textSize="12sp"
-                android:maxLines="4"
+                android:lines="3"
+
                 />
+
+            <View
+                android:id="@+id/view_1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/textView_menuDescription"
+                android:background="@drawable/mainbackground"
+                android:layout_toRightOf="@+id/imageView_menuItem"/>
 
             <Button
                 android:id="@+id/updateItemButton"
                 android:layout_width="50dp"
                 android:layout_height="25dp"
                 android:layout_gravity="bottom|right"
-                android:layout_below="@id/textView_menuDescription"
+                android:layout_below="@id/view_1"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="7dp"
                 android:layout_marginBottom="10dp"
                 android:text="Update"
                 android:textSize="9sp"
                 android:textColor="@android:color/white"
-                android:background="@drawable/button_drawable"
+                android:background="@drawable/button_background_login"
                 android:layout_alignParentRight="true"
                 />
 
@@ -85,14 +95,14 @@
                 android:layout_width="50dp"
                 android:layout_height="25dp"
                 android:layout_gravity="bottom|right"
-                android:layout_below="@id/textView_menuDescription"
+                android:layout_below="@id/view_1"
                 android:layout_marginRight="90dp"
                 android:layout_marginTop="7dp"
                 android:layout_marginBottom="10dp"
                 android:text="Remove"
                 android:textSize="9sp"
                 android:textColor="@android:color/white"
-                android:background="@drawable/button_drawable"
+                android:background="@drawable/button_background_login"
                 android:layout_alignParentRight="true"
                 />
 

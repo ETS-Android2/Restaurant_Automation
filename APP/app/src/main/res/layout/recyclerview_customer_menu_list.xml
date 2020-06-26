@@ -28,7 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/imageView_menuItem_customer"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="7dp"
                 android:text="Menu Name"
                 android:textSize="16sp"
                 android:textColor="@android:color/black"
@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/imageView_menuItem_customer"
                 android:layout_below="@id/textView_menuName_customer"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="7dp"
                 android:text="Menu Price"
                 android:textSize="16sp"
                 android:textColor="@android:color/black"
@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/imageView_menuItem_customer"
                 android:layout_below="@id/textView_menuPrice_customer"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="7dp"
                 android:layout_marginRight="5dp"
                 android:text="Description"
                 android:textSize="13sp"
@@ -64,7 +64,7 @@
                 android:layout_width="130dp"
                 android:layout_height="30dp"
                 android:orientation="horizontal"
-                android:layout_marginTop="7dp"
+                android:layout_marginTop="5dp"
                 android:weightSum="2"
                 android:layout_gravity="center"
                 android:layout_marginBottom="10dp"
@@ -110,9 +110,6 @@
             android:textColor="@android:color/white"
             android:background="@drawable/button_background_login"
             />
-
-
-
 
 
     </androidx.cardview.widget.CardView>
