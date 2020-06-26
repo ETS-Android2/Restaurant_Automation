@@ -69,6 +69,7 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.ViewHo
             holder.menuItemName.setText("Name: " + menuItemResponse.get(position).getMenuItemName());
             holder.menuItemPrice.setText("Price: " + menuItemResponse.get(position).getPrice().toString() + " $");
             holder.menuItemDescription.setText("Description: " +menuItemResponse.get(position).getMenuItemDescription());
+            holder.updateItemButton.setTag(menuItemResponse.get(position).getMenuItemId());
             holder.removeItemButton.setTag(menuItemResponse.get(position).getMenuItemId());
             if (menuItemResponse.get(position).getItemImage() ==null || menuItemResponse.get(position).getItemImage().equals("")){
                 Picasso.get().load(url).into(holder.menuItemImage);
