@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -39,7 +40,8 @@ public class ChefOrderHistoryFragment extends Fragment {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     EditText fromDateET, toDateET;
-    ImageButton fromDateIB, toDateIB, doneIB;
+    ImageButton fromDateIB, toDateIB;
+    Button doneIB;
     TextView noResultTV;
     ConstraintLayout progressWindow;
     public ChefOrderHistoryFragment() {
