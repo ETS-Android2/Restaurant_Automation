@@ -67,7 +67,7 @@ public class CashierDashboardFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_cashier_dashboard, container, false);
     }
@@ -87,17 +87,16 @@ public class CashierDashboardFragment extends Fragment {
             @Override
             public void onResponse(Call<ResponseModel<ArrayList<GetOrderResponseModel>>> call, Response<ResponseModel<ArrayList<GetOrderResponseModel>>> response) {
                 ResponseModel<ArrayList<GetOrderResponseModel>> orders = response.body();
-                if(orders != null && orders.getData().isEmpty()){
+                if (orders != null && orders.getData().isEmpty()) {
                     noOrdersTV.setText("No Orders!!!");
                     noOrdersTV.setVisibility(View.VISIBLE);
                     recyclerView.setVisibility(View.GONE);
-                }
-                else if(orders != null && orders.getData() != null && !orders.getData().isEmpty()){
+                } else if (orders != null && orders.getData() != null && !orders.getData().isEmpty()) {
                     ArrayList<GetOrderResponseModel> ordersArrayList = orders.getData();
-                    if(ordersSet != null){
+                   /* if (ordersSet != null) {
                         Set<Integer> tempSet = new HashSet<>();
                         HashMap<Integer, GetOrderResponseModel> hashMap = new HashMap<>();
-                        for(int i = 0; i < ordersArrayList.size(); i++){
+                        for (int i = 0; i < ordersArrayList.size(); i++) {
                             tempSet.add(ordersArrayList.get(i).orderId);
                             hashMap.put(ordersArrayList.get(i).orderId, ordersArrayList.get(i));
                         }
@@ -106,10 +105,10 @@ public class CashierDashboardFragment extends Fragment {
                             dashboardAdapter.orders.add(hashMap.get(x));
                             ordersSet.add(x);
                         }
-                        if(!tempSet.isEmpty()){
+                        if (!tempSet.isEmpty()) {
                             Uri alarmSound =
-                                    RingtoneManager. getDefaultUri (RingtoneManager. TYPE_NOTIFICATION );
-                            MediaPlayer mp = MediaPlayer. create (context, alarmSound);
+                                    RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                            MediaPlayer mp = MediaPlayer.create(context, alarmSound);
                             Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 v.vibrate(VibrationEffect.createOneShot(1000, VibrationEffect.DEFAULT_AMPLITUDE));
@@ -120,7 +119,8 @@ public class CashierDashboardFragment extends Fragment {
                             mp.start();
                             dashboardAdapter.notifyDataSetChanged();
                         }
-                    }else{
+                    } */if (ordersSet == null)  {
+                        //ArrayList<GetOrderResponseModel> ordersArrayList = orders.getData();
                         dashboardAdapter = new CashierDashboardAdapter(ordersArrayList);
                         recyclerView.setAdapter(dashboardAdapter);
                         layoutManager = new LinearLayoutManager(context);
@@ -128,25 +128,26 @@ public class CashierDashboardFragment extends Fragment {
                         recyclerView.setVisibility(View.VISIBLE);
                         noOrdersTV.setVisibility(View.GONE);
                         ordersSet = new HashSet<>();
-                        for(int i = 0; i < ordersArrayList.size(); i++){
+                        for (int i = 0; i < ordersArrayList.size(); i++) {
                             ordersSet.add(ordersArrayList.get(i).orderId);
                         }
+                        dashboardAdapter.notifyDataSetChanged();
                     }
-                }else{
-                    Toast.makeText(context, ""+orders.getError(), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "" + orders.getError(), Toast.LENGTH_SHORT).show();
                 }
-             //   progressWindow.setVisibility(View.GONE);
+                //   progressWindow.setVisibility(View.GONE);
             }
 
             @Override
             public void onFailure(Call<ResponseModel<ArrayList<GetOrderResponseModel>>> call, Throwable t) {
-               // progressWindow.setVisibility(View.GONE);
-                Toast.makeText(context, "Failed: "+t.getMessage(), Toast.LENGTH_SHORT).show();
+                // progressWindow.setVisibility(View.GONE);
+                Toast.makeText(context, "Failed: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    public void createTimerTask(){
+    public void createTimerTask() {
         final Handler handler = new Handler();
         timertask = new TimerTask() {
             @Override
@@ -154,7 +155,7 @@ public class CashierDashboardFragment extends Fragment {
                 handler.post(new Runnable() {
                     public void run() {
                         IDataService dataService = RetrofitClient.getRetrofitInstance().create(IDataService.class);
-                        call = dataService.getOrders(true,0, "0", "0", "0", false);
+                        call = dataService.getOrders(true, 0, "0", "0", "0", false);
                         fetchOrders();
                     }
                 });
@@ -167,7 +168,7 @@ public class CashierDashboardFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        if(timer != null){
+        if (timer != null) {
             timer.cancel();
             ordersSet = null;
         }

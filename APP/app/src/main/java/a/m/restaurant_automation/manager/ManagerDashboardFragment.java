@@ -20,14 +20,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ManagerDashboardFragment extends Fragment {
     CardView viewMenu, viewEmployee, viewTables,currentBookings;
-
-
-
-
     public ManagerDashboardFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -63,8 +58,7 @@ public class ManagerDashboardFragment extends Fragment {
         currentBookings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Navigation.findNavController(v).navigate(R.id.employeeTableFragment);
-                Toast.makeText(getActivity().getApplicationContext(),"Functionality Under Maintenance",Toast.LENGTH_LONG).show();
+                Navigation.findNavController(v).navigate(R.id.cashierDashboardFragment);
             }
         });
 
@@ -74,8 +68,6 @@ public class ManagerDashboardFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
