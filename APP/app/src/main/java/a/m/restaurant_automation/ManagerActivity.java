@@ -199,7 +199,7 @@ public class ManagerActivity extends AppCompatActivity implements BottomNavigati
                     if (responseModel.getError() != null) {
                         Toast.makeText(getApplicationContext(), responseModel.getError().getErrorMessage(), Toast.LENGTH_LONG).show();
                     } else {
-                        Toast.makeText(getApplicationContext(), responseModel.getData().getEmail() + " Employee Deleted", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext()," Employee Deleted", Toast.LENGTH_LONG).show();
                     }
                 }
             }
