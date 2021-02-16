@@ -3,10 +3,10 @@
   <Items>
     <LogicalFolder Name="Connections" Type="2" Sorted="true">
       <Items>
-        <ConnectionNode Name="restomation.cgtrmzhqrrjw.us-east-2.rds.amazonaws.com,1433:admin">
+        <ConnectionNode Name="***">
           <Created>2020-05-21T20:54:02.9850517-04:00</Created>
           <Type>SQL</Type>
-          <Server>restomation.cgtrmzhqrrjw.us-east-2.rds.amazonaws.com,1433</Server>
+          <Server>***</Server>
           <UserName>admin</UserName>
           <Authentication>SQL</Authentication>
           <InitialDB />
@@ -139,8 +139,8 @@
           <AssociatedConnUserName>admin</AssociatedConnUserName>
           <FullPath>sp_reserveTable.sql</FullPath>
         </FileNode>
-        <FileNode Name="StaticData.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:restomation.cgtrmzhqrrjw.us-east-2.rds.amazonaws.com,1433:False:admin</AssociatedConnectionMoniker>
+        <FileNode Name="StaticData.sql">zonaws.com,1433:F
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:restomation.cgtrmzhqrrjw.us-east-2.rds.amaalse:admin</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>restomation.cgtrmzhqrrjw.us-east-2.rds.amazonaws.com,1433</AssociatedConnSrvName>
           <AssociatedConnUserName>admin</AssociatedConnUserName>
           <FullPath>StaticData.sql</FullPath>
